@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FixNeedsViewDlg" widgetVar="FixNeedsViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewFixNeedsTitle}">
+            <h:form id="FixNeedsViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{fixNeedsController.selected != null}">
+                        <h:outputText value="#{bundle.ViewFixNeedsLabel_id}"/>
+                        <h:outputText value="#{fixNeedsController.selected.id}" title="#{bundle.ViewFixNeedsTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewFixNeedsLabel_code}"/>
+                        <h:outputText value="#{fixNeedsController.selected.code}" title="#{bundle.ViewFixNeedsTitle_code}"/>
+                        <h:outputText value="#{bundle.ViewFixNeedsLabel_problemKind}"/>
+                        <h:outputText value="#{fixNeedsController.selected.problemKind}" title="#{bundle.ViewFixNeedsTitle_problemKind}"/>
+                        <h:outputText value="#{bundle.ViewFixNeedsLabel_problemSubkind}"/>
+                        <h:outputText value="#{fixNeedsController.selected.problemSubkind}" title="#{bundle.ViewFixNeedsTitle_problemSubkind}"/>
+                        <h:outputText value="#{bundle.ViewFixNeedsLabel_details}"/>
+                        <h:outputText value="#{fixNeedsController.selected.details}" title="#{bundle.ViewFixNeedsTitle_details}"/>
+                        <h:outputText value="#{bundle.ViewFixNeedsLabel_solution}"/>
+                        <h:outputText value="#{fixNeedsController.selected.solution}" title="#{bundle.ViewFixNeedsTitle_solution}"/>
+                        <h:outputText value="#{bundle.ViewFixNeedsLabel_fixKind}"/>
+                        <h:outputText value="#{fixNeedsController.selected.fixKind}" title="#{bundle.ViewFixNeedsTitle_fixKind}"/>
+                        <h:outputText value="#{bundle.ViewFixNeedsLabel_budget}"/>
+                        <h:outputText value="#{fixNeedsController.selected.budget}" title="#{bundle.ViewFixNeedsTitle_budget}"/>
+                        <h:outputText value="#{bundle.ViewFixNeedsLabel_budgetList}"/>
+                        <h:outputText value="#{fixNeedsController.selected.budgetList}" title="#{bundle.ViewFixNeedsTitle_budgetList}"/>
+                        <h:outputText value="#{bundle.ViewFixNeedsLabel_disDate}"/>
+                        <h:outputText value="#{fixNeedsController.selected.disDate}" title="#{bundle.ViewFixNeedsTitle_disDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewFixNeedsLabel_stationName}"/>
+                        <h:outputText value="#{fixNeedsController.selected.stationName}" title="#{bundle.ViewFixNeedsTitle_stationName}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="FixNeedsViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

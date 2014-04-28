@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StationInfoCreateDlg" widgetVar="StationInfoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateStationInfoTitle}">
+            <h:form id="StationInfoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{stationInfoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{stationInfoController.selected.id}" title="#{bundle.CreateStationInfoTitle_id}" required="true" requiredMessage="#{bundle.CreateStationInfoRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_code}" for="code" />
+                        <p:inputText id="code" value="#{stationInfoController.selected.code}" title="#{bundle.CreateStationInfoTitle_code}" />
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_roomCode}" for="roomCode" />
+                        <p:inputText id="roomCode" value="#{stationInfoController.selected.roomCode}" title="#{bundle.CreateStationInfoTitle_roomCode}" required="true" requiredMessage="#{bundle.CreateStationInfoRequiredMessage_roomCode}"/>
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{stationInfoController.selected.name}" title="#{bundle.CreateStationInfoTitle_name}" required="true" requiredMessage="#{bundle.CreateStationInfoRequiredMessage_name}"/>
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_city}" for="city" />
+                        <p:inputText id="city" value="#{stationInfoController.selected.city}" title="#{bundle.CreateStationInfoTitle_city}" />
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_province}" for="province" />
+                        <p:inputText id="province" value="#{stationInfoController.selected.province}" title="#{bundle.CreateStationInfoTitle_province}" />
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_county}" for="county" />
+                        <p:inputText id="county" value="#{stationInfoController.selected.county}" title="#{bundle.CreateStationInfoTitle_county}" />
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{stationInfoController.selected.address}" title="#{bundle.CreateStationInfoTitle_address}" />
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_owner}" for="owner" />
+                        <p:inputText id="owner" value="#{stationInfoController.selected.owner}" title="#{bundle.CreateStationInfoTitle_owner}" />
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{stationInfoController.selected.type}" title="#{bundle.CreateStationInfoTitle_type}" />
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_accomMaintainer}" for="accomMaintainer" />
+                        <p:inputText id="accomMaintainer" value="#{stationInfoController.selected.accomMaintainer}" title="#{bundle.CreateStationInfoTitle_accomMaintainer}" />
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_blobcol}" for="blobcol" />
+                        <p:inputTextarea rows="4" cols="30" id="blobcol" value="#{stationInfoController.selected.blobcol}" title="#{bundle.CreateStationInfoTitle_blobcol}" />
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_grid}" for="grid" />
+                        <p:autoComplete id="grid" label="#{stationInfoController.selected.grid.name}" var = "grid" value="#{stationInfoController.selected.grid}" itemLabel="#{grid.name}" itemValue="#{grid}" required="true" requiredMessage="#{bundle.EditStationInfoRequiredMessage_grid}"/>
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{stationInfoController.create}" value="#{bundle.Save}" update="display,@(#StationInfoListForm),:growl" oncomplete="handleSubmit(args,'StationInfoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="StationInfoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition>
+
+        <p:dialog id="GridEditDlg" widgetVar="GridEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGridTitle}">
+            <h:form id="GridEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gridController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditGridLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{gridController.selected.id}" title="#{bundle.EditGridTitle_id}" required="true" requiredMessage="#{bundle.EditGridRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditGridLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{gridController.selected.name}" title="#{bundle.EditGridTitle_name}" required="true" requiredMessage="#{bundle.EditGridRequiredMessage_name}"/>
+                        <p:outputLabel value="#{bundle.EditGridLabel_manager}" for="manager" />
+                        <p:inputText id="manager" value="#{gridController.selected.manager}" title="#{bundle.EditGridTitle_manager}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gridController.update}" value="#{bundle.Save}" update="display,@form:@parent:GridListForm,:growl" oncomplete="handleSubmit(args, 'GridEditDialog');"/>
+                    <p:commandButton  value="#{bundle.Cancel}" type="button"  onclick="GridEditDialog.hide()" />
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
