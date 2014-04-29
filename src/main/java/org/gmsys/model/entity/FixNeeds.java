@@ -21,6 +21,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -30,7 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author 谢金光
  */
 @Entity
-@Table(name = "fix_needs")
+@Table(name = "fix_needs", catalog = "jobpromotion", schema = "", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"code"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "FixNeeds.findAll", query = "SELECT f FROM FixNeeds f"),
@@ -49,46 +51,46 @@ public class FixNeeds implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "code")
+    @Column(name = "code", nullable = false, length = 45)
     private String code;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "problem_kind")
+    @Column(name = "problem_kind", nullable = false, length = 45)
     private String problemKind;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "problem_subkind")
+    @Column(name = "problem_subkind", nullable = false, length = 45)
     private String problemSubkind;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "details")
+    @Column(name = "details", nullable = false, length = 255)
     private String details;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "solution")
+    @Column(name = "solution", nullable = false, length = 255)
     private String solution;
     @Size(max = 25)
-    @Column(name = "fix_kind")
+    @Column(name = "fix_kind", length = 25)
     private String fixKind;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "budget")
+    @Column(name = "budget", precision = 12)
     private Float budget;
     @Size(max = 45)
-    @Column(name = "budget_list")
+    @Column(name = "budget_list", length = 45)
     private String budgetList;
     @Column(name = "dis_date")
     @Temporal(TemporalType.DATE)
     private Date disDate;
-    @JoinColumn(name = "station_name", referencedColumnName = "name")
+    @JoinColumn(name = "station_name", referencedColumnName = "statname", nullable = false)
     @ManyToOne(optional = false)
     private StationInfo stationName;
 

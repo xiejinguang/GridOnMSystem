@@ -17,7 +17,7 @@ import org.gmsys.model.entity.FixNeeds;
  */
 @Stateless
 public class FixNeedsFacade extends AbstractFacade<FixNeeds> {
-    @PersistenceContext(unitName = "gmsys-PU")
+    @PersistenceContext(unitName = "org.legend_GridOnMSystem_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
     @Override

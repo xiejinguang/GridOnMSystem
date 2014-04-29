@@ -9,14 +9,14 @@ package org.gmsys.ejb;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.gmsys.model.entity.StationInfo;
+import org.gmsys.model.entity.RoomSpotInfo;
 
 /**
  *
  * @author 谢金光
  */
 @Stateless
-public class StationInfoFacade extends AbstractFacade<StationInfo> {
+public class RoomSpotInfoFacade extends AbstractFacade<RoomSpotInfo> {
     @PersistenceContext(unitName = "org.legend_GridOnMSystem_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -25,8 +25,8 @@ public class StationInfoFacade extends AbstractFacade<StationInfo> {
         return em;
     }
 
-    public StationInfoFacade() {
-        super(StationInfo.class);
+    public RoomSpotInfoFacade() {
+        super(RoomSpotInfo.class);
     }
     
 }

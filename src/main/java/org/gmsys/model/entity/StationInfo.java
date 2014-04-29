@@ -16,12 +16,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -32,17 +32,15 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author 谢金光
  */
 @Entity
-@Table(name = "station_info")
+@Table(name = "station_info", catalog = "jobpromotion", schema = "", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"statname"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "StationInfo.findAll", query = "SELECT s FROM StationInfo s"),
     @NamedQuery(name = "StationInfo.findById", query = "SELECT s FROM StationInfo s WHERE s.id = :id"),
     @NamedQuery(name = "StationInfo.findByCode", query = "SELECT s FROM StationInfo s WHERE s.code = :code"),
     @NamedQuery(name = "StationInfo.findByRoomCode", query = "SELECT s FROM StationInfo s WHERE s.roomCode = :roomCode"),
-    @NamedQuery(name = "StationInfo.findByName", query = "SELECT s FROM StationInfo s WHERE s.name = :name"),
-    @NamedQuery(name = "StationInfo.findByCity", query = "SELECT s FROM StationInfo s WHERE s.city = :city"),
-    @NamedQuery(name = "StationInfo.findByProvince", query = "SELECT s FROM StationInfo s WHERE s.province = :province"),
-    @NamedQuery(name = "StationInfo.findByCounty", query = "SELECT s FROM StationInfo s WHERE s.county = :county"),
+    @NamedQuery(name = "StationInfo.findByStatname", query = "SELECT s FROM StationInfo s WHERE s.statname = :statname"),
     @NamedQuery(name = "StationInfo.findByAddress", query = "SELECT s FROM StationInfo s WHERE s.address = :address"),
     @NamedQuery(name = "StationInfo.findByOwner", query = "SELECT s FROM StationInfo s WHERE s.owner = :owner"),
     @NamedQuery(name = "StationInfo.findByType", query = "SELECT s FROM StationInfo s WHERE s.type = :type"),
@@ -52,48 +50,36 @@ public class StationInfo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
     @Size(max = 45)
-    @Column(name = "code")
+    @Column(name = "code", length = 45)
     private String code;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "room_code")
+    @Column(name = "room_code", nullable = false, length = 45)
     private String roomCode;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "name")
-    private String name;
+    @Column(name = "statname", nullable = false, length = 45)
+    private String statname;
     @Size(max = 45)
-    @Column(name = "city")
-    private String city;
-    @Size(max = 45)
-    @Column(name = "province")
-    private String province;
-    @Size(max = 45)
-    @Column(name = "county")
-    private String county;
-    @Size(max = 45)
-    @Column(name = "address")
+    @Column(name = "address", length = 45)
     private String address;
     @Size(max = 45)
-    @Column(name = "owner")
+    @Column(name = "owner", length = 45)
     private String owner;
     @Size(max = 45)
-    @Column(name = "type")
+    @Column(name = "type", length = 45)
     private String type;
     @Size(max = 45)
-    @Column(name = "accom_maintainer")
+    @Column(name = "accom_maintainer", length = 45)
     private String accomMaintainer;
-    @Lob
-    @Column(name = "blobcol")
-    private byte[] blobcol;
-    @JoinColumn(name = "grid", referencedColumnName = "name")
+    @JoinColumn(name = "room_spot_info_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Grid grid;
+    private RoomSpotInfo roomSpotInfoId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "stationName")
     private Collection<FixNeeds> fixNeedsCollection;
 
@@ -104,10 +90,10 @@ public class StationInfo implements Serializable {
         this.id = id;
     }
 
-    public StationInfo(Integer id, String roomCode, String name) {
+    public StationInfo(Integer id, String roomCode, String statname) {
         this.id = id;
         this.roomCode = roomCode;
-        this.name = name;
+        this.statname = statname;
     }
 
     public Integer getId() {
@@ -134,36 +120,12 @@ public class StationInfo implements Serializable {
         this.roomCode = roomCode;
     }
 
-    public String getName() {
-        return name;
+    public String getStatname() {
+        return statname;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCounty() {
-        return county;
-    }
-
-    public void setCounty(String county) {
-        this.county = county;
+    public void setStatname(String statname) {
+        this.statname = statname;
     }
 
     public String getAddress() {
@@ -198,20 +160,12 @@ public class StationInfo implements Serializable {
         this.accomMaintainer = accomMaintainer;
     }
 
-    public byte[] getBlobcol() {
-        return blobcol;
+    public RoomSpotInfo getRoomSpotInfoId() {
+        return roomSpotInfoId;
     }
 
-    public void setBlobcol(byte[] blobcol) {
-        this.blobcol = blobcol;
-    }
-
-    public Grid getGrid() {
-        return grid;
-    }
-
-    public void setGrid(Grid grid) {
-        this.grid = grid;
+    public void setRoomSpotInfoId(RoomSpotInfo roomSpotInfoId) {
+        this.roomSpotInfoId = roomSpotInfoId;
     }
 
     @XmlTransient

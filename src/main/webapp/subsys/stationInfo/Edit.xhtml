@@ -2,30 +2,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
 
-        <p:dialog id="StationInfoEditDlg" widgetVar="StationInfoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditStationInfoTitle}">
+        <p:dialog id="StationInfoEditDlg" widgetVar="StationInfoEditDialog" modal="true" dynamic="true"
+                  minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
+                  header="#{bundle.EditStationInfoTitle}">
             <h:form id="StationInfoEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{stationInfoController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{stationInfoController.selected != null}">
                         <p:outputLabel value="#{bundle.EditStationInfoLabel_id}" for="id" />
                         <p:inputText id="id" value="#{stationInfoController.selected.id}" title="#{bundle.EditStationInfoTitle_id}" required="true" requiredMessage="#{bundle.EditStationInfoRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.EditStationInfoLabel_code}" for="code" />
                         <p:inputText id="code" value="#{stationInfoController.selected.code}" title="#{bundle.EditStationInfoTitle_code}" />
                         <p:outputLabel value="#{bundle.EditStationInfoLabel_roomCode}" for="roomCode" />
                         <p:inputText id="roomCode" value="#{stationInfoController.selected.roomCode}" title="#{bundle.EditStationInfoTitle_roomCode}" required="true" requiredMessage="#{bundle.EditStationInfoRequiredMessage_roomCode}"/>
-                        <p:outputLabel value="#{bundle.EditStationInfoLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{stationInfoController.selected.name}" title="#{bundle.EditStationInfoTitle_name}" required="true" requiredMessage="#{bundle.EditStationInfoRequiredMessage_name}"/>
-                        <p:outputLabel value="#{bundle.EditStationInfoLabel_city}" for="city" />
-                        <p:inputText id="city" value="#{stationInfoController.selected.city}" title="#{bundle.EditStationInfoTitle_city}" />
-                        <p:outputLabel value="#{bundle.EditStationInfoLabel_province}" for="province" />
-                        <p:inputText id="province" value="#{stationInfoController.selected.province}" title="#{bundle.EditStationInfoTitle_province}" />
-                        <p:outputLabel value="#{bundle.EditStationInfoLabel_county}" for="county" />
-                        <p:inputText id="county" value="#{stationInfoController.selected.county}" title="#{bundle.EditStationInfoTitle_county}" />
+                        <p:outputLabel value="#{bundle.EditStationInfoLabel_statname}" for="statname" />
+                        <p:inputText id="statname" value="#{stationInfoController.selected.statname}" title="#{bundle.EditStationInfoTitle_statname}" required="true" requiredMessage="#{bundle.EditStationInfoRequiredMessage_statname}"/>
                         <p:outputLabel value="#{bundle.EditStationInfoLabel_address}" for="address" />
                         <p:inputText id="address" value="#{stationInfoController.selected.address}" title="#{bundle.EditStationInfoTitle_address}" />
                         <p:outputLabel value="#{bundle.EditStationInfoLabel_owner}" for="owner" />
@@ -34,18 +33,15 @@
                         <p:inputText id="type" value="#{stationInfoController.selected.type}" title="#{bundle.EditStationInfoTitle_type}" />
                         <p:outputLabel value="#{bundle.EditStationInfoLabel_accomMaintainer}" for="accomMaintainer" />
                         <p:inputText id="accomMaintainer" value="#{stationInfoController.selected.accomMaintainer}" title="#{bundle.EditStationInfoTitle_accomMaintainer}" />
-                        <p:outputLabel value="#{bundle.EditStationInfoLabel_blobcol}" for="blobcol" />
-                        <p:inputTextarea rows="4" cols="30" id="blobcol" value="#{stationInfoController.selected.blobcol}" title="#{bundle.EditStationInfoTitle_blobcol}" />
-                        <p:outputLabel value="#{bundle.EditStationInfoLabel_grid}" for="grid" />
-                        <p:selectOneMenu id="grid" value="#{stationInfoController.selected.grid}" required="true" requiredMessage="#{bundle.EditStationInfoRequiredMessage_grid}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{gridController.itemsAvailableSelectOne}"
-                                           var="gridItem"
-                                           itemValue="#{gridItem}"/>
+                        <p:outputLabel value="#{bundle.EditStationInfoLabel_roomSpotInfoId}" for="roomSpotInfoId" />
+                        <p:selectOneMenu id="roomSpotInfoId" value="#{stationInfoController.selected.roomSpotInfoId}" required="true" requiredMessage="#{bundle.EditStationInfoRequiredMessage_roomSpotInfoId}">
+                            <f:selectItems value="#{roomSpotInfoController.itemsAvailableSelectOne}"
+                                           var="roomSpotInfoIdItem"
+                                           itemValue="#{roomSpotInfoIdItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{stationInfoController.update}" value="#{bundle.Save}" update="display,@(#StationInfoListForm#datalist),:growl" oncomplete="handleSubmit(args, 'StationInfoEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="StationInfoEditDialog.hide()"/>
+                    <p:commandButton actionListener="#{stationInfoController.Edit}" value="#{bundle.Save}" update="display,@form:@parent:StationInfoListForm:datalist,:growl" oncomplete="handleSubmit(args,'StationInfoEditDialog');"/>
+                    <p:commandButton type="button" value="#{bundle.Cancel}" onclick="StationInfoEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

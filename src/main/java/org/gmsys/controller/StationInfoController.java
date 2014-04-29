@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("stationInfoController")
 @SessionScoped
 public class StationInfoController implements Serializable {
 
-
-    @EJB private org.gmsys.ejb.StationInfoFacade ejbFacade;
+    @EJB
+    private org.gmsys.ejb.StationInfoFacade ejbFacade;
     private List<StationInfo> items = null;
     private StationInfo selected;
 
@@ -122,7 +121,7 @@ public class StationInfoController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=StationInfo.class)
+    @FacesConverter(forClass = StationInfo.class)
     public static class StationInfoControllerConverter implements Converter {
 
         @Override
@@ -130,7 +129,7 @@ public class StationInfoController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            StationInfoController controller = (StationInfoController)facesContext.getApplication().getELResolver().
+            StationInfoController controller = (StationInfoController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "stationInfoController");
             return controller.getStationInfo(getKey(value));
         }

@@ -17,7 +17,7 @@ import org.gmsys.model.entity.Grid;
  */
 @Stateless
 public class GridFacade extends AbstractFacade<Grid> {
-    @PersistenceContext(unitName = "gmsys-PU")
+    @PersistenceContext(unitName = "org.legend_GridOnMSystem_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
     @Override

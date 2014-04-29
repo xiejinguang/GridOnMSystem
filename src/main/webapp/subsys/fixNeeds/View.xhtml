@@ -11,7 +11,7 @@
         <p:dialog id="FixNeedsViewDlg" widgetVar="FixNeedsViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewFixNeedsTitle}">
             <h:form id="FixNeedsViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{fixNeedsController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{fixNeedsController.selected != null}">
                         <h:outputText value="#{bundle.ViewFixNeedsLabel_id}"/>
                         <h:outputText value="#{fixNeedsController.selected.id}" title="#{bundle.ViewFixNeedsTitle_id}"/>
                         <h:outputText value="#{bundle.ViewFixNeedsLabel_code}"/>

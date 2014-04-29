@@ -19,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -29,7 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author 谢金光
  */
 @Entity
-@Table(name = "grid")
+@Table(name = "grid", catalog = "jobpromotion", schema = "", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"name"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Grid.findAll", query = "SELECT g FROM Grid g"),
@@ -41,18 +43,18 @@ public class Grid implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 45)
     private String name;
     @Size(max = 45)
-    @Column(name = "manager")
+    @Column(name = "manager", length = 45)
     private String manager;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grid")
-    private Collection<StationInfo> stationInfoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gridId")
+    private Collection<RoomSpotInfo> roomSpotInfoCollection;
 
     public Grid() {
     }
@@ -91,12 +93,12 @@ public class Grid implements Serializable {
     }
 
     @XmlTransient
-    public Collection<StationInfo> getStationInfoCollection() {
-        return stationInfoCollection;
+    public Collection<RoomSpotInfo> getRoomSpotInfoCollection() {
+        return roomSpotInfoCollection;
     }
 
-    public void setStationInfoCollection(Collection<StationInfo> stationInfoCollection) {
-        this.stationInfoCollection = stationInfoCollection;
+    public void setRoomSpotInfoCollection(Collection<RoomSpotInfo> roomSpotInfoCollection) {
+        this.roomSpotInfoCollection = roomSpotInfoCollection;
     }
 
     @Override

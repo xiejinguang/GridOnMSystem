@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("fixNeedsController")
 @SessionScoped
 public class FixNeedsController implements Serializable {
 
-
-    @EJB private org.gmsys.ejb.FixNeedsFacade ejbFacade;
+    @EJB
+    private org.gmsys.ejb.FixNeedsFacade ejbFacade;
     private List<FixNeeds> items = null;
     private FixNeeds selected;
 
@@ -122,7 +121,7 @@ public class FixNeedsController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=FixNeeds.class)
+    @FacesConverter(forClass = FixNeeds.class)
     public static class FixNeedsControllerConverter implements Converter {
 
         @Override
@@ -130,7 +129,7 @@ public class FixNeedsController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            FixNeedsController controller = (FixNeedsController)facesContext.getApplication().getELResolver().
+            FixNeedsController controller = (FixNeedsController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "fixNeedsController");
             return controller.getFixNeeds(getKey(value));
         }

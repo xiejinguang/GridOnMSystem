@@ -11,21 +11,15 @@
         <p:dialog id="StationInfoViewDlg" widgetVar="StationInfoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewStationInfoTitle}">
             <h:form id="StationInfoViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{stationInfoController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{stationInfoController.selected != null}">
                         <h:outputText value="#{bundle.ViewStationInfoLabel_id}"/>
                         <h:outputText value="#{stationInfoController.selected.id}" title="#{bundle.ViewStationInfoTitle_id}"/>
                         <h:outputText value="#{bundle.ViewStationInfoLabel_code}"/>
                         <h:outputText value="#{stationInfoController.selected.code}" title="#{bundle.ViewStationInfoTitle_code}"/>
                         <h:outputText value="#{bundle.ViewStationInfoLabel_roomCode}"/>
                         <h:outputText value="#{stationInfoController.selected.roomCode}" title="#{bundle.ViewStationInfoTitle_roomCode}"/>
-                        <h:outputText value="#{bundle.ViewStationInfoLabel_name}"/>
-                        <h:outputText value="#{stationInfoController.selected.name}" title="#{bundle.ViewStationInfoTitle_name}"/>
-                        <h:outputText value="#{bundle.ViewStationInfoLabel_city}"/>
-                        <h:outputText value="#{stationInfoController.selected.city}" title="#{bundle.ViewStationInfoTitle_city}"/>
-                        <h:outputText value="#{bundle.ViewStationInfoLabel_province}"/>
-                        <h:outputText value="#{stationInfoController.selected.province}" title="#{bundle.ViewStationInfoTitle_province}"/>
-                        <h:outputText value="#{bundle.ViewStationInfoLabel_county}"/>
-                        <h:outputText value="#{stationInfoController.selected.county}" title="#{bundle.ViewStationInfoTitle_county}"/>
+                        <h:outputText value="#{bundle.ViewStationInfoLabel_statname}"/>
+                        <h:outputText value="#{stationInfoController.selected.statname}" title="#{bundle.ViewStationInfoTitle_statname}"/>
                         <h:outputText value="#{bundle.ViewStationInfoLabel_address}"/>
                         <h:outputText value="#{stationInfoController.selected.address}" title="#{bundle.ViewStationInfoTitle_address}"/>
                         <h:outputText value="#{bundle.ViewStationInfoLabel_owner}"/>
@@ -34,10 +28,8 @@
                         <h:outputText value="#{stationInfoController.selected.type}" title="#{bundle.ViewStationInfoTitle_type}"/>
                         <h:outputText value="#{bundle.ViewStationInfoLabel_accomMaintainer}"/>
                         <h:outputText value="#{stationInfoController.selected.accomMaintainer}" title="#{bundle.ViewStationInfoTitle_accomMaintainer}"/>
-                        <h:outputText value="#{bundle.ViewStationInfoLabel_blobcol}"/>
-                        <h:outputText value="#{stationInfoController.selected.blobcol}" title="#{bundle.ViewStationInfoTitle_blobcol}"/>
-                        <h:outputText value="#{bundle.ViewStationInfoLabel_grid}"/>
-                        <h:outputText value="#{stationInfoController.selected.grid}" title="#{bundle.ViewStationInfoTitle_grid}"/>
+                        <h:outputText value="#{bundle.ViewStationInfoLabel_roomSpotInfoId}"/>
+                        <h:outputText value="#{stationInfoController.selected.roomSpotInfoId}" title="#{bundle.ViewStationInfoTitle_roomSpotInfoId}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="StationInfoViewDialog.hide()"/>
                 </h:panelGroup>

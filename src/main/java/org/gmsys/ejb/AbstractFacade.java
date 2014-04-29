@@ -61,33 +61,6 @@ public abstract class AbstractFacade<T> {
         cq.select(getEntityManager().getCriteriaBuilder().count(rt));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
-    }
-
-    public List<T> findSome(Map<String, Object> params) {
-        CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        Root<T> root = cq.from(entityClass);
-        Expression cons = null;
-        Expression subExp = null;
-
-        for (String field : params.keySet()) {
-
-            subExp = root.get(field);
-            Object value = params.get(field);
-            if (value instanceof String) {
-                subExp = cb.like(subExp, (String) params.get(field));
-            } else if (value instanceof java.util.Collection) {
-                subExp = subExp.in((java.util.Collection) value);
-            }else if(value instanceof java.util.Date){
-                subExp=null;//todo
-            }
-            else subExp = cb.equal(subExp, value);
-           
-
-            cons = null == cons ? subExp : cb.and(cons, subExp);
-
-        }
-        return getEntityManager().createQuery(cq).getResultList();
-    }
+    }  
 
 }

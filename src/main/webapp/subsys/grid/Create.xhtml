@@ -2,16 +2,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog id="GridCreateDlg"   widgetVar="GridCreateDialog" modal="true" dynamic="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGridTitle}" minimizable="true" draggable="true" closable="true">
+
+        <p:dialog id="GridCreateDlg" widgetVar="GridCreateDialog" modal="true" dynamic="true"
+                  minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
+                  header="#{bundle.CreateGridTitle}">
             <h:form id="GridCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{gridController.selected != null}" >
+                    <p:panelGrid columns="2" rendered="#{gridController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateGridLabel_id}" for="id" />
                         <p:inputText id="id" value="#{gridController.selected.id}" title="#{bundle.CreateGridTitle_id}" required="true" requiredMessage="#{bundle.CreateGridRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.CreateGridLabel_name}" for="name" />
@@ -20,7 +25,7 @@
                         <p:inputText id="manager" value="#{gridController.selected.manager}" title="#{bundle.CreateGridTitle_manager}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{gridController.create}" value="#{bundle.Save}" update="display,@form:@parent:GridListForm:datalist,:growl" oncomplete="handleSubmit(args,'GridCreateDialog');"/>
-                    <p:commandButton type="button" value="#{bundle.Cancel}"  onclick="GridCreateDialog.hide()"/>
+                    <p:commandButton type="button" value="#{bundle.Cancel}" onclick="GridCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

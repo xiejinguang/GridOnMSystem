@@ -1,9 +1,9 @@
 package org.gmsys.controller;
 
-import org.gmsys.model.entity.Grid;
+import org.gmsys.model.entity.RoomSpotInfo;
 import org.gmsys.controller.util.JsfUtil;
 import org.gmsys.controller.util.JsfUtil.PersistAction;
-import org.gmsys.ejb.GridFacade;
+import org.gmsys.ejb.RoomSpotInfoFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("gridController")
+@Named("roomSpotInfoController")
 @SessionScoped
-public class GridController implements Serializable {
+public class RoomSpotInfoController implements Serializable {
 
     @EJB
-    private org.gmsys.ejb.GridFacade ejbFacade;
-    private List<Grid> items = null;
-    private Grid selected;
+    private org.gmsys.ejb.RoomSpotInfoFacade ejbFacade;
+    private List<RoomSpotInfo> items = null;
+    private RoomSpotInfo selected;
 
-    public GridController() {
+    public RoomSpotInfoController() {
     }
 
-    public Grid getSelected() {
+    public RoomSpotInfo getSelected() {
         return selected;
     }
 
-    public void setSelected(Grid selected) {
+    public void setSelected(RoomSpotInfo selected) {
         this.selected = selected;
     }
 
@@ -45,36 +45,36 @@ public class GridController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private GridFacade getFacade() {
+    private RoomSpotInfoFacade getFacade() {
         return ejbFacade;
     }
 
-    public Grid prepareCreate() {
-        selected = new Grid();
+    public RoomSpotInfo prepareCreate() {
+        selected = new RoomSpotInfo();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("GridCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("RoomSpotInfoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("GridUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("RoomSpotInfoUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("GridDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("RoomSpotInfoDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Grid> getItems() {
+    public List<RoomSpotInfo> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,29 +109,29 @@ public class GridController implements Serializable {
         }
     }
 
-    public Grid getGrid(java.lang.Integer id) {
+    public RoomSpotInfo getRoomSpotInfo(java.lang.Integer id) {
         return getFacade().find(id);
     }
 
-    public List<Grid> getItemsAvailableSelectMany() {
+    public List<RoomSpotInfo> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Grid> getItemsAvailableSelectOne() {
+    public List<RoomSpotInfo> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Grid.class)
-    public static class GridControllerConverter implements Converter {
+    @FacesConverter(forClass = RoomSpotInfo.class)
+    public static class RoomSpotInfoControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            GridController controller = (GridController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "gridController");
-            return controller.getGrid(getKey(value));
+            RoomSpotInfoController controller = (RoomSpotInfoController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "roomSpotInfoController");
+            return controller.getRoomSpotInfo(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -151,11 +151,11 @@ public class GridController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Grid) {
-                Grid o = (Grid) object;
+            if (object instanceof RoomSpotInfo) {
+                RoomSpotInfo o = (RoomSpotInfo) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Grid.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), RoomSpotInfo.class.getName()});
                 return null;
             }
         }
