@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition >
+        <f:loadBundle basename="/org/peasant/util/i18n" var="utilMsgs"/>
+        <p:dialog id="attachmentDlg" widgetVar="attachmentDlg" appendToBody="true" modal="true">
+            <h:form>
+
+                <p:fileUpload  fileUploadListener="#{fileUploadController.handleFileUpload}" dragDropSupport="true" fileLimit="5" mode="advanced" sizeLimit="10000000000" multiple="true" 
+                               uploadLabel="${utilMsgs['fileupload_uploadLabel']}" label="${utilMsgs['fileupload_label']}" 
+                               cancelLabel="${utilMsgs['fileupload_cancelLabel']}"/>
+            </h:form>
+        </p:dialog>>
+    </ui:composition>
+</html>
+
