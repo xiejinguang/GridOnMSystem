@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.gmsys.util;
+package org.peasant.util;
 
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StationInfoCreateDlg" widgetVar="StationInfoCreateDialog" modal="true" dynamic="true"
+                  minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
+                  header="#{bundle.CreateStationInfoTitle}">
+            <h:form id="StationInfoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{stationInfoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{stationInfoController.selected.id}" title="#{bundle.CreateStationInfoTitle_id}" required="true" requiredMessage="#{bundle.CreateStationInfoRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_code}" for="code" />
+                        <p:inputText id="code" value="#{stationInfoController.selected.code}" title="#{bundle.CreateStationInfoTitle_code}" required="true" requiredMessage="#{bundle.CreateStationInfoRequiredMessage_code}"/>
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_roomCode}" for="roomCode" />
+                        <p:inputText id="roomCode" value="#{stationInfoController.selected.roomCode}" title="#{bundle.CreateStationInfoTitle_roomCode}" required="true" requiredMessage="#{bundle.CreateStationInfoRequiredMessage_roomCode}"/>
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_statName}" for="statName" />
+                        <p:inputText id="statName" value="#{stationInfoController.selected.statName}" title="#{bundle.CreateStationInfoTitle_statName}" required="true" requiredMessage="#{bundle.CreateStationInfoRequiredMessage_statName}"/>
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{stationInfoController.selected.address}" title="#{bundle.CreateStationInfoTitle_address}" />
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_owner}" for="owner" />
+                        <p:inputText id="owner" value="#{stationInfoController.selected.owner}" title="#{bundle.CreateStationInfoTitle_owner}" required="true" requiredMessage="#{bundle.CreateStationInfoRequiredMessage_owner}"/>
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{stationInfoController.selected.type}" title="#{bundle.CreateStationInfoTitle_type}" />
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_accomMaintainer}" for="accomMaintainer" />
+                        <p:inputText id="accomMaintainer" value="#{stationInfoController.selected.accomMaintainer}" title="#{bundle.CreateStationInfoTitle_accomMaintainer}" />
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_roomSpotInfoId}" for="roomSpotInfoId" />
+                        <p:selectOneMenu id="roomSpotInfoId" value="#{stationInfoController.selected.roomSpotInfoId}" required="true" requiredMessage="#{bundle.EditStationInfoRequiredMessage_roomSpotInfoId}">
+                            <f:selectItems value="#{roomSpotInfoController.itemsAvailableSelectOne}"
+                                           var="roomSpotInfoIdItem"
+                                           itemValue="#{roomSpotInfoIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{stationInfoController.create}" value="#{bundle.Save}" update="display,@form:@parent:StationInfoListForm:datalist,:growl" oncomplete="handleSubmit(args,'StationInfoCreateDialog');"/>
+                    <p:commandButton type="button" value="#{bundle.Cancel}" onclick="StationInfoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

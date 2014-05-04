@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GridEditDlg" widgetVar="GridEditDialog" modal="true" dynamic="true"
+                  minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
+                  header="#{bundle.EditGridTitle}">
+            <h:form id="GridEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gridController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditGridLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{gridController.selected.id}" title="#{bundle.EditGridTitle_id}" required="true" requiredMessage="#{bundle.EditGridRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditGridLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{gridController.selected.name}" title="#{bundle.EditGridTitle_name}" required="true" requiredMessage="#{bundle.EditGridRequiredMessage_name}"/>
+                        <p:outputLabel value="#{bundle.EditGridLabel_manager}" for="manager" />
+                        <p:inputText id="manager" value="#{gridController.selected.manager}" title="#{bundle.EditGridTitle_manager}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gridController.Edit}" value="#{bundle.Save}" update="display,@form:@parent:GridListForm:datalist,:growl" oncomplete="handleSubmit(args,'GridEditDialog');"/>
+                    <p:commandButton type="button" value="#{bundle.Cancel}" onclick="GridEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

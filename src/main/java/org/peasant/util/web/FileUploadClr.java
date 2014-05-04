@@ -20,8 +20,6 @@ import org.primefaces.model.UploadedFile;
  *
  * @author 谢金光
  */
-@Named("fileUploadClr")
-@ApplicationScoped
 public class FileUploadClr {
 
     public FileUploadClr() {
