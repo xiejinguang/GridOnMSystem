@@ -27,7 +27,7 @@ import org.primefaces.model.UploadedFile;
  *
  * @author 谢金光
  */
-@Named
+@Named("fileUpload")
 @RequestScoped
 public class FileUploadController {
 
