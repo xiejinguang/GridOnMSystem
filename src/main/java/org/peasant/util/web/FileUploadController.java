@@ -27,7 +27,7 @@ import org.primefaces.model.UploadedFile;
  *
  * @author 谢金光
  */
-@Named("fileUpload")
+@Named("fileUploadController")
 @RequestScoped
 public class FileUploadController {
 
@@ -36,12 +36,6 @@ public class FileUploadController {
 
     public String[] getFiles() {
         return new java.io.File("C:\\Program Files\\glassfish-4.0\\glassfish\\domains\\domain1\\config\\attachments\\2014\\2014-05-03").list();
-    }
-
-    /**
-     * Creates a new instance of FileUploadController
-     */
-    public FileUploadController() {
     }
 
     public void handleFileUpload(FileUploadEvent fue) {

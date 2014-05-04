@@ -18,5 +18,10 @@
             <var>bundle</var>
         </resource-bundle>
     </application>
+    <managed-bean>
+        <managed-bean-name>fileUploadClr</managed-bean-name>
+        <managed-bean-class>org.peasant.util.web.FileUploadClr</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
    
 </faces-config>
