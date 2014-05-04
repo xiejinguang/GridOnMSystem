@@ -21,10 +21,11 @@
             <p:outputLabel value="数量:#{cc.attrs.value.size()}个"/>         
             
             <p:commandButton value="附件"   onclick="uploadfileDlg.show()"/>
-            <p:dialog  minHeight="300px" minWidth="400px"appendTo="@(body)" id="uploadfileDlg" widgetVar="uploadfileDlg" header="上传附件" dynamic="true">
+            <p:dialog  minHeight="450" minWidth="600" appendTo="@(body)" id="uploadfileDlg" widgetVar="uploadfileDlg" header="上传附件" dynamic="true">
                  <p:fileUpload sizeLimit="#{cc.attrs.sizeLimit}" fileUploadListener="#{cc.attrs.fileUploadListener}" multiple="true" update="attachments,#{cc.attrs.update}"/>
                 <p:dataList id="attachments" var="attach" value="#{cc.attrs.value}"  rows="10" rowsPerPageTemplate="10,15,20,30" lazy="true" paginator="true" paginatorPosition="top">
-                    
+                    <p:outputLabel>${attach.fileName},${attach.relPath},${attach.uploadTime}"</p:outputLabel>
+                    <p:commandButton><p:fileDownload value="#{getStreamedContent(attach.id)}"/></p:commandButton>
                 </p:dataList>
                
             </p:dialog>
