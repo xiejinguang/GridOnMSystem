@@ -39,8 +39,6 @@ public class CharacterEncodingFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         request.setCharacterEncoding(this.encoding);
         response.setCharacterEncoding(this.encoding);
-        request = new MyHttpServletRequestWrapper((HttpServletRequest) request);
-        response = new MyHttpServletResponseWrapper((HttpServletResponse) response);
         chain.doFilter(request, response);
     }
 

@@ -7,16 +7,12 @@
 package org.peasant.util;
 
 import java.util.List;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
 
 /**
  *
  * @author 谢金光
  * @param <I>
  */
-@Named
-@ApplicationScoped
 public class UsefullUtil {
 
     public UsefullUtil() {

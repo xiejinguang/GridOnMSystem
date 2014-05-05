@@ -10,20 +10,20 @@
     </context-param>
     <context-param>
         <param-name>primefaces.UPLOADER</param-name>
-        <param-value>commons</param-value>
+        <param-value>native</param-value>
     </context-param>
+    
+    
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
         <filter-class>org.peasant.util.web.CharacterEncodingFilter</filter-class>
-    </filter>
-    <filter>
-        <filter-name>PrimeFacesCharacterEncodingFilter</filter-name>
-        <filter-class>org.peasant.util.CharacterEncodingFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
+    
+    
     <filter>
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
@@ -32,10 +32,8 @@
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
-    <filter-mapping>
-        <filter-name>CharacterEncodingFilter</filter-name>
-        <servlet-name>Faces Servlet</servlet-name>
-    </filter-mapping>
+ 
+
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>

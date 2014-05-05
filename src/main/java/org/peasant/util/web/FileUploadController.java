@@ -6,29 +6,21 @@
 package org.peasant.util.web;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.view.facelets.FaceletContext;
-import javax.inject.Named;
 import org.peasant.util.Repository;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.UploadedFile;
 
 /**
  *
  * @author 谢金光
  */
-@Named("fileUploadController")
-@RequestScoped
 public class FileUploadController {
 
     @EJB

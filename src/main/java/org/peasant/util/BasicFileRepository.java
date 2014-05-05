@@ -155,11 +155,11 @@ public class BasicFileRepository implements Repository {
                 throw new IllegalArgumentException("The InputStream of Attachment could not be null!");
             }
             String filename = a.getName();
-            String fPrifix = filename;
-            String fSubfix = "";
+            String fName = filename;
+            String fType = "";
             if (filename.lastIndexOf(".") != -1) {
-                fPrifix = filename.substring(0, filename.lastIndexOf("."));
-                fSubfix = filename.substring(filename.lastIndexOf(".") + 1);
+                fName = filename.substring(0, filename.lastIndexOf("."));
+                fType = filename.substring(filename.lastIndexOf(".") + 1);
             }
             a.setUploadTime(Calendar.getInstance().getTime());
             
@@ -173,10 +173,11 @@ public class BasicFileRepository implements Repository {
             Path af = java.nio.file.Paths.get(repositoryPath,subDir,filename);
             int i = 1;
             while (Files.exists(af)) {
-                filename = fPrifix + "(" + i + ")." + fSubfix;
+                filename = fName + "(" + i + ")." + fType;
                 i++;
                 af = java.nio.file.Paths.get(repositoryPath,subDir,filename);
             };
+            String relPath= subDir+"/"+filename;
             try {
                 Files.copy(a.getInputStream(), af, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
                 a.getInputStream().close();
