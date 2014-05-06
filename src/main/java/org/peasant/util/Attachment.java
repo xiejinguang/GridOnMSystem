@@ -85,6 +85,8 @@ public interface Attachment {
      */
     public int getSize();
     
+    public void setSize(int size);
+    
     /**
      *
      * @param attacher The user who attach this Attachment.

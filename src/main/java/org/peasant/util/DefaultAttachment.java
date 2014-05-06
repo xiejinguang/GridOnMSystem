@@ -114,4 +114,9 @@ public class DefaultAttachment implements Attachment {
         return this.attacher;
     }
 
+    @Override
+    public void setSize(int size) {
+        this.size = size;
+    }
+
 }
