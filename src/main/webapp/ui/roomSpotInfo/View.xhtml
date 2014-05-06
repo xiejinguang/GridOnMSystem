@@ -12,12 +12,12 @@
             <h:form id="RoomSpotInfoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{roomSpotInfoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewRoomSpotInfoLabel_id}"/>
-                        <h:outputText value="#{roomSpotInfoController.selected.id}" title="#{bundle.ViewRoomSpotInfoTitle_id}"/>
-                        <h:outputText value="#{bundle.ViewRoomSpotInfoLabel_code}"/>
-                        <h:outputText value="#{roomSpotInfoController.selected.code}" title="#{bundle.ViewRoomSpotInfoTitle_code}"/>
-                        <h:outputText value="#{bundle.ViewRoomSpotInfoLabel_name}"/>
-                        <h:outputText value="#{roomSpotInfoController.selected.name}" title="#{bundle.ViewRoomSpotInfoTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewRoomSpotInfoLabel_roomId}"/>
+                        <h:outputText value="#{roomSpotInfoController.selected.roomId}" title="#{bundle.ViewRoomSpotInfoTitle_roomId}"/>
+                        <h:outputText value="#{bundle.ViewRoomSpotInfoLabel_roomCode}"/>
+                        <h:outputText value="#{roomSpotInfoController.selected.roomCode}" title="#{bundle.ViewRoomSpotInfoTitle_roomCode}"/>
+                        <h:outputText value="#{bundle.ViewRoomSpotInfoLabel_roomName}"/>
+                        <h:outputText value="#{roomSpotInfoController.selected.roomName}" title="#{bundle.ViewRoomSpotInfoTitle_roomName}"/>
                         <h:outputText value="#{bundle.ViewRoomSpotInfoLabel_province}"/>
                         <h:outputText value="#{roomSpotInfoController.selected.province}" title="#{bundle.ViewRoomSpotInfoTitle_province}"/>
                         <h:outputText value="#{bundle.ViewRoomSpotInfoLabel_city}"/>

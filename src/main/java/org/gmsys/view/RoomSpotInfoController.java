@@ -153,7 +153,7 @@ public class RoomSpotInfoController implements Serializable {
             }
             if (object instanceof RoomSpotInfo) {
                 RoomSpotInfo o = (RoomSpotInfo) object;
-                return getStringKey(o.getId());
+                return getStringKey(o.getRoomId());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), RoomSpotInfo.class.getName()});
                 return null;

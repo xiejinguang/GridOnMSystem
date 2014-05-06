@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
@@ -27,58 +26,55 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author 谢金光
  */
 @Entity
-@Table(name = "grid")
+@Table(name = "grid_info")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Grid.findAll", query = "SELECT g FROM Grid g"),
-    @NamedQuery(name = "Grid.findById", query = "SELECT g FROM Grid g WHERE g.id = :id"),
-    @NamedQuery(name = "Grid.findByName", query = "SELECT g FROM Grid g WHERE g.name = :name"),
-    @NamedQuery(name = "Grid.findByManager", query = "SELECT g FROM Grid g WHERE g.manager = :manager")})
-public class Grid implements Serializable {
+    @NamedQuery(name = "GridInfo.findAll", query = "SELECT g FROM GridInfo g"),
+    @NamedQuery(name = "GridInfo.findByGridId", query = "SELECT g FROM GridInfo g WHERE g.gridId = :gridId"),
+    @NamedQuery(name = "GridInfo.findByGridName", query = "SELECT g FROM GridInfo g WHERE g.gridName = :gridName"),
+    @NamedQuery(name = "GridInfo.findByManager", query = "SELECT g FROM GridInfo g WHERE g.manager = :manager")})
+public class GridInfo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "id")
-    private String id;
+    private String gridId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "name")
-    private String name;
+    private String gridName;
     @Size(max = 45)
-    @Column(name = "manager")
     private String manager;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "gridId")
     private Collection<RoomSpotInfo> roomSpotInfoCollection;
 
-    public Grid() {
+    public GridInfo() {
     }
 
-    public Grid(String id) {
-        this.id = id;
+    public GridInfo(String gridId) {
+        this.gridId = gridId;
     }
 
-    public Grid(String id, String name) {
-        this.id = id;
-        this.name = name;
+    public GridInfo(String gridId, String gridName) {
+        this.gridId = gridId;
+        this.gridName = gridName;
     }
 
-    public String getId() {
-        return id;
+    public String getGridId() {
+        return gridId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setGridId(String gridId) {
+        this.gridId = gridId;
     }
 
-    public String getName() {
-        return name;
+    public String getGridName() {
+        return gridName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGridName(String gridName) {
+        this.gridName = gridName;
     }
 
     public String getManager() {
@@ -101,18 +97,18 @@ public class Grid implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (gridId != null ? gridId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Grid)) {
+        if (!(object instanceof GridInfo)) {
             return false;
         }
-        Grid other = (Grid) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        GridInfo other = (GridInfo) object;
+        if ((this.gridId == null && other.gridId != null) || (this.gridId != null && !this.gridId.equals(other.gridId))) {
             return false;
         }
         return true;
@@ -120,7 +116,7 @@ public class Grid implements Serializable {
 
     @Override
     public String toString() {
-        return "org.gmsys.model.entity.Grid[ id=" + id + " ]";
+        return "org.gmsys.view.util.GridInfo[ gridId=" + gridId + " ]";
     }
     
 }

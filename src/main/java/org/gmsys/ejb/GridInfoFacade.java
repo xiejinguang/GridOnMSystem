@@ -9,14 +9,14 @@ package org.gmsys.ejb;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.gmsys.model.entity.Grid;
+import org.gmsys.model.entity.GridInfo;
 
 /**
  *
  * @author 谢金光
  */
 @Stateless
-public class GridFacade extends AbstractFacade<Grid> {
+public class GridInfoFacade extends AbstractFacade<GridInfo> {
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
 
@@ -25,8 +25,8 @@ public class GridFacade extends AbstractFacade<Grid> {
         return em;
     }
 
-    public GridFacade() {
-        super(Grid.class);
+    public GridInfoFacade() {
+        super(GridInfo.class);
     }
     
 }

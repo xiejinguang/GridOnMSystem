@@ -21,7 +21,7 @@
                 <p:panel header="#{bundle.ListStationInfoTitle}">
                     <p:dataTable id="datalist" value="#{stationInfoController.items}" var="item"
                                  selectionMode="single" selection="#{stationInfoController.selected}"
-                                 rowKey="#{item.id}"
+                                 rowKey="#{item.statId}"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  paginator="true" paginatorPosition="bottom"
                                  rows="10" lazy="true" 
@@ -36,21 +36,15 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStationInfoTitle_id}"/>
+                                <h:outputText value="#{bundle.ListStationInfoTitle_statId}"/>
                             </f:facet>
-                            <h:outputText value="#{item.id}"/>
+                            <h:outputText value="#{item.statId}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStationInfoTitle_code}"/>
+                                <h:outputText value="#{bundle.ListStationInfoTitle_statCode}"/>
                             </f:facet>
-                            <h:outputText value="#{item.code}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStationInfoTitle_roomCode}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.roomCode}"/>
+                            <h:outputText value="#{item.statCode}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -60,33 +54,33 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStationInfoTitle_address}"/>
+                                <h:outputText value="#{bundle.ListStationInfoTitle_statAddress}"/>
                             </f:facet>
-                            <h:outputText value="#{item.address}"/>
+                            <h:outputText value="#{item.statAddress}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStationInfoTitle_owner}"/>
+                                <h:outputText value="#{bundle.ListStationInfoTitle_statOwner}"/>
                             </f:facet>
-                            <h:outputText value="#{item.owner}"/>
+                            <h:outputText value="#{item.statOwner}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStationInfoTitle_type}"/>
+                                <h:outputText value="#{bundle.ListStationInfoTitle_statType}"/>
                             </f:facet>
-                            <h:outputText value="#{item.type}"/>
+                            <h:outputText value="#{item.statType}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStationInfoTitle_accomMaintainer}"/>
+                                <h:outputText value="#{bundle.ListStationInfoTitle_statAccomMaintainer}"/>
                             </f:facet>
-                            <h:outputText value="#{item.accomMaintainer}"/>
+                            <h:outputText value="#{item.statAccomMaintainer}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStationInfoTitle_roomSpotInfoId}"/>
+                                <h:outputText value="#{bundle.ListStationInfoTitle_roomId}"/>
                             </f:facet>
-                            <h:outputText value="#{item.roomSpotInfoId}"/>
+                            <h:outputText value="#{item.roomId}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{stationInfoController.prepareCreate}" update="@form:@parent:StationInfoCreateForm" oncomplete="PF('StationInfoCreateDialog').show()"/>

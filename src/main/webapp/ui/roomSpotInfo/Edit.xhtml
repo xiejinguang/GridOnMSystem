@@ -17,12 +17,12 @@
             <h:form id="RoomSpotInfoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{roomSpotInfoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditRoomSpotInfoLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{roomSpotInfoController.selected.id}" title="#{bundle.EditRoomSpotInfoTitle_id}" required="true" requiredMessage="#{bundle.EditRoomSpotInfoRequiredMessage_id}"/>
-                        <p:outputLabel value="#{bundle.EditRoomSpotInfoLabel_code}" for="code" />
-                        <p:inputText id="code" value="#{roomSpotInfoController.selected.code}" title="#{bundle.EditRoomSpotInfoTitle_code}" required="true" requiredMessage="#{bundle.EditRoomSpotInfoRequiredMessage_code}"/>
-                        <p:outputLabel value="#{bundle.EditRoomSpotInfoLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{roomSpotInfoController.selected.name}" title="#{bundle.EditRoomSpotInfoTitle_name}" required="true" requiredMessage="#{bundle.EditRoomSpotInfoRequiredMessage_name}"/>
+                        <p:outputLabel value="#{bundle.EditRoomSpotInfoLabel_roomId}" for="roomId" />
+                        <p:inputText id="roomId" value="#{roomSpotInfoController.selected.roomId}" title="#{bundle.EditRoomSpotInfoTitle_roomId}" required="true" requiredMessage="#{bundle.EditRoomSpotInfoRequiredMessage_roomId}"/>
+                        <p:outputLabel value="#{bundle.EditRoomSpotInfoLabel_roomCode}" for="roomCode" />
+                        <p:inputText id="roomCode" value="#{roomSpotInfoController.selected.roomCode}" title="#{bundle.EditRoomSpotInfoTitle_roomCode}" required="true" requiredMessage="#{bundle.EditRoomSpotInfoRequiredMessage_roomCode}"/>
+                        <p:outputLabel value="#{bundle.EditRoomSpotInfoLabel_roomName}" for="roomName" />
+                        <p:inputText id="roomName" value="#{roomSpotInfoController.selected.roomName}" title="#{bundle.EditRoomSpotInfoTitle_roomName}" required="true" requiredMessage="#{bundle.EditRoomSpotInfoRequiredMessage_roomName}"/>
                         <p:outputLabel value="#{bundle.EditRoomSpotInfoLabel_province}" for="province" />
                         <p:inputText id="province" value="#{roomSpotInfoController.selected.province}" title="#{bundle.EditRoomSpotInfoTitle_province}" required="true" requiredMessage="#{bundle.EditRoomSpotInfoRequiredMessage_province}"/>
                         <p:outputLabel value="#{bundle.EditRoomSpotInfoLabel_city}" for="city" />
@@ -31,7 +31,7 @@
                         <p:inputText id="county" value="#{roomSpotInfoController.selected.county}" title="#{bundle.EditRoomSpotInfoTitle_county}" required="true" requiredMessage="#{bundle.EditRoomSpotInfoRequiredMessage_county}"/>
                         <p:outputLabel value="#{bundle.EditRoomSpotInfoLabel_gridId}" for="gridId" />
                         <p:selectOneMenu id="gridId" value="#{roomSpotInfoController.selected.gridId}" required="true" requiredMessage="#{bundle.EditRoomSpotInfoRequiredMessage_gridId}">
-                            <f:selectItems value="#{gridController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{gridInfoController.itemsAvailableSelectOne}"
                                            var="gridIdItem"
                                            itemValue="#{gridIdItem}"/>
                         </p:selectOneMenu>

@@ -176,7 +176,7 @@ public class BasicFileRepository implements Repository {
                 filename = fName + "(" + i + ")." + fType;
                 i++;
                 af = java.nio.file.Paths.get(repositoryPath,subDir,filename);
-            };
+            }
             String relPath= subDir+"/"+filename;
             try {
                 Files.copy(a.getInputStream(), af, java.nio.file.StandardCopyOption.REPLACE_EXISTING);

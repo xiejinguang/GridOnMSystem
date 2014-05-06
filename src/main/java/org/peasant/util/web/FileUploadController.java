@@ -6,10 +6,12 @@
 package org.peasant.util.web;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -21,7 +23,10 @@ import org.primefaces.model.UploadedFile;
  *
  * @author 谢金光
  */
-public class FileUploadController {
+
+@ManagedBean
+@ApplicationScoped
+public class FileUploadController implements Serializable{
 
     @EJB
     Repository repo;

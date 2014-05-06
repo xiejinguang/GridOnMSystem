@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StationDetailViewDlg" widgetVar="StationDetailViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewStationDetailTitle}">
+            <h:form id="StationDetailViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="6" rendered="#{stationDetailController.selected != null}">
+                        <h:outputText value="#{bundle.ViewStationDetailLabel_statId}"/>
+                        <h:outputText value="#{stationDetailController.selected.statId}" title="#{bundle.ViewStationDetailTitle_statId}"/>
+                        <h:outputText value="#{bundle.ViewStationDetailLabel_statCode}"/>
+                        <h:outputText value="#{stationDetailController.selected.statCode}" title="#{bundle.ViewStationDetailTitle_statCode}"/>
+                        <h:outputText value="#{bundle.ViewStationDetailLabel_statName}"/>
+                        <h:outputText value="#{stationDetailController.selected.statName}" title="#{bundle.ViewStationDetailTitle_statName}"/>
+                        <h:outputText value="#{bundle.ViewStationDetailLabel_statAddress}"/>
+                        <h:outputText value="#{stationDetailController.selected.statAddress}" title="#{bundle.ViewStationDetailTitle_statAddress}"/>
+                        <h:outputText value="#{bundle.ViewStationDetailLabel_statOwner}"/>
+                        <h:outputText value="#{stationDetailController.selected.statOwner}" title="#{bundle.ViewStationDetailTitle_statOwner}"/>
+                        <h:outputText value="#{bundle.ViewStationDetailLabel_statType}"/>
+                        <h:outputText value="#{stationDetailController.selected.statType}" title="#{bundle.ViewStationDetailTitle_statType}"/>
+                        <h:outputText value="#{bundle.ViewStationDetailLabel_statAccomMaintainer}"/>
+                        <h:outputText value="#{stationDetailController.selected.statAccomMaintainer}" title="#{bundle.ViewStationDetailTitle_statAccomMaintainer}"/>
+                        <h:outputText value="#{bundle.ViewStationDetailLabel_roomId}"/>
+                        <h:outputText value="#{stationDetailController.selected.roomId}" title="#{bundle.ViewStationDetailTitle_roomId}"/>
+                        <h:outputText value="#{bundle.ViewStationDetailLabel_roomCode}"/>
+                        <h:outputText value="#{stationDetailController.selected.roomCode}" title="#{bundle.ViewStationDetailTitle_roomCode}"/>
+                        <h:outputText value="#{bundle.ViewStationDetailLabel_roomName}"/>
+                        <h:outputText value="#{stationDetailController.selected.roomName}" title="#{bundle.ViewStationDetailTitle_roomName}"/>
+                        <h:outputText value="#{bundle.ViewStationDetailLabel_gridId}"/>
+                        <h:outputText value="#{stationDetailController.selected.gridId}" title="#{bundle.ViewStationDetailTitle_gridId}"/>
+                        <h:outputText value="#{bundle.ViewStationDetailLabel_gridName}"/>
+                        <h:outputText value="#{stationDetailController.selected.gridName}" title="#{bundle.ViewStationDetailTitle_gridName}"/>
+                        <h:outputText value="#{bundle.ViewStationDetailLabel_manager}"/>
+                        <h:outputText value="#{stationDetailController.selected.manager}" title="#{bundle.ViewStationDetailTitle_manager}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="StationDetailViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,9 +1,9 @@
 package org.gmsys.view;
 
-import org.gmsys.model.entity.StationInfo;
+import org.gmsys.model.entity.StationDetail;
 import org.gmsys.view.util.JsfUtil;
 import org.gmsys.view.util.JsfUtil.PersistAction;
-import org.gmsys.ejb.StationInfoFacade;
+import org.gmsys.ejb.StationDetailFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("stationInfoController")
+@Named("stationDetailController")
 @SessionScoped
-public class StationInfoController implements Serializable {
+public class StationDetailController implements Serializable {
 
     @EJB
-    private org.gmsys.ejb.StationInfoFacade ejbFacade;
-    private List<StationInfo> items = null;
-    private StationInfo selected;
+    private org.gmsys.ejb.StationDetailFacade ejbFacade;
+    private List<StationDetail> items = null;
+    private StationDetail selected;
 
-    public StationInfoController() {
+    public StationDetailController() {
     }
 
-    public StationInfo getSelected() {
+    public StationDetail getSelected() {
         return selected;
     }
 
-    public void setSelected(StationInfo selected) {
+    public void setSelected(StationDetail selected) {
         this.selected = selected;
     }
 
@@ -45,36 +45,36 @@ public class StationInfoController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private StationInfoFacade getFacade() {
+    private StationDetailFacade getFacade() {
         return ejbFacade;
     }
 
-    public StationInfo prepareCreate() {
-        selected = new StationInfo();
+    public StationDetail prepareCreate() {
+        selected = new StationDetail();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("StationInfoCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("StationDetailCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("StationInfoUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("StationDetailUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("StationInfoDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("StationDetailDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<StationInfo> getItems() {
+    public List<StationDetail> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,29 +109,29 @@ public class StationInfoController implements Serializable {
         }
     }
 
-    public StationInfo getStationInfo(java.lang.String id) {
+    public StationDetail getStationDetail(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<StationInfo> getItemsAvailableSelectMany() {
+    public List<StationDetail> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<StationInfo> getItemsAvailableSelectOne() {
+    public List<StationDetail> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = StationInfo.class)
-    public static class StationInfoControllerConverter implements Converter {
+    @FacesConverter(forClass = StationDetail.class)
+    public static class StationDetailControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            StationInfoController controller = (StationInfoController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "stationInfoController");
-            return controller.getStationInfo(getKey(value));
+            StationDetailController controller = (StationDetailController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "stationDetailController");
+            return controller.getStationDetail(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -151,11 +151,11 @@ public class StationInfoController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof StationInfo) {
-                StationInfo o = (StationInfo) object;
+            if (object instanceof StationDetail) {
+                StationDetail o = (StationDetail) object;
                 return getStringKey(o.getStatId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), StationInfo.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), StationDetail.class.getName()});
                 return null;
             }
         }

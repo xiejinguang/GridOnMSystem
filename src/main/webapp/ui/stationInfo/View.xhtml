@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StationInfoViewDlg" widgetVar="StationInfoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewStationInfoTitle}">
+            <h:form id="StationInfoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{stationInfoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewStationInfoLabel_statId}"/>
+                        <h:outputText value="#{stationInfoController.selected.statId}" title="#{bundle.ViewStationInfoTitle_statId}"/>
+                        <h:outputText value="#{bundle.ViewStationInfoLabel_statCode}"/>
+                        <h:outputText value="#{stationInfoController.selected.statCode}" title="#{bundle.ViewStationInfoTitle_statCode}"/>
+                        <h:outputText value="#{bundle.ViewStationInfoLabel_statName}"/>
+                        <h:outputText value="#{stationInfoController.selected.statName}" title="#{bundle.ViewStationInfoTitle_statName}"/>
+                        <h:outputText value="#{bundle.ViewStationInfoLabel_statAddress}"/>
+                        <h:outputText value="#{stationInfoController.selected.statAddress}" title="#{bundle.ViewStationInfoTitle_statAddress}"/>
+                        <h:outputText value="#{bundle.ViewStationInfoLabel_statOwner}"/>
+                        <h:outputText value="#{stationInfoController.selected.statOwner}" title="#{bundle.ViewStationInfoTitle_statOwner}"/>
+                        <h:outputText value="#{bundle.ViewStationInfoLabel_statType}"/>
+                        <h:outputText value="#{stationInfoController.selected.statType}" title="#{bundle.ViewStationInfoTitle_statType}"/>
+                        <h:outputText value="#{bundle.ViewStationInfoLabel_statAccomMaintainer}"/>
+                        <h:outputText value="#{stationInfoController.selected.statAccomMaintainer}" title="#{bundle.ViewStationInfoTitle_statAccomMaintainer}"/>
+                        <h:outputText value="#{bundle.ViewStationInfoLabel_roomId}"/>
+                        <h:outputText value="#{stationInfoController.selected.roomId}" title="#{bundle.ViewStationInfoTitle_roomId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="StationInfoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

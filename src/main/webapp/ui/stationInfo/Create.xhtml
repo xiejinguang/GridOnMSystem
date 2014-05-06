@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StationInfoCreateDlg" widgetVar="StationInfoCreateDialog" modal="true" dynamic="true"
+                  minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
+                  header="#{bundle.CreateStationInfoTitle}">
+            <h:form id="StationInfoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{stationInfoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_statId}" for="statId" />
+                        <p:inputText id="statId" value="#{stationInfoController.selected.statId}" title="#{bundle.CreateStationInfoTitle_statId}" required="true" requiredMessage="#{bundle.CreateStationInfoRequiredMessage_statId}"/>
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_statCode}" for="statCode" />
+                        <p:inputText id="statCode" value="#{stationInfoController.selected.statCode}" title="#{bundle.CreateStationInfoTitle_statCode}" required="true" requiredMessage="#{bundle.CreateStationInfoRequiredMessage_statCode}"/>
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_statName}" for="statName" />
+                        <p:inputText id="statName" value="#{stationInfoController.selected.statName}" title="#{bundle.CreateStationInfoTitle_statName}" required="true" requiredMessage="#{bundle.CreateStationInfoRequiredMessage_statName}"/>
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_statAddress}" for="statAddress" />
+                        <p:inputText id="statAddress" value="#{stationInfoController.selected.statAddress}" title="#{bundle.CreateStationInfoTitle_statAddress}" />
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_statOwner}" for="statOwner" />
+                        <p:inputText id="statOwner" value="#{stationInfoController.selected.statOwner}" title="#{bundle.CreateStationInfoTitle_statOwner}" required="true" requiredMessage="#{bundle.CreateStationInfoRequiredMessage_statOwner}"/>
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_statType}" for="statType" />
+                        <p:inputText id="statType" value="#{stationInfoController.selected.statType}" title="#{bundle.CreateStationInfoTitle_statType}" />
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_statAccomMaintainer}" for="statAccomMaintainer" />
+                        <p:inputText id="statAccomMaintainer" value="#{stationInfoController.selected.statAccomMaintainer}" title="#{bundle.CreateStationInfoTitle_statAccomMaintainer}" />
+                        <p:outputLabel value="#{bundle.CreateStationInfoLabel_roomId}" for="roomId" />
+                        <p:selectOneMenu id="roomId" value="#{stationInfoController.selected.roomId}" required="true" requiredMessage="#{bundle.EditStationInfoRequiredMessage_roomId}">
+                            <f:selectItems value="#{roomSpotInfoController.itemsAvailableSelectOne}"
+                                           var="roomIdItem"
+                                           itemValue="#{roomIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{stationInfoController.create}" value="#{bundle.Save}" update="display,@form:@parent:StationInfoListForm:datalist,:growl" oncomplete="handleSubmit(args,'StationInfoCreateDialog');"/>
+                    <p:commandButton type="button" value="#{bundle.Cancel}" onclick="StationInfoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

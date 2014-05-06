@@ -19,23 +19,24 @@ public class DefaultAttachment implements Attachment {
     String id;
     String contentType;
     String name;
-    String owner;
+    String belonger;
     InputStream is;
+    String attacher;
     int size = -1;
     private Date uploadedTime;
 
     DefaultAttachment() {
-        this(UUID.randomUUID().toString(),null,null,null,null,Calendar.getInstance().getTime());
+        this(UUID.randomUUID().toString(), null, null, null, null, Calendar.getInstance().getTime());
 
     }
 
-    DefaultAttachment(String id, String contentType, String name, String owner, InputStream is,Date uploadDate) {
+    DefaultAttachment(String id, String contentType, String name, String owner, InputStream is, Date uploadDate) {
         if (null == id) {
             this.id = UUID.randomUUID().toString();
         }
         this.contentType = contentType;
         this.name = name;
-        this.owner = owner;
+        this.belonger = owner;
         this.is = is;
         this.uploadedTime = uploadDate;
     }
@@ -59,8 +60,8 @@ public class DefaultAttachment implements Attachment {
     }
 
     @Override
-    public String getOwner() {
-        return this.owner;
+    public String getBelonger() {
+        return this.belonger;
     }
 
     @Override
@@ -74,8 +75,8 @@ public class DefaultAttachment implements Attachment {
     }
 
     @Override
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setBelonger(String owner) {
+        this.belonger = owner;
     }
 
     @Override
@@ -101,6 +102,16 @@ public class DefaultAttachment implements Attachment {
     @Override
     public int getSize() {
         return this.size;
+    }
+
+    @Override
+    public void setAttacher(String attacher) {
+        this.attacher = attacher;
+    }
+
+    @Override
+    public String getAttacher() {
+        return this.attacher;
     }
 
 }

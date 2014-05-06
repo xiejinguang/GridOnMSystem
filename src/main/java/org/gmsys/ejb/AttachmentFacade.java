@@ -9,14 +9,14 @@ package org.gmsys.ejb;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.gmsys.model.entity.FixNeeds;
+import org.gmsys.model.entity.Attachment;
 
 /**
  *
  * @author 谢金光
  */
 @Stateless
-public class FixNeedsFacade extends AbstractFacade<FixNeeds> {
+public class AttachmentFacade extends AbstractFacade<Attachment> {
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
 
@@ -25,8 +25,8 @@ public class FixNeedsFacade extends AbstractFacade<FixNeeds> {
         return em;
     }
 
-    public FixNeedsFacade() {
-        super(FixNeeds.class);
+    public AttachmentFacade() {
+        super(Attachment.class);
     }
     
 }

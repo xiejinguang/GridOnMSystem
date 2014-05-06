@@ -1,9 +1,9 @@
 package org.gmsys.view;
 
-import org.gmsys.model.entity.Grid;
+import org.gmsys.model.entity.GridInfo;
 import org.gmsys.view.util.JsfUtil;
 import org.gmsys.view.util.JsfUtil.PersistAction;
-import org.gmsys.ejb.GridFacade;
+import org.gmsys.ejb.GridInfoFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("gridController")
+@Named("gridInfoController")
 @SessionScoped
-public class GridController implements Serializable {
+public class GridInfoController implements Serializable {
 
     @EJB
-    private org.gmsys.ejb.GridFacade ejbFacade;
-    private List<Grid> items = null;
-    private Grid selected;
+    private org.gmsys.ejb.GridInfoFacade ejbFacade;
+    private List<GridInfo> items = null;
+    private GridInfo selected;
 
-    public GridController() {
+    public GridInfoController() {
     }
 
-    public Grid getSelected() {
+    public GridInfo getSelected() {
         return selected;
     }
 
-    public void setSelected(Grid selected) {
+    public void setSelected(GridInfo selected) {
         this.selected = selected;
     }
 
@@ -45,36 +45,36 @@ public class GridController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private GridFacade getFacade() {
+    private GridInfoFacade getFacade() {
         return ejbFacade;
     }
 
-    public Grid prepareCreate() {
-        selected = new Grid();
+    public GridInfo prepareCreate() {
+        selected = new GridInfo();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("GridCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("GridInfoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("GridUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("GridInfoUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("GridDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("GridInfoDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Grid> getItems() {
+    public List<GridInfo> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,29 +109,29 @@ public class GridController implements Serializable {
         }
     }
 
-    public Grid getGrid(java.lang.String id) {
+    public GridInfo getGridInfo(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<Grid> getItemsAvailableSelectMany() {
+    public List<GridInfo> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Grid> getItemsAvailableSelectOne() {
+    public List<GridInfo> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Grid.class)
-    public static class GridControllerConverter implements Converter {
+    @FacesConverter(forClass = GridInfo.class)
+    public static class GridInfoControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            GridController controller = (GridController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "gridController");
-            return controller.getGrid(getKey(value));
+            GridInfoController controller = (GridInfoController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "gridInfoController");
+            return controller.getGridInfo(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -151,11 +151,11 @@ public class GridController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Grid) {
-                Grid o = (Grid) object;
-                return getStringKey(o.getId());
+            if (object instanceof GridInfo) {
+                GridInfo o = (GridInfo) object;
+                return getStringKey(o.getGridId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Grid.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), GridInfo.class.getName()});
                 return null;
             }
         }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GridInfoViewDlg" widgetVar="GridInfoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGridInfoTitle}">
+            <h:form id="GridInfoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gridInfoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewGridInfoLabel_gridId}"/>
+                        <h:outputText value="#{gridInfoController.selected.gridId}" title="#{bundle.ViewGridInfoTitle_gridId}"/>
+                        <h:outputText value="#{bundle.ViewGridInfoLabel_gridName}"/>
+                        <h:outputText value="#{gridInfoController.selected.gridName}" title="#{bundle.ViewGridInfoTitle_gridName}"/>
+                        <h:outputText value="#{bundle.ViewGridInfoLabel_manager}"/>
+                        <h:outputText value="#{gridInfoController.selected.manager}" title="#{bundle.ViewGridInfoTitle_manager}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="GridInfoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

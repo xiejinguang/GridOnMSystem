@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -33,9 +32,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "RoomSpotInfo.findAll", query = "SELECT r FROM RoomSpotInfo r"),
-    @NamedQuery(name = "RoomSpotInfo.findById", query = "SELECT r FROM RoomSpotInfo r WHERE r.id = :id"),
-    @NamedQuery(name = "RoomSpotInfo.findByCode", query = "SELECT r FROM RoomSpotInfo r WHERE r.code = :code"),
-    @NamedQuery(name = "RoomSpotInfo.findByName", query = "SELECT r FROM RoomSpotInfo r WHERE r.name = :name"),
+    @NamedQuery(name = "RoomSpotInfo.findByRoomId", query = "SELECT r FROM RoomSpotInfo r WHERE r.roomId = :roomId"),
+    @NamedQuery(name = "RoomSpotInfo.findByRoomCode", query = "SELECT r FROM RoomSpotInfo r WHERE r.roomCode = :roomCode"),
+    @NamedQuery(name = "RoomSpotInfo.findByRoomName", query = "SELECT r FROM RoomSpotInfo r WHERE r.roomName = :roomName"),
     @NamedQuery(name = "RoomSpotInfo.findByProvince", query = "SELECT r FROM RoomSpotInfo r WHERE r.province = :province"),
     @NamedQuery(name = "RoomSpotInfo.findByCity", query = "SELECT r FROM RoomSpotInfo r WHERE r.city = :city"),
     @NamedQuery(name = "RoomSpotInfo.findByCounty", query = "SELECT r FROM RoomSpotInfo r WHERE r.county = :county")})
@@ -45,77 +44,71 @@ public class RoomSpotInfo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "id")
-    private String id;
+    private String roomId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "code")
-    private String code;
+    private String roomCode;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "name")
-    private String name;
+    private String roomName;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "province")
     private String province;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "city")
     private String city;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "county")
     private String county;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomSpotInfoId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomId")
     private Collection<StationInfo> stationInfoCollection;
-    @JoinColumn(name = "grid_id", referencedColumnName = "id")
+    @JoinColumn(name = "gridId", referencedColumnName = "gridId")
     @ManyToOne(optional = false)
-    private Grid gridId;
+    private GridInfo gridId;
 
     public RoomSpotInfo() {
     }
 
-    public RoomSpotInfo(String id) {
-        this.id = id;
+    public RoomSpotInfo(String roomId) {
+        this.roomId = roomId;
     }
 
-    public RoomSpotInfo(String id, String code, String name, String province, String city, String county) {
-        this.id = id;
-        this.code = code;
-        this.name = name;
+    public RoomSpotInfo(String roomId, String roomCode, String roomName, String province, String city, String county) {
+        this.roomId = roomId;
+        this.roomCode = roomCode;
+        this.roomName = roomName;
         this.province = province;
         this.city = city;
         this.county = county;
     }
 
-    public String getId() {
-        return id;
+    public String getRoomId() {
+        return roomId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
     }
 
-    public String getCode() {
-        return code;
+    public String getRoomCode() {
+        return roomCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setRoomCode(String roomCode) {
+        this.roomCode = roomCode;
     }
 
-    public String getName() {
-        return name;
+    public String getRoomName() {
+        return roomName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
     public String getProvince() {
@@ -151,18 +144,18 @@ public class RoomSpotInfo implements Serializable {
         this.stationInfoCollection = stationInfoCollection;
     }
 
-    public Grid getGridId() {
+    public GridInfo getGridId() {
         return gridId;
     }
 
-    public void setGridId(Grid gridId) {
+    public void setGridId(GridInfo gridId) {
         this.gridId = gridId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (roomId != null ? roomId.hashCode() : 0);
         return hash;
     }
 
@@ -173,7 +166,7 @@ public class RoomSpotInfo implements Serializable {
             return false;
         }
         RoomSpotInfo other = (RoomSpotInfo) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.roomId == null && other.roomId != null) || (this.roomId != null && !this.roomId.equals(other.roomId))) {
             return false;
         }
         return true;
@@ -181,7 +174,7 @@ public class RoomSpotInfo implements Serializable {
 
     @Override
     public String toString() {
-        return "org.gmsys.model.entity.RoomSpotInfo[ id=" + id + " ]";
+        return "org.gmsys.view.util.RoomSpotInfo[ roomId=" + roomId + " ]";
     }
     
 }

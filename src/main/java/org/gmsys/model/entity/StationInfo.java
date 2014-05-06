@@ -7,22 +7,17 @@
 package org.gmsys.model.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,94 +28,70 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "StationInfo.findAll", query = "SELECT s FROM StationInfo s"),
-    @NamedQuery(name = "StationInfo.findById", query = "SELECT s FROM StationInfo s WHERE s.id = :id"),
-    @NamedQuery(name = "StationInfo.findByCode", query = "SELECT s FROM StationInfo s WHERE s.code = :code"),
-    @NamedQuery(name = "StationInfo.findByRoomCode", query = "SELECT s FROM StationInfo s WHERE s.roomCode = :roomCode"),
+    @NamedQuery(name = "StationInfo.findByStatId", query = "SELECT s FROM StationInfo s WHERE s.statId = :statId"),
+    @NamedQuery(name = "StationInfo.findByStatCode", query = "SELECT s FROM StationInfo s WHERE s.statCode = :statCode"),
     @NamedQuery(name = "StationInfo.findByStatName", query = "SELECT s FROM StationInfo s WHERE s.statName = :statName"),
-    @NamedQuery(name = "StationInfo.findByAddress", query = "SELECT s FROM StationInfo s WHERE s.address = :address"),
-    @NamedQuery(name = "StationInfo.findByOwner", query = "SELECT s FROM StationInfo s WHERE s.owner = :owner"),
-    @NamedQuery(name = "StationInfo.findByType", query = "SELECT s FROM StationInfo s WHERE s.type = :type"),
-    @NamedQuery(name = "StationInfo.findByAccomMaintainer", query = "SELECT s FROM StationInfo s WHERE s.accomMaintainer = :accomMaintainer")})
+    @NamedQuery(name = "StationInfo.findByStatAddress", query = "SELECT s FROM StationInfo s WHERE s.statAddress = :statAddress"),
+    @NamedQuery(name = "StationInfo.findByStatOwner", query = "SELECT s FROM StationInfo s WHERE s.statOwner = :statOwner"),
+    @NamedQuery(name = "StationInfo.findByStatType", query = "SELECT s FROM StationInfo s WHERE s.statType = :statType"),
+    @NamedQuery(name = "StationInfo.findByStatAccomMaintainer", query = "SELECT s FROM StationInfo s WHERE s.statAccomMaintainer = :statAccomMaintainer")})
 public class StationInfo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "id")
-    private String id;
+    private String statId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "code")
-    private String code;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "roomCode")
-    private String roomCode;
+    private String statCode;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "statName")
     private String statName;
     @Size(max = 45)
-    @Column(name = "address")
-    private String address;
+    private String statAddress;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "owner")
-    private String owner;
+    private String statOwner;
     @Size(max = 45)
-    @Column(name = "type")
-    private String type;
+    private String statType;
     @Size(max = 45)
-    @Column(name = "accomMaintainer")
-    private String accomMaintainer;
-    @JoinColumn(name = "room_spot_info_id", referencedColumnName = "id")
+    private String statAccomMaintainer;
+    @JoinColumn(name = "roomId", referencedColumnName = "roomId")
     @ManyToOne(optional = false)
-    private RoomSpotInfo roomSpotInfoId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "statName")
-    private Collection<FixNeeds> fixNeedsCollection;
+    private RoomSpotInfo roomId;
 
     public StationInfo() {
     }
 
-    public StationInfo(String id) {
-        this.id = id;
+    public StationInfo(String statId) {
+        this.statId = statId;
     }
 
-    public StationInfo(String id, String code, String roomCode, String statName, String owner) {
-        this.id = id;
-        this.code = code;
-        this.roomCode = roomCode;
+    public StationInfo(String statId, String statCode, String statName, String statOwner) {
+        this.statId = statId;
+        this.statCode = statCode;
         this.statName = statName;
-        this.owner = owner;
+        this.statOwner = statOwner;
     }
 
-    public String getId() {
-        return id;
+    public String getStatId() {
+        return statId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setStatId(String statId) {
+        this.statId = statId;
     }
 
-    public String getCode() {
-        return code;
+    public String getStatCode() {
+        return statCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getRoomCode() {
-        return roomCode;
-    }
-
-    public void setRoomCode(String roomCode) {
-        this.roomCode = roomCode;
+    public void setStatCode(String statCode) {
+        this.statCode = statCode;
     }
 
     public String getStatName() {
@@ -131,59 +102,50 @@ public class StationInfo implements Serializable {
         this.statName = statName;
     }
 
-    public String getAddress() {
-        return address;
+    public String getStatAddress() {
+        return statAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setStatAddress(String statAddress) {
+        this.statAddress = statAddress;
     }
 
-    public String getOwner() {
-        return owner;
+    public String getStatOwner() {
+        return statOwner;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setStatOwner(String statOwner) {
+        this.statOwner = statOwner;
     }
 
-    public String getType() {
-        return type;
+    public String getStatType() {
+        return statType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setStatType(String statType) {
+        this.statType = statType;
     }
 
-    public String getAccomMaintainer() {
-        return accomMaintainer;
+    public String getStatAccomMaintainer() {
+        return statAccomMaintainer;
     }
 
-    public void setAccomMaintainer(String accomMaintainer) {
-        this.accomMaintainer = accomMaintainer;
+    public void setStatAccomMaintainer(String statAccomMaintainer) {
+        this.statAccomMaintainer = statAccomMaintainer;
     }
 
-    public RoomSpotInfo getRoomSpotInfoId() {
-        return roomSpotInfoId;
+    public RoomSpotInfo getRoomId() {
+        return roomId;
     }
 
-    public void setRoomSpotInfoId(RoomSpotInfo roomSpotInfoId) {
-        this.roomSpotInfoId = roomSpotInfoId;
-    }
-
-    @XmlTransient
-    public Collection<FixNeeds> getFixNeedsCollection() {
-        return fixNeedsCollection;
-    }
-
-    public void setFixNeedsCollection(Collection<FixNeeds> fixNeedsCollection) {
-        this.fixNeedsCollection = fixNeedsCollection;
+    public void setRoomId(RoomSpotInfo roomId) {
+        this.roomId = roomId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (statId != null ? statId.hashCode() : 0);
         return hash;
     }
 
@@ -194,7 +156,7 @@ public class StationInfo implements Serializable {
             return false;
         }
         StationInfo other = (StationInfo) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.statId == null && other.statId != null) || (this.statId != null && !this.statId.equals(other.statId))) {
             return false;
         }
         return true;
@@ -202,7 +164,7 @@ public class StationInfo implements Serializable {
 
     @Override
     public String toString() {
-        return "org.gmsys.model.entity.StationInfo[ id=" + id + " ]";
+        return "org.gmsys.view.util.StationInfo[ statId=" + statId + " ]";
     }
     
 }

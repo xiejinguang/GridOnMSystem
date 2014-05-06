@@ -1,9 +1,9 @@
 package org.gmsys.view;
 
-import org.gmsys.model.entity.FixNeeds;
+import org.gmsys.model.entity.Attachment;
 import org.gmsys.view.util.JsfUtil;
 import org.gmsys.view.util.JsfUtil.PersistAction;
-import org.gmsys.ejb.FixNeedsFacade;
+import org.gmsys.ejb.AttachmentFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("fixNeedsController")
+@Named("attachmentController")
 @SessionScoped
-public class FixNeedsController implements Serializable {
+public class AttachmentController implements Serializable {
 
     @EJB
-    private org.gmsys.ejb.FixNeedsFacade ejbFacade;
-    private List<FixNeeds> items = null;
-    private FixNeeds selected;
+    private org.gmsys.ejb.AttachmentFacade ejbFacade;
+    private List<Attachment> items = null;
+    private Attachment selected;
 
-    public FixNeedsController() {
+    public AttachmentController() {
     }
 
-    public FixNeeds getSelected() {
+    public Attachment getSelected() {
         return selected;
     }
 
-    public void setSelected(FixNeeds selected) {
+    public void setSelected(Attachment selected) {
         this.selected = selected;
     }
 
@@ -45,36 +45,36 @@ public class FixNeedsController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private FixNeedsFacade getFacade() {
+    private AttachmentFacade getFacade() {
         return ejbFacade;
     }
 
-    public FixNeeds prepareCreate() {
-        selected = new FixNeeds();
+    public Attachment prepareCreate() {
+        selected = new Attachment();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("FixNeedsCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AttachmentCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("FixNeedsUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AttachmentUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("FixNeedsDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("AttachmentDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<FixNeeds> getItems() {
+    public List<Attachment> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,29 +109,29 @@ public class FixNeedsController implements Serializable {
         }
     }
 
-    public FixNeeds getFixNeeds(java.lang.String id) {
+    public Attachment getAttachment(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<FixNeeds> getItemsAvailableSelectMany() {
+    public List<Attachment> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<FixNeeds> getItemsAvailableSelectOne() {
+    public List<Attachment> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = FixNeeds.class)
-    public static class FixNeedsControllerConverter implements Converter {
+    @FacesConverter(forClass = Attachment.class)
+    public static class AttachmentControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            FixNeedsController controller = (FixNeedsController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "fixNeedsController");
-            return controller.getFixNeeds(getKey(value));
+            AttachmentController controller = (AttachmentController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "attachmentController");
+            return controller.getAttachment(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -151,11 +151,11 @@ public class FixNeedsController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof FixNeeds) {
-                FixNeeds o = (FixNeeds) object;
-                return getStringKey(o.getId());
+            if (object instanceof Attachment) {
+                Attachment o = (Attachment) object;
+                return getStringKey(o.getAttachmentId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), FixNeeds.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Attachment.class.getName()});
                 return null;
             }
         }

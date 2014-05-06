@@ -36,7 +36,7 @@ public interface Attachment {
      *
      * @return
      */
-    public String getOwner();
+    public String getBelonger();
 
     /**
      *
@@ -52,9 +52,9 @@ public interface Attachment {
 
     /**
      *
-     * @param owner
+     * @param owner whow owns this Attachment
      */
-    public void setOwner(String owner);
+    public void setBelonger(String owner);
 
     /**
      *
@@ -84,5 +84,12 @@ public interface Attachment {
      * @return
      */
     public int getSize();
+    
+    /**
+     *
+     * @param attacher The user who attach this Attachment.
+     */
+    public void setAttacher(String attacher);
+    public String getAttacher();
 
 }

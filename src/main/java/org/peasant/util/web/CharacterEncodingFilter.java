@@ -22,17 +22,17 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CharacterEncodingFilter implements Filter {
 
-    public final static String PARAM_ENCODING = "encoding";
+    public final static String CHARACTER_ENCODING_PARAM = "encoding";
     String encoding = "UTF-8";
     FilterConfig fc;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         this.fc = filterConfig;
-        String ec = fc.getInitParameter(PARAM_ENCODING);
+        String ec = fc.getInitParameter(CHARACTER_ENCODING_PARAM);
         if (ec != null && !(ec.isEmpty())) {
             this.encoding = ec;
-        }
+        }    
     }
 
     @Override
