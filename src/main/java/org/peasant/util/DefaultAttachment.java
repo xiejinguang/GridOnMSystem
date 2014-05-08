@@ -25,12 +25,12 @@ public class DefaultAttachment implements Attachment {
     int size = -1;
     private Date uploadedTime;
 
-    DefaultAttachment() {
+   public DefaultAttachment() {
         this(UUID.randomUUID().toString(), null, null, null, null, Calendar.getInstance().getTime());
 
     }
 
-    DefaultAttachment(String id, String contentType, String name, String owner, InputStream is, Date uploadDate) {
+   public DefaultAttachment(String id, String contentType, String name, String owner, InputStream is, Date uploadDate) {
         if (null == id) {
             this.id = UUID.randomUUID().toString();
         }
@@ -47,6 +47,10 @@ public class DefaultAttachment implements Attachment {
             this.id = UUID.randomUUID().toString();
         }
         return this.id;
+    }
+        public void setID(String id) {
+
+        this.id = id;
     }
 
     @Override

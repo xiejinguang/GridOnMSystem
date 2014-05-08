@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.peasant.util;
+package org.peasant.util.repositoryimpl;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URI;
-import java.net.URL;
-import java.nio.file.FileStore;
-import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Calendar;
@@ -21,20 +17,29 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Singleton;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServlet;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import org.peasant.util.Attachment;
+import org.peasant.util.DefaultAttachment;
+import org.peasant.util.GenericFacade;
+import org.peasant.util.Repository;
 
 /**
  *
  * @author 谢金光
  */
 @Singleton
-public class BasicFileRepository implements Repository {
+public class BasicFileRepository extends GenericFacade<DBAttachment> implements Repository {
 
     public final static String DEFAULT_ATTACH_DIRECTORY = "attachments";
     public final static String PARAM_ATTACHMENT_HOME_DIRECTORY = "pleasant.util.REPOSITORY_PATH";
+
+    @EJB
+    private org.peasant.util.repositoryimpl.AttachmentFacade ejbFacade;
+    @PersistenceContext(unitName = "GridOnMSystem_PU")
+    private EntityManager em;
 
     public final String repositoryPath;
     public final File repoDirectory;
@@ -56,6 +61,7 @@ public class BasicFileRepository implements Repository {
      * @param homePath must be a abstract pathname,see java.io.File for details;
      */
     public BasicFileRepository(String homePath) {
+        super(DBAttachment.class);
         File homeDir = new File(homePath);
         if (homeDir.exists()) {
             if (!homeDir.isDirectory()) {
@@ -65,13 +71,19 @@ public class BasicFileRepository implements Repository {
             throw new RuntimeException("Can't create the Directory specified by homePath argument");
         }
         repositoryPath = homePath;
-        repoDirectory = homeDir;
+        repoDirectory = homeDir;       
 
     }
 
     @Override
     public Attachment getAttachment(String aId) {
-        return null;//TODO
+        DBAttachment da = this.find(aId);
+        if(null==da)
+            return null;
+        DefaultAttachment a = (DefaultAttachment)this.createAttachment();
+    //TODO
+        
+        return null;
     }
 
     @Override
@@ -162,22 +174,22 @@ public class BasicFileRepository implements Repository {
                 fType = filename.substring(filename.lastIndexOf(".") + 1);
             }
             a.setUploadTime(Calendar.getInstance().getTime());
-            
-            String date = String.format("%1$tY-%1$tm-%1$td",a.getUploadTime());
+
+            String date = String.format("%1$tY-%1$tm-%1$td", a.getUploadTime());
             String year = String.format("%1$tY", a.getUploadTime());
             String subDir = year + "/" + date;
             File afolder = new File(repoDirectory, subDir);
-            if ((!afolder.exists())&&(!afolder.mkdirs())) {
+            if ((!afolder.exists()) && (!afolder.mkdirs())) {
                 throw new RuntimeException("Can't create the attachment folder");
             }
-            Path af = java.nio.file.Paths.get(repositoryPath,subDir,filename);
+            Path af = java.nio.file.Paths.get(repositoryPath, subDir, filename);
             int i = 1;
             while (Files.exists(af)) {
                 filename = fName + "(" + i + ")." + fType;
                 i++;
-                af = java.nio.file.Paths.get(repositoryPath,subDir,filename);
+                af = java.nio.file.Paths.get(repositoryPath, subDir, filename);
             }
-            String relPath= subDir+"/"+filename;
+            String relPath = subDir + "/" + filename;
             try {
                 Files.copy(a.getInputStream(), af, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
                 a.getInputStream().close();
@@ -189,5 +201,11 @@ public class BasicFileRepository implements Repository {
         }
         return null;
     }
+
+    @Override
+    protected EntityManager getEntityManager() {
+        return this.em; 
+    }
+    
 
 }

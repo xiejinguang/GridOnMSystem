@@ -4,19 +4,20 @@
  * and open the template in the editor.
  */
 
-package org.gmsys.ejb;
+package org.peasant.util.repositoryimpl;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.gmsys.model.entity.Attachment;
+import org.gmsys.ejb.AbstractFacade;
+import org.peasant.util.repositoryimpl.DBAttachment;
 
 /**
  *
  * @author 谢金光
  */
 @Stateless
-public class AttachmentFacade extends AbstractFacade<Attachment> {
+public class AttachmentFacade extends AbstractFacade<DBAttachment> {
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
 
@@ -26,7 +27,7 @@ public class AttachmentFacade extends AbstractFacade<Attachment> {
     }
 
     public AttachmentFacade() {
-        super(Attachment.class);
+        super(DBAttachment.class);
     }
     
 }

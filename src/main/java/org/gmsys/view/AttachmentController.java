@@ -1,9 +1,9 @@
 package org.gmsys.view;
 
-import org.gmsys.model.entity.Attachment;
+import org.peasant.util.repositoryimpl.DBAttachment;
 import org.gmsys.view.util.JsfUtil;
 import org.gmsys.view.util.JsfUtil.PersistAction;
-import org.gmsys.ejb.AttachmentFacade;
+import org.peasant.util.repositoryimpl.AttachmentFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,18 +24,18 @@ import javax.faces.convert.FacesConverter;
 public class AttachmentController implements Serializable {
 
     @EJB
-    private org.gmsys.ejb.AttachmentFacade ejbFacade;
-    private List<Attachment> items = null;
-    private Attachment selected;
+    private org.peasant.util.repositoryimpl.AttachmentFacade ejbFacade;
+    private List<DBAttachment> items = null;
+    private DBAttachment selected;
 
     public AttachmentController() {
     }
 
-    public Attachment getSelected() {
+    public DBAttachment getSelected() {
         return selected;
     }
 
-    public void setSelected(Attachment selected) {
+    public void setSelected(DBAttachment selected) {
         this.selected = selected;
     }
 
@@ -49,8 +49,8 @@ public class AttachmentController implements Serializable {
         return ejbFacade;
     }
 
-    public Attachment prepareCreate() {
-        selected = new Attachment();
+    public DBAttachment prepareCreate() {
+        selected = new DBAttachment();
         initializeEmbeddableKey();
         return selected;
     }
@@ -74,7 +74,7 @@ public class AttachmentController implements Serializable {
         }
     }
 
-    public List<Attachment> getItems() {
+    public List<DBAttachment> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,19 +109,19 @@ public class AttachmentController implements Serializable {
         }
     }
 
-    public Attachment getAttachment(java.lang.String id) {
+    public DBAttachment getAttachment(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<Attachment> getItemsAvailableSelectMany() {
+    public List<DBAttachment> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Attachment> getItemsAvailableSelectOne() {
+    public List<DBAttachment> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Attachment.class)
+    @FacesConverter(forClass = DBAttachment.class)
     public static class AttachmentControllerConverter implements Converter {
 
         @Override
@@ -151,11 +151,11 @@ public class AttachmentController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Attachment) {
-                Attachment o = (Attachment) object;
+            if (object instanceof DBAttachment) {
+                DBAttachment o = (DBAttachment) object;
                 return getStringKey(o.getAttachmentId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Attachment.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), DBAttachment.class.getName()});
                 return null;
             }
         }

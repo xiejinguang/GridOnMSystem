@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.gmsys.model.entity;
+package org.peasant.util.repositoryimpl;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -24,6 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author 谢金光
  */
 @Entity
+@Table(name = "attachment")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Attachment.findAll", query = "SELECT a FROM Attachment a"),
@@ -34,7 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Attachment.findByUploadTime", query = "SELECT a FROM Attachment a WHERE a.uploadTime = :uploadTime"),
     @NamedQuery(name = "Attachment.findByRelPath", query = "SELECT a FROM Attachment a WHERE a.relPath = :relPath"),
     @NamedQuery(name = "Attachment.findByAttacher", query = "SELECT a FROM Attachment a WHERE a.attacher = :attacher")})
-public class Attachment implements Serializable {
+public class DBAttachment implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -56,14 +58,14 @@ public class Attachment implements Serializable {
     @Size(max = 45)
     private String attacher;
 
-    public Attachment() {
+    public DBAttachment() {
     }
 
-    public Attachment(String attachmentId) {
+    public DBAttachment(String attachmentId) {
         this.attachmentId = attachmentId;
     }
 
-    public Attachment(String attachmentId, String name) {
+    public DBAttachment(String attachmentId, String name) {
         this.attachmentId = attachmentId;
         this.name = name;
     }
@@ -134,10 +136,10 @@ public class Attachment implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Attachment)) {
+        if (!(object instanceof DBAttachment)) {
             return false;
         }
-        Attachment other = (Attachment) object;
+        DBAttachment other = (DBAttachment) object;
         if ((this.attachmentId == null && other.attachmentId != null) || (this.attachmentId != null && !this.attachmentId.equals(other.attachmentId))) {
             return false;
         }
