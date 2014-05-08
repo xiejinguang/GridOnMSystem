@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.peasant.util.repositoryimpl;
 
 import java.io.Serializable;
@@ -37,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Attachment.findByRelPath", query = "SELECT a FROM Attachment a WHERE a.relPath = :relPath"),
     @NamedQuery(name = "Attachment.findByAttacher", query = "SELECT a FROM Attachment a WHERE a.attacher = :attacher")})
 public class DBAttachment implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -57,6 +57,8 @@ public class DBAttachment implements Serializable {
     private String relPath;
     @Size(max = 45)
     private String attacher;
+
+    private int size;
 
     public DBAttachment() {
     }
@@ -126,6 +128,14 @@ public class DBAttachment implements Serializable {
         this.attacher = attacher;
     }
 
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -150,5 +160,5 @@ public class DBAttachment implements Serializable {
     public String toString() {
         return "org.gmsys.view.util.Attachment[ attachmentId=" + attachmentId + " ]";
     }
-    
+
 }

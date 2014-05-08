@@ -70,19 +70,20 @@ public class BasicFileRepository extends GenericFacade<DBAttachment> implements 
         } else if (!homeDir.mkdirs()) {
             throw new RuntimeException("Can't create the Directory specified by homePath argument");
         }
-        repositoryPath = homePath;
-        repoDirectory = homeDir;       
+        this.repositoryPath = homePath;
+        this.repoDirectory = homeDir;
 
     }
 
     @Override
     public Attachment getAttachment(String aId) {
         DBAttachment da = this.find(aId);
-        if(null==da)
+        if (null == da) {
             return null;
-        DefaultAttachment a = (DefaultAttachment)this.createAttachment();
+        }
+        DefaultAttachment a = (DefaultAttachment) this.createAttachment();
     //TODO
-        
+
         return null;
     }
 
@@ -204,8 +205,91 @@ public class BasicFileRepository extends GenericFacade<DBAttachment> implements 
 
     @Override
     protected EntityManager getEntityManager() {
-        return this.em; 
+        return this.em;
     }
     
+    protected static class DBFileAttachment implements Attachment{
+        Repository repo;
+        DBAttachment dba;
+        public DBFileAttachment(DBAttachment a,BasicFileRepository repo){
+            if(null==a)
+                throw new IllegalArgumentException(DBFileAttachment.class.toString()+": this \"Dbattachment a\" argument can't not be null!");
+           this.dba = a;
+        }
+
+        @Override
+        public String getID() {
+            return dba.getAttachmentId();
+        }
+
+        @Override
+        public String getContentType() {
+           return this.dba.getContentType();
+        }
+
+        @Override
+        public String getName() {
+            return this.dba.getName();
+        }
+
+        @Override
+        public String getBelonger() {
+           return this.getBelonger();
+        }
+
+        @Override
+        public Date getUploadTime() {
+            return this.getUploadTime();
+        }
+
+        @Override
+        public void setContentType(String contentType) {
+           this.dba.setContentType(contentType);
+        }
+
+        @Override
+        public void setBelonger(String owner) {
+           this.dba.setBelonger(owner);
+        }
+        @Override
+        public void setUploadTime(Date uploadTime) {
+           this.dba.setUploadTime(uploadTime);
+        }
+
+        @Override
+        public void setName(String name) {
+           this.dba.setName(name);
+        }
+
+        @Override
+        public InputStream getInputStream() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void setInputStream(InputStream is) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public int getSize() {
+          return this.dba.getSize();//TODO
+        }
+
+        @Override
+        public void setSize(int size) {
+           this.dba.setSize(size);
+        }
+
+        @Override
+        public void setAttacher(String attacher) {
+           this.dba.setAttacher(attacher);
+        }
+        @Override
+        public String getAttacher() {
+  return this.dba.getAttacher();
+        }
+        
+    }
 
 }
