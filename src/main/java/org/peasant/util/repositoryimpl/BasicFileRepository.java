@@ -184,11 +184,18 @@ public class BasicFileRepository extends GenericFacade<DBAttachment> implements 
      * @param owner the value of owner
      * @param contentType the value of contentType
      * @param uploadTime the value of uploadTime
-     * @param par4 the value of par4
+     * @param is the value of InputStream
      */
     @Override
     public Attachment createAttachment(String name, String owner, String contentType, Date uploadTime, InputStream is) {
-        return new DefaultAttachment(UUID.randomUUID().toString(), contentType, name, owner, is, uploadTime);
+        DBAttachment dba = new DBAttachment(UUID.randomUUID().toString());
+        DBFileAttachment dbfa = new DBFileAttachment(dba, this);
+        dbfa.setName(name);
+        dbfa.setBelonger(owner);
+        dbfa.setContentType(contentType);
+        dbfa.setUploadTime(uploadTime);
+        dbfa.setInputStream(is);
+        return dbfa;
     }
 
     /**
