@@ -27,14 +27,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "attachment")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Attachment.findAll", query = "SELECT a FROM Attachment a"),
-    @NamedQuery(name = "Attachment.findByAttachmentId", query = "SELECT a FROM Attachment a WHERE a.attachmentId = :attachmentId"),
-    @NamedQuery(name = "Attachment.findByName", query = "SELECT a FROM Attachment a WHERE a.name = :name"),
-    @NamedQuery(name = "Attachment.findByBelonger", query = "SELECT a FROM Attachment a WHERE a.belonger = :belonger"),
-    @NamedQuery(name = "Attachment.findByContentType", query = "SELECT a FROM Attachment a WHERE a.contentType = :contentType"),
-    @NamedQuery(name = "Attachment.findByUploadTime", query = "SELECT a FROM Attachment a WHERE a.uploadTime = :uploadTime"),
-    @NamedQuery(name = "Attachment.findByRelPath", query = "SELECT a FROM Attachment a WHERE a.relPath = :relPath"),
-    @NamedQuery(name = "Attachment.findByAttacher", query = "SELECT a FROM Attachment a WHERE a.attacher = :attacher")})
+    @NamedQuery(name = "DBAttachment.findAll", query = "SELECT a FROM DBAttachment a"),
+    @NamedQuery(name = "DBAttachment.findByAttachmentId", query = "SELECT a FROM DBAttachment a WHERE a.attachmentId = :attachmentId"),
+    @NamedQuery(name = "DBAttachment.findByName", query = "SELECT a FROM DBAttachment a WHERE a.name = :name"),
+    @NamedQuery(name = "DBAttachment.findByBelonger", query = "SELECT a FROM DBAttachment a WHERE a.belonger = :belonger"),
+    @NamedQuery(name = "DBAttachment.findByContentType", query = "SELECT a FROM DBAttachment a WHERE a.contentType = :contentType"),
+    @NamedQuery(name = "DBAttachment.findByUploadTime", query = "SELECT a FROM DBAttachment a WHERE a.uploadTime = :uploadTime"),
+    @NamedQuery(name = "DBAttachment.findByRelPath", query = "SELECT a FROM DBAttachment a WHERE a.relPath = :relPath"),
+    @NamedQuery(name = "DBAttachment.findByAttacher", query = "SELECT a FROM DBAttachment a WHERE a.attacher = :attacher")})
 public class DBAttachment implements Serializable {
 
     private static final long serialVersionUID = 1L;

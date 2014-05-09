@@ -10,9 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,14 +18,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.peasant.util.Attachment;
-import org.peasant.util.DefaultAttachment;
 import org.peasant.util.GenericFacade;
 import org.peasant.util.Repository;
 
@@ -40,9 +35,7 @@ public class BasicFileRepository extends GenericFacade<DBAttachment> implements 
 
     public final static String DEFAULT_ATTACH_DIRECTORY = "attachments";
     public final static String PARAM_ATTACHMENT_HOME_DIRECTORY = "pleasant.util.REPOSITORY_PATH";
-
-    @EJB
-    private org.peasant.util.repositoryimpl.AttachmentFacade ejbFacade;
+    
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
 
@@ -307,12 +300,12 @@ public class BasicFileRepository extends GenericFacade<DBAttachment> implements 
 
         @Override
         public String getBelonger() {
-            return this.getBelonger();
+            return this.dba.getBelonger();
         }
 
         @Override
         public Date getUploadTime() {
-            return this.getUploadTime();
+            return this.dba.getUploadTime();
         }
 
         @Override

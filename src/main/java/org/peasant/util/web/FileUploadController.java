@@ -32,7 +32,7 @@ public class FileUploadController implements Serializable{
     Repository repo;
 
     public String[] getFiles() {
-        return new java.io.File("C:\\Program Files\\glassfish-4.0\\glassfish\\domains\\domain1\\config\\attachments\\2014\\2014-05-03").list();
+        return new java.io.File("C:\\Program Files\\glassfish-4.0\\glassfish\\domains\\domain1\\config\\attachments\\2014\\2014-05-09").list();
     }
 
     public void handleFileUpload(FileUploadEvent fue) {
