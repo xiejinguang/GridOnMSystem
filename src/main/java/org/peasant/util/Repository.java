@@ -6,6 +6,7 @@
 package org.peasant.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
@@ -34,11 +35,11 @@ public interface Repository {
 
     boolean deleteAll();
 
-    InputStream getInputStream(String aId);
+    InputStream getInputStream(String aId) throws IOException;
 
-    List<InputStream> getInputStreams(String owner);
+    List<InputStream> getInputStreams(String owner) throws IOException;
 
-    OutputStream getOutputStream(String aId);
+    OutputStream getOutputStream(String aId) throws IOException;
 
     Attachment createAttachment();
 
@@ -57,10 +58,10 @@ public interface Repository {
      * @param inputStream the value of inputStream
      * @param name the value of name
      * @param contentType the value of contentType
-     * @param uploadTime the value of uploadTime
      * @param owner the value of owner
+     * @param uploadTime the value of uploadTime
      */
-    String storeFromStream(InputStream inputStream, String name, String contentType, String owner, Date uploadTime);
+    Attachment storeFromStream(InputStream inputStream, String name, String contentType, String owner, Date uploadTime) throws IOException;
 
-    String store(Attachment a);
+    Attachment store(Attachment a) throws IOException;
 }

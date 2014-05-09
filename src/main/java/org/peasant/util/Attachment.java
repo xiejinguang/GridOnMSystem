@@ -5,6 +5,7 @@
  */
 package org.peasant.util;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 
@@ -70,9 +71,9 @@ public interface Attachment {
 
     /**
      *
-     * @return
+     * @return a new InputStream that you can read data from it.
      */
-    public InputStream getInputStream();
+    public InputStream getInputStream()throws IOException;
     
     /**
      *
