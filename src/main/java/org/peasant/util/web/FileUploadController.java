@@ -39,8 +39,8 @@ public class FileUploadController implements Serializable{
         UploadedFile uf = fue.getFile();
         String filename = uf.getFileName();
         try {
-            repo.storeFromStream(uf.getInputstream(), filename, uf.getContentType(), uf.getClass().toString(), null);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful","The file:" + filename + " is uploaded!"));
+            repo.storeFromStream(uf.getInputstream(), filename, uf.getContentType(), uf.getClass().toString(), "金光", null);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful", filename + " is uploaded!"));
         } catch (IOException ex) {
             Logger.getLogger(FileUploadController.class.getName()).log(Level.SEVERE, null, ex);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed","The file:" + filename + " is failed for uploading! Exception: " + ex.toString()));

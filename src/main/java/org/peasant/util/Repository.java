@@ -61,7 +61,7 @@ public interface Repository {
      * @param owner the value of owner
      * @param uploadTime the value of uploadTime
      */
-    Attachment storeFromStream(InputStream inputStream, String name, String contentType, String owner, Date uploadTime) throws IOException;
+    Attachment storeFromStream(InputStream inputStream, String name, String contentType, String owner, String attacher, Date uploadTime) throws IOException;
 
     Attachment store(Attachment a) throws IOException;
 }

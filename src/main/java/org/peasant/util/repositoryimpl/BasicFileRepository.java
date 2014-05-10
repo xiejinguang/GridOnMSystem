@@ -200,7 +200,7 @@ public class BasicFileRepository extends GenericFacade<DBAttachment> implements 
      * @param uploadTime the value of uploadTime
      */
     @Override
-    public Attachment storeFromStream(InputStream inputStream, String name, String contentType, String owner, Date uploadTime) throws IOException {
+    public Attachment storeFromStream(InputStream inputStream, String name, String contentType, String owner, String attacher, Date uploadTime) throws IOException {
         Attachment a = createAttachment(name, owner, contentType, uploadTime, inputStream);
         return store(a);
     }
