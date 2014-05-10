@@ -1,31 +1,32 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <head>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico" />
-    
+
         <title>Login</title>
         <link href="styles.css" type="text/css" media="screen" rel="stylesheet" />
         <link href="jquery-ui-1.8.16.custom.css" rel="stylesheet"/>
-        <script src="jquery-1.6.2.min.js"></script>
-        <script src="jquery-ui-1.8.16.custom.min.js"></script>
-        <script type="text/javascript" src="jquery.keyboard.extension-typing.js"></script>
+        <h:outputScript library="js" name="jquery-ui-1.8.16.custom.min.js"/>
+        <h:outputScript library="js" name="jquery.keyboard.extension-typing.js"/>
         <link type="text/css" href="keyboard.css" rel="stylesheet" />
-        <script type="text/javascript" src="jquery.keyboard.js"></script>
-            <script type="text/javascript">
+        <h:outputScript library="js" name="jquery.keyboard.js"/>
+
+        <script type="text/javascript">
             jQuery.noConflict();
         </script>
         <script type="text/javascript">
             jQuery(document).ready(function() {
-                jQuery('#user_password').keyboard({
+                jQuery('#loginform\\:user_password').keyboard({
                     openOn: null,
                     stayOpen: true,
                     layout: 'qwerty'
                 }).addTyping();
-                jQuery('#passwd').click(function() {
-                    jQuery('#user_password').getkeyboard().reveal();
+                jQuery('#loginform\\:passwd').click(function() {
+                    jQuery('##loginform\\:user_password').getkeyboard().reveal();
                 });
 
                 jQuery(".logininput").blur(function() {
@@ -36,7 +37,7 @@
                         jQuery(this).css("border-color", "#D9D6C4");
                 });
 
-                jQuery("#loginbtn").click(function() {
+                jQuery("#loginform\\:loginbtn").click(function() {
                     var k = 0;
                     var ajaxhtml = "";
                     jQuery(".logininput").each(function(i, obj) {
@@ -49,16 +50,16 @@
                     });
                     if (k != 0)
                         return;
-                    ajaxhtml = jQuery("#loginbtn").html();
-                    jQuery("#loginbtn").html("Loading....  <img src='loading.gif' alt='Announcement' /> ");
-                    jQuery("#loginbtn").attr("disabled", "disabled");
+                    ajaxhtml = jQuery("#loginform\\:loginbtn").html();
+                    jQuery("#loginform\\:loginbtn").html("Loading....  <img src='loading.gif' alt='Announcement' /> ");
+                    jQuery("#loginform\\:loginbtn").attr("disabled", "disabled");
 
                 });
             });
             alert("Finally , it works!!");
         </script>
-    </head>
-    <body id="login">
+    </h:head>
+    <h:body id="login">
         <div id="wrappertop">
         </div>
         <div id="wrapper">
@@ -74,19 +75,19 @@
                 </div>
                 <div id="darkbannerwrap">
                 </div>
-                <form name="form1" method="post" action="index.php">
+                <h:form id="loginform">
                     <fieldset class="form">
                         <p>
                             <label class="loginlabel" for="user_name">
                                 用户名:</label>
-                            <input class="logininput ui-keyboard-input ui-widget-content ui-corner-all" name="username"
+                            <p:inputText class="logininput ui-keyboard-input ui-widget-content ui-corner-all"
                                    id="username" type="text" value="" />
                         </p>
                         <p>
                             <label class="loginlabel" for="user_password">
                                 密码:</label>
                             <span>
-                                <input class="logininput"  name="password" id="user_password" type="password" /><img
+                                <p:inputText class="logininput" id="user_password" type="password" /><img
                                     id="passwd" class="tooltip" alt="Click to open the virtual keyboard" title="Click to open the virtual keyboard"
                                     src="keyboard.png" /></span>
                         </p>
@@ -99,7 +100,7 @@
                                     me</label></li>
                         </ul>
                     </fieldset>
-                </form>
+                </h:form>
             </div>
         </div>
         <div id="wrapperbottom_branding">
@@ -107,8 +108,6 @@
                 Language:<a href="#" style='text-decoration: none'>Japanese </a>| <a href="#" style='text-decoration: none'>
                     English</a></div>
         </div>
-
-
-    </body>
+    </h:body>
 </html>
 
