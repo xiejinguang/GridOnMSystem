@@ -42,6 +42,18 @@
  
  
     <!-- for shiro security framework-->
+
+    <context-param><!--this is not necessary,if you uing the default:IniWebEnvironment-->
+        <param-name>shiroEnvironmentClass</param-name>
+        <param-value>org.apache.shiro.web.env.IniWebEnvironment</param-value>
+    </context-param>
+    <context-param>
+        <!--this is not necessary,if you uing the default location:/WEB-INI/shiro.ini,
+        You may also specify other non-ServletContext resource locations by using classpath:, url:, or file: 
+-->
+        <param-name>shiroConfigLocations</param-name>
+        <param-value>/WEB-INI/shiro.ini</param-value>
+    </context-param>
     <listener>
         <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
     </listener>
