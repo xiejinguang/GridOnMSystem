@@ -8,13 +8,14 @@
     </h:head>
     <h:body style=" background-color:  #0066ff;" >
         <center>
-            <h:form >
+            <h:form id="login" prependId="false" >
                 <p:panelGrid columns="2">
                     <p:outputLabel value="#{uiBundle.username}"  for="password"/>
                     <p:inputText id="username" />
                     <p:outputLabel value="#{uiBundle.password}"  for="password"/>
-                    <p:inputText id="password" />
+                    <p:inputText id="password"/>
                 </p:panelGrid>
+                <p:selectBooleanCheckbox id="rememberMe" itemLabel="#{uiBundle.rememberMe}"/><p:commandButton  value="登录"  ajax="false"/>
             </h:form>
         </center>
     </h:body>

@@ -13,7 +13,15 @@
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
+        
     </application>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/security/login.jsf</to-view-id>
+        </navigation-case>
+    </navigation-rule>
     <managed-bean>
         <managed-bean-name>fileUploadClr</managed-bean-name>
         <managed-bean-class>org.peasant.util.web.FileUploadClr</managed-bean-class>

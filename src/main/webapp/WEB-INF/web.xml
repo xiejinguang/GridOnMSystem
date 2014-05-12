@@ -12,10 +12,6 @@
         <param-name>primefaces.UPLOADER</param-name>
         <param-value>native</param-value>
     </context-param>
-    
-    
-    
-    
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
         <filter-class>org.peasant.util.web.CharacterEncodingFilter</filter-class>
@@ -24,13 +20,6 @@
         <filter-name>CharacterEncodingFilter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
-    
-    
-  
-
-
-    
-    
     <filter>
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
@@ -39,11 +28,9 @@
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
- 
- 
     <!-- for shiro security framework-->
-
-    <context-param><!--this is not necessary,if you uing the default:IniWebEnvironment-->
+    <context-param>
+        <!--this is not necessary,if you uing the default:IniWebEnvironment-->
         <param-name>shiroEnvironmentClass</param-name>
         <param-value>org.apache.shiro.web.env.IniWebEnvironment</param-value>
     </context-param>
@@ -52,7 +39,7 @@
         You may also specify other non-ServletContext resource locations by using classpath:, url:, or file: 
 -->
         <param-name>shiroConfigLocations</param-name>
-        <param-value>/WEB-INI/shiro.ini</param-value>
+        <param-value>/WEB-INF/shiro.ini</param-value>
     </context-param>
     <listener>
         <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
@@ -61,7 +48,6 @@
         <filter-name>ShiroFilter</filter-name>
         <filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
     </filter>
-
     <filter-mapping>
         <filter-name>ShiroFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -71,7 +57,6 @@
         <dispatcher>ERROR</dispatcher>
     </filter-mapping>
     <!-- for shiro security framework-->
-
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -83,7 +68,7 @@
     </servlet-mapping>
     <session-config>
         <session-timeout>
-            30
+            10
         </session-timeout>
     </session-config>
     <welcome-file-list>
