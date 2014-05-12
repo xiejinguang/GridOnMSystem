@@ -10,7 +10,7 @@
 
         <title>Login</title>
         <link href="styles.css" type="text/css" media="screen" rel="stylesheet" />
-        <link href="jquery-ui-1.8.16.custom.css" rel="stylesheet"/>
+        <link  type="text/css"  href="jquery-ui-1.8.16.custom.css" rel="stylesheet"/>
         <link type="text/css" href="keyboard.css" rel="stylesheet" />
         <h:outputScript library="js" name="jquery-ui-1.8.16.custom.min.js"/>
         <h:outputScript library="js" name="jquery.keyboard.extension-typing.js"/>
@@ -86,12 +86,12 @@
                         <p>
                             <label class="loginlabel" for="password"> 密码:</label>
                             <span>
-                                
+
                                 <p:password styleClass="logininput" id="password" /><img
                                     id="passwd" class="tooltip" alt="Click to open the virtual keyboard" title="Click to open the virtual keyboard"
                                     src="keyboard.png" /></span>
                         </p>                
-                        <p:commandButton id="loginbtn" icon="key.png"  ajax="false"  alt="Announcement" value="登录"/>
+                        <p:commandButton id="loginbtn" icon="loginIcon"  ajax="false"  alt="Announcement" value="登录"/>
                         <ul id="forgottenpassword">
                             <li class="boldtext">|</li>
                             <li><p:selectBooleanCheckbox id="rememberMe" itemLabel="记住我"/></li>

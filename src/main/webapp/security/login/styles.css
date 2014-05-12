@@ -1216,6 +1216,8 @@ line-height:15px;
 color:white;
 background-color: #5e5d5d;
 }
-
+.loginIcon{
+    background-image: url('key.png');
+}
 #passwd{margin-left:1px;}
 
