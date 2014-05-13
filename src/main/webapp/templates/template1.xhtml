@@ -29,13 +29,38 @@
 
         <p:growl  id="growl" autoUpdate="true" widgetVar="growl" showDetail="true" sticky="true"/>
         <p:messages autoUpdate="true" showDetail="true" closable="true" id="messages"  />
+
         <p:layout fullPage="true" stateful="true">
-            <p:layoutUnit id="north" position="north" size="70" gutter="10"  >
-                <p:outputLabel style="font-size: larger ">Grid Operation And Management System</p:outputLabel>
+            <p:layoutUnit id="north" position="north" size="70" gutter="10"   >
+                <h:form prependId="false" >
+                    <p:dock position="top" halign="right" proximity="30" maxWidth="30" >
+                        <p:menuitem  icon="/images/stack/music.png"  value="Music" />
+                        <p:menuitem  icon="/images/stack/video.png"  value="Video" />
+                        <p:menuitem  icon="/images/stack/home.png"  value="Home" />
+                        <p:menuitem  icon="/images/stack/link.png"  value="Link" />
+                        <p:menuitem  icon="/images/stack/rss.png"  value="RSS" />
+                        <p:menuitem  icon="/images/stack/history.png"  value="History" />
+                    </p:dock>
+                </h:form> 
+                <h:panelGroup style=" position: absolute;top: 10px;left: 10px; ">
+                    <p:graphicImage  width="50px" height="50px" library="design" name="logo.jpg"/>
+                    <h:outputLabel  style="font-weight: bolder; font-size:xx-large ; "  value="Grid Operation And Management System" /> 
+                </h:panelGroup>
+
             </p:layoutUnit>
             <p:layoutUnit id="south" position="south" size="100" header="south" resizable="true">
+                <h:form prependId="false" >
+                    <p:dock position="bottom" halign="right" proximity="30" maxWidth="30" >
+                        <p:menuitem  icon="/images/stack/music.png"  value="Music" />
+                        <p:menuitem  icon="/images/stack/video.png"  value="Video" />
+                        <p:menuitem  icon="/images/stack/home.png"  value="Home" />
+                        <p:menuitem  icon="/images/stack/link.png"  value="Link" />
+                        <p:menuitem  icon="/images/stack/rss.png"  value="RSS" />
+                        <p:menuitem  icon="/images/stack/history.png"  value="History" />
+                    </p:dock>
+                </h:form>  
             </p:layoutUnit>
-            <p:layoutUnit id="west" position="west" size="200" header="west" collapsible="true" resizable="true" >
+            <p:layoutUnit id="west" position="west" size="200" header="west" collapsible="true" resizable="true">
                 <p:accordionPanel multiple="true">
                     <p:tab title="基站信息系统">
 
@@ -52,15 +77,8 @@
                 </p:accordionPanel>
             </p:layoutUnit>
             <p:layoutUnit id="center" position="center" minSize="800" resizable="true">
-                <p:tabView id="mainTabView" dynamic="false" scrollable="true">
+                <p:tabView id="mainTabView" dynamic="false" scrollable="true" effect="clip">
                     <p:tab  title="test">
-                        <h:form>
-                            <p:fileUpload fileUploadListener="#{newFileUploader.handleFileUpload}" mode="advanced" multiple="true"/>
-                        </h:form>
-                        <h:form>
-                            <p:fileUpload fileUploadListener="#{fileUploadController.handleFileUpload}" mode="advanced" multiple="true"/>
-                        </h:form>
-                        <ui:insert name="body"/>
                     </p:tab>
                 </p:tabView>
             </p:layoutUnit>
