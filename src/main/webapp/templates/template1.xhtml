@@ -48,19 +48,9 @@
                 </h:panelGroup>
 
             </p:layoutUnit>
-            <p:layoutUnit id="south" position="south" size="100" header="south" resizable="true">
-                <h:form prependId="false" >
-                    <p:dock position="bottom" halign="right" proximity="30" maxWidth="30" >
-                        <p:menuitem  icon="/images/stack/music.png"  value="Music" />
-                        <p:menuitem  icon="/images/stack/video.png"  value="Video" />
-                        <p:menuitem  icon="/images/stack/home.png"  value="Home" />
-                        <p:menuitem  icon="/images/stack/link.png"  value="Link" />
-                        <p:menuitem  icon="/images/stack/rss.png"  value="RSS" />
-                        <p:menuitem  icon="/images/stack/history.png"  value="History" />
-                    </p:dock>
-                </h:form>  
-            </p:layoutUnit>
-            <p:layoutUnit id="west" position="west" size="200" header="west" collapsible="true" resizable="true">
+ 
+             
+                <p:layoutUnit id="west" position="west" size="200" header="west" collapsible="true" resizable="true">
                 <p:accordionPanel multiple="true">
                     <p:tab title="基站信息系统">
 
@@ -76,13 +66,24 @@
                     </p:tab>
                 </p:accordionPanel>
             </p:layoutUnit>
-            <p:layoutUnit id="center" position="center" minSize="800" resizable="true">
-                <p:tabView id="mainTabView" dynamic="false" scrollable="true" effect="clip">
-                    <p:tab  title="test">
+            <p:layoutUnit id="center" position="center" minSize="800" resizable="true" >
+                <p:tabView id="mainTabView" dynamic="true" scrollable="true" effect="clip"  >
+                    <p:tab  title="test"  closable="true">
+                        <iframe src="#{request.contextPath}/index.jsf"  frameborder="0"   scrolling="auto" marginheight="0" marginwidth="0" height="500" width="100%"/>
                     </p:tab>
                 </p:tabView>
             </p:layoutUnit>
         </p:layout>
+           <h:form prependId="false" >
+                    <p:dock position="bottom" halign="left" proximity="30" maxWidth="30" >
+                        <p:menuitem  icon="/images/stack/music.png"  value="Music" />
+                        <p:menuitem  icon="/images/stack/video.png"  value="Video" />
+                        <p:menuitem  icon="/images/stack/home.png"  value="Home" />
+                        <p:menuitem  icon="/images/stack/link.png"  value="Link" />
+                        <p:menuitem  icon="/images/stack/rss.png"  value="RSS" />
+                        <p:menuitem  icon="/images/stack/history.png"  value="History" />
+                    </p:dock>
+                </h:form>  
 
 
     </h:body>
