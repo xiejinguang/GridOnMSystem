@@ -40,6 +40,7 @@
                         <p:menuitem  icon="/images/stack/link.png"  value="Link" />
                         <p:menuitem  icon="/images/stack/rss.png"  value="RSS" />
                         <p:menuitem  icon="/images/stack/history.png"  value="History" />
+                        <p:menuitem  icon="/images/logout.jpg"  value="Logout" url="/security/logout" />
                     </p:dock>
                 </h:form> 
                 <h:panelGroup style=" position: absolute;top: 10px;left: 10px; ">
@@ -53,7 +54,6 @@
                 <p:layoutUnit id="west" position="west" size="200" header="west" collapsible="true" resizable="true">
                 <p:accordionPanel multiple="true">
                     <p:tab title="基站信息系统">
-
                     </p:tab>
                     <p:tab title="三表一档案">
 
@@ -67,9 +67,9 @@
                 </p:accordionPanel>
             </p:layoutUnit>
             <p:layoutUnit id="center" position="center" minSize="800" resizable="true" >
-                <p:tabView id="mainTabView" dynamic="true" scrollable="true" effect="clip"  >
+                <p:tabView id="mainTabView" dynamic="true" scrollable="true" effect="clip" cache="true">
                     <p:tab  title="test"  closable="true">
-                        <iframe src="#{request.contextPath}/index.jsf"  frameborder="0"   scrolling="auto" marginheight="0" marginwidth="0" height="500" width="100%"/>
+                        <iframe id="testFrame" src="#{request.contextPath}/ui/gridInfo/List.jsf"  frameborder="0"  scrolling="no" marginheight="0" marginwidth="0"  width="100%"  onload=" this.height = $(this).contents().find('body').height()+30;"/>
                     </p:tab>
                 </p:tabView>
             </p:layoutUnit>
