@@ -1,10 +1,5 @@
 package org.gmsys.view;
 
-import org.gmsys.model.entity.GridInfo;
-import org.gmsys.view.util.JsfUtil;
-import org.gmsys.view.util.JsfUtil.PersistAction;
-import org.gmsys.ejb.GridInfoFacade;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -12,13 +7,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Produces;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import org.primefaces.context.PrimeFacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
+import org.gmsys.ejb.GridInfoFacade;
+import org.gmsys.model.entity.GridInfo;
+import org.gmsys.view.util.JsfUtil;
+import org.gmsys.view.util.JsfUtil.PersistAction;
 
 @Named("gridInfoController")
 @SessionScoped
@@ -28,6 +29,28 @@ public class GridInfoController implements Serializable {
     private org.gmsys.ejb.GridInfoFacade ejbFacade;
     private List<GridInfo> items = null;
     private GridInfo selected;
+
+    @Inject
+    private GridInfo editingInstance;    //by me
+    private boolean isEditing;//by me
+//by me
+    public boolean isEditing() {
+        return isEditing;
+    }
+
+//by me
+    public GridInfo getEditingInstance() {
+        return editingInstance;
+    }
+//by me
+    public void setEditingInstance(GridInfo editingInstance) {
+        this.editingInstance = editingInstance;
+    }
+    
+    public GridInfo prepareEdit(){
+        this.isEditing = true;
+        return this.editingInstance;
+    }
 
     public GridInfoController() {
     }
@@ -55,13 +78,23 @@ public class GridInfoController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    @Produces @ConversationScoped
+    public GridInfo produceEditing() {
+        String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("editingID");        
+        if(null == id || id.isEmpty())
+            return this.selected; 
+        for(GridInfo gi :this.items){
+            if(gi.getGridId().equals(id))
+                return gi;
+        }
+        return this.getGridInfo(id);
+    }
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("GridInfoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
-        }       
-
+        }
     }
 
     public void update() {
@@ -87,9 +120,12 @@ public class GridInfoController implements Serializable {
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if (persistAction != PersistAction.DELETE) {
+                if (persistAction == PersistAction.CREATE) {
                     getFacade().edit(selected);
-                } else {
+                }else if(persistAction == PersistAction.UPDATE){//by me 
+                    getFacade().edit(editingInstance);//by me 
+                }
+                else {
                     getFacade().remove(selected);
                 }
                 JsfUtil.addSuccessMessage(successMessage);

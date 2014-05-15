@@ -18,7 +18,7 @@
     <!-- IMPLEMENTATION -->
     <cc:implementation>
         <div id="#{cc.id}">
-            <p:outputLabel value="数量:#{cc.attrs.value.size()}个"/>         
+            <p:outputLabel value="数量:#{cc.attrs.value.size()}个"/>       
             
             <p:commandButton value="附件"   onclick="uploadfileDlg.show()"/>
             <p:dialog  minHeight="450" minWidth="600" appendTo="@(body)" id="uploadfileDlg" widgetVar="uploadfileDlg" header="上传附件" dynamic="true">

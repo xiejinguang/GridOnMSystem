@@ -13,7 +13,7 @@
 
     <h:body>
 
-        <p:growl id="growl" life="3000" />
+        <p:growl id="growl" life="3000" autoUpdate="true" />
         <h:form id="menuForm">
                <!-- <p:menuitem value="#{bundle.Home}" outcome="/index.jsf" icon="ui-icon-home"/>
                  <p:submenu label="#{bundle.Maintenance}">
@@ -26,7 +26,6 @@
             <p:menubar>
                 <p:menuitem value="#{bundle.Home}" outcome="/index.jsf" icon="ui-icon-home"/>
                 <p:submenu label="#{bundle.Maintenance}">
-                    <p:menuitem value="Attachment" outcome="/ui/attachment/List.xhtml" />
                     <p:menuitem value="GridInfo" outcome="/ui/gridInfo/List.xhtml" />
                     <p:menuitem value="RoomSpotInfo" outcome="/ui/roomSpotInfo/List.xhtml" />
                     <p:menuitem value="StationDetail" outcome="/ui/stationDetail/List.xhtml" />

@@ -18,7 +18,7 @@
 
         <ui:define name="body">
             <h:form id="GridInfoListForm">
-                <p:panel header="#{bundle.ListGridInfoTitle}">
+                <p:panel header="#{bundle.ListGridInfoTitle}" >
                     <p:dataTable id="datalist" value="#{gridInfoController.items}" var="item"
                                  selectionMode="single" selection="#{gridInfoController.selected}"
                                  rowKey="#{item.gridId}"
@@ -55,7 +55,7 @@
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{gridInfoController.prepareCreate}" update="@form:@parent:GridInfoCreateForm" oncomplete="PF('GridInfoCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update="@form:@parent:GridInfoViewForm" oncomplete="PF('GridInfoViewDialog').show()" disabled="#{empty gridInfoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update="@form:@parent:GridInfoEditForm" oncomplete="PF('GridInfoEditDialog').show()" disabled="#{empty gridInfoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{gridInfoController.prepareEdit}" update="@form:@parent:GridInfoEditForm" oncomplete="PF('GridInfoEditDialog').show()" disabled="#{empty gridInfoController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{gridInfoController.destroy}" update=":growl,datalist" disabled="#{empty gridInfoController.selected}"/>
                         </f:facet>
                     </p:dataTable>
