@@ -13,8 +13,8 @@
 
         <p:dialog id="GridInfoEditDlg" widgetVar="GridInfoEditDialog" modal="true" dynamic="true"
                   minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
-                  header="#{bundle.EditGridInfoTitle}" rendered="${gridInfoController.editing}">
-            <h:form id="GridInfoEditForm">
+                  header="#{bundle.EditGridInfoTitle}">
+            <h:form id="GridInfoEditForm" rendered="${gridInfoController.editing}">
                 <input type="hidden" id="editingID" name="editingID" value="${gridInfoController.editingInstance.gridId}" />
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2"  >
