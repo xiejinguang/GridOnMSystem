@@ -150,6 +150,10 @@ public class ${controllerClassName} implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    public List<${entityClassName}> prepareSearch(){
+        this.items=null;
+        
+}
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("${bundle}").getString("${entityClassName}Created"));
@@ -174,6 +178,7 @@ public class ${controllerClassName} implements Serializable {
         if (items == null) {
 <#if ejbClassName??>
             items = getFacade().findAll();
+
 <#elseif jpaControllerClassName??>
             items = getJpaController().find${entityClassName}Entities();
 </#if>
