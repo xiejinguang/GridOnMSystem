@@ -34,7 +34,7 @@ import org.peasant.util.Repository;
 public class BasicFileRepository extends GenericFacade<DBAttachment> implements Repository {
 
     public final static String DEFAULT_ATTACH_DIRECTORY = "attachments";
-    public final static String PARAM_ATTACHMENT_HOME_DIRECTORY = "pleasant.util.REPOSITORY_PATH";
+
     
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;

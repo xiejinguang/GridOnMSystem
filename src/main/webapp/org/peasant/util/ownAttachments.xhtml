@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <f:loadBundle var="i18nBundle" basename="/org/peasant/util/i18n"/>
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="owner" value="#{attachmentController.owner}"/>
+        </f:metadata>
+        <h:form prependId="false">
+            <p:fileUpload fileUploadListener="#{attachmentController.handleFileUpload}" update="AttachsForm"/>
+        </h:form>
+        <h:form id="AttachsForm">            
+            <p:dataTable id="datalist" value="#{attachmentController.getAttachments(owner)}" var="item"
+                         selectionMode="single" selection="#{attachmentController.selected}"
+                         rowKey="#{item.ID}"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         paginator="true" paginatorPosition="bottom"
+                         rows="10" lazy="true" 
+                         draggableColumns="true" resizableColumns="true" 
+                         scrollable="true"   liveResize="true" liveScroll="true"
+                         sortMode="multiple"
+                         editable="true"                               
+                         >
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+
+                <f:facet name="header">#{i18nBundle.ListAttachmentTitle} </f:facet>
+
+                <p:column headerText="#{i18nBundle.ListAttachmentTitle_Id}">
+                    <h:outputText value="#{item.ID}"/>
+                </p:column>
+                <p:column headerText="#{i18nBundle.ListAttachmentTitle_Name}">
+                    <h:outputText value="#{item.name}"/>
+                </p:column>
+                <p:column headerText="#{i18nBundle.ListAttachmentTitle_Belonger}">
+                    <h:outputText value="#{item.belonger}"/>
+                </p:column>
+                <p:column headerText="#{i18nBundle.ListAttachmentTitle_Type}">
+                    <h:outputText value="#{item.contentType}"/>
+                </p:column>
+                <p:column headerText="#{i18nBundle.ListAttachmentTitle_Size}">
+                    <h:outputText value="#{item.size}"/>
+                </p:column>
+                <p:column headerText="#{i18nBundle.ListAttachmentTitle_Attacher}">
+                    <h:outputText value="#{item.attacher}"/>
+                </p:column>
+                <p:column headerText="#{i18nBundle.ListAttachmentTitle_UploadTime}">
+                    <h:outputText value="#{item.uploadTime}"/>
+                </p:column>
+                <p:column headerText="#{i18nBundle.ListAttachmentTitle_Download}">
+                    <p:fileDownload contentDisposition="attachment" value="#{attachmentController.getStreamContent(item)}"/>
+                </p:column>        
+            </p:dataTable>
+
+        </h:form>
+
+    </h:body>
+</html>
+
