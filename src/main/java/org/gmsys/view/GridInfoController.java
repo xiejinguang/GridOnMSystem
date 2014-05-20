@@ -1,10 +1,13 @@
 package org.gmsys.view;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.enterprise.context.ConversationScoped;
@@ -29,6 +32,20 @@ public class GridInfoController implements Serializable {
     private org.gmsys.ejb.GridInfoFacade ejbFacade;
     private List<GridInfo> items = null;
     private GridInfo selected;
+    private Map<String,Object> searchCons;
+    
+    @PostConstruct
+    public void init(){
+        searchCons = new HashMap();
+    }
+
+    public Map<String, Object> getSearchCons() {
+        return searchCons;
+    }
+
+    public void setSearchCons(Map<String, Object> searchCons) {
+        this.searchCons = searchCons;
+    }
 
     @Inject
     private GridInfo editingInstance;    //by me
@@ -50,6 +67,10 @@ public class GridInfoController implements Serializable {
     public GridInfo prepareEdit(){
         this.isEditing = true;
         return this.editingInstance;
+    }
+    
+    public void prepareSearch(){
+        this.items =null;
     }
 
     public GridInfoController() {

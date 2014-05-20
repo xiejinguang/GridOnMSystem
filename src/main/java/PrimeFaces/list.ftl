@@ -67,7 +67,7 @@
                             <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
                             <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
                             <f:facet name="header">
-                                <p:commandButton id="createButton" icon="ui-icon-search"   value="${r"#{"}${bundle}.Search${r"}"}" actionListener="${r"#{"}${managedBean}.prepareSearch${r"}"}" update="@form:@parent:${entityName}CreateForm" />
+                                <p:commandButton id="searchButton" icon="ui-icon-search"   value="${r"#{"}${bundle}.Search${r"}"}" actionListener="${r"#{"}${managedBean}.prepareSearch${r"}"}" update="datalist" />
                                 <p:commandButton id="createButton" icon="ui-icon-plus"   value="${r"#{"}${bundle}.Create${r"}"}" actionListener="${r"#{"}${managedBean}.prepareCreate${r"}"}" update="@form:@parent:${entityName}CreateForm" oncomplete="PF('${entityName}CreateDialog').show()"/>
                                 <p:commandButton id="viewButton"   icon="ui-icon-search" value="${r"#{"}${bundle}.View${r"}"}" update="@form:@parent:${entityName}ViewForm" oncomplete="PF('${entityName}ViewDialog').show()" disabled="${r"#{"}empty ${managedBean}.selected${r"}"}"/>
                                 <p:commandButton id="editButton"   icon="ui-icon-pencil" value="${r"#{"}${bundle}.Edit${r"}"}" update="@form:@parent:${entityName}EditForm" oncomplete="PF('${entityName}EditDialog').show()" disabled="${r"#{"}empty ${managedBean}.selected${r"}"}"/>
