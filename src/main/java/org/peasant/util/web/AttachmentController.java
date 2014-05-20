@@ -8,13 +8,20 @@ package org.peasant.util.web;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import org.peasant.util.Attachment;
 import org.peasant.util.Repository;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -24,41 +31,56 @@ import org.primefaces.model.StreamedContent;
 @ViewScoped
 public class AttachmentController implements Serializable {
 
-    public final static String PARAM_ATTACHMENT_HOME_DIRECTORY = "pleasant.util.web.REPOSITORY_PATH";
-    @EJB
+    @Inject
     Repository attachRepo;
+    
+    String owner ;
+    Attachment selected;
 
-    private List<Attachment> items;
-
-    /**
-     * Get the value of items
-     *
-     * @return the value of items
-     */
-    public List<Attachment> getItems() {
-        return items;
+    public Attachment getSelected() {
+        return selected;
     }
 
-    /**
-     * Set the value of items
-     *
-     * @param items new value of items
-     */
-    public void setItems(List<Attachment> items) {
-        this.items = items;
+    public void setSelected(Attachment selected) {
+        this.selected = selected;
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+    
     /**
      * Creates a new instance of AttachmentBean
      */
     public AttachmentController() {
     }
 
+    public List<Attachment> getAllAttachments() {
+        return attachRepo.getAllAttachments();
+    }
+
     public List<Attachment> getAttachments(String owner) {
-        return null;//TODO
+        return attachRepo.getAttachmentsByOwner(owner);
     }
 
     public StreamedContent getStreamContent(Attachment a) throws IOException {
         return new DefaultStreamedContent(a.getInputStream(), a.getContentType(), a.getContentType());
+    }
+
+    public void handleFileUpload(FileUploadEvent fue) {
+        UploadedFile uf = fue.getFile();
+        String filename = uf.getFileName();
+        String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+        try {
+            attachRepo.storeFromStream(uf.getInputstream(), filename, uf.getContentType(), uf.getClass().toString(), user, null);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful", filename + " is uploaded!"));
+        } catch (IOException ex) {
+            Logger.getLogger(FileUploadController.class.getName()).log(Level.SEVERE, null, ex);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed", "The file:" + filename + " is failed for uploading! Exception: " + ex.toString()));
+        }
     }
 }

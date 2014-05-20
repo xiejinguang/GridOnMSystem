@@ -11,18 +11,14 @@
     </h:head>
     <h:body>
         <f:metadata>
-            <f:viewParam name="owner" />
-
+            <f:viewParam name="owner" value="#{attachmentController.owner}"/>
         </f:metadata>
-        <h:form>
-            <p:fileUpload fileUploadListener="#{fileUploadController.handleFileUpload}" update=""/>
-            <p:dataTable value="#{attachmentBean.getAttachments(param['owner'])}" var="attach" paginator="true" paginatorPosition="top" rows="10" rowsPerPageTemplate="10,15,20,30" >
-                <f:facet name="header" >${i18nBundle.Attachment_List}</f:facet>
-            </p:dataTable>
+        <h:form prependId="false">
+            <p:fileUpload fileUploadListener="#{attachmentController.handleFileUpload}" update="AttachsForm"/>
         </h:form>
-        <h:form>            
-            <p:dataTable id="datalist" value="#{attachmentBean.items}" var="item"
-                         selectionMode="single" selection="#{gridInfoController.selected}"
+        <h:form id="AttachsForm">            
+            <p:dataTable id="datalist" value="#{attachmentController.getAttachments(owner)}" var="item"
+                         selectionMode="single" selection="#{attachmentController.selected}"
                          rowKey="#{item.ID}"
                          rowsPerPageTemplate="10,20,30,40,50"
                          paginator="true" paginatorPosition="bottom"
@@ -59,7 +55,7 @@
                     <h:outputText value="#{item.uploadTime}"/>
                 </p:column>
                 <p:column headerText="#{i18nBundle.ListAttachmentTitle_Download}">
-                    <p:fileDownload contentDisposition="attachment" value="#{attachmentBean.getStreamContent(item)}"/>
+                    <p:fileDownload contentDisposition="attachment" value="#{attachmentController.getStreamContent(item)}"/>
                 </p:column>        
             </p:dataTable>
 
