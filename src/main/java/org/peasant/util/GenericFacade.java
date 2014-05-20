@@ -67,15 +67,16 @@ public abstract class GenericFacade<T> {
     }
 
     public List<T> findSome(Map<String, Object> params) {
-        CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
         Root<T> root = cq.from(entityClass);
+        cq.select(root);
         Expression cons = null;
         Expression subExp = null;
-
         for (String field : params.keySet()) {
 
-            subExp = root.get(field);
+            subExp = root.get(field);           
             Object value = params.get(field);
             if (value instanceof String) {
                 subExp = cb.like(subExp, (String) params.get(field));
