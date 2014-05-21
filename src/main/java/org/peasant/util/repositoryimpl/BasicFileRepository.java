@@ -97,7 +97,7 @@ public class BasicFileRepository extends GenericFacade<DBAttachment> implements 
     public List<Attachment> getAttachmentsByOwner(String owner) {
         Map params = new HashMap();
         params.put("belonger", owner);
-        List<DBAttachment> dbAs = this.findSome(new HashMap());
+        List<DBAttachment> dbAs = this.findByConditions(new HashMap());
         List<Attachment> as = new LinkedList<Attachment>();
         for (DBAttachment da : dbAs) {
             as.add(new DBFileAttachment(da, this));

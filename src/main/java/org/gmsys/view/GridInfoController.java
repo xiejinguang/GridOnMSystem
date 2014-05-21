@@ -106,7 +106,7 @@ public class GridInfoController implements Serializable {
     }
     
        public List<GridInfo> searchItems() {
-        items = getFacade().findSome(searchCons);
+        items = getFacade().findByConditions(searchCons);
         return items;
     }
 

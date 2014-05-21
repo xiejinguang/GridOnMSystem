@@ -68,7 +68,7 @@ public abstract class GenericFacade<T> {
         return ((Long) q.getSingleResult()).intValue();
     }
 
-    public List<T> findSome(Map<String, Object> params) {
+    public List<T> findByConditions(Map<String, Object> params) {
 
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
@@ -84,13 +84,18 @@ public abstract class GenericFacade<T> {
                 if (((String) value).trim().isEmpty()) {
                     continue;
                 }
-                subExp = cb.like(subExp, "%"+((String)value).trim()+"%");
+                subExp = cb.like(subExp, "%" + ((String) value).trim() + "%");
             } else if (value instanceof java.util.Collection) {
                 subExp = subExp.in((java.util.Collection) value);
             } else if (value.getClass().isArray()) {
-                Object[] vs = (Object[]) value;
+                Array.get(value, 0);
+                if (Array.getLength(value) < 3) {
+                    if (Array.get(value, 0) instanceof Comparable) {
+                        Comparable[] vs = (Comparable[]) value;
+                        cb.between((Expression<Comparable>) subExp, vs[0], vs[1]);
+                    }
+                }
 
-                subExp = cb.<Date>between((Expression<Date>)subExp, vs[0], vs[1]);//todo
             } else {
                 subExp = cb.equal(subExp, value);
             }
