@@ -13,6 +13,7 @@ import javax.ejb.EJBException;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -47,30 +48,10 @@ public class GridInfoController implements Serializable {
         this.searchCons = searchCons;
     }
 
-    @Inject
-    private GridInfo editingInstance;    //by me
-    private boolean isEditing;//by me
-//by me
-    public boolean isEditing() {
-        return isEditing;
-    }
-
-//by me
-    public GridInfo getEditingInstance() {
-        return editingInstance;
-    }
-//by me
-    public void setEditingInstance(GridInfo editingInstance) {
-        this.editingInstance = editingInstance;
-    }
-    
-    public GridInfo prepareEdit(){
-        this.isEditing = true;
-        return this.editingInstance;
-    }
-    
+   
     public void prepareSearch(){
         this.items =null;
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, this.searchCons.toString(), null));
     }
 
     public GridInfoController() {
@@ -99,18 +80,6 @@ public class GridInfoController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-    @Produces @ConversationScoped
-    public GridInfo produceEditing() {
-        String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("editingID");        
-        if(null == id || id.isEmpty())
-            return this.selected; 
-        for(GridInfo gi :this.items){
-            if(gi.getGridId().equals(id))
-                return gi;
-        }
-        return this.getGridInfo(id);
-    }
-
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("GridInfoCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -129,11 +98,20 @@ public class GridInfoController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
+    
+    
+    public List<GridInfo> allItems() {
+        items = getFacade().findAll();
+        return items;
+    }
+    
+       public List<GridInfo> searchItems() {
+        items = getFacade().findSome(searchCons);
+        return items;
+    }
 
     public List<GridInfo> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
+
         return items;
     }
 
@@ -144,7 +122,7 @@ public class GridInfoController implements Serializable {
                 if (persistAction == PersistAction.CREATE) {
                     getFacade().edit(selected);
                 }else if(persistAction == PersistAction.UPDATE){//by me 
-                    getFacade().edit(editingInstance);//by me 
+                    getFacade().edit(selected);//by me 
                 }
                 else {
                     getFacade().remove(selected);

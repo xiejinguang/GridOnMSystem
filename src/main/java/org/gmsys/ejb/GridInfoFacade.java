@@ -10,13 +10,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.gmsys.model.entity.GridInfo;
+import org.peasant.util.GenericFacade;
 
 /**
  *
  * @author 谢金光
  */
 @Stateless
-public class GridInfoFacade extends AbstractFacade<GridInfo> {
+public class GridInfoFacade extends GenericFacade<GridInfo> {
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
 

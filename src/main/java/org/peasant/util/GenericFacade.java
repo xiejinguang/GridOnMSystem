@@ -5,6 +5,8 @@
  */
 package org.peasant.util;
 
+import java.lang.reflect.Array;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
@@ -67,7 +69,7 @@ public abstract class GenericFacade<T> {
     }
 
     public List<T> findSome(Map<String, Object> params) {
-        
+
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
         Root<T> root = cq.from(entityClass);
@@ -76,20 +78,28 @@ public abstract class GenericFacade<T> {
         Expression subExp = null;
         for (String field : params.keySet()) {
 
-            subExp = root.get(field);           
+            subExp = root.get(field);
             Object value = params.get(field);
             if (value instanceof String) {
-                subExp = cb.like(subExp, (String) params.get(field));
+                if (((String) value).trim().isEmpty()) {
+                    continue;
+                }
+                subExp = cb.like(subExp, "%"+((String)value).trim()+"%");
             } else if (value instanceof java.util.Collection) {
                 subExp = subExp.in((java.util.Collection) value);
-            } else if (value instanceof java.util.Date) {
-                subExp = null;//todo
+            } else if (value.getClass().isArray()) {
+                Object[] vs = (Object[]) value;
+
+                subExp = cb.<Date>between((Expression<Date>)subExp, vs[0], vs[1]);//todo
             } else {
                 subExp = cb.equal(subExp, value);
             }
 
             cons = null == cons ? subExp : cb.and(cons, subExp);
 
+        }
+        if (cons != null) {
+            cq.where(cons);
         }
         return getEntityManager().createQuery(cq).getResultList();
     }
