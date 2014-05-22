@@ -82,5 +82,6 @@ List${entity.entityClassName}CreateLink=Create New ${entity.entityClassName}
 List${entity.entityClassName}IndexLink=Index
     <#list entity.entityDescriptors as entityDescriptor>
 List${entity.entityClassName}Title_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}
+${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}:
     </#list>
 </#list>

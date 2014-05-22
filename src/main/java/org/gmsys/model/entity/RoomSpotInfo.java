@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -39,32 +40,39 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "RoomSpotInfo.findByCity", query = "SELECT r FROM RoomSpotInfo r WHERE r.city = :city"),
     @NamedQuery(name = "RoomSpotInfo.findByCounty", query = "SELECT r FROM RoomSpotInfo r WHERE r.county = :county")})
 public class RoomSpotInfo implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
+    @Column(nullable = false, length = 45)
     private String roomId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
+    @Column(nullable = false, length = 20)
     private String roomCode;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
+    @Column(nullable = false, length = 45)
     private String roomName;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
+    @Column(nullable = false, length = 45)
     private String province;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
+    @Column(nullable = false, length = 45)
     private String city;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
+    @Column(nullable = false, length = 45)
     private String county;
+    private static final long serialVersionUID = 1L;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomId")
     private Collection<StationInfo> stationInfoCollection;
     @JoinColumn(name = "gridId", referencedColumnName = "gridId")
@@ -176,5 +184,6 @@ public class RoomSpotInfo implements Serializable {
     public String toString() {
         return "org.gmsys.view.util.RoomSpotInfo[ roomId=" + roomId + " ]";
     }
+
     
 }

@@ -18,6 +18,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.gmsys.ejb.GridInfoFacade;
@@ -26,17 +27,38 @@ import org.gmsys.view.util.JsfUtil;
 import org.gmsys.view.util.JsfUtil.PersistAction;
 
 @Named("gridInfoController")
-@SessionScoped
+@ViewScoped
 public class GridInfoController implements Serializable {
 
     @EJB
     private org.gmsys.ejb.GridInfoFacade ejbFacade;
     private List<GridInfo> items = null;
     private GridInfo selected;
-    private Map<String,Object> searchCons;
-    
+
+    private List<GridInfo> selectedItems;
+
+    private Map<String, Object> searchCons;
+
+    /**
+     * Get the value of selectedItems
+     *
+     * @return the value of selectedItems
+     */
+    public List<GridInfo> getSelectedItems() {
+        return selectedItems;
+    }
+
+    /**
+     * Set the value of selectedItems
+     *
+     * @param selectedItems new value of selectedItems
+     */
+    public void setSelectedItems(List<GridInfo> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
+
     @PostConstruct
-    public void init(){
+    public void init() {
         searchCons = new HashMap();
     }
 
@@ -48,9 +70,8 @@ public class GridInfoController implements Serializable {
         this.searchCons = searchCons;
     }
 
-   
-    public void prepareSearch(){
-        this.items =null;
+    public void prepareSearch() {
+        this.items = null;
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, this.searchCons.toString(), null));
     }
 
@@ -80,6 +101,7 @@ public class GridInfoController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("GridInfoCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -98,14 +120,13 @@ public class GridInfoController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    
-    
+
     public List<GridInfo> allItems() {
         items = getFacade().findAll();
         return items;
     }
-    
-       public List<GridInfo> searchItems() {
+
+    public List<GridInfo> searchItems() {
         items = getFacade().findByConditions(searchCons);
         return items;
     }
@@ -121,10 +142,9 @@ public class GridInfoController implements Serializable {
             try {
                 if (persistAction == PersistAction.CREATE) {
                     getFacade().edit(selected);
-                }else if(persistAction == PersistAction.UPDATE){//by me 
+                } else if (persistAction == PersistAction.UPDATE) {//by me 
                     getFacade().edit(selected);//by me 
-                }
-                else {
+                } else {
                     getFacade().remove(selected);
                 }
                 JsfUtil.addSuccessMessage(successMessage);

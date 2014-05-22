@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
@@ -34,18 +35,21 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "GridInfo.findByGridName", query = "SELECT g FROM GridInfo g WHERE g.gridName = :gridName"),
     @NamedQuery(name = "GridInfo.findByManager", query = "SELECT g FROM GridInfo g WHERE g.manager = :manager")})
 public class GridInfo implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
+    @Column(nullable = false, length = 45)
     private String gridId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
+    @Column(nullable = false, length = 45)
     private String gridName;
     @Size(max = 45)
+    @Column(length = 45)
     private String manager;
+    private static final long serialVersionUID = 1L;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "gridId")
     private Collection<RoomSpotInfo> roomSpotInfoCollection;
 
@@ -117,6 +121,6 @@ public class GridInfo implements Serializable {
     @Override
     public String toString() {
         return "org.gmsys.view.util.GridInfo[ gridId=" + gridId + " ]";
-    }
+    }  
     
 }

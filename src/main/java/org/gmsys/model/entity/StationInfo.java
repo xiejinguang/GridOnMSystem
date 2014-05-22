@@ -7,17 +7,22 @@
 package org.gmsys.model.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -36,30 +41,40 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "StationInfo.findByStatType", query = "SELECT s FROM StationInfo s WHERE s.statType = :statType"),
     @NamedQuery(name = "StationInfo.findByStatAccomMaintainer", query = "SELECT s FROM StationInfo s WHERE s.statAccomMaintainer = :statAccomMaintainer")})
 public class StationInfo implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
+    @Column(nullable = false, length = 45)
     private String statId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
+    @Column(nullable = false, length = 20)
     private String statCode;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
+    @Column(nullable = false, length = 20)
     private String statName;
     @Size(max = 45)
+    @Column(length = 45)
     private String statAddress;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
+    @Column(nullable = false, length = 45)
     private String statOwner;
     @Size(max = 45)
+    @Column(length = 45)
     private String statType;
     @Size(max = 45)
+    @Column(length = 45)
     private String statAccomMaintainer;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "statName")
+    private Collection<FixDemand> fixDemandCollection;
+    private static final long serialVersionUID = 1L;
+  
     @JoinColumn(name = "roomId", referencedColumnName = "roomId")
     @ManyToOne(optional = false)
     private RoomSpotInfo roomId;
@@ -166,5 +181,7 @@ public class StationInfo implements Serializable {
     public String toString() {
         return "org.gmsys.view.util.StationInfo[ statId=" + statId + " ]";
     }
+
+
     
 }

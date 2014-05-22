@@ -76,28 +76,35 @@ public abstract class GenericFacade<T> {
         cq.select(root);
         Expression cons = null;
         Expression subExp = null;
+        Expression path = null;
         for (String field : params.keySet()) {
 
-            subExp = root.get(field);
+            path = root.get(field);
             Object value = params.get(field);
             if (value instanceof String) {
-                if (((String) value).trim().isEmpty()) {
+                if (((String) value).isEmpty()) {
                     continue;
                 }
-                subExp = cb.like(subExp, "%" + ((String) value).trim() + "%");
+                subExp = cb.like(path, "%" + ((String) value)+ "%");
             } else if (value instanceof java.util.Collection) {
-                subExp = subExp.in((java.util.Collection) value);
+                subExp = path.in((java.util.Collection) value);
             } else if (value.getClass().isArray()) {
-                Array.get(value, 0);
+
                 if (Array.getLength(value) < 3) {
-                    if (Array.get(value, 0) instanceof Comparable) {
+                    if (Comparable.class.isAssignableFrom(value.getClass().getComponentType())) {
                         Comparable[] vs = (Comparable[]) value;
-                        cb.between((Expression<Comparable>) subExp, vs[0], vs[1]);
+                        if (vs[0] != null) {
+                            subExp = cb.greaterThanOrEqualTo(path, vs[0]);
+                        }
+                        if (vs[1] != null) {
+                            subExp = (subExp == null) ? cb.lessThan(path, vs[1]) : cb.and(subExp, cb.lessThan(path, vs[1]));
+                        }
+                        // cb.between((Expression<Comparable>) subExp, vs[0], vs[1]);
                     }
                 }
 
             } else {
-                subExp = cb.equal(subExp, value);
+                subExp = cb.equal(path, value);
             }
 
             cons = null == cons ? subExp : cb.and(cons, subExp);
