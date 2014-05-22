@@ -55,7 +55,7 @@
                        <ui:insert name="search"/>
 
                         <p:dataTable id="datalist" value="${r"#{"}${managedBeanProperty}${r"}"}" var="${item}"
-                            selectionMode="single" selection="${r"#{"}${managedBean}${r".selected}"}"
+                            selection="${r"#{"}${managedBean}${r".selectedItems}"}"
                             rowKey="${r"#{"}${item}.${entityIdField}${r"}"}"
                             rowsPerPageTemplate="10,20,30,40,50"
                              paginator="true" paginatorPosition="bottom"
@@ -69,13 +69,9 @@
 
                             <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
                             <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
-                            <f:facet name="footer">
-                                
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="${r"#{"}${bundle}.Create${r"}"}" actionListener="${r"#{"}${managedBean}.prepareCreate${r"}"}" update="@form:@parent:${entityName}CreateForm" oncomplete="PF('${entityName}CreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="${r"#{"}${bundle}.View${r"}"}" update="@form:@parent:${entityName}ViewForm" oncomplete="PF('${entityName}ViewDialog').show()" disabled="${r"#{"}empty ${managedBean}.selected${r"}"}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="${r"#{"}${bundle}.Edit${r"}"}" update="@form:@parent:${entityName}EditForm" oncomplete="PF('${entityName}EditDialog').show()" disabled="${r"#{"}empty ${managedBean}.selected${r"}"}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="${r"#{"}${bundle}.Delete${r"}"}" actionListener="${r"#{"}${managedBean}${r".destroy}"}" update=":growl,datalist" disabled="${r"#{"}empty ${managedBean}.selected${r"}"}"/>
-                            </f:facet>
+
+                            <p:column selectionMode="multiple" style="width:15px;text-align:center"/>  
+
 <#list entityDescriptors as entityDescriptor>
                             <p:column>
                                 <f:facet name="header">
@@ -92,7 +88,12 @@
     </#if>
                             </p:column>
 </#list>
-
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="${r"#{"}${bundle}.Create${r"}"}" actionListener="${r"#{"}${managedBean}.prepareCreate${r"}"}" update="@form:@parent:${entityName}CreateForm" oncomplete="PF('${entityName}CreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="${r"#{"}${bundle}.View${r"}"}" update="@form:@parent:${entityName}ViewForm" oncomplete="PF('${entityName}ViewDialog').show()" disabled="${r"#{"}empty ${managedBean}.selected${r"}"}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="${r"#{"}${bundle}.Edit${r"}"}" update="@form:@parent:${entityName}EditForm" oncomplete="PF('${entityName}EditDialog').show()" disabled="${r"#{"}empty ${managedBean}.selected${r"}"}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="${r"#{"}${bundle}.Delete${r"}"}" actionListener="${r"#{"}${managedBean}${r".destroy}"}" update=":growl,datalist" disabled="${r"#{"}empty ${managedBean}.selected${r"}"}"/>
+                            </f:facet>
                         </p:dataTable>
                     </p:panel>
                 </h:form>

@@ -104,6 +104,7 @@ public class ${controllerClassName} implements Serializable {
 </#if>
     private List<${entityClassName}> items = null;
     private ${entityClassName} selected;
+    private List<${entityClassName}> selectedItems;
 
     public ${controllerClassName}() {
     }
@@ -115,6 +116,15 @@ public class ${controllerClassName} implements Serializable {
     public void setSelected(${entityClassName} selected) {
         this.selected = selected;
     }
+
+    public  List<${entityClassName}> getSelectedItems() {
+        return electedItems;
+    }
+    
+    public void setSelectedItems(List<${entityClassName}> selectedItems){
+        this.selectedItems =selectedItems;
+    }
+
 
     protected void setEmbeddableKeys() {
 <#list embeddedIdFields as fields>
