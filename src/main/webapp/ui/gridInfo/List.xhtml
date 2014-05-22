@@ -35,7 +35,8 @@
                                         <h:panelGroup>
                                             <h:outputText value="#{bundle.ListGridInfoTitle_manager}："/>
                                             <p:inputText  value="#{gridInfoController.searchCons['manager']}"/>
-                                            <p:inputText converter="Integer" value="#{gridInfoController.searchCons['test']}"/>
+
+                                            
                                         </h:panelGroup>
                                     </p:panelGrid>
                                 </p:column>
@@ -75,7 +76,7 @@
                             </f:facet>
                             <h:outputText value="#{item.gridId}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.gridName}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListGridInfoTitle_gridName}"/>
                             </f:facet>
