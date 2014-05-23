@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FixDemandCreateDlg" widgetVar="FixDemandCreateDialog" modal="true" dynamic="true"
+                  minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
+                  header="#{bundle.CreateFixDemandTitle}">
+            <h:form id="FixDemandCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{fixDemandController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateFixDemandLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{fixDemandController.selected.id}" title="#{bundle.CreateFixDemandTitle_id}" required="true" requiredMessage="#{bundle.CreateFixDemandRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateFixDemandLabel_demandCode}" for="demandCode" />
+                        <p:inputText id="demandCode" value="#{fixDemandController.selected.demandCode}" title="#{bundle.CreateFixDemandTitle_demandCode}" required="true" requiredMessage="#{bundle.CreateFixDemandRequiredMessage_demandCode}"/>
+                        <p:outputLabel value="#{bundle.CreateFixDemandLabel_problemKind}" for="problemKind" />
+                        <p:inputText id="problemKind" value="#{fixDemandController.selected.problemKind}" title="#{bundle.CreateFixDemandTitle_problemKind}" required="true" requiredMessage="#{bundle.CreateFixDemandRequiredMessage_problemKind}"/>
+                        <p:outputLabel value="#{bundle.CreateFixDemandLabel_problemSubKind}" for="problemSubKind" />
+                        <p:inputText id="problemSubKind" value="#{fixDemandController.selected.problemSubKind}" title="#{bundle.CreateFixDemandTitle_problemSubKind}" required="true" requiredMessage="#{bundle.CreateFixDemandRequiredMessage_problemSubKind}"/>
+                        <p:outputLabel value="#{bundle.CreateFixDemandLabel_details}" for="details" />
+                        <p:inputText id="details" value="#{fixDemandController.selected.details}" title="#{bundle.CreateFixDemandTitle_details}" required="true" requiredMessage="#{bundle.CreateFixDemandRequiredMessage_details}"/>
+                        <p:outputLabel value="#{bundle.CreateFixDemandLabel_solution}" for="solution" />
+                        <p:inputText id="solution" value="#{fixDemandController.selected.solution}" title="#{bundle.CreateFixDemandTitle_solution}" required="true" requiredMessage="#{bundle.CreateFixDemandRequiredMessage_solution}"/>
+                        <p:outputLabel value="#{bundle.CreateFixDemandLabel_fixKind}" for="fixKind" />
+                        <p:inputText id="fixKind" value="#{fixDemandController.selected.fixKind}" title="#{bundle.CreateFixDemandTitle_fixKind}" />
+                        <p:outputLabel value="#{bundle.CreateFixDemandLabel_budget}" for="budget" />
+                        <p:inputText id="budget" value="#{fixDemandController.selected.budget}" title="#{bundle.CreateFixDemandTitle_budget}" />
+                        <p:outputLabel value="#{bundle.CreateFixDemandLabel_budgetList}" for="budgetList" />
+                        <p:inputText id="budgetList" value="#{fixDemandController.selected.budgetList}" title="#{bundle.CreateFixDemandTitle_budgetList}" />
+                        <p:outputLabel value="#{bundle.CreateFixDemandLabel_discoverDate}" for="discoverDate" />
+                        <p:calendar id="discoverDate" pattern="MM/dd/yyyy" value="#{fixDemandController.selected.discoverDate}" title="#{bundle.EditFixDemandTitle_discoverDate}" required="true" requiredMessage="#{bundle.EditFixDemandRequiredMessage_discoverDate}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateFixDemandLabel_statName}" for="statName" />
+                        <p:selectOneMenu id="statName" value="#{fixDemandController.selected.statName}" required="true" requiredMessage="#{bundle.EditFixDemandRequiredMessage_statName}">
+                            <f:selectItems value="#{stationInfoController.itemsAvailableSelectOne}"
+                                           var="statNameItem"
+                                           itemValue="#{statNameItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{fixDemandController.create}" value="#{bundle.Save}" update="display,@form:@parent:FixDemandListForm:datalist,:growl" oncomplete="handleSubmit(args,'FixDemandCreateDialog');"/>
+                    <p:commandButton type="button" value="#{bundle.Cancel}" onclick="FixDemandCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

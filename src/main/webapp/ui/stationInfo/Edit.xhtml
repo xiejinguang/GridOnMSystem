@@ -12,8 +12,8 @@
     <ui:composition>
 
         <p:dialog id="StationInfoEditDlg" widgetVar="StationInfoEditDialog" modal="true" dynamic="true"
-                  minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
-                  header="#{bundle.EditStationInfoTitle}">
+                    minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
+                    header="#{bundle.EditStationInfoTitle}">
             <h:form id="StationInfoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{stationInfoController.selected != null}">
@@ -38,7 +38,7 @@
                                            itemValue="#{roomIdItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{stationInfoController.Edit}" value="#{bundle.Save}" update="display,@form:@parent:StationInfoListForm:datalist,:growl" oncomplete="handleSubmit(args,'StationInfoEditDialog');"/>
+                    <p:commandButton actionListener="#{stationInfoController.update}" value="#{bundle.Save}" update="display,@form:@parent:StationInfoListForm:datalist,:growl" oncomplete="handleSubmit(args,'StationInfoEditDialog');"/>
                     <p:commandButton type="button" value="#{bundle.Cancel}" onclick="StationInfoEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

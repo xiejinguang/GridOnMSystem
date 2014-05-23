@@ -21,7 +21,7 @@ import javax.persistence.criteria.Root;
  */
 public abstract class GenericFacade<T> {
 
-    private Class<T> entityClass;
+    protected Class<T> entityClass;
 
     public GenericFacade(Class<T> entityClass) {
         this.entityClass = entityClass;

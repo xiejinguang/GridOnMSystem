@@ -6,30 +6,42 @@ import org.gmsys.view.util.JsfUtil.PersistAction;
 import org.gmsys.ejb.StationInfoFacade;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 @Named("stationInfoController")
-@SessionScoped
+@ViewScoped
 public class StationInfoController implements Serializable {
 
-    @EJB
-    private org.gmsys.ejb.StationInfoFacade ejbFacade;
+
+    @EJB private org.gmsys.ejb.StationInfoFacade ejbFacade;
     private List<StationInfo> items = null;
     private StationInfo selected;
+    private List<StationInfo> selectedItems;
+    private Map<String,Object> searchCons;
 
     public StationInfoController() {
     }
+    
+    @PostConstruct
+    public void init(){
+        this.searchCons = new HashMap();
+    }
+
 
     public StationInfo getSelected() {
         return selected;
@@ -38,6 +50,23 @@ public class StationInfoController implements Serializable {
     public void setSelected(StationInfo selected) {
         this.selected = selected;
     }
+
+    public  List<StationInfo> getSelectedItems() {
+        return selectedItems;
+    }
+    
+    public void setSelectedItems(List<StationInfo> selectedItems){
+        this.selectedItems =selectedItems;
+    }
+
+    public Map<String, Object> getSearchCons() {
+        return searchCons;
+    }
+
+    public void setSearchCons(Map<String, Object> searchCons) {
+        this.searchCons = searchCons;
+    }
+
 
     protected void setEmbeddableKeys() {
     }
@@ -54,6 +83,11 @@ public class StationInfoController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    public List<StationInfo> prepareSearch(){
+        this.items=null;
+        return this.items;
+        
+}
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("StationInfoCreated"));
@@ -74,10 +108,23 @@ public class StationInfoController implements Serializable {
         }
     }
 
-    public List<StationInfo> getItems() {
-        if (items == null) {
+    public List<StationInfo> searchItems() {
+        items = getFacade().findByConditions(searchCons);
+        return items;
+    }
+
+    public List<StationInfo> allItems() {
             items = getFacade().findAll();
-        }
+
+        return items;
+    }
+
+
+
+
+
+
+    public List<StationInfo> getItems() {
         return items;
     }
 
@@ -121,7 +168,7 @@ public class StationInfoController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = StationInfo.class)
+    @FacesConverter(forClass=StationInfo.class)
     public static class StationInfoControllerConverter implements Converter {
 
         @Override
@@ -129,7 +176,7 @@ public class StationInfoController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            StationInfoController controller = (StationInfoController) facesContext.getApplication().getELResolver().
+            StationInfoController controller = (StationInfoController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "stationInfoController");
             return controller.getStationInfo(getKey(value));
         }

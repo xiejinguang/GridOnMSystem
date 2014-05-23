@@ -12,8 +12,8 @@
     <ui:composition>
 
         <p:dialog id="RoomSpotInfoEditDlg" widgetVar="RoomSpotInfoEditDialog" modal="true" dynamic="true"
-                  minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
-                  header="#{bundle.EditRoomSpotInfoTitle}">
+                    minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
+                    header="#{bundle.EditRoomSpotInfoTitle}">
             <h:form id="RoomSpotInfoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{roomSpotInfoController.selected != null}">
@@ -36,7 +36,7 @@
                                            itemValue="#{gridIdItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{roomSpotInfoController.Edit}" value="#{bundle.Save}" update="display,@form:@parent:RoomSpotInfoListForm:datalist,:growl" oncomplete="handleSubmit(args,'RoomSpotInfoEditDialog');"/>
+                    <p:commandButton actionListener="#{roomSpotInfoController.update}" value="#{bundle.Save}" update="display,@form:@parent:RoomSpotInfoListForm:datalist,:growl" oncomplete="handleSubmit(args,'RoomSpotInfoEditDialog');"/>
                     <p:commandButton type="button" value="#{bundle.Cancel}" onclick="RoomSpotInfoEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

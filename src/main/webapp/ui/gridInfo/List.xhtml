@@ -17,92 +17,87 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="GridInfoListForm">
-                <p:panel header="#{bundle.ListGridInfoTitle}"  >
-                    <p:fieldset id="searchField" legend="#{bundle.Search}" toggleable="true" toggleSpeed="500" >
-                        <p:panelGrid  style="width:100%"  >
-                            <p:row>
-                                <p:column >
-                                    <p:panelGrid columns="4">
-                                        <h:panelGroup>
-                                            <h:outputText value="#{bundle.ListGridInfoTitle_gridId}："/>
-                                            <p:inputText  value="#{gridInfoController.searchCons['gridId']}"/>
-                                        </h:panelGroup>
-                                        <h:panelGroup>
-                                            <h:outputText value="#{bundle.ListGridInfoTitle_gridName}： "/>
-                                            <p:inputText value="#{gridInfoController.searchCons['gridName']}"/>
-                                        </h:panelGroup>
-                                        <h:panelGroup>
-                                            <h:outputText value="#{bundle.ListGridInfoTitle_manager}："/>
-                                            <p:inputText  value="#{gridInfoController.searchCons['manager']}"/>
+                <h:form id="GridInfoListForm">
+                    <p:panel header="#{bundle.ListGridInfoTitle}">
+                        <p:fieldset id="searchField" legend="${bundle.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+                            <p:panelGrid   style="width:100%"  >
+                                <p:row>
+                                    <p:column >
+                                        <p:panelGrid id="searchConsGrid" columns="4">
 
-                                            
-                                        </h:panelGroup>
-                                    </p:panelGrid>
-                                </p:column>
-                                <p:column>
-                                    <p:commandButton id="searchButton" icon="ui-icon-search"   value="#{bundle.Search}" actionListener="#{gridInfoController.searchItems}" update=":growl,datalist"/>
-                                    <br/>
-                                    <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="#{bundle.SearchAll}" actionListener="#{gridInfoController.allItems}" update=":growl,datalist"/>
+                                            <h:panelGroup>
+                                                <p:outputLabel value="#{bundle.GridInfoLabel_gridId}" for="gridId" />
+                                                <p:inputText id="gridId" value="#{gridInfoController.searchCons['gridId']}" title="#{bundle.GridInfoTitle_gridId}"  />
+                                            </h:panelGroup>
+                                            <h:panelGroup>
+                                                <p:outputLabel value="#{bundle.GridInfoLabel_gridName}" for="gridName" />
+                                                <p:inputText id="gridName" value="#{gridInfoController.searchCons['gridName']}" title="#{bundle.GridInfoTitle_gridName}"  />
+                                            </h:panelGroup>
+                                            <h:panelGroup>
+                                                <p:outputLabel value="#{bundle.GridInfoLabel_manager}" for="manager" />
+                                                <p:inputText id="manager" value="#{gridInfoController.searchCons['manager']}" title="#{bundle.GridInfoTitle_manager}"  />
+                                            </h:panelGroup>
+                                        </p:panelGrid>
+                                    </p:column>
+                                    <p:column>
+                                        <p:commandButton id="searchButton" icon="ui-icon-search"   value="${bundle.Search}" actionListener="#{gridInfoController.searchItems}" update=":growl,datalist"/>
+                                        <br/>
+                                        <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${bundle.SearchAll}" actionListener="#{gridInfoController.allItems}" update=":growl,datalist"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>                   
+                        </p:fieldset>
 
-                                </p:column>
+                        <p:dataTable id="datalist" value="#{gridInfoController.items}" var="item"
+                            selection="#{gridInfoController.selectedItems}"
+                            rowKey="#{item.gridId}"
+                            rowsPerPageTemplate="10,20,30,40,50"
+                             paginator="true" paginatorPosition="bottom"
+                             rows="10" lazy="true" 
+                             draggableColumns="true" resizableColumns="true" 
+                             scrollable="true"   liveResize="true" liveScroll="true"
+                             sortMode="multiple"
+                             editable="true" 
+                             stickyHeader="false" 
+                            >
 
-                            </p:row>
+                            <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
 
-                        </p:panelGrid>                   
-                    </p:fieldset>
-                    <p:dataTable id="datalist" value="#{gridInfoController.items}" var="item"
-                                 selection="#{gridInfoController.selectedItems}"
-                                 rowKey="#{item.gridId}"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 paginator="true" paginatorPosition="bottom"
-                                 rows="10" lazy="true" 
-                                 draggableColumns="true" resizableColumns="true" 
-                                 scrollable="true"   liveResize="true" liveScroll="true"
-                                 sortMode="multiple"
-                                 editable="true" 
-                                 stickyHeader="false" 
-                                 >
+                            <p:column selectionMode="multiple" style="width:15px;text-align:center"/>  
 
-                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
-                        
-                        <p:column selectionMode="multiple" style="width:15px;text-align:center"/>                        
-
-
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGridInfoTitle_gridId}"/>
+                            <p:column sortBy="#{item.gridId}" filterBy="#{item.gridId}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.GridInfoTitle_gridId}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.gridId}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.gridName}" filterBy="#{item.gridName}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.GridInfoTitle_gridName}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.gridName}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.manager}" filterBy="#{item.manager}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.GridInfoTitle_manager}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.manager}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{gridInfoController.prepareCreate}" update="@form:@parent:GridInfoCreateForm" oncomplete="PF('GridInfoCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update="@form:@parent:GridInfoViewForm" oncomplete="PF('GridInfoViewDialog').show()" disabled="#{empty gridInfoController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update="@form:@parent:GridInfoEditForm" oncomplete="PF('GridInfoEditDialog').show()" disabled="#{empty gridInfoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{gridInfoController.destroy}" update=":growl,datalist" disabled="#{empty gridInfoController.selected}"/>
+                                <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                                <p:columnToggler datasource="datalist" trigger="toggler" />
                             </f:facet>
-                            <h:outputText value="#{item.gridId}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.gridName}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGridInfoTitle_gridName}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.gridName}"/>                            
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGridInfoTitle_manager}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.manager}"/>
-                        </p:column>
-                        <f:facet name="footer">
-
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{gridInfoController.prepareCreate}" update="@form:@parent:GridInfoCreateForm" oncomplete="PF('GridInfoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update="@form:@parent:GridInfoViewForm" oncomplete="PF('GridInfoViewDialog').show()" disabled="#{empty gridInfoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}"  update="@form:@parent:GridInfoEditForm" oncomplete="PF('GridInfoEditDialog').show()" disabled="#{empty gridInfoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{gridInfoController.destroy}" update=":growl,datalist" disabled="#{empty gridInfoController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
-
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
-
 </html>

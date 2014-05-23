@@ -52,7 +52,47 @@
         <ui:define name="body">
                 <h:form id="${entityName}ListForm">
                     <p:panel header="${r"#{"}${bundle}.List${entityName}Title${r"}"}">
-                       <ui:insert name="search"/>
+                        <p:fieldset id="searchField" legend="${r"${"}${bundle}.SearchConsTitle${r"}"}" toggleable="true" toggleSpeed="500" >
+                            <p:panelGrid   style="width:100%"  >
+                                <p:row>
+                                    <p:column >
+                                        <p:panelGrid id="searchConsGrid" columns="4">
+
+<#list entityDescriptors as entityDescriptor>
+                                            <h:panelGroup>
+                                                <p:outputLabel value="${r"#{"}${bundle}.${entityName}Label_${entityDescriptor.id?replace(".","_")}${r"}"}" for="${entityDescriptor.id?replace(".","_")}" />
+    <#if entityDescriptor.dateTimeFormat?? && entityDescriptor.dateTimeFormat != "">
+                                                <p:calendar id="${entityDescriptor.id?replace(".","_")}" pattern="${entityDescriptor.dateTimeFormat}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" showOn="button"/>
+    <#elseif entityDescriptor.returnType?matches(".*[Bb]+oolean")>
+                                                <p:selectBooleanCheckbox id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" converter="javax.faces.Boolean" />
+    <#elseif entityDescriptor.blob>
+                                                 <p:inputTextarea rows="4" cols="30" id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" />
+    <#elseif entityDescriptor.relationshipOne>
+                                                 <p:selectOneMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" >
+                                                        <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
+                                                                 var="${entityDescriptor.id?replace(".","_")}Item"
+                                                                itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
+                                                </p:selectOneMenu>
+    <#elseif entityDescriptor.relationshipMany>
+                                                <p:selectManyMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" >
+                                                <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
+                                                        var="${entityDescriptor.id?replace(".","_")}Item"
+                                                        itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
+    <#else>
+                                                <p:inputText id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if !(entityDescriptor.returnType?matches(".*[Ss]+tring"))> converter="javax.faces.${entityDescriptor.returnType?substring((entityDescriptor.returnType?last_index_of('.'))+1)}" </#if> />
+    </#if>
+                                            </h:panelGroup>
+</#list>
+                                        </p:panelGrid>
+                                    </p:column>
+                                    <p:column>
+                                        <p:commandButton id="searchButton" icon="ui-icon-search"   value="${r"${"}${bundle}.Search${r"}"}" actionListener="${r"#{"}${managedBean}.searchItems${r"}"}" update=":growl,datalist"/>
+                                        <br/>
+                                        <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${r"${"}${bundle}.SearchAll${r"}"}" actionListener="${r"#{"}${managedBean}.allItems${r"}"}" update=":growl,datalist"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>                   
+                        </p:fieldset>
 
                         <p:dataTable id="datalist" value="${r"#{"}${managedBeanProperty}${r"}"}" var="${item}"
                             selection="${r"#{"}${managedBean}${r".selectedItems}"}"
@@ -73,9 +113,9 @@
                             <p:column selectionMode="multiple" style="width:15px;text-align:center"/>  
 
 <#list entityDescriptors as entityDescriptor>
-                            <p:column>
+                            <p:column sortBy="${r"#{"}${entityDescriptor.name}${r"}"}" filterBy="${r"#{"}${entityDescriptor.name}${r"}"}">
                                 <f:facet name="header">
-                                    <h:outputText value="${r"#{"}${bundle}.List${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}"/>
+                                    <h:outputText value="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}"/>
                                 </f:facet>
     <#if entityDescriptor.dateTimeFormat?? && entityDescriptor.dateTimeFormat != "">
                                 <h:outputText value="${r"#{"}${entityDescriptor.name}${r"}"}">
@@ -93,17 +133,15 @@
                                 <p:commandButton id="viewButton"   icon="ui-icon-search" value="${r"#{"}${bundle}.View${r"}"}" update="@form:@parent:${entityName}ViewForm" oncomplete="PF('${entityName}ViewDialog').show()" disabled="${r"#{"}empty ${managedBean}.selected${r"}"}"/>
                                 <p:commandButton id="editButton"   icon="ui-icon-pencil" value="${r"#{"}${bundle}.Edit${r"}"}" update="@form:@parent:${entityName}EditForm" oncomplete="PF('${entityName}EditDialog').show()" disabled="${r"#{"}empty ${managedBean}.selected${r"}"}"/>
                                 <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="${r"#{"}${bundle}.Delete${r"}"}" actionListener="${r"#{"}${managedBean}${r".destroy}"}" update=":growl,datalist" disabled="${r"#{"}empty ${managedBean}.selected${r"}"}"/>
+                                <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                                <p:columnToggler datasource="datalist" trigger="toggler" />
                             </f:facet>
                         </p:dataTable>
                     </p:panel>
                 </h:form>
-
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
-            <ui:include src="Search.xhtml"/>
-
         </ui:define>
     </ui:composition>
-
 </html>

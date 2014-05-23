@@ -12,11 +12,11 @@
     <ui:composition>
 
         <p:dialog id="GridInfoEditDlg" widgetVar="GridInfoEditDialog" modal="true" dynamic="true"
-                  minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
-                  header="#{bundle.EditGridInfoTitle}">
-            <h:form id="GridInfoEditForm" >
-                <h:panelGroup id="display" rendered="${gridInfoController.selected != null}">
-                    <p:panelGrid columns="2"  >
+                    minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
+                    header="#{bundle.EditGridInfoTitle}">
+            <h:form id="GridInfoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gridInfoController.selected != null}">
                         <p:outputLabel value="#{bundle.EditGridInfoLabel_gridId}" for="gridId" />
                         <p:inputText id="gridId" value="#{gridInfoController.selected.gridId}" title="#{bundle.EditGridInfoTitle_gridId}" required="true" requiredMessage="#{bundle.EditGridInfoRequiredMessage_gridId}"/>
                         <p:outputLabel value="#{bundle.EditGridInfoLabel_gridName}" for="gridName" />

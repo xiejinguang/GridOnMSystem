@@ -12,8 +12,8 @@
     <ui:composition>
 
         <p:dialog id="RoomSpotInfoCreateDlg" widgetVar="RoomSpotInfoCreateDialog" modal="true" dynamic="true"
-                  minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
-                  header="#{bundle.CreateRoomSpotInfoTitle}">
+                    minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
+                    header="#{bundle.CreateRoomSpotInfoTitle}">
             <h:form id="RoomSpotInfoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{roomSpotInfoController.selected != null}">

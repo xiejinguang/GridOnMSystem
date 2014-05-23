@@ -1,5 +1,10 @@
 package org.gmsys.view;
 
+import org.gmsys.model.entity.GridInfo;
+import org.gmsys.view.util.JsfUtil;
+import org.gmsys.view.util.JsfUtil.PersistAction;
+import org.gmsys.ejb.GridInfoFacade;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -10,56 +15,48 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Produces;
-import javax.faces.application.FacesMessage;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import org.gmsys.ejb.GridInfoFacade;
-import org.gmsys.model.entity.GridInfo;
-import org.gmsys.view.util.JsfUtil;
-import org.gmsys.view.util.JsfUtil.PersistAction;
+
 
 @Named("gridInfoController")
 @ViewScoped
 public class GridInfoController implements Serializable {
 
-    @EJB
-    private org.gmsys.ejb.GridInfoFacade ejbFacade;
+
+    @EJB private org.gmsys.ejb.GridInfoFacade ejbFacade;
     private List<GridInfo> items = null;
     private GridInfo selected;
-
     private List<GridInfo> selectedItems;
+    private Map<String,Object> searchCons;
 
-    private Map<String, Object> searchCons;
+    public GridInfoController() {
+    }
+    
+    @PostConstruct
+    public void init(){
+        this.searchCons = new HashMap();
+    }
 
-    /**
-     * Get the value of selectedItems
-     *
-     * @return the value of selectedItems
-     */
-    public List<GridInfo> getSelectedItems() {
+
+    public GridInfo getSelected() {
+        return selected;
+    }
+
+    public void setSelected(GridInfo selected) {
+        this.selected = selected;
+    }
+
+    public  List<GridInfo> getSelectedItems() {
         return selectedItems;
     }
-
-    /**
-     * Set the value of selectedItems
-     *
-     * @param selectedItems new value of selectedItems
-     */
-    public void setSelectedItems(List<GridInfo> selectedItems) {
-        this.selectedItems = selectedItems;
-    }
-
-    @PostConstruct
-    public void init() {
-        searchCons = new HashMap();
+    
+    public void setSelectedItems(List<GridInfo> selectedItems){
+        this.selectedItems =selectedItems;
     }
 
     public Map<String, Object> getSearchCons() {
@@ -70,21 +67,6 @@ public class GridInfoController implements Serializable {
         this.searchCons = searchCons;
     }
 
-    public void prepareSearch() {
-        this.items = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, this.searchCons.toString(), null));
-    }
-
-    public GridInfoController() {
-    }
-
-    public GridInfo getSelected() {
-        return selected;
-    }
-
-    public void setSelected(GridInfo selected) {
-        this.selected = selected;
-    }
 
     protected void setEmbeddableKeys() {
     }
@@ -101,6 +83,11 @@ public class GridInfoController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    public List<GridInfo> prepareSearch(){
+        this.items=null;
+        return this.items;
+        
+}
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("GridInfoCreated"));
@@ -121,18 +108,23 @@ public class GridInfoController implements Serializable {
         }
     }
 
-    public List<GridInfo> allItems() {
-        items = getFacade().findAll();
-        return items;
-    }
-
     public List<GridInfo> searchItems() {
         items = getFacade().findByConditions(searchCons);
         return items;
     }
 
-    public List<GridInfo> getItems() {
+    public List<GridInfo> allItems() {
+            items = getFacade().findAll();
 
+        return items;
+    }
+
+
+
+
+
+
+    public List<GridInfo> getItems() {
         return items;
     }
 
@@ -140,10 +132,8 @@ public class GridInfoController implements Serializable {
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if (persistAction == PersistAction.CREATE) {
+                if (persistAction != PersistAction.DELETE) {
                     getFacade().edit(selected);
-                } else if (persistAction == PersistAction.UPDATE) {//by me 
-                    getFacade().edit(selected);//by me 
                 } else {
                     getFacade().remove(selected);
                 }
@@ -178,7 +168,7 @@ public class GridInfoController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = GridInfo.class)
+    @FacesConverter(forClass=GridInfo.class)
     public static class GridInfoControllerConverter implements Converter {
 
         @Override
@@ -186,7 +176,7 @@ public class GridInfoController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            GridInfoController controller = (GridInfoController) facesContext.getApplication().getELResolver().
+            GridInfoController controller = (GridInfoController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "gridInfoController");
             return controller.getGridInfo(getKey(value));
         }

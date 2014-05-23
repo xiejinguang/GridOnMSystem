@@ -28,6 +28,9 @@
 
 </#if>
 PersistenceErrorOccured=A persistence error occurred.
+Search=Search
+SearchAll = SearchALL
+SearchConsTitle = Search Conditions
 Create=Create
 View=View
 Edit=Edit
@@ -81,7 +84,7 @@ List${entity.entityClassName}ViewLink=View
 List${entity.entityClassName}CreateLink=Create New ${entity.entityClassName}
 List${entity.entityClassName}IndexLink=Index
     <#list entity.entityDescriptors as entityDescriptor>
-List${entity.entityClassName}Title_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}
+${entity.entityClassName}Title_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}
 ${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}:
     </#list>
 </#list>

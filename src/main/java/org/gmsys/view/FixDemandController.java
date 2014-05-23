@@ -1,9 +1,9 @@
 package org.gmsys.view;
 
-import org.gmsys.model.entity.RoomSpotInfo;
+import org.gmsys.model.entity.FixDemand;
 import org.gmsys.view.util.JsfUtil;
 import org.gmsys.view.util.JsfUtil.PersistAction;
-import org.gmsys.ejb.RoomSpotInfoFacade;
+import org.gmsys.ejb.FixDemandFacade;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -23,18 +23,18 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 
-@Named("roomSpotInfoController")
+@Named("fixDemandController")
 @ViewScoped
-public class RoomSpotInfoController implements Serializable {
+public class FixDemandController implements Serializable {
 
 
-    @EJB private org.gmsys.ejb.RoomSpotInfoFacade ejbFacade;
-    private List<RoomSpotInfo> items = null;
-    private RoomSpotInfo selected;
-    private List<RoomSpotInfo> selectedItems;
+    @EJB private org.gmsys.ejb.FixDemandFacade ejbFacade;
+    private List<FixDemand> items = null;
+    private FixDemand selected;
+    private List<FixDemand> selectedItems;
     private Map<String,Object> searchCons;
 
-    public RoomSpotInfoController() {
+    public FixDemandController() {
     }
     
     @PostConstruct
@@ -43,19 +43,19 @@ public class RoomSpotInfoController implements Serializable {
     }
 
 
-    public RoomSpotInfo getSelected() {
+    public FixDemand getSelected() {
         return selected;
     }
 
-    public void setSelected(RoomSpotInfo selected) {
+    public void setSelected(FixDemand selected) {
         this.selected = selected;
     }
 
-    public  List<RoomSpotInfo> getSelectedItems() {
+    public  List<FixDemand> getSelectedItems() {
         return selectedItems;
     }
     
-    public void setSelectedItems(List<RoomSpotInfo> selectedItems){
+    public void setSelectedItems(List<FixDemand> selectedItems){
         this.selectedItems =selectedItems;
     }
 
@@ -74,46 +74,46 @@ public class RoomSpotInfoController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private RoomSpotInfoFacade getFacade() {
+    private FixDemandFacade getFacade() {
         return ejbFacade;
     }
 
-    public RoomSpotInfo prepareCreate() {
-        selected = new RoomSpotInfo();
+    public FixDemand prepareCreate() {
+        selected = new FixDemand();
         initializeEmbeddableKey();
         return selected;
     }
-    public List<RoomSpotInfo> prepareSearch(){
+    public List<FixDemand> prepareSearch(){
         this.items=null;
         return this.items;
         
 }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("RoomSpotInfoCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("FixDemandCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("RoomSpotInfoUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("FixDemandUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("RoomSpotInfoDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("FixDemandDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<RoomSpotInfo> searchItems() {
+    public List<FixDemand> searchItems() {
         items = getFacade().findByConditions(searchCons);
         return items;
     }
 
-    public List<RoomSpotInfo> allItems() {
+    public List<FixDemand> allItems() {
             items = getFacade().findAll();
 
         return items;
@@ -124,7 +124,7 @@ public class RoomSpotInfoController implements Serializable {
 
 
 
-    public List<RoomSpotInfo> getItems() {
+    public List<FixDemand> getItems() {
         return items;
     }
 
@@ -156,29 +156,29 @@ public class RoomSpotInfoController implements Serializable {
         }
     }
 
-    public RoomSpotInfo getRoomSpotInfo(java.lang.String id) {
+    public FixDemand getFixDemand(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<RoomSpotInfo> getItemsAvailableSelectMany() {
+    public List<FixDemand> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<RoomSpotInfo> getItemsAvailableSelectOne() {
+    public List<FixDemand> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=RoomSpotInfo.class)
-    public static class RoomSpotInfoControllerConverter implements Converter {
+    @FacesConverter(forClass=FixDemand.class)
+    public static class FixDemandControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            RoomSpotInfoController controller = (RoomSpotInfoController)facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "roomSpotInfoController");
-            return controller.getRoomSpotInfo(getKey(value));
+            FixDemandController controller = (FixDemandController)facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "fixDemandController");
+            return controller.getFixDemand(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -198,11 +198,11 @@ public class RoomSpotInfoController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof RoomSpotInfo) {
-                RoomSpotInfo o = (RoomSpotInfo) object;
-                return getStringKey(o.getRoomId());
+            if (object instanceof FixDemand) {
+                FixDemand o = (FixDemand) object;
+                return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), RoomSpotInfo.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), FixDemand.class.getName()});
                 return null;
             }
         }

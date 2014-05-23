@@ -45,10 +45,13 @@ import ${jpaControllerFullClassName};
 </#if>
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 <#if isInjected?? && isInjected==true>
 import javax.annotation.Resource;
 </#if>
@@ -105,9 +108,16 @@ public class ${controllerClassName} implements Serializable {
     private List<${entityClassName}> items = null;
     private ${entityClassName} selected;
     private List<${entityClassName}> selectedItems;
+    private Map<String,Object> searchCons;
 
     public ${controllerClassName}() {
     }
+    
+    @PostConstruct
+    public void init(){
+        this.searchCons = new HashMap();
+    }
+
 
     public ${entityClassName} getSelected() {
         return selected;
@@ -118,11 +128,19 @@ public class ${controllerClassName} implements Serializable {
     }
 
     public  List<${entityClassName}> getSelectedItems() {
-        return electedItems;
+        return selectedItems;
     }
     
     public void setSelectedItems(List<${entityClassName}> selectedItems){
         this.selectedItems =selectedItems;
+    }
+
+    public Map<String, Object> getSearchCons() {
+        return searchCons;
+    }
+
+    public void setSearchCons(Map<String, Object> searchCons) {
+        this.searchCons = searchCons;
     }
 
 
@@ -162,6 +180,7 @@ public class ${controllerClassName} implements Serializable {
     }
     public List<${entityClassName}> prepareSearch(){
         this.items=null;
+        return this.items;
         
 }
 
@@ -184,15 +203,27 @@ public class ${controllerClassName} implements Serializable {
         }
     }
 
-    public List<${entityClassName}> getItems() {
-        if (items == null) {
+    public List<${entityClassName}> searchItems() {
+        items = getFacade().findByConditions(searchCons);
+        return items;
+    }
+
+    public List<${entityClassName}> allItems() {
 <#if ejbClassName??>
             items = getFacade().findAll();
 
 <#elseif jpaControllerClassName??>
             items = getJpaController().find${entityClassName}Entities();
 </#if>
-        }
+        return items;
+    }
+
+
+
+
+
+
+    public List<${entityClassName}> getItems() {
         return items;
     }
 

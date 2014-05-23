@@ -12,8 +12,8 @@
     <ui:composition>
 
         <p:dialog id="StationInfoCreateDlg" widgetVar="StationInfoCreateDialog" modal="true" dynamic="true"
-                  minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
-                  header="#{bundle.CreateStationInfoTitle}">
+                    minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
+                    header="#{bundle.CreateStationInfoTitle}">
             <h:form id="StationInfoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{stationInfoController.selected != null}">

@@ -17,85 +17,141 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="StationInfoListForm">
-                <p:panel header="#{bundle.ListStationInfoTitle}">
-                    <p:dataTable id="datalist" value="#{stationInfoController.items}" var="item"
-                                 selectionMode="single" selection="#{stationInfoController.selected}"
-                                 rowKey="#{item.statId}"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 paginator="true" paginatorPosition="bottom"
-                                 rows="10" lazy="true" 
-                                 draggableColumns="true" resizableColumns="true" 
-                                 scrollable="true"   liveResize="true" liveScroll="true"
-                                 sortMode="multiple"
-                                 editable="true"                               
-                                 >
+                <h:form id="StationInfoListForm">
+                    <p:panel header="#{bundle.ListStationInfoTitle}">
+                        <p:fieldset id="searchField" legend="${bundle.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+                            <p:panelGrid   style="width:100%"  >
+                                <p:row>
+                                    <p:column >
+                                        <p:panelGrid id="searchConsGrid" columns="4">
 
-                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+                                            <h:panelGroup>
+                                                <p:outputLabel value="#{bundle.StationInfoLabel_statId}" for="statId" />
+                                                <p:inputText id="statId" value="#{stationInfoController.searchCons['statId']}" title="#{bundle.StationInfoTitle_statId}"  />
+                                            </h:panelGroup>
+                                            <h:panelGroup>
+                                                <p:outputLabel value="#{bundle.StationInfoLabel_statCode}" for="statCode" />
+                                                <p:inputText id="statCode" value="#{stationInfoController.searchCons['statCode']}" title="#{bundle.StationInfoTitle_statCode}"  />
+                                            </h:panelGroup>
+                                            <h:panelGroup>
+                                                <p:outputLabel value="#{bundle.StationInfoLabel_statName}" for="statName" />
+                                                <p:inputText id="statName" value="#{stationInfoController.searchCons['statName']}" title="#{bundle.StationInfoTitle_statName}"  />
+                                            </h:panelGroup>
+                                            <h:panelGroup>
+                                                <p:outputLabel value="#{bundle.StationInfoLabel_statAddress}" for="statAddress" />
+                                                <p:inputText id="statAddress" value="#{stationInfoController.searchCons['statAddress']}" title="#{bundle.StationInfoTitle_statAddress}"  />
+                                            </h:panelGroup>
+                                            <h:panelGroup>
+                                                <p:outputLabel value="#{bundle.StationInfoLabel_statOwner}" for="statOwner" />
+                                                <p:inputText id="statOwner" value="#{stationInfoController.searchCons['statOwner']}" title="#{bundle.StationInfoTitle_statOwner}"  />
+                                            </h:panelGroup>
+                                            <h:panelGroup>
+                                                <p:outputLabel value="#{bundle.StationInfoLabel_statType}" for="statType" />
+                                                <p:inputText id="statType" value="#{stationInfoController.searchCons['statType']}" title="#{bundle.StationInfoTitle_statType}"  />
+                                            </h:panelGroup>
+                                            <h:panelGroup>
+                                                <p:outputLabel value="#{bundle.StationInfoLabel_statAccomMaintainer}" for="statAccomMaintainer" />
+                                                <p:inputText id="statAccomMaintainer" value="#{stationInfoController.searchCons['statAccomMaintainer']}" title="#{bundle.StationInfoTitle_statAccomMaintainer}"  />
+                                            </h:panelGroup>
+                                            <h:panelGroup>
+                                                <p:outputLabel value="#{bundle.StationInfoLabel_roomId}" for="roomId" />
+                                                 <p:selectOneMenu id="roomId" value="#{stationInfoController.searchCons['roomId']}" >
+                                                        <f:selectItems value="#{roomSpotInfoController.itemsAvailableSelectOne}"
+                                                                 var="roomIdItem"
+                                                                itemValue="#{roomIdItem}"/>
+                                                </p:selectOneMenu>
+                                            </h:panelGroup>
+                                        </p:panelGrid>
+                                    </p:column>
+                                    <p:column>
+                                        <p:commandButton id="searchButton" icon="ui-icon-search"   value="${bundle.Search}" actionListener="#{stationInfoController.searchItems}" update=":growl,datalist"/>
+                                        <br/>
+                                        <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${bundle.SearchAll}" actionListener="#{stationInfoController.allItems}" update=":growl,datalist"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>                   
+                        </p:fieldset>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStationInfoTitle_statId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.statId}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStationInfoTitle_statCode}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.statCode}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStationInfoTitle_statName}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.statName}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStationInfoTitle_statAddress}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.statAddress}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStationInfoTitle_statOwner}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.statOwner}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStationInfoTitle_statType}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.statType}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStationInfoTitle_statAccomMaintainer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.statAccomMaintainer}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStationInfoTitle_roomId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.roomId}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{stationInfoController.prepareCreate}" update="@form:@parent:StationInfoCreateForm" oncomplete="PF('StationInfoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update="@form:@parent:StationInfoViewForm" oncomplete="PF('StationInfoViewDialog').show()" disabled="#{empty stationInfoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update="@form:@parent:StationInfoEditForm" oncomplete="PF('StationInfoEditDialog').show()" disabled="#{empty stationInfoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{stationInfoController.destroy}" update=":growl,datalist" disabled="#{empty stationInfoController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
+                        <p:dataTable id="datalist" value="#{stationInfoController.items}" var="item"
+                            selection="#{stationInfoController.selectedItems}"
+                            rowKey="#{item.statId}"
+                            rowsPerPageTemplate="10,20,30,40,50"
+                             paginator="true" paginatorPosition="bottom"
+                             rows="10" lazy="true" 
+                             draggableColumns="true" resizableColumns="true" 
+                             scrollable="true"   liveResize="true" liveScroll="true"
+                             sortMode="multiple"
+                             editable="true" 
+                             stickyHeader="false" 
+                            >
 
+                            <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+
+                            <p:column selectionMode="multiple" style="width:15px;text-align:center"/>  
+
+                            <p:column sortBy="#{item.statId}" filterBy="#{item.statId}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.StationInfoTitle_statId}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.statId}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.statCode}" filterBy="#{item.statCode}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.StationInfoTitle_statCode}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.statCode}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.statName}" filterBy="#{item.statName}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.StationInfoTitle_statName}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.statName}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.statAddress}" filterBy="#{item.statAddress}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.StationInfoTitle_statAddress}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.statAddress}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.statOwner}" filterBy="#{item.statOwner}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.StationInfoTitle_statOwner}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.statOwner}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.statType}" filterBy="#{item.statType}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.StationInfoTitle_statType}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.statType}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.statAccomMaintainer}" filterBy="#{item.statAccomMaintainer}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.StationInfoTitle_statAccomMaintainer}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.statAccomMaintainer}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.roomId}" filterBy="#{item.roomId}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.StationInfoTitle_roomId}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.roomId}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{stationInfoController.prepareCreate}" update="@form:@parent:StationInfoCreateForm" oncomplete="PF('StationInfoCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update="@form:@parent:StationInfoViewForm" oncomplete="PF('StationInfoViewDialog').show()" disabled="#{empty stationInfoController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update="@form:@parent:StationInfoEditForm" oncomplete="PF('StationInfoEditDialog').show()" disabled="#{empty stationInfoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{stationInfoController.destroy}" update=":growl,datalist" disabled="#{empty stationInfoController.selected}"/>
+                                <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                                <p:columnToggler datasource="datalist" trigger="toggler" />
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
-
 </html>

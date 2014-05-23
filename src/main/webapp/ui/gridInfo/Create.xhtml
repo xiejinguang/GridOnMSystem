@@ -12,8 +12,8 @@
     <ui:composition>
 
         <p:dialog id="GridInfoCreateDlg" widgetVar="GridInfoCreateDialog" modal="true" dynamic="true"
-                  minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
-                  header="#{bundle.CreateGridInfoTitle}">
+                    minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
+                    header="#{bundle.CreateGridInfoTitle}">
             <h:form id="GridInfoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{gridInfoController.selected != null}">
