@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition >
         <f:loadBundle basename="/org/peasant/util/i18n" var="utilMsgs"/>
-        <p:dialog id="attachmentDlg" widgetVar="attachmentDlg" appendToBody="true" modal="true">
+        <p:dialog id="attachmentDlg" widgetVar="attachmentDlg" appendTo="@(body)" modal="true">
             <h:form>
 
                 <p:fileUpload  fileUploadListener="#{fileUploadController.handleFileUpload}" dragDropSupport="true" fileLimit="5" mode="advanced" sizeLimit="10000000000" multiple="true" 

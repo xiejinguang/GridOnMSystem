@@ -7,6 +7,7 @@
   for full syntax. Variables available for templating are:
 
     entityName - name of entity being modified (type: String)
+    entityIdField - name of enity ID field 
     managedBean - name of managed choosen in UI (type: String)
     managedBeanProperty - name of managed bean property choosen in UI (type: String)
     item - name of property used for dataTable iteration (type: String)
@@ -38,28 +39,51 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-
-        <p:dialog id="${entityName}ViewDlg" widgetVar="${entityName}ViewDialog" modal="true" resizable="false" appendTo="@(body)" header="${r"#{"}${bundle}.View${entityName}Title${r"}"}">
+<#assign managedBeanProperty=managedBean+".selectedItems">
+        <p:dialog id="${entityName}ViewDlg" widgetVar="${entityName}ViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                header="${r"#{"}${bundle}.View${entityName}Title${r"}"}">
             <h:form id="${entityName}ViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="<#if entityDescriptors?size<=6>2<#elseif entityDescriptors?size<=12>4<#else>6</#if>" rendered="${r"#{"}${managedBeanProperty} != null${r"}"}">
+                <h:panelGroup id="display" rendered="${r"#{"}empty ${managedBeanProperty} != null${r"}"}">
+                    <ui:repeat  value="${r"#{"}${managedBean}.selectedItems${r"}"}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="${r"#{"}${bundle}.${entityName}EntityLabel}"/>
+                                <h:outputText value="${r"#{"}item.${entityIdField}${r"}"}" title="${r"#{"}${bundle}.${entityName}EntityTitle}"/>
+                            </f:facet>
+                    <p:panelGrid columns="<#if entityDescriptors?size<=6>2<#elseif entityDescriptors?size<=12>4<#else>6</#if>" >
 <#list entityDescriptors as entityDescriptor>
-                        <h:outputText value="${r"#{"}${bundle}.View${entityName}Label_${entityDescriptor.id?replace(".","_")}${r"}"}"/>
+<#assign field = "item."+ entityDescriptor.id>
+                        <h:outputText value="${r"#{"}${bundle}.${entityName}Label_${entityDescriptor.id?replace(".","_")}${r"}"}"/>
     <#if entityDescriptor.dateTimeFormat?? && entityDescriptor.dateTimeFormat != "">
-                        <h:outputText value="${r"#{"}${entityDescriptor.name}${r"}"}" title="${r"#{"}${bundle}.View${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}">
+                        <h:outputText value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}">
                             <f:convertDateTime pattern="${entityDescriptor.dateTimeFormat}" />
                         </h:outputText>
     <#elseif entityDescriptor.returnType?matches(".*[Bb]+oolean")>
-                        <p:selectBooleanCheckbox value="${r"#{"}${entityDescriptor.name}${r"}"}" disabled="true"/>
+                        <p:selectBooleanCheckbox value="${r"#{"}${field}${r"}"}" disabled="true"/>
     <#else>
-                        <h:outputText value="${r"#{"}${entityDescriptor.name}${r"}"}" title="${r"#{"}${bundle}.View${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}"/>
+                        <h:outputText value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}"/>
     </#if>
 </#list>
                     </p:panelGrid>
-                    <p:commandButton value="${r"#{"}${bundle}.Close${r"}"}" onclick="${entityName}ViewDialog.hide()"/>
+                    </p:panel>
+                    </ui:repeat>
+                    <p:commandButton type="button" value="${r"#{"}${bundle}.Close${r"}"}" onclick="PF('${entityName}ViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-
     </ui:composition>
+            <script type="text/javascript">
+                
+                function fitViewport() {
+                    var source=$('#${entityName}ViewDlg');                    
+                    var content = source.children('.ui-dialog-content');
+                    source.height(Math.min($(window).height(),content.height()+50));
+                    content.height(Math.min($(window).height()-50,content.height()));
+                    
+                }
+                    
+                   
+            </script>
 </html>

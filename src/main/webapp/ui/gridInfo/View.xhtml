@@ -8,18 +8,26 @@
 
     <ui:composition>
 
-        <p:dialog id="GridInfoViewDlg" widgetVar="GridInfoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGridInfoTitle}">
+        <p:dialog id="GridInfoViewDlg" widgetVar="GridInfoViewDialog" modal="true" resizable="true" minimizable="true" maximizable="true" appendTo="@(body)" header="#{bundle.ViewGridInfoTitle}">
             <h:form id="GridInfoViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{gridInfoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewGridInfoLabel_gridId}"/>
-                        <h:outputText value="#{gridInfoController.selected.gridId}" title="#{bundle.ViewGridInfoTitle_gridId}"/>
-                        <h:outputText value="#{bundle.ViewGridInfoLabel_gridName}"/>
-                        <h:outputText value="#{gridInfoController.selected.gridName}" title="#{bundle.ViewGridInfoTitle_gridName}"/>
-                        <h:outputText value="#{bundle.ViewGridInfoLabel_manager}"/>
-                        <h:outputText value="#{gridInfoController.selected.manager}" title="#{bundle.ViewGridInfoTitle_manager}"/>
-                    </p:panelGrid>
+                <h:panelGroup id="display" rendered="#{gridInfoController.selectedItems != null}">
+                    <ui:repeat  value="#{gridInfoController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="GridInfo:"/>
+                                <h:outputText value="#{item.gridId}" title="#{bundle.ViewGridInfoTitle_gridId}"/>
+                            </f:facet>
+                            <p:panelGrid columns="2" >
+
+                                <h:outputText value="#{bundle.ViewGridInfoLabel_gridName}"/>
+                                <h:outputText value="#{item.gridName}" title="#{bundle.ViewGridInfoTitle_gridName}"/>
+                                <h:outputText value="#{bundle.ViewGridInfoLabel_manager}"/>
+                                <h:outputText value="#{item.manager}" title="#{bundle.ViewGridInfoTitle_manager}"/>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
                     <p:commandButton value="#{bundle.Close}" onclick="GridInfoViewDialog.hide()"/>
+
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -43,8 +43,9 @@
 
     <ui:composition>
 
-        <p:dialog id="${entityName}CreateDlg" widgetVar="${entityName}CreateDialog" modal="true" dynamic="true"
-                    minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
+        <p:dialog id="${entityName}CreateDlg" widgetVar="${entityName}CreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
                     header="${r"#{"}${bundle}.Create${entityName}Title${r"}"}">
             <h:form id="${entityName}CreateForm">
                 <h:panelGroup id="display">
@@ -74,10 +75,22 @@
 </#list>
                     </p:panelGrid>
                     <p:commandButton actionListener="${r"#{"}${managedBean}${r".create}"}" value="${r"#{"}${bundle}.Save${r"}"}" update="display,@form:@parent:${entityName}ListForm:datalist,:growl" oncomplete="handleSubmit(args,'${entityName}CreateDialog');"/>
-                    <p:commandButton type="button" value="${r"#{"}${bundle}.Cancel${r"}"}" onclick="${entityName}CreateDialog.hide()"/>
+                    <p:commandButton type="button" value="${r"#{"}${bundle}.Cancel${r"}"}" onclick="PF('${entityName}CreateDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
 
     </ui:composition>
+           <script type="text/javascript">
+                
+                function fitViewport() {
+                    var source=$('#${entityName}CreateDlg');                    
+                    var content = source.children('.ui-dialog-content');
+                    source.height(Math.min($(window).height(),content.height()+50));
+                    content.height(Math.min($(window).height()-50,content.height()));
+                    
+                }
+                    
+                   
+            </script>
 </html>

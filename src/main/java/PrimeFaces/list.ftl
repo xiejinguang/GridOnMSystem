@@ -99,7 +99,7 @@
                             rowKey="${r"#{"}${item}.${entityIdField}${r"}"}"
                             rowsPerPageTemplate="10,20,30,40,50"
                              paginator="true" paginatorPosition="bottom"
-                             rows="10" lazy="true" 
+                             rows="10" 
                              draggableColumns="true" resizableColumns="true" 
                              scrollable="true"   liveResize="true" liveScroll="true"
                              sortMode="multiple"
@@ -110,7 +110,7 @@
                             <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
                             <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
 
-                            <p:column selectionMode="multiple" style="width:15px;text-align:center"/>  
+                            <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
 
 <#list entityDescriptors as entityDescriptor>
                             <p:column sortBy="${r"#{"}${entityDescriptor.name}${r"}"}" filterBy="${r"#{"}${entityDescriptor.name}${r"}"}">
@@ -130,9 +130,9 @@
 </#list>
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="ui-icon-plus"   value="${r"#{"}${bundle}.Create${r"}"}" actionListener="${r"#{"}${managedBean}.prepareCreate${r"}"}" update="@form:@parent:${entityName}CreateForm" oncomplete="PF('${entityName}CreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="${r"#{"}${bundle}.View${r"}"}" update="@form:@parent:${entityName}ViewForm" oncomplete="PF('${entityName}ViewDialog').show()" disabled="${r"#{"}empty ${managedBean}.selected${r"}"}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="${r"#{"}${bundle}.Edit${r"}"}" update="@form:@parent:${entityName}EditForm" oncomplete="PF('${entityName}EditDialog').show()" disabled="${r"#{"}empty ${managedBean}.selected${r"}"}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="${r"#{"}${bundle}.Delete${r"}"}" actionListener="${r"#{"}${managedBean}${r".destroy}"}" update=":growl,datalist" disabled="${r"#{"}empty ${managedBean}.selected${r"}"}"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="${r"#{"}${bundle}.View${r"}"}" update="@form:@parent:${entityName}ViewForm" oncomplete="PF('${entityName}ViewDialog').show()" disabled="${r"#{"}empty ${managedBean}.selectedItems${r"}"}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="${r"#{"}${bundle}.Edit${r"}"}" update="@form:@parent:${entityName}EditForm" oncomplete="PF('${entityName}EditDialog').show()" disabled="${r"#{"}empty ${managedBean}.selectedItems${r"}"}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="${r"#{"}${bundle}.Delete${r"}"}" actionListener="${r"#{"}${managedBean}${r".destroy}"}" update=":growl,datalist" disabled="${r"#{"}empty ${managedBean}.selectedItems${r"}"}"/>
                                 <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
                                 <p:columnToggler datasource="datalist" trigger="toggler" />
                             </f:facet>

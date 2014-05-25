@@ -11,19 +11,25 @@
 
     <ui:composition>
 
-        <p:dialog id="GridInfoEditDlg" widgetVar="GridInfoEditDialog" modal="true" dynamic="true"
-                    minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
-                    header="#{bundle.EditGridInfoTitle}">
+        <p:dialog id="GridInfoEditDlg" widgetVar="GridInfoEditDialog" modal="true" dynamic="true" fitViewport="true"
+                  minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)"
+                  header="#{bundle.EditGridInfoTitle}">
             <h:form id="GridInfoEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{gridInfoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditGridInfoLabel_gridId}" for="gridId" />
-                        <p:inputText id="gridId" value="#{gridInfoController.selected.gridId}" title="#{bundle.EditGridInfoTitle_gridId}" required="true" requiredMessage="#{bundle.EditGridInfoRequiredMessage_gridId}"/>
-                        <p:outputLabel value="#{bundle.EditGridInfoLabel_gridName}" for="gridName" />
-                        <p:inputText id="gridName" value="#{gridInfoController.selected.gridName}" title="#{bundle.EditGridInfoTitle_gridName}" required="true" requiredMessage="#{bundle.EditGridInfoRequiredMessage_gridName}"/>
-                        <p:outputLabel value="#{bundle.EditGridInfoLabel_manager}" for="manager" />
-                        <p:inputText id="manager" value="#{gridInfoController.selected.manager}" title="#{bundle.EditGridInfoTitle_manager}" />
-                    </p:panelGrid>
+                <h:panelGroup id="display"  rendered="#{gridInfoController.selectedItems != null}">
+                    <ui:repeat  value="#{gridInfoController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="GridInfo:"/>
+                                <h:outputText value="#{item.gridId}" title="#{bundle.ViewGridInfoTitle_gridId}"/>
+                            </f:facet>
+                            <p:panelGrid columns="2">
+                                <p:outputLabel value="#{bundle.EditGridInfoLabel_gridName}" for="gridName" />
+                                <p:inputText id="gridName" value="#{item.gridName}" title="#{bundle.EditGridInfoTitle_gridName}" required="true" requiredMessage="#{bundle.EditGridInfoRequiredMessage_gridName}"/>
+                                <p:outputLabel value="#{bundle.EditGridInfoLabel_manager}" for="manager" />
+                                <p:inputText id="manager" value="#{item.manager}" title="#{bundle.EditGridInfoTitle_manager}" />
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
                     <p:commandButton actionListener="#{gridInfoController.update}" value="#{bundle.Save}" update="display,@form:@parent:GridInfoListForm:datalist,:growl" oncomplete="handleSubmit(args,'GridInfoEditDialog');"/>
                     <p:commandButton type="button" value="#{bundle.Cancel}" onclick="GridInfoEditDialog.hide()"/>
                 </h:panelGroup>

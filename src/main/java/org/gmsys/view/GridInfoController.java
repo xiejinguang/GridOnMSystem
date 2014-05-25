@@ -21,6 +21,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.transaction.Transactional;
 
 
 @Named("gridInfoController")
@@ -96,6 +97,7 @@ public class GridInfoController implements Serializable {
         }
     }
 
+    
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("GridInfoUpdated"));
     }
@@ -127,8 +129,9 @@ public class GridInfoController implements Serializable {
     public List<GridInfo> getItems() {
         return items;
     }
-
+    @Transactional
     private void persist(PersistAction persistAction, String successMessage) {
+        for(GridInfo selected:selectedItems)
         if (selected != null) {
             setEmbeddableKeys();
             try {

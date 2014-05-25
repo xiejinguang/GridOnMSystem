@@ -44,9 +44,22 @@ Maintenance=Maintenance
 AppName=${projectName}
 
 <#list entities as entity>
+#
+#
+#For ${entity.entityClassName}
 ${entity.entityClassName}Created=${entity.entityClassName} was successfully created.
 ${entity.entityClassName}Updated=${entity.entityClassName} was successfully updated.
 ${entity.entityClassName}Deleted=${entity.entityClassName} was successfully deleted.
+${entity.entityClassName}EntityLabel=${entity.entityClassName}-
+${entity.entityClassName}EntityTitle=${entity.entityClassName}
+
+    <#list entity.entityDescriptors as entityDescriptor>
+${entity.entityClassName}Title_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}
+${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}:
+    </#list>
+#
+#For Create ${entity.entityClassName}
+
 Create${entity.entityClassName}Title=Create New ${entity.entityClassName}
 Create${entity.entityClassName}SaveLink=Save
 Create${entity.entityClassName}ShowAllLink=Show All ${entity.entityClassName} Items
@@ -56,6 +69,8 @@ Create${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${e
 <#if entityDescriptor.required>Create${entity.entityClassName}RequiredMessage_${entityDescriptor.id?replace(".","_")}=The ${entityDescriptor.label} field is required.
 </#if>Create${entity.entityClassName}Title_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}
     </#list>
+#
+#For Edit ${entity.entityClassName}
 Edit${entity.entityClassName}Title=Edit ${entity.entityClassName}
 Edit${entity.entityClassName}SaveLink=Save
 Edit${entity.entityClassName}ViewLink=View
@@ -66,6 +81,8 @@ Edit${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${ent
 <#if entityDescriptor.required>Edit${entity.entityClassName}RequiredMessage_${entityDescriptor.id?replace(".","_")}=The ${entityDescriptor.label} field is required.
 </#if>Edit${entity.entityClassName}Title_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}
     </#list>
+#
+#For View ${entity.entityClassName}
 View${entity.entityClassName}Title=View
 View${entity.entityClassName}DestroyLink=Destroy
 View${entity.entityClassName}EditLink=Edit
@@ -83,8 +100,5 @@ List${entity.entityClassName}EditLink=Edit
 List${entity.entityClassName}ViewLink=View
 List${entity.entityClassName}CreateLink=Create New ${entity.entityClassName}
 List${entity.entityClassName}IndexLink=Index
-    <#list entity.entityDescriptors as entityDescriptor>
-${entity.entityClassName}Title_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}
-${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}:
-    </#list>
+
 </#list>

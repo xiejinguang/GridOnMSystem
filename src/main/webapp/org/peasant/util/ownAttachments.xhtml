@@ -8,28 +8,27 @@
     <h:head>
         <title>Facelet Title</title>
         <f:loadBundle var="i18nBundle" basename="/org/peasant/util/i18n"/>
+        #{attachmentController.setOwner(param['owner'])}
+
     </h:head>
     <h:body>
-        <f:metadata>
-            <f:viewParam name="owner" value="#{attachmentController.owner}"/>
-        </f:metadata>
+
         <h:form prependId="false">
-            <p:fileUpload fileUploadListener="#{attachmentController.handleFileUpload}" update="AttachsForm"/>
+            <p:fileUpload fileUploadListener="#{attachmentController.handleFileUpload}" update=":AttachsForm" />
         </h:form>
         <h:form id="AttachsForm">            
-            <p:dataTable id="datalist" value="#{attachmentController.getAttachments(owner)}" var="item"
+            <p:dataTable id="datalist" value="#{attachmentController.getAttachments()}" var="item"
                          selectionMode="single" selection="#{attachmentController.selected}"
                          rowKey="#{item.ID}"
                          rowsPerPageTemplate="10,20,30,40,50"
                          paginator="true" paginatorPosition="bottom"
-                         rows="10" lazy="true" 
+                         rows="10"
                          draggableColumns="true" resizableColumns="true" 
                          scrollable="true"   liveResize="true" liveScroll="true"
                          sortMode="multiple"
                          editable="true"                               
                          >
-                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+
 
                 <f:facet name="header">#{i18nBundle.ListAttachmentTitle} </f:facet>
 
@@ -55,7 +54,8 @@
                     <h:outputText value="#{item.uploadTime}"/>
                 </p:column>
                 <p:column headerText="#{i18nBundle.ListAttachmentTitle_Download}">
-                    <p:fileDownload contentDisposition="attachment" value="#{attachmentController.getStreamContent(item)}"/>
+                    
+
                 </p:column>        
             </p:dataTable>
 

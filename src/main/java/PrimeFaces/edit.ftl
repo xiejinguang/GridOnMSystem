@@ -7,6 +7,7 @@
   for full syntax. Variables available for templating are:
 
     entityName - name of entity being modified (type: String)
+    entityIdField - name of enity ID field 
     managedBean - name of managed choosen in UI (type: String)
     managedBeanProperty - name of managed bean property choosen in UI (type: String)
     item - name of property used for dataTable iteration (type: String)
@@ -42,42 +43,64 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-
-        <p:dialog id="${entityName}EditDlg" widgetVar="${entityName}EditDialog" modal="true" dynamic="true"
-                    minimizable="true" draggable="true" closable="true" resizable="false" appendTo="@(body)"
+<#assign managedBeanProperty=managedBean+".selectedItems">
+        <p:dialog id="${entityName}EditDlg" widgetVar="${entityName}EditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
                     header="${r"#{"}${bundle}.Edit${entityName}Title${r"}"}">
             <h:form id="${entityName}EditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="<#if entityDescriptors?size<=6>2<#elseif entityDescriptors?size<=12>4<#else>6</#if>" rendered="${r"#{"}${managedBeanProperty} != null${r"}"}">
+                <h:panelGroup id="display" rendered="${r"#{"}empty ${managedBeanProperty} != null${r"}"}">
+                    <ui:repeat  value="${r"#{"}${managedBean}.selectedItems${r"}"}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="${r"#{"}${bundle}.${entityName}EntityLabel}"/>
+                                <h:outputText value="${r"#{"}item.${entityIdField}${r"}"}" title="${r"#{"}${bundle}.${entityName}EntityTitle}"/>
+                            </f:facet>
+                    <p:panelGrid columns="<#if entityDescriptors?size<=6>2<#elseif entityDescriptors?size<=12>4<#else>6</#if>" >
 <#list entityDescriptors as entityDescriptor>
+<#assign field = "item."+ entityDescriptor.id>
                         <p:outputLabel value="${r"#{"}${bundle}.Edit${entityName}Label_${entityDescriptor.id?replace(".","_")}${r"}"}" for="${entityDescriptor.id?replace(".","_")}" />
     <#if entityDescriptor.dateTimeFormat?? && entityDescriptor.dateTimeFormat != "">
-                        <p:calendar id="${entityDescriptor.id?replace(".","_")}" pattern="${entityDescriptor.dateTimeFormat}" value="${r"#{"}${entityDescriptor.name}${r"}"}" title="${r"#{"}${bundle}.Edit${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if> showOn="button"/>
+                        <p:calendar id="${entityDescriptor.id?replace(".","_")}" pattern="${entityDescriptor.dateTimeFormat}" value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.Edit${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if> showOn="button"/>
     <#elseif entityDescriptor.returnType?matches(".*[Bb]+oolean")>
-                        <p:selectBooleanCheckbox id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${entityDescriptor.name}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>/>
+                        <p:selectBooleanCheckbox id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>/>
     <#elseif entityDescriptor.blob>
-                        <p:inputTextarea rows="4" cols="30" id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${entityDescriptor.name}${r"}"}" title="${r"#{"}${bundle}.Edit${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>/>
+                        <p:inputTextarea rows="4" cols="30" id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.Edit${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>/>
     <#elseif entityDescriptor.relationshipOne>
-                        <p:selectOneMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${entityDescriptor.name}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>>
+                        <p:selectOneMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>>
                             <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
                                            var="${entityDescriptor.id?replace(".","_")}Item"
                                            itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
                         </p:selectOneMenu>
     <#elseif entityDescriptor.relationshipMany>
-                        <p:selectManyMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${entityDescriptor.name}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>>
+                        <p:selectManyMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>>
                             <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
                                            var="${entityDescriptor.id?replace(".","_")}Item"
                                            itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
     <#else>
-                        <p:inputText id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${entityDescriptor.name}${r"}"}" title="${r"#{"}${bundle}.Edit${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>/>
+                        <p:inputText id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.Edit${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>/>
     </#if>
 </#list>
                     </p:panelGrid>
+                    </p:panel>
+                    </ui:repeat>
                     <p:commandButton actionListener="${r"#{"}${managedBean}${r".update}"}" value="${r"#{"}${bundle}.Save${r"}"}" update="display,@form:@parent:${entityName}ListForm:datalist,:growl" oncomplete="handleSubmit(args,'${entityName}EditDialog');"/>
-                    <p:commandButton type="button" value="${r"#{"}${bundle}.Cancel${r"}"}" onclick="${entityName}EditDialog.hide()"/>
+                    <p:commandButton type="button" value="${r"#{"}${bundle}.Cancel${r"}"}" onclick="PF('${entityName}EditDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
 
     </ui:composition>
+            <script type="text/javascript">
+                
+                function fitViewport() {
+                    var source=$('#${entityName}EditDlg');                    
+                    var content = source.children('.ui-dialog-content');
+                    source.height(Math.min($(window).height(),content.height()+50));
+                    content.height(Math.min($(window).height()-50,content.height()));
+                    
+                }
+                    
+                   
+            </script>
 </html>
