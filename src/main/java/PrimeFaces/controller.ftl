@@ -106,7 +106,7 @@ public class ${controllerClassName} implements Serializable {
     private ${jpaControllerClassName} jpaController = null;
 </#if>
     private List<${entityClassName}> items = null;
-    private ${entityClassName} selected;
+    private ${entityClassName} created;
     private List<${entityClassName}> selectedItems;
     private Map<String,Object> searchCons;
 
@@ -119,12 +119,12 @@ public class ${controllerClassName} implements Serializable {
     }
 
 
-    public ${entityClassName} getSelected() {
-        return selected;
+    public ${entityClassName} getCreated() {
+        return created;
     }
 
-    public void setSelected(${entityClassName} selected) {
-        this.selected = selected;
+    public void setCreated(${entityClassName} created) {
+        this.created = created;
     }
 
     public  List<${entityClassName}> getSelectedItems() {
@@ -174,9 +174,9 @@ public class ${controllerClassName} implements Serializable {
 </#if>
 
     public ${entityClassName} prepareCreate() {
-        selected = new ${entityClassName}();
+        created = new ${entityClassName}();
         initializeEmbeddableKey();
-        return selected;
+        return created;
     }
     public List<${entityClassName}> prepareSearch(){
         this.items=null;
@@ -198,7 +198,7 @@ public class ${controllerClassName} implements Serializable {
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("${bundle}").getString("${entityClassName}Deleted"));
         if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
+            selectedItems = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
@@ -228,23 +228,43 @@ public class ${controllerClassName} implements Serializable {
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
-        if (selected != null) {
-            setEmbeddableKeys();
-            try {
+
+        try {
+
 <#if ejbClassName??>
-                if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
-                } else {
-                    getFacade().remove(selected);
+        switch (persistAction) {
+            case CREATE:getFacade().edit(created);break;
+            
+            default:{
+                for( ${entityClassName} selected : selectedItems){
+                    if (selected != null) {
+                        setEmbeddableKeys();
+                        switch (persistAction) {
+                            case DELETE: getFacade().remove(selected);break;               
+                            case UPDATE: getFacade().edit(selected);break;
+                        }
+                    }
                 }
+            }
+
+        }
+
 <#elseif jpaControllerClassName??>
-                if (persistAction == PersistAction.UPDATE) {
-                    getJpaController().edit(selected);
-                } else if (persistAction == PersistAction.CREATE) {
-                    getJpaController().create(selected);
-                } else {
-                    getJpaController().destroy(selected.getId());
+        switch (persistAction) {
+            case CREATE:getJpaController().create(created);break;
+            default:{
+                for( ${entityClassName} selected : selectedItems){
+                    if (selected != null) {
+                        setEmbeddableKeys();
+                        switch (persistAction) {
+                            case DELETE: getJpaController().destroy(selected.getId());break;               
+                            case UPDATE: getJpaController().edit(selected);break;
+                        }
+                    }
                 }
+            }
+
+        }
 </#if>
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
@@ -262,7 +282,7 @@ public class ${controllerClassName} implements Serializable {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
                 JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("${bundle}").getString("PersistenceErrorOccured"));
             }
-        }
+
     }
 
 <#if ejbClassName?? && cdiEnabled?? && cdiEnabled>
