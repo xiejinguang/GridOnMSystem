@@ -109,6 +109,7 @@ public class ${controllerClassName} implements Serializable {
     private ${entityClassName} created;
     private List<${entityClassName}> selectedItems;
     private Map<String,Object> searchCons;
+    private ResourceBundle bundle;
 
     public ${controllerClassName}() {
     }
@@ -116,6 +117,7 @@ public class ${controllerClassName} implements Serializable {
     @PostConstruct
     public void init(){
         this.searchCons = new HashMap();
+        this.bundle = ResourceBundle.getBundle(${bundle});
     }
 
 
@@ -185,18 +187,18 @@ public class ${controllerClassName} implements Serializable {
 }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("${bundle}").getString("${entityClassName}Created"));
+        persist(PersistAction.CREATE, bundle.getString("${entityClassName}Created"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("${bundle}").getString("${entityClassName}Updated"));
+        persist(PersistAction.UPDATE, bundle.getString("${entityClassName}Updated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("${bundle}").getString("${entityClassName}Deleted"));
+        persist(PersistAction.DELETE, bundle.getString("${entityClassName}Deleted"));
         if (!JsfUtil.isValidationFailed()) {
             selectedItems = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
@@ -276,11 +278,11 @@ public class ${controllerClassName} implements Serializable {
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("${bundle}").getString("PersistenceErrorOccured"));
+                    JsfUtil.addErrorMessage(ex, bundle.getString("PersistenceErrorOccured"));
                 }
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("${bundle}").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(ex, bundle.getString("PersistenceErrorOccured"));
             }
 
     }

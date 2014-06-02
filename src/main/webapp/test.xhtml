@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ps ="http://xmlns.jcp.org/jsf/composite/peasant"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Facelet Title</title>
+        <p:growl id="growl" autoUpdate="true" showDetail="true"/>
+        <p:messages id="mesgs" autoUpdate="true" showSummary="true" showDetail="true" />
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:fileUpload fileUploadListener="#{fileUploadController.handleFileUpload}" mode="advanced" multiple="true"/>
+        </h:form>
+        <h:form>
+            <p:fileUpload fileUploadListener="#{fileUploadClr.handleFileUpload}" mode="advanced" multiple="true"/>
+
+            <p:menubar><p:menuitem value="see" /></p:menubar>
+            <ps:attachment />
+        </h:form>        
+
+
+        <h:form>
+
+            <h:link  value="附件"  outcome="/org/peasant/util/Attachments.jsf" >
+                <f:param name="owner" value="image" />
+            </h:link>
+            <p:commandButton value="Preview Image" onclick="PF('imagePreview').show()" />
+        </h:form>
+
+
+        <p:lightBox id="imagePreview" widgetVar="imagePreview" width="800"  height="600">
+            <h:outputLink value="#" >Image Preview</h:outputLink>
+
+            <f:facet name="inline">
+                <p:contentFlow value="#{attachmentController.getAttachmentsByOwner('image')}"  var="image"  >
+                     <p:graphicImage value="#{attachmentController.getStreamContent(image)}" styleClass="content" />
+                </p:contentFlow>
+            </f:facet>
+        </p:lightBox>
+        <p:contentFlow value="#{attachmentController.getAttachmentsByOwner('image')}"  var="image"  >
+            <p:graphicImage value="#{attachmentController.getStreamContent(image)}" styleClass="content" />
+        </p:contentFlow>
+
+
+
+    </h:body>
+</html>
+

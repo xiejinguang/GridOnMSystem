@@ -56,10 +56,10 @@
                             <p:panelGrid   style="width:100%"  >
                                 <p:row>
                                     <p:column >
-                                        <p:panelGrid id="searchConsGrid" columns="4">
+                                        <p:panelGrid id="searchConsGrid" columns="8">
 
 <#list entityDescriptors as entityDescriptor>
-                                            <h:panelGroup>
+                                           
                                                 <p:outputLabel value="${r"#{"}${bundle}.${entityName}Label_${entityDescriptor.id?replace(".","_")}${r"}"}" for="${entityDescriptor.id?replace(".","_")}" />
     <#if entityDescriptor.dateTimeFormat?? && entityDescriptor.dateTimeFormat != "">
                                                 <p:calendar id="${entityDescriptor.id?replace(".","_")}" pattern="${entityDescriptor.dateTimeFormat}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" showOn="button"/>
@@ -81,7 +81,7 @@
     <#else>
                                                 <p:inputText id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if !(entityDescriptor.returnType?matches(".*[Ss]+tring"))> converter="javax.faces.${entityDescriptor.returnType?substring((entityDescriptor.returnType?last_index_of('.'))+1)}" </#if> />
     </#if>
-                                            </h:panelGroup>
+                                           
 </#list>
                                         </p:panelGrid>
                                     </p:column>

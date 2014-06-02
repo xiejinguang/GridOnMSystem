@@ -7,18 +7,18 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
-        <f:loadBundle var="i18nBundle" basename="/org/peasant/util/i18n"/>
+        <f:loadBundle var="i18nBundle" basename="/org/peasant/util/i18n" />
         #{attachmentController.setOwner(param['owner'])}
 
     </h:head>
     <h:body>
 
         <h:form prependId="false">
-            <p:fileUpload fileUploadListener="#{attachmentController.handleFileUpload}" update=":AttachsForm" />
+            <p:fileUpload multiple="true" mode="advanced" fileUploadListener="#{attachmentController.handleFileUpload}" update=":AttachsForm" />
         </h:form>
         <h:form id="AttachsForm">            
-            <p:dataTable id="datalist" value="#{attachmentController.getAttachments()}" var="item"
-                         selectionMode="single" selection="#{attachmentController.selected}"
+            <p:dataTable id="datalist" value="${attachmentController.getAttachments()}" var="item"
+                         selection="#{attachmentController.selecteds}"
                          rowKey="#{item.ID}"
                          rowsPerPageTemplate="10,20,30,40,50"
                          paginator="true" paginatorPosition="bottom"
@@ -54,7 +54,9 @@
                     <h:outputText value="#{item.uploadTime}"/>
                 </p:column>
                 <p:column headerText="#{i18nBundle.ListAttachmentTitle_Download}">
-                    
+                    <p:commandButton value="Download" ajax="false"  icon="ui-icon-arrowthick-1-s">
+                        <p:fileDownload value="#{attachmentController.getStreamContent(item)}" />
+                    </p:commandButton>           
 
                 </p:column>        
             </p:dataTable>
