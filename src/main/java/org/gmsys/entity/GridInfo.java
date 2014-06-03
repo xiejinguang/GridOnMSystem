@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.gmsys.model.entity;
+package org.gmsys.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -17,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -27,7 +28,8 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author 谢金光
  */
 @Entity
-@Table(name = "grid_info")
+@Table(name = "grid_info", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"gridName"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "GridInfo.findAll", query = "SELECT g FROM GridInfo g"),
@@ -35,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "GridInfo.findByGridName", query = "SELECT g FROM GridInfo g WHERE g.gridName = :gridName"),
     @NamedQuery(name = "GridInfo.findByManager", query = "SELECT g FROM GridInfo g WHERE g.manager = :manager")})
 public class GridInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -49,7 +52,6 @@ public class GridInfo implements Serializable {
     @Size(max = 45)
     @Column(length = 45)
     private String manager;
-    private static final long serialVersionUID = 1L;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "gridId")
     private Collection<RoomSpotInfo> roomSpotInfoCollection;
 
@@ -120,7 +122,7 @@ public class GridInfo implements Serializable {
 
     @Override
     public String toString() {
-        return "org.gmsys.view.util.GridInfo[ gridId=" + gridId + " ]";
-    }  
+        return "org.gmsys.entity.GridInfo[ gridId=" + gridId + " ]";
+    }
     
 }

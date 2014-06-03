@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.gmsys.model.entity;
+package org.gmsys.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -222,7 +222,7 @@ public class FixDemand implements Serializable {
 
     @Override
     public String toString() {
-        return "org.gmsys.model.entity.FixDemand[ id=" + id + " ]";
+        return "org.gmsys.entity.FixDemand[ id=" + id + " ]";
     }
     
 }

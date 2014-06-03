@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.gmsys.model.entity;
+package org.gmsys.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -19,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -29,7 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author 谢金光
  */
 @Entity
-@Table(name = "station_info")
+@Table(name = "station_info", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"statName"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "StationInfo.findAll", query = "SELECT s FROM StationInfo s"),
@@ -41,6 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "StationInfo.findByStatType", query = "SELECT s FROM StationInfo s WHERE s.statType = :statType"),
     @NamedQuery(name = "StationInfo.findByStatAccomMaintainer", query = "SELECT s FROM StationInfo s WHERE s.statAccomMaintainer = :statAccomMaintainer")})
 public class StationInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -71,13 +74,11 @@ public class StationInfo implements Serializable {
     @Size(max = 45)
     @Column(length = 45)
     private String statAccomMaintainer;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "statName")
-    private Collection<FixDemand> fixDemandCollection;
-    private static final long serialVersionUID = 1L;
-  
-    @JoinColumn(name = "roomId", referencedColumnName = "roomId")
+    @JoinColumn(name = "roomId", referencedColumnName = "roomId", nullable = false)
     @ManyToOne(optional = false)
     private RoomSpotInfo roomId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "statName")
+    private Collection<FixDemand> fixDemandCollection;
 
     public StationInfo() {
     }
@@ -157,6 +158,15 @@ public class StationInfo implements Serializable {
         this.roomId = roomId;
     }
 
+    @XmlTransient
+    public Collection<FixDemand> getFixDemandCollection() {
+        return fixDemandCollection;
+    }
+
+    public void setFixDemandCollection(Collection<FixDemand> fixDemandCollection) {
+        this.fixDemandCollection = fixDemandCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -179,9 +189,7 @@ public class StationInfo implements Serializable {
 
     @Override
     public String toString() {
-        return "org.gmsys.view.util.StationInfo[ statId=" + statId + " ]";
+        return "org.gmsys.entity.StationInfo[ statId=" + statId + " ]";
     }
-
-
     
 }

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.gmsys.model.entity;
+package org.gmsys.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -40,6 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "RoomSpotInfo.findByCity", query = "SELECT r FROM RoomSpotInfo r WHERE r.city = :city"),
     @NamedQuery(name = "RoomSpotInfo.findByCounty", query = "SELECT r FROM RoomSpotInfo r WHERE r.county = :county")})
 public class RoomSpotInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -71,11 +72,9 @@ public class RoomSpotInfo implements Serializable {
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
     private String county;
-    private static final long serialVersionUID = 1L;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomId")
     private Collection<StationInfo> stationInfoCollection;
-    @JoinColumn(name = "gridId", referencedColumnName = "gridId")
+    @JoinColumn(name = "gridId", referencedColumnName = "gridId", nullable = false)
     @ManyToOne(optional = false)
     private GridInfo gridId;
 
@@ -182,8 +181,7 @@ public class RoomSpotInfo implements Serializable {
 
     @Override
     public String toString() {
-        return "org.gmsys.view.util.RoomSpotInfo[ roomId=" + roomId + " ]";
+        return "org.gmsys.entity.RoomSpotInfo[ roomId=" + roomId + " ]";
     }
-
     
 }
