@@ -29,7 +29,7 @@ public class HttpUtils {
         String encodedStr = strToEncoding;
         try {
 
-            if (ua.toLowerCase().indexOf("firefox") > -1) {
+            if (ua.toLowerCase().contains("firefox")) {
                 encodedStr = new String(strToEncoding.getBytes(charset), "ISO8859-1");//firefox浏览器            
             } else {
                 encodedStr = java.net.URLEncoder.encode(strToEncoding, charset);//IE或Chrome浏览器

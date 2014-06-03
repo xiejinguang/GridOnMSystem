@@ -34,7 +34,7 @@ import org.primefaces.model.UploadedFile;
  * @author 谢金光
  */
 @Named(value = "attachmentController")
-@ViewScoped
+@SessionScoped
 public class AttachmentController implements Serializable {
 
     @Inject

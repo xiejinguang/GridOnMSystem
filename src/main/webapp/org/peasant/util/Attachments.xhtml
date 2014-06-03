@@ -57,8 +57,7 @@
                 <p:column headerText="#{i18nBundle.ListAttachmentTitle_Download}">
                     <p:commandButton value="Download" ajax="false"  icon="ui-icon-arrowthick-1-s">
                         <p:fileDownload value="#{attachmentController.getStreamContent(item)}" />
-                    </p:commandButton>           
-
+                    </p:commandButton>                    
                 </p:column>
                 
             </p:dataTable>

@@ -8,18 +8,23 @@ package org.peasant.util.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.peasant.util.Repository;
 
 /**
  *
  * @author 谢金光
  */
-@WebServlet(name = "AttachmentServlet", urlPatterns = {"/attachment"})
+@WebServlet(name = "AttachmentServlet", urlPatterns = {"/attachment,/resource,/download"})
 public class AttachmentServlet extends HttpServlet {
+    
+    @Inject
+    private Repository repo;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,6 +37,14 @@ public class AttachmentServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String m = request.getMethod();
+        if(m.equalsIgnoreCase("GET")){
+            
+        }
+        if(m.equalsIgnoreCase("POST")){
+            
+        }
+        String sp= request.getServletPath();
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
