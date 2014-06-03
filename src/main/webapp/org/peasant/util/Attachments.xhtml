@@ -12,6 +12,7 @@
 
     </h:head>
     <h:body>
+        <p:growl id="growl" autoUpdate="true" showDetail="true" />
 
         <h:form prependId="false">
             <p:fileUpload multiple="true" mode="advanced" fileUploadListener="#{attachmentController.handleFileUpload}" update=":AttachsForm" />
