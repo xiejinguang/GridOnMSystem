@@ -12,4 +12,5 @@ package org.peasant.util.web;
 public class Constants {
 
     public static final String REPOSITORY_HOME_PARAM = "peasant.repository.PATH";
+    public static final String ATTACHMENT_PATH_PARAM = "peasant.attachment.PATH";
 }

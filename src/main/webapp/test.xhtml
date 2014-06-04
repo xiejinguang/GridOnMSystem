@@ -37,12 +37,12 @@
 
             <f:facet name="inline">
                 <p:contentFlow value="#{attachmentController.getAttachmentsByOwner('image')}"  var="image"  >
-                     <p:graphicImage value="#{attachmentController.getStreamContent(image)}" styleClass="content" />
+                     <p:graphicImage value="${attachmentController.getResourcePath(image)}" styleClass="content" />
                 </p:contentFlow>
             </f:facet>
         </p:lightBox>
-        <p:contentFlow value="#{attachmentController.getAttachmentsByOwner('image')}"  var="image"  >
-            <p:graphicImage value="#{attachmentController.getStreamContent(image)}" styleClass="content" />
+        <p:contentFlow value="#{attachmentController.getAttachmentsByOwner('image')}"  var="image"  >            
+            <p:graphicImage value="${attachmentController.getResourcePath(image)}" styleClass="content" rendered="#{(image.contentType.indexOf('image')) > -1}" />
         </p:contentFlow>
 
 

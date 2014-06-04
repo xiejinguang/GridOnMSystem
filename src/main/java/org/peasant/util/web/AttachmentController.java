@@ -34,7 +34,7 @@ import org.primefaces.model.UploadedFile;
  * @author 谢金光
  */
 @Named(value = "attachmentController")
-@SessionScoped
+@ViewScoped
 public class AttachmentController implements Serializable {
 
     @Inject
@@ -82,6 +82,10 @@ public class AttachmentController implements Serializable {
         //当使用HTTP进行下载时，必须使用URLEncoder对文件名进行编号（若是firefox则必须使用new String(filename.getBytes("UTF-8"),"ISO-8859-1")，否则在下载保存对话框中的中文文件名将是乱码，请参见HTTP Header： Content-Disposition
         return new DefaultStreamedContent(a.getInputStream(), a.getContentType(),HttpUtils.encodeFilename((HttpServletRequest)ec.getRequest(), (HttpServletResponse)ec.getResponse(), a.getName()));
     }
+    public String getResourcePath(Attachment a){
+        ExternalContext ec =  FacesContext.getCurrentInstance().getExternalContext();
+        return AttachmentFilter.getAttachmentURLPartPath((HttpServletRequest)ec.getRequest(), (HttpServletResponse)ec.getResponse(), a, AttachmentFilter.MOETHOD_RESOURCE);
+    }
 
     public void handleFileUpload(FileUploadEvent fue) {
         UploadedFile uf = fue.getFile();
@@ -100,4 +104,5 @@ public class AttachmentController implements Serializable {
             attachRepo.delete(a);
         }
     }
+    
 }

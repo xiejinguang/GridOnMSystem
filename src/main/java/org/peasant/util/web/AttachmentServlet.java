@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.peasant.util.web;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -14,7 +15,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.peasant.util.Attachment;
 import org.peasant.util.Repository;
+import org.peasant.util.Utils;
 
 /**
  *
@@ -38,26 +41,39 @@ public class AttachmentServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String m = request.getMethod();
-        if(m.equalsIgnoreCase("GET")){
-            
+        String mod, aid;
+//        if (m.equalsIgnoreCase("GET")) {
+//            mod = request.getParameter("method");
+//        }
+//        if (m.equalsIgnoreCase("POST")) {
+//            
+//        }
+        mod = request.getParameter("method");
+        if (mod == null|| mod.isEmpty()) {
+            mod = "resource";
         }
-        if(m.equalsIgnoreCase("POST")){
-            
+        aid = request.getParameter("aid");
+        if (aid == null || aid.isEmpty()) {
+            //
+            return;
         }
-        String sp= request.getServletPath();
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AttachmentServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AttachmentServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        Attachment a = repo.getAttachment(aid);
+        if(a == null )
+            return;
+        String  ce = response.getCharacterEncoding();
+        response.setContentType(a.getContentType());
+        response.setCharacterEncoding(ce);
+        if(!mod.equalsIgnoreCase("resource")){
+            response.setHeader("Content-Disposition", "attachment;filename=\""+HttpUtils.encodeFilename(request, response, a.getName(), ce));
         }
+        OutputStream os = response.getOutputStream();
+        InputStream is = a.getInputStream();
+        Utils.copy(is, os);
+        is.close();
+        os.close();
+        String sp = request.getServletPath();
+        //response.setContentType("text/html;charset=UTF-8");       
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
