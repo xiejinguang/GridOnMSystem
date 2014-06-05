@@ -9,33 +9,35 @@
     <h:head>
         <title>Grid Operation And Management System - <ui:insert name="title"/></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
-        <h:outputScript library="js" name="jsfcrud.js"/>
         <h:outputStylesheet library="css" name="default.css" />
+        <h:outputScript library="js" name="jsfcrud.js" target="head"/>
         <h:outputScript library="peasant" name="mycustomized.js" target="head"/>
         <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">
             <f:facet name="start">
                 <h:graphicImage name="ajaxloading.gif" />
             </f:facet>     
         </p:ajaxStatus>
-        <p:idleMonitor timeout="5000"
-                       onidle="PF('idleDialog').show()" onactive="PF('idleDialog').hide()"/>
-
+        
+        <p:idleMonitor timeout="10000"  onidle="PF('idleDialog').show()" onactive="PF('idleDialog').hide()"/>
         <p:dialog header="What's happening?" resizable="false"
                   widgetVar="idleDialog" modal="true" width="400">
             <h:outputText value="Dude, are you there?" />
         </p:dialog>
+        
+        <p:growl  id="growl" autoUpdate="true" widgetVar="growl" showDetail="true" sticky="true"/>
+        <p:messages autoUpdate="true" showDetail="true" closable="true" id="messages"  />
+
 
     </h:head>
     <h:body>
 
-        <p:growl  id="growl" autoUpdate="true" widgetVar="growl" showDetail="true" sticky="true"/>
-        <p:messages autoUpdate="true" showDetail="true" closable="true" id="messages"  />
 
-        <p:layout fullPage="true" stateful="true">
-            <p:layoutUnit id="north" position="north" size="100" gutter="10"   >
-                
+
+        <p:layout fullPage="true" stateful="true" >
+            <p:layoutUnit id="north" position="north" size="100" gutter="0"  >
+
                 <ui:include src="/sections/TopMenu.xhtml"/>
- 
+
                 <h:panelGroup style=" position: absolute;top: 10px;left: 10px; ">
                     <p:graphicImage  width="50px" height="50px" library="design" name="logo.jpg" style="vertical-align: top"/>   
                     <h:outputLabel  style="font-weight: bolder; font-size:xx-large ; "  value="  Grid Operation And Management System" /> 
@@ -44,22 +46,12 @@
             </p:layoutUnit>
 
 
-            <p:layoutUnit id="west" position="west" size="200" header="west" collapsible="true" resizable="true">
-                <p:accordionPanel multiple="true">
-                    <p:tab title="基站信息系统">
-                    </p:tab>
-                    <p:tab title="三表一档案">
-
-                    </p:tab>
-                    <p:tab title="两会">
-
-                    </p:tab>
-                    <p:tab title="巡检管理系统">
-
-                    </p:tab>
-                </p:accordionPanel>
+            <p:layoutUnit id="west" position="west" size="200" collapsible="true" resizable="false"  >
+                <ui:include src="/sections/SysMenu.xhtml" />
             </p:layoutUnit>
-            <p:layoutUnit id="center" position="center" minSize="800" resizable="true" >
+            
+            
+            <p:layoutUnit id="center" position="center"  resizable="true" >
                 <p:tabView id="mainTabView" dynamic="true" scrollable="true" effect="clip" cache="true">
                     <p:tab  title="test"  closable="true">
                         <iframe id="testFrame" src="#{request.contextPath}/ui/gridInfo/List.jsf"  frameborder="0"  scrolling="no" marginheight="0" marginwidth="0"  width="100%"  onload="autoFitDocSize(this)"/>
@@ -71,18 +63,6 @@
 
 
         </script>
-        <h:form prependId="false" >
-            <p:dock position="bottom" halign="left" proximity="30" maxWidth="30" >
-                <p:menuitem  icon="/images/stack/music.png"  value="Music" />
-                <p:menuitem  icon="/images/stack/video.png"  value="Video" />
-                <p:menuitem  icon="/images/stack/home.png"  value="Home" />
-                <p:menuitem  icon="/images/stack/link.png"  value="Link" />
-                <p:menuitem  icon="/images/stack/rss.png"  value="RSS" />
-                <p:menuitem  icon="/images/stack/history.png"  value="History" />
-            </p:dock>
-        </h:form>  
-
-
     </h:body>
 
 

@@ -128,10 +128,41 @@ public class AttachmentFilter implements Filter {
         HttpServletRequest httpReq = (HttpServletRequest) request;
         HttpServletResponse httpResp = (HttpServletResponse) response;
 
+        boolean isAttachment = processAttachment(httpReq, httpResp);
+
+        Throwable problem = null;
+        try {
+            if (!isAttachment) {//the request resource is not Attachment,so continue the filterchain.
+                chain.doFilter(request, response);
+            }
+        } catch (Throwable t) {
+            // If an exception is thrown somewhere down the filter chain,
+            // we still want to execute our after processing, and then
+            // rethrow the problem after that.
+            problem = t;
+            t.printStackTrace();
+        }
+
+        doAfterProcessing(request, response);
+
+        // If there was a problem, we want to rethrow it if it is
+        // a known type, otherwise log it.
+        if (problem != null) {
+            if (problem instanceof ServletException) {
+                throw (ServletException) problem;
+            }
+            if (problem instanceof IOException) {
+                throw (IOException) problem;
+            }
+            sendProcessingError(problem, response);
+        }
+    }
+
+    protected boolean processAttachment(HttpServletRequest httpReq, HttpServletResponse httpResp) throws IOException {
         String pi = httpReq.getPathInfo();
         String sp = httpReq.getServletPath();
-        String reqURI = httpReq.getRequestURI();
-        String context = httpReq.getContextPath();
+//        String reqURI = httpReq.getRequestURI();
+//        String context = httpReq.getContextPath();
         if (sp != null && sp.contains(attachmentPath)) {
 
             String m = httpReq.getMethod();
@@ -156,43 +187,21 @@ public class AttachmentFilter implements Filter {
                     httpResp.setContentType(a.getContentType());
                     httpResp.setCharacterEncoding(ce);
                     if (!mod.equalsIgnoreCase("resource")) {
-                        httpResp.setHeader("Content-Disposition", "attachment;filename=\"" + HttpUtils.encodeFilename(httpReq, httpResp, a.getName(), ce));
+                        httpResp.setHeader("Content-Disposition", mod+";filename=\"" + HttpUtils.encodeFilename(httpReq, httpResp, a.getName(), ce));
                     }
                     OutputStream os = httpResp.getOutputStream();
                     InputStream is = a.getInputStream();
                     Utils.copy(is, os);
                     is.close();
-                    
-                    //response.setContentType("text/html;charset=UTF-8");      
-                   
+                    os.close();
+                    log("AttachmentFilter: Successful get the attachment");
+                    return true;
+                    //response.setContentType("text/html;charset=UTF-8");
+
                 }
             }
         }
-
-        Throwable problem = null;
-        try {
-            chain.doFilter(request, response);
-        } catch (Throwable t) {
-            // If an exception is thrown somewhere down the filter chain,
-            // we still want to execute our after processing, and then
-            // rethrow the problem after that.
-            problem = t;
-            t.printStackTrace();
-        }
-
-        doAfterProcessing(request, response);
-
-        // If there was a problem, we want to rethrow it if it is
-        // a known type, otherwise log it.
-        if (problem != null) {
-            if (problem instanceof ServletException) {
-                throw (ServletException) problem;
-            }
-            if (problem instanceof IOException) {
-                throw (IOException) problem;
-            }
-            sendProcessingError(problem, response);
-        }
+        return false;
     }
 
     /**

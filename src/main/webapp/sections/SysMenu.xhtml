@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition>
+        <h:form prependId="false" >
+            <p:menuitem icon="/images/search/seek.jpg" ><p:inputText /></p:menuitem>
+            <p:accordionPanel activeIndex="#{cookie['sysmenustate']}"  >
+                    
+                
+                    <p:tab title="基站信息系统">
+                    </p:tab>
+                    <p:tab title="三表一档案">
+
+                    </p:tab>
+                    <p:tab title="两会">
+
+                    </p:tab>
+                    <p:tab title="巡检管理系统">
+
+                    </p:tab>
+
+            </p:accordionPanel>
+        </h:form>
+    </ui:composition>
+</html>
+

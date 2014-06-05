@@ -5,14 +5,11 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <application>
         <resource-bundle>
-            <base-name>/i18n/UiBundle</base-name>
-            <display-name>uiBundle</display-name>
-            <var>uiBundle</var>            
+            <base-name>/org/peasant/util/i18n</base-name>
+            <var>i18nBundle</var>
         </resource-bundle>
-        <resource-bundle>
-            <base-name>/Bundle</base-name>
-            <var>bundle</var>
-        </resource-bundle>
+
+           
         
     </application>
     
@@ -26,6 +23,7 @@
         <managed-bean-name>fileUploadClr</managed-bean-name>
         <managed-bean-class>org.peasant.util.web.FileUploadClr</managed-bean-class>
     
-        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 
 </faces-config>

@@ -6,8 +6,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
-        <f:loadBundle var="i18nBundle" basename="/org/peasant/util/i18n" />
+        <title>${i18nBundle.Title}</title>
+
         #{attachmentController.setOwner(param['owner'])}
 
     </h:head>
@@ -58,9 +58,7 @@
                     <p:commandButton value="Download" ajax="false"  icon="ui-icon-arrowthick-1-s">
                         <p:fileDownload value="#{attachmentController.getStreamContent(item)}" />
                     </p:commandButton>
-                    <p:graphicImage value="${attachmentController.getResourcePath(item)}"  rendered="${item.contentType.contains('image')}" width="50px"/>
-                </p:column>
-                
+                </p:column>                
             </p:dataTable>
 
         </h:form>
