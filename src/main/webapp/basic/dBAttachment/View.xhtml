@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DBAttachmentViewDlg" widgetVar="DBAttachmentViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{bundle.ViewDBAttachmentTitle}">
+            <h:form id="DBAttachmentViewForm">
+                <h:panelGroup id="display" rendered="#{empty dBAttachmentController.selectedItems != null}">
+                    <ui:repeat  value="#{dBAttachmentController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.DBAttachmentEntityLabel}"/>
+                                <h:outputText value="#{item.attachmentId}" title="#{bundle.DBAttachmentEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="4" >
+                                <h:outputText value="#{bundle.DBAttachmentLabel_attachmentId}"/>
+                                <h:outputText value="#{item.attachmentId}" title="#{bundle.DBAttachmentTitle_attachmentId}"/>
+                                <h:outputText value="#{bundle.DBAttachmentLabel_name}"/>
+                                <h:outputText value="#{item.name}" title="#{bundle.DBAttachmentTitle_name}"/>
+                                <h:outputText value="#{bundle.DBAttachmentLabel_belonger}"/>
+                                <h:outputText value="#{item.belonger}" title="#{bundle.DBAttachmentTitle_belonger}"/>
+                                <h:outputText value="#{bundle.DBAttachmentLabel_contentType}"/>
+                                <h:outputText value="#{item.contentType}" title="#{bundle.DBAttachmentTitle_contentType}"/>
+                                <h:outputText value="#{bundle.DBAttachmentLabel_uploadTime}"/>
+                                <h:outputText value="#{item.uploadTime}" title="#{bundle.DBAttachmentTitle_uploadTime}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                                <h:outputText value="#{bundle.DBAttachmentLabel_relPath}"/>
+                                <h:outputText value="#{item.relPath}" title="#{bundle.DBAttachmentTitle_relPath}"/>
+                                <h:outputText value="#{bundle.DBAttachmentLabel_attacher}"/>
+                                <h:outputText value="#{item.attacher}" title="#{bundle.DBAttachmentTitle_attacher}"/>
+                                <h:outputText value="#{bundle.DBAttachmentLabel_size}"/>
+                                <h:outputText value="#{item.size}" title="#{bundle.DBAttachmentTitle_size}"/>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton type="button" value="#{bundle.Close}" onclick="PF('DBAttachmentViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#DBAttachmentViewDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

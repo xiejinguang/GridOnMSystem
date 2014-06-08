@@ -5,9 +5,9 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
-        <h:form id="SysMenuForm" prependId="false" >
+        <h:form id="UserMenuForm" prependId="false" >
             
-
+            <p:menuitem icon="/images/search/seek.jpg" ><p:inputText /></p:menuitem>
             <p:accordionPanel activeIndex="#{cookie['sysmenustate']}"  >
                     
                 
@@ -24,11 +24,6 @@
                     </p:tab>
 
             </p:accordionPanel>
-            <p:panelMenu>
-                <p:submenu icon="" >
-                    
-                </p:submenu>
-            </p:panelMenu>
         </h:form>
     </ui:composition>
 </html>

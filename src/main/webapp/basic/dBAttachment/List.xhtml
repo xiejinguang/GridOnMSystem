@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDBAttachmentTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="DBAttachmentListForm">
+                <p:panel header="#{bundle.ListDBAttachmentTitle}">
+                    <p:fieldset id="searchField" legend="${bundle.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+                        <p:panelGrid   style="width:100%"  >
+                            <p:row>
+                                <p:column >
+                                    <p:panelGrid id="searchConsGrid" columns="8">
+
+
+                                        <p:outputLabel value="#{bundle.DBAttachmentLabel_attachmentId}" for="attachmentId" />
+                                        <p:inputText id="attachmentId" value="#{dBAttachmentController.searchCons['attachmentId']}" title="#{bundle.DBAttachmentTitle_attachmentId}"  />
+
+
+                                        <p:outputLabel value="#{bundle.DBAttachmentLabel_name}" for="name" />
+                                        <p:inputText id="name" value="#{dBAttachmentController.searchCons['name']}" title="#{bundle.DBAttachmentTitle_name}"  />
+
+
+                                        <p:outputLabel value="#{bundle.DBAttachmentLabel_belonger}" for="belonger" />
+                                        <p:inputText id="belonger" value="#{dBAttachmentController.searchCons['belonger']}" title="#{bundle.DBAttachmentTitle_belonger}"  />
+
+
+                                        <p:outputLabel value="#{bundle.DBAttachmentLabel_contentType}" for="contentType" />
+                                        <p:inputText id="contentType" value="#{dBAttachmentController.searchCons['contentType']}" title="#{bundle.DBAttachmentTitle_contentType}"  />
+
+
+                                        <p:outputLabel value="#{bundle.DBAttachmentLabel_uploadTime}" for="uploadTime" />
+                                        <p:calendar id="uploadTime" pattern="MM/dd/yyyy" value="#{dBAttachmentController.searchCons['uploadTime']}" title="#{bundle.DBAttachmentTitle_uploadTime}" showOn="button"/>
+
+
+                                        <p:outputLabel value="#{bundle.DBAttachmentLabel_relPath}" for="relPath" />
+                                        <p:inputText id="relPath" value="#{dBAttachmentController.searchCons['relPath']}" title="#{bundle.DBAttachmentTitle_relPath}"  />
+
+
+                                        <p:outputLabel value="#{bundle.DBAttachmentLabel_attacher}" for="attacher" />
+                                        <p:inputText id="attacher" value="#{dBAttachmentController.searchCons['attacher']}" title="#{bundle.DBAttachmentTitle_attacher}"  />
+
+
+                                        <p:outputLabel value="#{bundle.DBAttachmentLabel_size}" for="size" />
+                                        <p:inputText id="size" value="#{dBAttachmentController.searchCons['size']}" title="#{bundle.DBAttachmentTitle_size}"  converter="javax.faces.int"  />
+
+                                    </p:panelGrid>
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton id="searchButton" icon="ui-icon-search"   value="${bundle.Search}" actionListener="#{dBAttachmentController.searchItems}" update=":growl,datalist"/>
+                                    <br/>
+                                    <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${bundle.SearchAll}" actionListener="#{dBAttachmentController.allItems}" update=":growl,datalist"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>                   
+                    </p:fieldset>
+
+                    <p:dataTable id="datalist" value="#{dBAttachmentController.items}" var="item"
+                                 selection="#{dBAttachmentController.selectedItems}"
+                                 rowKey="#{item.attachmentId}"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 paginator="true" paginatorPosition="bottom"
+                                 rows="10" 
+                                 draggableColumns="true" resizableColumns="true" 
+                                 scrollable="true"   liveResize="true" liveScroll="true"
+                                 sortMode="multiple"
+                                 editable="true" 
+                                 stickyHeader="false" 
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+
+                        <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
+
+                        <p:column sortBy="#{item.attachmentId}" filterBy="#{item.attachmentId}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.DBAttachmentTitle_attachmentId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.attachmentId}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.DBAttachmentTitle_name}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.belonger}" filterBy="#{item.belonger}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.DBAttachmentTitle_belonger}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.belonger}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.contentType}" filterBy="#{item.contentType}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.DBAttachmentTitle_contentType}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contentType}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.uploadTime}" filterBy="#{item.uploadTime}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.DBAttachmentTitle_uploadTime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.uploadTime}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column sortBy="#{item.relPath}" filterBy="#{item.relPath}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.DBAttachmentTitle_relPath}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.relPath}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.attacher}" filterBy="#{item.attacher}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.DBAttachmentTitle_attacher}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.attacher}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.size}" filterBy="#{item.size}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.DBAttachmentTitle_size}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.size}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{dBAttachmentController.prepareCreate}" update="@form:@parent:DBAttachmentCreateForm" oncomplete="PF('DBAttachmentCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update="@form:@parent:DBAttachmentViewForm" oncomplete="PF('DBAttachmentViewDialog').show()" disabled="#{empty dBAttachmentController.selectedItems}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update="@form:@parent:DBAttachmentEditForm" oncomplete="PF('DBAttachmentEditDialog').show()" disabled="#{empty dBAttachmentController.selectedItems}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{dBAttachmentController.destroy}" update=":growl,datalist" disabled="#{empty dBAttachmentController.selectedItems}"/>
+                            <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                            <p:columnToggler datasource="datalist" trigger="toggler" />
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>
