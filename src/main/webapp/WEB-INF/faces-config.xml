@@ -12,6 +12,10 @@
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>org.peasant.security</base-name>
+            <var>org.peasant.security</var>
+        </resource-bundle>
     </application>
     
     <navigation-rule>

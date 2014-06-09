@@ -46,7 +46,13 @@
         <param-value>/WEB-INF/shiro.ini</param-value>
     </context-param>
     <listener>
+         <!--
         <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+        -->
+        
+        <description>由peasant提供的定制EnvironmentLoaderListener,实现Realm可用CDI注入</description>
+        <listener-class>org.peasant.security.shiro.cdi.web.EnvironmentLoaderListener</listener-class>        
+    
     </listener>
     <filter>
         <filter-name>ShiroFilter</filter-name>

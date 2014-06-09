@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="UserViewDlg" widgetVar="UserViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{org.peasant.security.ViewUserTitle}">
+            <h:form id="UserViewForm">
+                <h:panelGroup id="display" rendered="#{empty userController.selectedItems != null}">
+                    <ui:repeat  value="#{userController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{org.peasant.security.UserEntityLabel}"/>
+                                <h:outputText value="#{item.username}" title="#{org.peasant.security.UserEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="4" >
+                                <h:outputText value="#{org.peasant.security.UserLabel_username}"/>
+                                <h:outputText value="#{item.username}" title="#{org.peasant.security.UserTitle_username}"/>
+                                <h:outputText value="#{org.peasant.security.UserLabel_password}"/>
+                                <h:outputText value="#{item.password}" title="#{org.peasant.security.UserTitle_password}"/>
+                                <h:outputText value="#{org.peasant.security.UserLabel_email}"/>
+                                <h:outputText value="#{item.email}" title="#{org.peasant.security.UserTitle_email}"/>
+                                <h:outputText value="#{org.peasant.security.UserLabel_createTime}"/>
+                                <h:outputText value="#{item.createTime}" title="#{org.peasant.security.UserTitle_createTime}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                                <h:outputText value="#{org.peasant.security.UserLabel_salt}"/>
+                                <h:outputText value="#{item.salt}" title="#{org.peasant.security.UserTitle_salt}"/>
+                                <h:outputText value="#{org.peasant.security.UserLabel_saltMod}"/>
+                                <h:outputText value="#{item.saltMod}" title="#{org.peasant.security.UserTitle_saltMod}"/>
+                                <h:outputText value="#{org.peasant.security.UserLabel_saltPassword}"/>
+                                <h:outputText value="#{item.saltPassword}" title="#{org.peasant.security.UserTitle_saltPassword}"/>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton type="button" value="#{org.peasant.security.Close}" onclick="PF('UserViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#UserViewDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>
