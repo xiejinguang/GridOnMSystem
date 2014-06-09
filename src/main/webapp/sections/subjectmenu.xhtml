@@ -6,24 +6,16 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
         <h:form id="UserMenuForm" prependId="false" >
-            
+
             <p:menuitem icon="/images/search/seek.jpg" ><p:inputText /></p:menuitem>
-            <p:accordionPanel activeIndex="#{cookie['sysmenustate']}"  >
-                    
-                
-                    <p:tab title="基站信息系统">
-                    </p:tab>
-                    <p:tab title="三表一档案">
-
-                    </p:tab>
-                    <p:tab title="两会">
-
-                    </p:tab>
-                    <p:tab title="巡检管理系统"  >
-
-                    </p:tab>
-
-            </p:accordionPanel>
+            <p:stack icon="/images/stack/home.png">
+                <p:menuitem  icon="/images/stack/music.png"  value="Music" />
+                <p:menuitem  icon="/images/stack/video.png"  value="Video" />
+                <p:menuitem  icon="/images/stack/home.png"  value="Home" />
+                <p:menuitem  icon="/images/stack/link.png"  value="Link" />
+                <p:menuitem  icon="/images/stack/rss.png"  value="RSS" />
+                <p:menuitem  icon="/images/stack/history.png"  value="History" />
+            </p:stack>
         </h:form>
     </ui:composition>
 </html>
