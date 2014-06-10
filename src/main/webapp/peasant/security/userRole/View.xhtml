@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="UserRoleViewDlg" widgetVar="UserRoleViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{security_i18n.ViewUserRoleTitle}">
+            <h:form id="UserRoleViewForm">
+                <h:panelGroup id="display" rendered="#{empty userRoleController.selectedItems != null}">
+                    <ui:repeat  value="#{userRoleController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.UserRoleEntityLabel}"/>
+                                <h:outputText value="#{item.iduserRole}" title="#{security_i18n.UserRoleEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="2" >
+                                <h:outputText value="#{security_i18n.UserRoleLabel_iduserRole}"/>
+                                <h:outputText value="#{item.iduserRole}" title="#{security_i18n.UserRoleTitle_iduserRole}"/>
+                                <h:outputText value="#{security_i18n.UserRoleLabel_roleId}"/>
+                                <h:outputText value="#{item.roleId}" title="#{security_i18n.UserRoleTitle_roleId}"/>
+                                <h:outputText value="#{security_i18n.UserRoleLabel_username}"/>
+                                <h:outputText value="#{item.username}" title="#{security_i18n.UserRoleTitle_username}"/>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton type="button" value="#{security_i18n.Close}" onclick="PF('UserRoleViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#UserRoleViewDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

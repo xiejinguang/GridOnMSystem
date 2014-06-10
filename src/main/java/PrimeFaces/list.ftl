@@ -42,7 +42,7 @@
       xmlns:f="${nsLocation}/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="../template.xhtml">
 
 
         <ui:define name="title">
@@ -62,7 +62,7 @@
                                            
                                                 <p:outputLabel value="${r"#{"}${bundle}.${entityName}Label_${entityDescriptor.id?replace(".","_")}${r"}"}" for="${entityDescriptor.id?replace(".","_")}" />
     <#if entityDescriptor.dateTimeFormat?? && entityDescriptor.dateTimeFormat != "">
-                                                <p:calendar id="${entityDescriptor.id?replace(".","_")}" pattern="${entityDescriptor.dateTimeFormat}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" showOn="button"/>
+                                                <p:calendar id="${entityDescriptor.id?replace(".","_")}" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" showOn="button"/>
     <#elseif entityDescriptor.returnType?matches(".*[Bb]+oolean")>
                                                 <p:selectBooleanCheckbox id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" converter="javax.faces.Boolean" />
     <#elseif entityDescriptor.blob>
@@ -88,7 +88,7 @@
                                     <p:column>
                                         <p:commandButton id="searchButton" icon="ui-icon-search"   value="${r"${"}${bundle}.Search${r"}"}" actionListener="${r"#{"}${managedBean}.searchItems${r"}"}" update=":growl,datalist"/>
                                         <br/>
-                                        <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${r"${"}${bundle}.SearchAll${r"}"}" actionListener="${r"#{"}${managedBean}.allItems${r"}"}" update=":growl,datalist"/>
+                                        <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${r"${"}${bundle}.GetAll${r"}"}" actionListener="${r"#{"}${managedBean}.allItems${r"}"}" update=":growl,datalist"/>
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>                   

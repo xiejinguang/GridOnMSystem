@@ -1,4 +1,4 @@
-package org.gmsys.view.util;
+package org.peasant.security.view.util;
 
 import java.util.List;
 import javax.faces.application.FacesMessage;

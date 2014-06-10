@@ -58,7 +58,7 @@
                         <h:outputText value="${r"#{"}${bundle}.${entityName}Label_${entityDescriptor.id?replace(".","_")}${r"}"}"/>
     <#if entityDescriptor.dateTimeFormat?? && entityDescriptor.dateTimeFormat != "">
                         <h:outputText value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}">
-                            <f:convertDateTime pattern="${entityDescriptor.dateTimeFormat}" />
+                            <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
                         </h:outputText>
     <#elseif entityDescriptor.returnType?matches(".*[Bb]+oolean")>
                         <p:selectBooleanCheckbox value="${r"#{"}${field}${r"}"}" disabled="true"/>

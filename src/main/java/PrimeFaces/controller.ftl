@@ -180,11 +180,8 @@ public class ${controllerClassName} implements Serializable {
         initializeEmbeddableKey();
         return created;
     }
-    public List<${entityClassName}> prepareSearch(){
-        this.items=null;
-        return this.items;
         
-}
+
 
     public void create() {
         persist(PersistAction.CREATE, bundle.getString("${entityClassName}Created"));
@@ -206,9 +203,32 @@ public class ${controllerClassName} implements Serializable {
     }
 
     public List<${entityClassName}> searchItems() {
-        items = getFacade().findByConditions(searchCons);
+        construtSearchParams(this.searchCons);
+        
+        items = getFacade().findByConditions(construtSearchParams(this.searchCons));
         return items;
     }
+
+    protected Map<String, Object>  construtSearchParams(Map<String, Object> params) {
+        Map<String, Object> newparams = new HashMap<>();
+        for(String param:searchCons.keySet()){
+            Object value = searchCons.get(param);
+            if(value!=null){
+                if(value instanceof String){
+                    if(((String)value).isEmpty()){
+                        continue;                        
+                    }else{
+                        newparams.put(param, '%'+((String)value)+'%');
+                        continue;
+                    }
+                }else{
+                    newparams.put(param, value);
+                }
+            }
+        }
+        return newparams;
+    }
+
 
     public List<${entityClassName}> allItems() {
 <#if ejbClassName??>
@@ -226,6 +246,9 @@ public class ${controllerClassName} implements Serializable {
 
 
     public List<${entityClassName}> getItems() {
+        if(null==items){
+            //TODO,根据上次查询条件记录获取记录
+        }
         return items;
     }
 

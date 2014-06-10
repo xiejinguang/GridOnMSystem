@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="UserDetailEditDlg" widgetVar="UserDetailEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{security_i18n.EditUserDetailTitle}">
+            <h:form id="UserDetailEditForm">
+                <h:panelGroup id="display" rendered="#{empty userDetailController.selectedItems != null}">
+                    <ui:repeat  value="#{userDetailController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.UserDetailEntityLabel}"/>
+                                <h:outputText value="#{item.username}" title="#{security_i18n.UserDetailEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="2" >
+                                <p:outputLabel value="#{security_i18n.EditUserDetailLabel_username}" for="username" />
+                                <p:inputText id="username" value="#{item.username}" title="#{security_i18n.EditUserDetailTitle_username}" required="true" requiredMessage="#{security_i18n.EditUserDetailRequiredMessage_username}"/>
+                                <p:outputLabel value="#{security_i18n.EditUserDetailLabel_sex}" for="sex" />
+                                <p:inputText id="sex" value="#{item.sex}" title="#{security_i18n.EditUserDetailTitle_sex}" />
+                                <p:outputLabel value="#{security_i18n.EditUserDetailLabel_birthday}" for="birthday" />
+                                <p:calendar id="birthday" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{item.birthday}" title="#{security_i18n.EditUserDetailTitle_birthday}"  showOn="button"/>
+                                <p:outputLabel value="#{security_i18n.EditUserDetailLabel_firstName}" for="firstName" />
+                                <p:inputText id="firstName" value="#{item.firstName}" title="#{security_i18n.EditUserDetailTitle_firstName}" />
+                                <p:outputLabel value="#{security_i18n.EditUserDetailLabel_lastName}" for="lastName" />
+                                <p:inputText id="lastName" value="#{item.lastName}" title="#{security_i18n.EditUserDetailTitle_lastName}" />
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton actionListener="#{userDetailController.update}" value="#{security_i18n.Save}" update="display,@form:@parent:UserDetailListForm:datalist,:growl" oncomplete="handleSubmit(args,'UserDetailEditDialog');"/>
+                    <p:commandButton type="button" value="#{security_i18n.Cancel}" onclick="PF('UserDetailEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#UserDetailEditDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

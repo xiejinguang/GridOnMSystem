@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{security_i18n.ListRoleTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="RoleListForm">
+                <p:panel header="#{security_i18n.ListRoleTitle}">
+                    <p:fieldset id="searchField" legend="${security_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+                        <p:panelGrid   style="width:100%"  >
+                            <p:row>
+                                <p:column >
+                                    <p:panelGrid id="searchConsGrid" columns="8">
+
+
+                                        <p:outputLabel value="#{security_i18n.RoleLabel_roleId}" for="roleId" />
+                                        <p:inputText id="roleId" value="#{roleController.searchCons['roleId']}" title="#{security_i18n.RoleTitle_roleId}"  />
+
+
+                                        <p:outputLabel value="#{security_i18n.RoleLabel_roleName}" for="roleName" />
+                                        <p:inputText id="roleName" value="#{roleController.searchCons['roleName']}" title="#{security_i18n.RoleTitle_roleName}"  />
+
+
+                                        <p:outputLabel value="#{security_i18n.RoleLabel_description}" for="description" />
+                                        <p:inputText id="description" value="#{roleController.searchCons['description']}" title="#{security_i18n.RoleTitle_description}"  />
+
+
+                                        <p:outputLabel value="#{security_i18n.RoleLabel_createTime}" for="createTime" />
+                                        <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{roleController.searchCons['createTime']}" title="#{security_i18n.RoleTitle_createTime}" showOn="button"/>
+
+                                    </p:panelGrid>
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton id="searchButton" icon="ui-icon-search"   value="${security_i18n.Search}" actionListener="#{roleController.searchItems}" update=":growl,datalist"/>
+                                    <br/>
+                                    <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${security_i18n.GetAll}" actionListener="#{roleController.allItems}" update=":growl,datalist"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>                   
+                    </p:fieldset>
+
+                    <p:dataTable id="datalist" value="#{roleController.items}" var="item"
+                                 selection="#{roleController.selectedItems}"
+                                 rowKey="#{item.roleId}"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 paginator="true" paginatorPosition="bottom"
+                                 rows="10" 
+                                 draggableColumns="true" resizableColumns="true" 
+                                 scrollable="true"   liveResize="true" liveScroll="true"
+                                 sortMode="multiple"
+                                 editable="true" 
+                                 stickyHeader="false" 
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+
+                        <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
+
+                        <p:column sortBy="#{item.roleId}" filterBy="#{item.roleId}">
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.RoleTitle_roleId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.roleId}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.roleName}" filterBy="#{item.roleName}">
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.RoleTitle_roleName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.roleName}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.RoleTitle_description}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.createTime}" filterBy="#{item.createTime}">
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.RoleTitle_createTime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.createTime}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{security_i18n.Create}" actionListener="#{roleController.prepareCreate}" update="@form:@parent:RoleCreateForm" oncomplete="PF('RoleCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{security_i18n.View}" update="@form:@parent:RoleViewForm" oncomplete="PF('RoleViewDialog').show()" disabled="#{empty roleController.selectedItems}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{security_i18n.Edit}" update="@form:@parent:RoleEditForm" oncomplete="PF('RoleEditDialog').show()" disabled="#{empty roleController.selectedItems}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{security_i18n.Delete}" actionListener="#{roleController.destroy}" update=":growl,datalist" disabled="#{empty roleController.selectedItems}"/>
+                            <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                            <p:columnToggler datasource="datalist" trigger="toggler" />
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>

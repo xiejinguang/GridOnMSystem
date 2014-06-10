@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="RoleViewDlg" widgetVar="RoleViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{security_i18n.ViewRoleTitle}">
+            <h:form id="RoleViewForm">
+                <h:panelGroup id="display" rendered="#{empty roleController.selectedItems != null}">
+                    <ui:repeat  value="#{roleController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.RoleEntityLabel}"/>
+                                <h:outputText value="#{item.roleId}" title="#{security_i18n.RoleEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="2" >
+                                <h:outputText value="#{security_i18n.RoleLabel_roleId}"/>
+                                <h:outputText value="#{item.roleId}" title="#{security_i18n.RoleTitle_roleId}"/>
+                                <h:outputText value="#{security_i18n.RoleLabel_roleName}"/>
+                                <h:outputText value="#{item.roleName}" title="#{security_i18n.RoleTitle_roleName}"/>
+                                <h:outputText value="#{security_i18n.RoleLabel_description}"/>
+                                <h:outputText value="#{item.description}" title="#{security_i18n.RoleTitle_description}"/>
+                                <h:outputText value="#{security_i18n.RoleLabel_createTime}"/>
+                                <h:outputText value="#{item.createTime}" title="#{security_i18n.RoleTitle_createTime}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton type="button" value="#{security_i18n.Close}" onclick="PF('RoleViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#RoleViewDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

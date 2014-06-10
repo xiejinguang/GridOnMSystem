@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="UserViewDlg" widgetVar="UserViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{security_i18n.ViewUserTitle}">
+            <h:form id="UserViewForm">
+                <h:panelGroup id="display" rendered="#{empty userController.selectedItems != null}">
+                    <ui:repeat  value="#{userController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.UserEntityLabel}"/>
+                                <h:outputText value="#{item.username}" title="#{security_i18n.UserEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="4" >
+                                <h:outputText value="#{security_i18n.UserLabel_username}"/>
+                                <h:outputText value="#{item.username}" title="#{security_i18n.UserTitle_username}"/>
+                                <h:outputText value="#{security_i18n.UserLabel_password}"/>
+                                <h:outputText value="#{item.password}" title="#{security_i18n.UserTitle_password}"/>
+                                <h:outputText value="#{security_i18n.UserLabel_email}"/>
+                                <h:outputText value="#{item.email}" title="#{security_i18n.UserTitle_email}"/>
+                                <h:outputText value="#{security_i18n.UserLabel_createTime}"/>
+                                <h:outputText value="#{item.createTime}" title="#{security_i18n.UserTitle_createTime}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+                                <h:outputText value="#{security_i18n.UserLabel_salt}"/>
+                                <h:outputText value="#{item.salt}" title="#{security_i18n.UserTitle_salt}"/>
+                                <h:outputText value="#{security_i18n.UserLabel_saltMod}"/>
+                                <h:outputText value="#{item.saltMod}" title="#{security_i18n.UserTitle_saltMod}"/>
+                                <h:outputText value="#{security_i18n.UserLabel_saltPassword}"/>
+                                <h:outputText value="#{item.saltPassword}" title="#{security_i18n.UserTitle_saltPassword}"/>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton type="button" value="#{security_i18n.Close}" onclick="PF('UserViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#UserViewDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

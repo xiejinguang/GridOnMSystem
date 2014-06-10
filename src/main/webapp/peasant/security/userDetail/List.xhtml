@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{security_i18n.ListUserDetailTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="UserDetailListForm">
+                <p:panel header="#{security_i18n.ListUserDetailTitle}">
+                    <p:fieldset id="searchField" legend="${security_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+                        <p:panelGrid   style="width:100%"  >
+                            <p:row>
+                                <p:column >
+                                    <p:panelGrid id="searchConsGrid" columns="8">
+
+
+                                        <p:outputLabel value="#{security_i18n.UserDetailLabel_username}" for="username" />
+                                        <p:inputText id="username" value="#{userDetailController.searchCons['username']}" title="#{security_i18n.UserDetailTitle_username}"  />
+
+
+                                        <p:outputLabel value="#{security_i18n.UserDetailLabel_sex}" for="sex" />
+                                        <p:inputText id="sex" value="#{userDetailController.searchCons['sex']}" title="#{security_i18n.UserDetailTitle_sex}"  />
+
+
+                                        <p:outputLabel value="#{security_i18n.UserDetailLabel_birthday}" for="birthday" />
+                                        <p:calendar id="birthday" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{userDetailController.searchCons['birthday']}" title="#{security_i18n.UserDetailTitle_birthday}" showOn="button"/>
+
+
+                                        <p:outputLabel value="#{security_i18n.UserDetailLabel_firstName}" for="firstName" />
+                                        <p:inputText id="firstName" value="#{userDetailController.searchCons['firstName']}" title="#{security_i18n.UserDetailTitle_firstName}"  />
+
+
+                                        <p:outputLabel value="#{security_i18n.UserDetailLabel_lastName}" for="lastName" />
+                                        <p:inputText id="lastName" value="#{userDetailController.searchCons['lastName']}" title="#{security_i18n.UserDetailTitle_lastName}"  />
+
+                                    </p:panelGrid>
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton id="searchButton" icon="ui-icon-search"   value="${security_i18n.Search}" actionListener="#{userDetailController.searchItems}" update=":growl,datalist"/>
+                                    <br/>
+                                    <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${security_i18n.GetAll}" actionListener="#{userDetailController.allItems}" update=":growl,datalist"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>                   
+                    </p:fieldset>
+
+                    <p:dataTable id="datalist" value="#{userDetailController.items}" var="item"
+                                 selection="#{userDetailController.selectedItems}"
+                                 rowKey="#{item.username}"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 paginator="true" paginatorPosition="bottom"
+                                 rows="10" 
+                                 draggableColumns="true" resizableColumns="true" 
+                                 scrollable="true"   liveResize="true" liveScroll="true"
+                                 sortMode="multiple"
+                                 editable="true" 
+                                 stickyHeader="false" 
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+
+                        <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
+
+                        <p:column sortBy="#{item.username}" filterBy="#{item.username}">
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.UserDetailTitle_username}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.username}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.sex}" filterBy="#{item.sex}">
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.UserDetailTitle_sex}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.sex}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.birthday}" filterBy="#{item.birthday}">
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.UserDetailTitle_birthday}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.birthday}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column sortBy="#{item.firstName}" filterBy="#{item.firstName}">
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.UserDetailTitle_firstName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.firstName}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.lastName}" filterBy="#{item.lastName}">
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.UserDetailTitle_lastName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lastName}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{security_i18n.Create}" actionListener="#{userDetailController.prepareCreate}" update="@form:@parent:UserDetailCreateForm" oncomplete="PF('UserDetailCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{security_i18n.View}" update="@form:@parent:UserDetailViewForm" oncomplete="PF('UserDetailViewDialog').show()" disabled="#{empty userDetailController.selectedItems}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{security_i18n.Edit}" update="@form:@parent:UserDetailEditForm" oncomplete="PF('UserDetailEditDialog').show()" disabled="#{empty userDetailController.selectedItems}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{security_i18n.Delete}" actionListener="#{userDetailController.destroy}" update=":growl,datalist" disabled="#{empty userDetailController.selectedItems}"/>
+                            <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                            <p:columnToggler datasource="datalist" trigger="toggler" />
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>

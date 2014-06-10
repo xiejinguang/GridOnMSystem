@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="UserEditDlg" widgetVar="UserEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{security_i18n.EditUserTitle}">
+            <h:form id="UserEditForm">
+                <h:panelGroup id="display" rendered="#{empty userController.selectedItems != null}">
+                    <ui:repeat  value="#{userController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.UserEntityLabel}"/>
+                                <h:outputText value="#{item.username}" title="#{security_i18n.UserEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="4" >
+                                <p:outputLabel value="#{security_i18n.EditUserLabel_username}" for="username" />
+                                <p:inputText id="username" value="#{item.username}" title="#{security_i18n.EditUserTitle_username}" required="true" requiredMessage="#{security_i18n.EditUserRequiredMessage_username}"/>
+                                <p:outputLabel value="#{security_i18n.EditUserLabel_password}" for="password" />
+                                <p:inputText id="password" value="#{item.password}" title="#{security_i18n.EditUserTitle_password}" required="true" requiredMessage="#{security_i18n.EditUserRequiredMessage_password}"/>
+                                <p:outputLabel value="#{security_i18n.EditUserLabel_email}" for="email" />
+                                <p:inputText id="email" value="#{item.email}" title="#{security_i18n.EditUserTitle_email}" />
+                                <p:outputLabel value="#{security_i18n.EditUserLabel_createTime}" for="createTime" />
+                                <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{item.createTime}" title="#{security_i18n.EditUserTitle_createTime}"  showOn="button"/>
+                                <p:outputLabel value="#{security_i18n.EditUserLabel_salt}" for="salt" />
+                                <p:inputTextarea rows="4" cols="30" id="salt" value="#{item.salt}" title="#{security_i18n.EditUserTitle_salt}" />
+                                <p:outputLabel value="#{security_i18n.EditUserLabel_saltMod}" for="saltMod" />
+                                <p:inputText id="saltMod" value="#{item.saltMod}" title="#{security_i18n.EditUserTitle_saltMod}" />
+                                <p:outputLabel value="#{security_i18n.EditUserLabel_saltPassword}" for="saltPassword" />
+                                <p:inputText id="saltPassword" value="#{item.saltPassword}" title="#{security_i18n.EditUserTitle_saltPassword}" />
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton actionListener="#{userController.update}" value="#{security_i18n.Save}" update="display,@form:@parent:UserListForm:datalist,:growl" oncomplete="handleSubmit(args,'UserEditDialog');"/>
+                    <p:commandButton type="button" value="#{security_i18n.Cancel}" onclick="PF('UserEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#UserEditDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

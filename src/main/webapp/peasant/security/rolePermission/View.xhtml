@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="RolePermissionViewDlg" widgetVar="RolePermissionViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{security_i18n.ViewRolePermissionTitle}">
+            <h:form id="RolePermissionViewForm">
+                <h:panelGroup id="display" rendered="#{empty rolePermissionController.selectedItems != null}">
+                    <ui:repeat  value="#{rolePermissionController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.RolePermissionEntityLabel}"/>
+                                <h:outputText value="#{item.idrolePerm}" title="#{security_i18n.RolePermissionEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="2" >
+                                <h:outputText value="#{security_i18n.RolePermissionLabel_idrolePerm}"/>
+                                <h:outputText value="#{item.idrolePerm}" title="#{security_i18n.RolePermissionTitle_idrolePerm}"/>
+                                <h:outputText value="#{security_i18n.RolePermissionLabel_permissionpermissionId}"/>
+                                <h:outputText value="#{item.permissionpermissionId}" title="#{security_i18n.RolePermissionTitle_permissionpermissionId}"/>
+                                <h:outputText value="#{security_i18n.RolePermissionLabel_roleroleId}"/>
+                                <h:outputText value="#{item.roleroleId}" title="#{security_i18n.RolePermissionTitle_roleroleId}"/>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton type="button" value="#{security_i18n.Close}" onclick="PF('RolePermissionViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#RolePermissionViewDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

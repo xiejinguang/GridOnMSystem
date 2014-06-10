@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{security_i18n.ListResourceTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="ResourceListForm">
+                <p:panel header="#{security_i18n.ListResourceTitle}">
+                    <p:fieldset id="searchField" legend="${security_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+                        <p:panelGrid   style="width:100%"  >
+                            <p:row>
+                                <p:column >
+                                    <p:panelGrid id="searchConsGrid" columns="8">
+
+
+                                        <p:outputLabel value="#{security_i18n.ResourceLabel_resourceId}" for="resourceId" />
+                                        <p:inputText id="resourceId" value="#{resourceController.searchCons['resourceId']}" title="#{security_i18n.ResourceTitle_resourceId}"  />
+
+
+                                        <p:outputLabel value="#{security_i18n.ResourceLabel_resCode}" for="resCode" />
+                                        <p:inputText id="resCode" value="#{resourceController.searchCons['resCode']}" title="#{security_i18n.ResourceTitle_resCode}"  />
+
+
+                                        <p:outputLabel value="#{security_i18n.ResourceLabel_resLabel}" for="resLabel" />
+                                        <p:inputText id="resLabel" value="#{resourceController.searchCons['resLabel']}" title="#{security_i18n.ResourceTitle_resLabel}"  />
+
+
+                                        <p:outputLabel value="#{security_i18n.ResourceLabel_permCode}" for="permCode" />
+                                        <p:inputText id="permCode" value="#{resourceController.searchCons['permCode']}" title="#{security_i18n.ResourceTitle_permCode}"  />
+
+                                    </p:panelGrid>
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton id="searchButton" icon="ui-icon-search"   value="${security_i18n.Search}" actionListener="#{resourceController.searchItems}" update=":growl,datalist"/>
+                                    <br/>
+                                    <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${security_i18n.GetAll}" actionListener="#{resourceController.allItems}" update=":growl,datalist"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>                   
+                    </p:fieldset>
+
+                    <p:dataTable id="datalist" value="#{resourceController.items}" var="item"
+                                 selection="#{resourceController.selectedItems}"
+                                 rowKey="#{item.resourceId}"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 paginator="true" paginatorPosition="bottom"
+                                 rows="10" 
+                                 draggableColumns="true" resizableColumns="true" 
+                                 scrollable="true"   liveResize="true" liveScroll="true"
+                                 sortMode="multiple"
+                                 editable="true" 
+                                 stickyHeader="false" 
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+
+                        <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
+
+                        <p:column sortBy="#{item.resourceId}" filterBy="#{item.resourceId}">
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.ResourceTitle_resourceId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.resourceId}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.resCode}" filterBy="#{item.resCode}">
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.ResourceTitle_resCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.resCode}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.resLabel}" filterBy="#{item.resLabel}">
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.ResourceTitle_resLabel}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.resLabel}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.permCode}" filterBy="#{item.permCode}">
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.ResourceTitle_permCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.permCode}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{security_i18n.Create}" actionListener="#{resourceController.prepareCreate}" update="@form:@parent:ResourceCreateForm" oncomplete="PF('ResourceCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{security_i18n.View}" update="@form:@parent:ResourceViewForm" oncomplete="PF('ResourceViewDialog').show()" disabled="#{empty resourceController.selectedItems}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{security_i18n.Edit}" update="@form:@parent:ResourceEditForm" oncomplete="PF('ResourceEditDialog').show()" disabled="#{empty resourceController.selectedItems}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{security_i18n.Delete}" actionListener="#{resourceController.destroy}" update=":growl,datalist" disabled="#{empty resourceController.selectedItems}"/>
+                            <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                            <p:columnToggler datasource="datalist" trigger="toggler" />
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>

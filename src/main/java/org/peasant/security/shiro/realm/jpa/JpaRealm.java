@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.peasant.security.realm.jpa;
+package org.peasant.security.shiro.realm.jpa;
 
 import java.util.HashMap;
 import javax.ejb.EJB;
@@ -20,6 +20,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.peasant.security.facade.UserFacade;
 import org.peasant.security.model.User;
 
 /**
@@ -57,6 +58,7 @@ public class JpaRealm extends org.apache.shiro.realm.AuthorizingRealm {
     }
 
     public JpaRealm() {
+        super();
     }
 
     public JpaRealm(CacheManager cacheManager) {

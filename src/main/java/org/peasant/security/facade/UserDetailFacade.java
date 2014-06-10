@@ -4,20 +4,19 @@
  * and open the template in the editor.
  */
 
-package org.peasant.security.realm.jpa;
+package org.peasant.security.facade;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.peasant.security.model.User;
-import org.peasant.util.GenericFacade;
+import org.peasant.security.model.UserDetail;
 
 /**
  *
  * @author 谢金光
  */
 @Stateless
-public class UserFacade extends GenericFacade<User> {
+public class UserDetailFacade extends AbstractFacade<UserDetail> {
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
 
@@ -26,8 +25,8 @@ public class UserFacade extends GenericFacade<User> {
         return em;
     }
 
-    public UserFacade() {
-        super(User.class);
+    public UserDetailFacade() {
+        super(UserDetail.class);
     }
     
 }

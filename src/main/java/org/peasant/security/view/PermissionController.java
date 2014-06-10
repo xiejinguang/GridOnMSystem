@@ -1,6 +1,9 @@
-package org.peasant.security.realm.jpa;
+package org.peasant.security.view;
 
-
+import org.peasant.security.model.Permission;
+import org.peasant.security.view.util.JsfUtil;
+import org.peasant.security.view.util.JsfUtil.PersistAction;
+import org.peasant.security.facade.PermissionFacade;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -12,50 +15,47 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-import org.gmsys.view.util.JsfUtil;
-import org.gmsys.view.util.JsfUtil.PersistAction;
-import org.peasant.security.model.User;
 
-@Named("userController")
+@Named("permissionController")
 @ViewScoped
-public class UserController implements Serializable {
+public class PermissionController implements Serializable {
 
     @EJB
-    private org.peasant.security.realm.jpa.UserFacade ejbFacade;
-    private List<User> items = null;
-    private User created;
-    private List<User> selectedItems;
+    private org.peasant.security.facade.PermissionFacade ejbFacade;
+    private List<Permission> items = null;
+    private Permission created;
+    private List<Permission> selectedItems;
     private Map<String, Object> searchCons;
     private ResourceBundle bundle;
 
-    public UserController() {
+    public PermissionController() {
     }
 
     @PostConstruct
     public void init() {
         this.searchCons = new HashMap();
-        this.bundle = ResourceBundle.getBundle("org.peasant.security");
+        this.bundle = ResourceBundle.getBundle("/org/peasant/security_i18n");
     }
 
-    public User getCreated() {
+    public Permission getCreated() {
         return created;
     }
 
-    public void setCreated(User created) {
+    public void setCreated(Permission created) {
         this.created = created;
     }
 
-    public List<User> getSelectedItems() {
+    public List<Permission> getSelectedItems() {
         return selectedItems;
     }
 
-    public void setSelectedItems(List<User> selectedItems) {
+    public void setSelectedItems(List<Permission> selectedItems) {
         this.selectedItems = selectedItems;
     }
 
@@ -73,53 +73,72 @@ public class UserController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private UserFacade getFacade() {
+    private PermissionFacade getFacade() {
         return ejbFacade;
     }
 
-    public User prepareCreate() {
-        created = new User();
+    public Permission prepareCreate() {
+        created = new Permission();
         initializeEmbeddableKey();
         return created;
     }
 
-    public List<User> prepareSearch() {
-        this.items = null;
-        return this.items;
-
-    }
-
     public void create() {
-        persist(PersistAction.CREATE, bundle.getString("UserCreated"));
+        persist(PersistAction.CREATE, bundle.getString("PermissionCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, bundle.getString("UserUpdated"));
+        persist(PersistAction.UPDATE, bundle.getString("PermissionUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, bundle.getString("UserDeleted"));
+        persist(PersistAction.DELETE, bundle.getString("PermissionDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selectedItems = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<User> searchItems() {
-        items = getFacade().findByConditions(searchCons);
+    public List<Permission> searchItems() {
+        construtSearchParams(this.searchCons);
+
+        items = getFacade().findByConditions(construtSearchParams(this.searchCons));
         return items;
     }
 
-    public List<User> allItems() {
+    protected Map<String, Object> construtSearchParams(Map<String, Object> params) {
+        Map<String, Object> newparams = new HashMap<>();
+        for (String param : searchCons.keySet()) {
+            Object value = searchCons.get(param);
+            if (value != null) {
+                if (value instanceof String) {
+                    if (((String) value).isEmpty()) {
+                        continue;
+                    } else {
+                        newparams.put(param, '%' + ((String) value) + '%');
+                        continue;
+                    }
+                } else {
+                    newparams.put(param, value);
+                }
+            }
+        }
+        return newparams;
+    }
+
+    public List<Permission> allItems() {
         items = getFacade().findAll();
 
         return items;
     }
 
-    public List<User> getItems() {
+    public List<Permission> getItems() {
+        if (null == items) {
+            //TODO,根据上次查询条件记录获取记录
+        }
         return items;
     }
 
@@ -133,7 +152,7 @@ public class UserController implements Serializable {
                     break;
 
                 default: {
-                    for (User selected : selectedItems) {
+                    for (Permission selected : selectedItems) {
                         if (selected != null) {
                             setEmbeddableKeys();
                             switch (persistAction) {
@@ -169,29 +188,29 @@ public class UserController implements Serializable {
 
     }
 
-    public User getUser(java.lang.String id) {
+    public Permission getPermission(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<User> getItemsAvailableSelectMany() {
+    public List<Permission> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<User> getItemsAvailableSelectOne() {
+    public List<Permission> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = User.class)
-    public static class UserControllerConverter implements Converter {
+    @FacesConverter(forClass = Permission.class)
+    public static class PermissionControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            UserController controller = (UserController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "userController");
-            return controller.getUser(getKey(value));
+            PermissionController controller = (PermissionController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "permissionController");
+            return controller.getPermission(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -211,11 +230,11 @@ public class UserController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof User) {
-                User o = (User) object;
-                return getStringKey(o.getUsername());
+            if (object instanceof Permission) {
+                Permission o = (Permission) object;
+                return getStringKey(o.getPermissionId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), User.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Permission.class.getName()});
                 return null;
             }
         }

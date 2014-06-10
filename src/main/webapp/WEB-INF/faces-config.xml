@@ -16,6 +16,30 @@
             <base-name>org.peasant.security</base-name>
             <var>org.peasant.security</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/peasant/security/i18n</base-name>
+            <var>i18n</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/peasant/security/i18n</base-name>
+            <var>i18n</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/peasant/security_i18n</base-name>
+            <var>security_i18n</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/peasant/security_i18n</base-name>
+            <var>security_i18n</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/peasant/security_i18n</base-name>
+            <var>security_i18n</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/peasant/security_i18n</base-name>
+            <var>security_i18n</var>
+        </resource-bundle>
     </application>
     
     <navigation-rule>

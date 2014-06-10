@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PermissionViewDlg" widgetVar="PermissionViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{security_i18n.ViewPermissionTitle}">
+            <h:form id="PermissionViewForm">
+                <h:panelGroup id="display" rendered="#{empty permissionController.selectedItems != null}">
+                    <ui:repeat  value="#{permissionController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{security_i18n.PermissionEntityLabel}"/>
+                                <h:outputText value="#{item.permissionId}" title="#{security_i18n.PermissionEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="4" >
+                                <h:outputText value="#{security_i18n.PermissionLabel_permissionId}"/>
+                                <h:outputText value="#{item.permissionId}" title="#{security_i18n.PermissionTitle_permissionId}"/>
+                                <h:outputText value="#{security_i18n.PermissionLabel_permName}"/>
+                                <h:outputText value="#{item.permName}" title="#{security_i18n.PermissionTitle_permName}"/>
+                                <h:outputText value="#{security_i18n.PermissionLabel_code}"/>
+                                <h:outputText value="#{item.code}" title="#{security_i18n.PermissionTitle_code}"/>
+                                <h:outputText value="#{security_i18n.PermissionLabel_domain}"/>
+                                <h:outputText value="#{item.domain}" title="#{security_i18n.PermissionTitle_domain}"/>
+                                <h:outputText value="#{security_i18n.PermissionLabel_action}"/>
+                                <h:outputText value="#{item.action}" title="#{security_i18n.PermissionTitle_action}"/>
+                                <h:outputText value="#{security_i18n.PermissionLabel_target}"/>
+                                <h:outputText value="#{item.target}" title="#{security_i18n.PermissionTitle_target}"/>
+                                <h:outputText value="#{security_i18n.PermissionLabel_description}"/>
+                                <h:outputText value="#{item.description}" title="#{security_i18n.PermissionTitle_description}"/>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton type="button" value="#{security_i18n.Close}" onclick="PF('PermissionViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#PermissionViewDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

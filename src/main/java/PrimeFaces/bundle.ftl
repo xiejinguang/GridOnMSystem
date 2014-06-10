@@ -29,7 +29,8 @@
 </#if>
 PersistenceErrorOccured=A persistence error occurred.
 Search=Search
-SearchAll = SearchALL
+SearchAll = SearchAll
+GetAll = ALL
 SearchConsTitle = Search Conditions
 Create=Create
 View=View
@@ -53,6 +54,17 @@ ${entity.entityClassName}Deleted=${entity.entityClassName} was successfully dele
 ${entity.entityClassName}EntityLabel=${entity.entityClassName}-
 ${entity.entityClassName}EntityTitle=${entity.entityClassName}
 
+#For Link
+${entity.entityClassName}EditLink=Edit
+${entity.entityClassName}ViewLink=View
+${entity.entityClassName}CreateLink=Create New ${entity.entityClassName}
+${entity.entityClassName}IndexLink=Index
+${entity.entityClassName}DestroyLink=Destroy
+${entity.entityClassName}SaveLink=Save
+${entity.entityClassName}ShowAllLink=Show All ${entity.entityClassName} Items
+
+
+
     <#list entity.entityDescriptors as entityDescriptor>
 ${entity.entityClassName}Title_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}
 ${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}:
@@ -61,9 +73,7 @@ ${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${entityD
 #For Create ${entity.entityClassName}
 
 Create${entity.entityClassName}Title=Create New ${entity.entityClassName}
-Create${entity.entityClassName}SaveLink=Save
-Create${entity.entityClassName}ShowAllLink=Show All ${entity.entityClassName} Items
-Create${entity.entityClassName}IndexLink=Index
+
     <#list entity.entityDescriptors as entityDescriptor>
 Create${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}:
 <#if entityDescriptor.required>Create${entity.entityClassName}RequiredMessage_${entityDescriptor.id?replace(".","_")}=The ${entityDescriptor.label} field is required.
@@ -72,10 +82,7 @@ Create${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${e
 #
 #For Edit ${entity.entityClassName}
 Edit${entity.entityClassName}Title=Edit ${entity.entityClassName}
-Edit${entity.entityClassName}SaveLink=Save
-Edit${entity.entityClassName}ViewLink=View
-Edit${entity.entityClassName}ShowAllLink=Show All ${entity.entityClassName} Items
-Edit${entity.entityClassName}IndexLink=Index
+
     <#list entity.entityDescriptors as entityDescriptor>
 Edit${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}:
 <#if entityDescriptor.required>Edit${entity.entityClassName}RequiredMessage_${entityDescriptor.id?replace(".","_")}=The ${entityDescriptor.label} field is required.
@@ -84,21 +91,16 @@ Edit${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${ent
 #
 #For View ${entity.entityClassName}
 View${entity.entityClassName}Title=View
-View${entity.entityClassName}DestroyLink=Destroy
-View${entity.entityClassName}EditLink=Edit
-View${entity.entityClassName}CreateLink=Create New ${entity.entityClassName}
 View${entity.entityClassName}ShowAllLink=Show All ${entity.entityClassName} Items
-View${entity.entityClassName}IndexLink=Index
+
     <#list entity.entityDescriptors as entityDescriptor>
 View${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}:
 View${entity.entityClassName}Title_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}
     </#list>
 List${entity.entityClassName}Title=List of ${entity.entityClassName}
 List${entity.entityClassName}Empty=(No ${entity.entityClassName} Items Found)
-List${entity.entityClassName}DestroyLink=Destroy
-List${entity.entityClassName}EditLink=Edit
-List${entity.entityClassName}ViewLink=View
-List${entity.entityClassName}CreateLink=Create New ${entity.entityClassName}
-List${entity.entityClassName}IndexLink=Index
+
+
+
 
 </#list>
