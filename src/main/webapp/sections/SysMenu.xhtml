@@ -6,42 +6,33 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
         <h:form id="SysMenuForm" prependId="false" >
-
-
-            <p:accordionPanel activeIndex="#{cookie['sysmenustate']}"  >
-
-
+            <p:accordionPanel activeIndex="#{cookie['sysmenustate']}"   >
+                <p:ajax event="tabChange" update=":SysMenuForm" />
                 <p:tab title="基站信息系统">
+                    <h:link ><p:graphicImage value="/images/stack/music.png"  width="50px" style="vertical-align: middle"/>Music</h:link>
+                    <br/>
+                    <h:link ><p:graphicImage value="/images/stack/video.png"  width="50px" style="vertical-align: middle"/>Video</h:link>
+                    <br/>
+                    <h:link ><p:graphicImage value="/images/stack/home.png"  width="50px" style="vertical-align: middle"/>Home</h:link>
+                    <br/>
+                    <h:link ><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>Link</h:link>
+                    <br/>
+                    <h:link ><p:graphicImage value="/images/stack/rss.png"  width="50px" style="vertical-align: middle"/>RSS</h:link>
+                    <br/>
+                    <h:link ><p:graphicImage value="/images/stack/history.png"  width="50px" style="vertical-align: middle"/>History</h:link>                    
+
                 </p:tab>
                 <p:tab title="三表一档案">
-
                 </p:tab>
                 <p:tab title="两会">
-
                 </p:tab>
-                <p:tab title="巡检管理系统"  >
-
+                <p:tab title="巡检管理系统"   >
                 </p:tab>
 
             </p:accordionPanel>
-            <p:panelMenu>
-                <p:submenu  label="基站信息系统">
 
-                </p:submenu>
-                <p:submenu  label="网格管家">
 
-                </p:submenu>
-                <p:submenu  label="巡检作业系统">
 
-                </p:submenu>
-
-                <p:submenu  label="工单系统">
-
-                </p:submenu>
-                <p:submenu  label="指标分析系统">
-
-                </p:submenu>
-            </p:panelMenu>
         </h:form>
     </ui:composition>
 </html>
