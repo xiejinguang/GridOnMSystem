@@ -43,6 +43,9 @@ SelectOneMessage=Select One...
 Home=Home
 Maintenance=Maintenance
 AppName=${projectName}
+AppNameTitle=${projectName}
+ModuleName = Module
+ModuleNameTitle = Module
 
 <#list entities as entity>
 #
@@ -64,7 +67,7 @@ ${entity.entityClassName}SaveLink=Save
 ${entity.entityClassName}ShowAllLink=Show All ${entity.entityClassName} Items
 
 
-
+#For List ${entity.entityClassName}
     <#list entity.entityDescriptors as entityDescriptor>
 ${entity.entityClassName}Title_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}
 ${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}:
@@ -90,8 +93,8 @@ Edit${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${ent
     </#list>
 #
 #For View ${entity.entityClassName}
-View${entity.entityClassName}Title=View
-View${entity.entityClassName}ShowAllLink=Show All ${entity.entityClassName} Items
+View${entity.entityClassName}Title=View ${entity.entityClassName}
+
 
     <#list entity.entityDescriptors as entityDescriptor>
 View${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}:

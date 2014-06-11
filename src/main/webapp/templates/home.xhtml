@@ -7,34 +7,44 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Grid Operation And Management System - <ui:insert name="title"/>Home</title>
+        <title>${bundle.AppNameTitle} - <ui:insert name="title"/>Home</title>
         <ui:include src="/sections/head.xhtml"/>
     </h:head>
     <h:body>
         <p:layout fullPage="true" stateful="true" >
-            <p:layoutUnit id="north" position="north" size="100" gutter="0"  >
+            <p:layoutUnit id="top" position="north" size="100" gutter="0">
 
                 <ui:include src="/sections/TopMenu.xhtml"/>
 
-                <h:panelGroup style=" position: absolute;top: 10px;left: 10px; ">
-                    <p:graphicImage  width="70px" height="70px" library="design" name="logo.jpg" style="vertical-align: middle"/>   
-                    <h:outputLabel  style="font-weight: bolder; font-size:xx-large ; "  value="  Grid Operation And Management System" /> 
+                <h:panelGroup style=" position: absolute;top: 10px;left:30px; " >
+                    <p:graphicImage   height="80px" library="design" name="logo.jpg" style="vertical-align: middle;"/> 
+
+                    <h:outputLabel  style="font-weight: bolder; font-size:xx-large ; position:  relative; left: 30px "  value="网 格 管 家"/>
+
+                    <h:outputLabel  style="font-weight: bolder; font-size:large ; position: relative; top: 25px ; left: -50px  "   value=" -- Grid Operation And Management System" /> 
+
                 </h:panelGroup>
 
             </p:layoutUnit>
 
 
-            <p:layoutUnit id="west" position="west" size="200" collapsible="true" resizable="false"  >
+            <p:layoutUnit id="left" position="west" size="200" collapsible="true" resizable="true"  >
                 <ui:include src="/sections/SysMenu.xhtml" />
             </p:layoutUnit>
-            
-            
-            <p:layoutUnit id="center" position="center"  resizable="true" >
-                <p:tabView id="mainTabView" dynamic="true" scrollable="true" effect="clip" cache="true">
-                    <p:tab  title="test"  closable="true">
-                        <iframe id="testFrame" src="#{request.contextPath}/ui/gridInfo/List.jsf"  frameborder="0"  scrolling="no" marginheight="0" marginwidth="0"  width="100%"  onload="autoFitDocSize(this)"/>
+
+
+
+            <p:layoutUnit id="center" position="center" >
+
+
+                <p:carousel  autoPlayInterval="5000" numVisible="1" circular="true" itemStyle="width:800px" >
+                    <p:tab>
+                        <p:outputLabel value="you see it"/>
                     </p:tab>
-                </p:tabView>
+
+                </p:carousel>
+                
+
             </p:layoutUnit>
         </p:layout>
         <script>
