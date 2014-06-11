@@ -5,17 +5,21 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
-        <h:form id="UserMenuForm" prependId="false" >
+        <h:form id="SubjectMenuForm" prependId="false" >
+            <p:outputLabel id="subject">欢迎，</p:outputLabel>
+            <p:overlayPanel id="SubjectMenu" for="subject" showEvent="mouseover" hideEvent="mousedown" dismissable="true" >
+                <p:menuitem icon="/images/search/seek.jpg" ><p:inputText /></p:menuitem>
 
-            <p:menuitem icon="/images/search/seek.jpg" ><p:inputText /></p:menuitem>
-            <p:stack icon="/images/stack/home.png">
                 <p:menuitem  icon="/images/stack/music.png"  value="Music" />
                 <p:menuitem  icon="/images/stack/video.png"  value="Video" />
                 <p:menuitem  icon="/images/stack/home.png"  value="Home" />
                 <p:menuitem  icon="/images/stack/link.png"  value="Link" />
                 <p:menuitem  icon="/images/stack/rss.png"  value="RSS" />
                 <p:menuitem  icon="/images/stack/history.png"  value="History" />
-            </p:stack>
+            </p:overlayPanel>
+
+
+
         </h:form>
     </ui:composition>
 </html>
