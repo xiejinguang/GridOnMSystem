@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title>#{security_i18n.AppName}-<ui:insert name="title">Default Title</ui:insert></title>
+        <title>#{gmsys_i18n.AppName}-<ui:insert name="title">Default Title</ui:insert></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
     </h:head>
@@ -19,15 +19,11 @@
             <p:layoutUnit position="north" size="65">
                 <h:form id="menuForm">
                     <p:menubar>
-                        <p:menuitem value="#{security_i18n.Home}" outcome="/index" icon="ui-icon-home"/>
-                        <p:submenu label="#{security_i18n.Maintenance}">
-                            <p:menuitem value="Permission" outcome="/peasant/security/permission/List.xhtml" />
-                            <p:menuitem value="Resource" outcome="/peasant/security/resource/List.xhtml" />
-                            <p:menuitem value="Role" outcome="/peasant/security/role/List.xhtml" />
-                            <p:menuitem value="RolePermission" outcome="/peasant/security/rolePermission/List.xhtml" />
-                            <p:menuitem value="User" outcome="/peasant/security/user/List.xhtml" />
-                            <p:menuitem value="UserDetail" outcome="/peasant/security/userDetail/List.xhtml" />
-                            <p:menuitem value="UserRole" outcome="/peasant/security/userRole/List.xhtml" />
+                        <p:menuitem value="#{gmsys_i18n.Home}" outcome="/index" icon="ui-icon-home"/>
+                        <p:submenu label="#{gmsys_i18n.Maintenance}">
+                            <p:menuitem value="BasicRoomspot" outcome="/gmsys/basicRoomspot/List.xhtml" />
+                            <p:menuitem value="BasicStation" outcome="/gmsys/basicStation/List.xhtml" />
+                            <p:menuitem value="GmsysFixDemand" outcome="/gmsys/gmsysFixDemand/List.xhtml" />
                         </p:submenu>
                     </p:menubar>
                 </h:form>

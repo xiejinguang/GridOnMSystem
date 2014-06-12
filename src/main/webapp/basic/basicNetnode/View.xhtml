@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="BasicNetnodeViewDlg" widgetVar="BasicNetnodeViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{basic_i18n.ViewBasicNetnodeTitle}">
+            <h:form id="BasicNetnodeViewForm">
+                <h:panelGroup id="display" rendered="#{empty basicNetnodeController.selectedItems != null}">
+                    <ui:repeat  value="#{basicNetnodeController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.BasicNetnodeEntityLabel}"/>
+                                <h:outputText value="#{item.netNodeID}" title="#{basic_i18n.BasicNetnodeEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="4" >
+                                <h:outputText value="#{basic_i18n.BasicNetnodeLabel_netNodeID}"/>
+                                <h:outputText value="#{item.netNodeID}" title="#{basic_i18n.BasicNetnodeTitle_netNodeID}"/>
+                                <h:outputText value="#{basic_i18n.BasicNetnodeLabel_ossCode}"/>
+                                <h:outputText value="#{item.ossCode}" title="#{basic_i18n.BasicNetnodeTitle_ossCode}"/>
+                                <h:outputText value="#{basic_i18n.BasicNetnodeLabel_name}"/>
+                                <h:outputText value="#{item.name}" title="#{basic_i18n.BasicNetnodeTitle_name}"/>
+                                <h:outputText value="#{basic_i18n.BasicNetnodeLabel_investTime}"/>
+                                <h:outputText value="#{item.investTime}" title="#{basic_i18n.BasicNetnodeTitle_investTime}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+                                <h:outputText value="#{basic_i18n.BasicNetnodeLabel_commont}"/>
+                                <h:outputText value="#{item.commont}" title="#{basic_i18n.BasicNetnodeTitle_commont}"/>
+                                <h:outputText value="#{basic_i18n.BasicNetnodeLabel_status}"/>
+                                <h:outputText value="#{item.status}" title="#{basic_i18n.BasicNetnodeTitle_status}"/>
+                                <h:outputText value="#{basic_i18n.BasicNetnodeLabel_equipModelID}"/>
+                                <h:outputText value="#{item.equipModelID}" title="#{basic_i18n.BasicNetnodeTitle_equipModelID}"/>
+                                <h:outputText value="#{basic_i18n.BasicNetnodeLabel_statID}"/>
+                                <h:outputText value="#{item.statID}" title="#{basic_i18n.BasicNetnodeTitle_statID}"/>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton type="button" value="#{basic_i18n.Close}" onclick="PF('BasicNetnodeViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#BasicNetnodeViewDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

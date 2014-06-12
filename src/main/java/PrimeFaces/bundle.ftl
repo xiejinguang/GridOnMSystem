@@ -43,19 +43,24 @@ SelectOneMessage=Select One...
 Home=Home
 Maintenance=Maintenance
 AppName=${projectName}
-AppNameTitle=${projectName}
+AppNameLabel=${projectName}
 ModuleName = Module
-ModuleNameTitle = Module
+ModuleNameLabel = Module
 
 <#list entities as entity>
 #
 #
 #For ${entity.entityClassName}
+
 ${entity.entityClassName}Created=${entity.entityClassName} was successfully created.
 ${entity.entityClassName}Updated=${entity.entityClassName} was successfully updated.
 ${entity.entityClassName}Deleted=${entity.entityClassName} was successfully deleted.
 ${entity.entityClassName}EntityLabel=${entity.entityClassName}-
 ${entity.entityClassName}EntityTitle=${entity.entityClassName}
+
+#For Menu
+${entity.entityClassName}MenuLabel = ${entity.entityClassName}
+
 
 #For Link
 ${entity.entityClassName}EditLink=Edit

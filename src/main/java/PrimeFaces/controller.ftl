@@ -152,9 +152,11 @@ public class ${controllerClassName} implements Serializable {
 </#list>
     }
 
-    protected void initializeEmbeddableKey() {
+    protected void initializeKey(){
 <#if keyEmbedded>
-        selected.${keySetter}(new ${keyType}());
+        created.${keySetter}(new ${keyType}());
+<#else>
+        created.${keySetter}(org.eman.util.Utils.generateUniqueKey());
 </#if>
     }
 
@@ -176,8 +178,9 @@ public class ${controllerClassName} implements Serializable {
 </#if>
 
     public ${entityClassName} prepareCreate() {
+
         created = new ${entityClassName}();
-        initializeEmbeddableKey();
+        initializeKey();
         return created;
     }
         

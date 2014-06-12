@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="GmsysFixDemandViewDlg" widgetVar="GmsysFixDemandViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{gmsys_i18n.ViewGmsysFixDemandTitle}">
+            <h:form id="GmsysFixDemandViewForm">
+                <h:panelGroup id="display" rendered="#{empty gmsysFixDemandController.selectedItems != null}">
+                    <ui:repeat  value="#{gmsysFixDemandController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{gmsys_i18n.GmsysFixDemandEntityLabel}"/>
+                                <h:outputText value="#{item.demandID}" title="#{gmsys_i18n.GmsysFixDemandEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="4" >
+                                <h:outputText value="#{gmsys_i18n.GmsysFixDemandLabel_demandID}"/>
+                                <h:outputText value="#{item.demandID}" title="#{gmsys_i18n.GmsysFixDemandTitle_demandID}"/>
+                                <h:outputText value="#{gmsys_i18n.GmsysFixDemandLabel_demandCode}"/>
+                                <h:outputText value="#{item.demandCode}" title="#{gmsys_i18n.GmsysFixDemandTitle_demandCode}"/>
+                                <h:outputText value="#{gmsys_i18n.GmsysFixDemandLabel_problemKind}"/>
+                                <h:outputText value="#{item.problemKind}" title="#{gmsys_i18n.GmsysFixDemandTitle_problemKind}"/>
+                                <h:outputText value="#{gmsys_i18n.GmsysFixDemandLabel_problemSubKind}"/>
+                                <h:outputText value="#{item.problemSubKind}" title="#{gmsys_i18n.GmsysFixDemandTitle_problemSubKind}"/>
+                                <h:outputText value="#{gmsys_i18n.GmsysFixDemandLabel_problemDetails}"/>
+                                <h:outputText value="#{item.problemDetails}" title="#{gmsys_i18n.GmsysFixDemandTitle_problemDetails}"/>
+                                <h:outputText value="#{gmsys_i18n.GmsysFixDemandLabel_solution}"/>
+                                <h:outputText value="#{item.solution}" title="#{gmsys_i18n.GmsysFixDemandTitle_solution}"/>
+                                <h:outputText value="#{gmsys_i18n.GmsysFixDemandLabel_fixKind}"/>
+                                <h:outputText value="#{item.fixKind}" title="#{gmsys_i18n.GmsysFixDemandTitle_fixKind}"/>
+                                <h:outputText value="#{gmsys_i18n.GmsysFixDemandLabel_budgetList}"/>
+                                <h:outputText value="#{item.budgetList}" title="#{gmsys_i18n.GmsysFixDemandTitle_budgetList}"/>
+                                <h:outputText value="#{gmsys_i18n.GmsysFixDemandLabel_budget}"/>
+                                <h:outputText value="#{item.budget}" title="#{gmsys_i18n.GmsysFixDemandTitle_budget}"/>
+                                <h:outputText value="#{gmsys_i18n.GmsysFixDemandLabel_discoverDate}"/>
+                                <h:outputText value="#{item.discoverDate}" title="#{gmsys_i18n.GmsysFixDemandTitle_discoverDate}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+                                <h:outputText value="#{gmsys_i18n.GmsysFixDemandLabel_source}"/>
+                                <h:outputText value="#{item.source}" title="#{gmsys_i18n.GmsysFixDemandTitle_source}"/>
+                                <h:outputText value="#{gmsys_i18n.GmsysFixDemandLabel_status}"/>
+                                <h:outputText value="#{item.status}" title="#{gmsys_i18n.GmsysFixDemandTitle_status}"/>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton type="button" value="#{gmsys_i18n.Close}" onclick="PF('GmsysFixDemandViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#GmsysFixDemandViewDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

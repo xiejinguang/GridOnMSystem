@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="GmsysFixDemandCreateDlg" widgetVar="GmsysFixDemandCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{gmsys_i18n.CreateGmsysFixDemandTitle}">
+            <h:form id="GmsysFixDemandCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{gmsysFixDemandController.created != null}">
+                        <p:outputLabel value="#{gmsys_i18n.CreateGmsysFixDemandLabel_demandID}" for="demandID" />
+                        <p:inputText id="demandID" value="#{gmsysFixDemandController.created.demandID}" title="#{gmsys_i18n.CreateGmsysFixDemandTitle_demandID}"  disabled="true"       required="true" requiredMessage="#{gmsys_i18n.CreateGmsysFixDemandRequiredMessage_demandID}"/>
+                        <p:outputLabel value="#{gmsys_i18n.CreateGmsysFixDemandLabel_demandCode}" for="demandCode" />
+                        <p:inputText id="demandCode" value="#{gmsysFixDemandController.created.demandCode}" title="#{gmsys_i18n.CreateGmsysFixDemandTitle_demandCode}"  disabled="false"       required="true" requiredMessage="#{gmsys_i18n.CreateGmsysFixDemandRequiredMessage_demandCode}"/>
+                        <p:outputLabel value="#{gmsys_i18n.CreateGmsysFixDemandLabel_problemKind}" for="problemKind" />
+                        <p:inputText id="problemKind" value="#{gmsysFixDemandController.created.problemKind}" title="#{gmsys_i18n.CreateGmsysFixDemandTitle_problemKind}"  disabled="false"       required="true" requiredMessage="#{gmsys_i18n.CreateGmsysFixDemandRequiredMessage_problemKind}"/>
+                        <p:outputLabel value="#{gmsys_i18n.CreateGmsysFixDemandLabel_problemSubKind}" for="problemSubKind" />
+                        <p:inputText id="problemSubKind" value="#{gmsysFixDemandController.created.problemSubKind}" title="#{gmsys_i18n.CreateGmsysFixDemandTitle_problemSubKind}"  disabled="false"       required="true" requiredMessage="#{gmsys_i18n.CreateGmsysFixDemandRequiredMessage_problemSubKind}"/>
+                        <p:outputLabel value="#{gmsys_i18n.CreateGmsysFixDemandLabel_problemDetails}" for="problemDetails" />
+                        <p:inputText id="problemDetails" value="#{gmsysFixDemandController.created.problemDetails}" title="#{gmsys_i18n.CreateGmsysFixDemandTitle_problemDetails}"  disabled="false"       required="true" requiredMessage="#{gmsys_i18n.CreateGmsysFixDemandRequiredMessage_problemDetails}"/>
+                        <p:outputLabel value="#{gmsys_i18n.CreateGmsysFixDemandLabel_solution}" for="solution" />
+                        <p:inputText id="solution" value="#{gmsysFixDemandController.created.solution}" title="#{gmsys_i18n.CreateGmsysFixDemandTitle_solution}"  disabled="false"       required="true" requiredMessage="#{gmsys_i18n.CreateGmsysFixDemandRequiredMessage_solution}"/>
+                        <p:outputLabel value="#{gmsys_i18n.CreateGmsysFixDemandLabel_fixKind}" for="fixKind" />
+                        <p:inputText id="fixKind" value="#{gmsysFixDemandController.created.fixKind}" title="#{gmsys_i18n.CreateGmsysFixDemandTitle_fixKind}"  disabled="false"       />
+                        <p:outputLabel value="#{gmsys_i18n.CreateGmsysFixDemandLabel_budgetList}" for="budgetList" />
+                        <p:inputText id="budgetList" value="#{gmsysFixDemandController.created.budgetList}" title="#{gmsys_i18n.CreateGmsysFixDemandTitle_budgetList}"  disabled="false"       />
+                        <p:outputLabel value="#{gmsys_i18n.CreateGmsysFixDemandLabel_budget}" for="budget" />
+                        <p:inputText id="budget" value="#{gmsysFixDemandController.created.budget}" title="#{gmsys_i18n.CreateGmsysFixDemandTitle_budget}"  disabled="false"       />
+                        <p:outputLabel value="#{gmsys_i18n.CreateGmsysFixDemandLabel_discoverDate}" for="discoverDate" />
+                        <p:calendar id="discoverDate" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{gmsysFixDemandController.created.discoverDate}" title="#{gmsys_i18n.EditGmsysFixDemandTitle_discoverDate}" required="true" requiredMessage="#{gmsys_i18n.EditGmsysFixDemandRequiredMessage_discoverDate}" showOn="button"/>
+                        <p:outputLabel value="#{gmsys_i18n.CreateGmsysFixDemandLabel_source}" for="source" />
+                        <p:inputText id="source" value="#{gmsysFixDemandController.created.source}" title="#{gmsys_i18n.CreateGmsysFixDemandTitle_source}"  disabled="false"       />
+                        <p:outputLabel value="#{gmsys_i18n.CreateGmsysFixDemandLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{gmsysFixDemandController.created.status}" title="#{gmsys_i18n.CreateGmsysFixDemandTitle_status}"  disabled="false"       />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gmsysFixDemandController.create}" value="#{gmsys_i18n.Save}" update="display,@form:@parent:GmsysFixDemandListForm:datalist,:growl" oncomplete="handleSubmit(args,'GmsysFixDemandCreateDialog');"/>
+                    <p:commandButton type="button" value="#{gmsys_i18n.Cancel}" onclick="PF('GmsysFixDemandCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#GmsysFixDemandCreateDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

@@ -53,7 +53,7 @@
                         <p:menuitem value="${r"#{"}${bundle}.Home${r"}"}" outcome="/index" icon="ui-icon-home"/>
                         <p:submenu label="${r"#{"}${bundle}.Maintenance${r"}"}">
 <#list entities as entity>
-                            <p:menuitem value="${entity.entityClassName}" outcome="${jsfFolder}/${entity.entityClassName?uncap_first}/List.xhtml" />
+                            <p:menuitem value="${r"#{"}${bundle}.${entity.entityClassName}MenuLabel${r"}"}" outcome="${jsfFolder}/${entity.entityClassName?uncap_first}/List.xhtml" />
 </#list>
                         </p:submenu>
                     </p:menubar>

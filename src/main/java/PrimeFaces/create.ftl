@@ -7,6 +7,7 @@
   for full syntax. Variables available for templating are:
 
     entityName - name of entity being modified (type: String)
+    entityIdField - name of enity ID field 
     managedBean - name of managed choosen in UI (type: String)
     managedBeanProperty - name of managed bean property choosen in UI (type: String)
     item - name of property used for dataTable iteration (type: String)
@@ -60,18 +61,20 @@
     <#elseif entityDescriptor.blob>
                         <p:inputTextarea rows="4" cols="30" id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.Create${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Create${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>/>
     <#elseif entityDescriptor.relationshipOne>
-                        <p:selectOneMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>>
+                        <p:selectOneMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" filter="true"  filterMatchMode="contains" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>>
+                            <f:selectItem itemLabel="Select One" />
                             <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
                                            var="${entityDescriptor.id?replace(".","_")}Item"
                                            itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
                         </p:selectOneMenu>
     <#elseif entityDescriptor.relationshipMany>
-                        <p:selectManyMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>>
+                        <p:selectManyMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" filter="true"  filterMatchMode="contains" showCheckbox="true"  <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>>
+                            <f:selectItem itemLabel="Select" />
                             <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
                                            var="${entityDescriptor.id?replace(".","_")}Item"
                                            itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
     <#else>
-                        <p:inputText id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.Create${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Create${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>/>
+                        <p:inputText id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.Create${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}"  disabled="<#if entityDescriptor.id == entityIdField>true<#else>false</#if>"       <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Create${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>/>
     </#if>
 </#list>
                     </p:panelGrid>

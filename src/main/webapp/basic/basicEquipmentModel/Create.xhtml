@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="BasicEquipmentModelCreateDlg" widgetVar="BasicEquipmentModelCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{basic_i18n.CreateBasicEquipmentModelTitle}">
+            <h:form id="BasicEquipmentModelCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{basicEquipmentModelController.created != null}">
+                        <p:outputLabel value="#{basic_i18n.CreateBasicEquipmentModelLabel_equipModelID}" for="equipModelID" />
+                        <p:inputText id="equipModelID" value="#{basicEquipmentModelController.created.equipModelID}" title="#{basic_i18n.CreateBasicEquipmentModelTitle_equipModelID}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.CreateBasicEquipmentModelRequiredMessage_equipModelID}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateBasicEquipmentModelLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{basicEquipmentModelController.created.type}" title="#{basic_i18n.CreateBasicEquipmentModelTitle_type}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.CreateBasicEquipmentModelLabel_class1}" for="class1" />
+                        <p:inputText id="class1" value="#{basicEquipmentModelController.created.class1}" title="#{basic_i18n.CreateBasicEquipmentModelTitle_class1}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.CreateBasicEquipmentModelLabel_netType}" for="netType" />
+                        <p:inputText id="netType" value="#{basicEquipmentModelController.created.netType}" title="#{basic_i18n.CreateBasicEquipmentModelTitle_netType}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.CreateBasicEquipmentModelLabel_model}" for="model" />
+                        <p:inputText id="model" value="#{basicEquipmentModelController.created.model}" title="#{basic_i18n.CreateBasicEquipmentModelTitle_model}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.CreateBasicEquipmentModelLabel_manufacturer}" for="manufacturer" />
+                        <p:inputText id="manufacturer" value="#{basicEquipmentModelController.created.manufacturer}" title="#{basic_i18n.CreateBasicEquipmentModelTitle_manufacturer}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.CreateBasicEquipmentModelLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{basicEquipmentModelController.created.description}" title="#{basic_i18n.CreateBasicEquipmentModelTitle_description}" />
+                        <p:outputLabel value="#{basic_i18n.CreateBasicEquipmentModelLabel_commont}" for="commont" />
+                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{basicEquipmentModelController.created.commont}" title="#{basic_i18n.CreateBasicEquipmentModelTitle_commont}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{basicEquipmentModelController.create}" value="#{basic_i18n.Save}" update="display,@form:@parent:BasicEquipmentModelListForm:datalist,:growl" oncomplete="handleSubmit(args,'BasicEquipmentModelCreateDialog');"/>
+                    <p:commandButton type="button" value="#{basic_i18n.Cancel}" onclick="PF('BasicEquipmentModelCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#BasicEquipmentModelCreateDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

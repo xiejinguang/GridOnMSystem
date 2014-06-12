@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="BasicRoomspotCreateDlg" widgetVar="BasicRoomspotCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{basic_i18n.CreateBasicRoomspotTitle}">
+            <h:form id="BasicRoomspotCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{basicRoomspotController.created != null}">
+                        <p:outputLabel value="#{basic_i18n.CreateBasicRoomspotLabel_roomID}" for="roomID" />
+                        <p:inputText id="roomID" value="#{basicRoomspotController.created.roomID}" title="#{basic_i18n.CreateBasicRoomspotTitle_roomID}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.CreateBasicRoomspotRequiredMessage_roomID}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateBasicRoomspotLabel_roomCode}" for="roomCode" />
+                        <p:inputText id="roomCode" value="#{basicRoomspotController.created.roomCode}" title="#{basic_i18n.CreateBasicRoomspotTitle_roomCode}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateBasicRoomspotRequiredMessage_roomCode}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateBasicRoomspotLabel_roomName}" for="roomName" />
+                        <p:inputText id="roomName" value="#{basicRoomspotController.created.roomName}" title="#{basic_i18n.CreateBasicRoomspotTitle_roomName}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateBasicRoomspotRequiredMessage_roomName}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateBasicRoomspotLabel_province}" for="province" />
+                        <p:inputText id="province" value="#{basicRoomspotController.created.province}" title="#{basic_i18n.CreateBasicRoomspotTitle_province}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateBasicRoomspotRequiredMessage_province}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateBasicRoomspotLabel_city}" for="city" />
+                        <p:inputText id="city" value="#{basicRoomspotController.created.city}" title="#{basic_i18n.CreateBasicRoomspotTitle_city}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateBasicRoomspotRequiredMessage_city}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateBasicRoomspotLabel_county}" for="county" />
+                        <p:inputText id="county" value="#{basicRoomspotController.created.county}" title="#{basic_i18n.CreateBasicRoomspotTitle_county}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateBasicRoomspotRequiredMessage_county}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateBasicRoomspotLabel_grid}" for="grid" />
+                        <p:inputText id="grid" value="#{basicRoomspotController.created.grid}" title="#{basic_i18n.CreateBasicRoomspotTitle_grid}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateBasicRoomspotRequiredMessage_grid}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateBasicRoomspotLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{basicRoomspotController.created.address}" title="#{basic_i18n.CreateBasicRoomspotTitle_address}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.CreateBasicRoomspotLabel_commont}" for="commont" />
+                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{basicRoomspotController.created.commont}" title="#{basic_i18n.CreateBasicRoomspotTitle_commont}" />
+                        <p:outputLabel value="#{basic_i18n.CreateBasicRoomspotLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{basicRoomspotController.created.status}" title="#{basic_i18n.CreateBasicRoomspotTitle_status}"  disabled="false"       />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{basicRoomspotController.create}" value="#{basic_i18n.Save}" update="display,@form:@parent:BasicRoomspotListForm:datalist,:growl" oncomplete="handleSubmit(args,'BasicRoomspotCreateDialog');"/>
+                    <p:commandButton type="button" value="#{basic_i18n.Cancel}" onclick="PF('BasicRoomspotCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#BasicRoomspotCreateDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

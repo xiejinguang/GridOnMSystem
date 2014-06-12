@@ -4,22 +4,48 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <application>
-        <resource-bundle>
-            <base-name>/org/peasant/util/i18n</base-name>
-            <var>i18nBundle</var>
-        </resource-bundle>
-        
-        <resource-bundle>
-            <base-name>/org/peasant/security_i18n</base-name>
-            <var>security_i18n</var>
-        </resource-bundle>
-        
+                
         <resource-bundle>
             <base-name>/org/gmsys/bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/peasant/util/i18n</base-name>
+            <var>i18nBundle</var>
+        </resource-bundle>        
+        <resource-bundle>
+            <base-name>/org/peasant/security_i18n</base-name>
+            <var>security_i18n</var>
+        </resource-bundle>
 
-
+        <resource-bundle>
+            <base-name>/org/eman/basic_i18n</base-name>
+            <var>basic_i18n</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/eman/assit_i18n</base-name>
+            <var>assit_i18n</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/eman/gmsys_i18n</base-name>
+            <var>gmsys_i18n</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/eman/assit_i18n</base-name>
+            <var>assit_i18n</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/eman/asist_i18n</base-name>
+            <var>asist_i18n</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/eman/basic_i18n</base-name>
+            <var>basic_i18n</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/eman/gmsys_i18n</base-name>
+            <var>gmsys_i18n</var>
+        </resource-bundle>
     </application>
     
     <navigation-rule>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="BasicEquipmentModelEditDlg" widgetVar="BasicEquipmentModelEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{basic_i18n.EditBasicEquipmentModelTitle}">
+            <h:form id="BasicEquipmentModelEditForm">
+                <h:panelGroup id="display" rendered="#{empty basicEquipmentModelController.selectedItems != null}">
+                    <ui:repeat  value="#{basicEquipmentModelController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.BasicEquipmentModelEntityLabel}"/>
+                                <h:outputText value="#{item.equipModelID}" title="#{basic_i18n.BasicEquipmentModelEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="4" >
+                                <p:outputLabel value="#{basic_i18n.EditBasicEquipmentModelLabel_equipModelID}" for="equipModelID" />
+                                <p:inputText id="equipModelID" value="#{item.equipModelID}" title="#{basic_i18n.EditBasicEquipmentModelTitle_equipModelID}" disabled="true"   required="true" requiredMessage="#{basic_i18n.EditBasicEquipmentModelRequiredMessage_equipModelID}"/>
+                                <p:outputLabel value="#{basic_i18n.EditBasicEquipmentModelLabel_type}" for="type" />
+                                <p:inputText id="type" value="#{item.type}" title="#{basic_i18n.EditBasicEquipmentModelTitle_type}" disabled="false"   />
+                                <p:outputLabel value="#{basic_i18n.EditBasicEquipmentModelLabel_class1}" for="class1" />
+                                <p:inputText id="class1" value="#{item.class1}" title="#{basic_i18n.EditBasicEquipmentModelTitle_class1}" disabled="false"   />
+                                <p:outputLabel value="#{basic_i18n.EditBasicEquipmentModelLabel_netType}" for="netType" />
+                                <p:inputText id="netType" value="#{item.netType}" title="#{basic_i18n.EditBasicEquipmentModelTitle_netType}" disabled="false"   />
+                                <p:outputLabel value="#{basic_i18n.EditBasicEquipmentModelLabel_model}" for="model" />
+                                <p:inputText id="model" value="#{item.model}" title="#{basic_i18n.EditBasicEquipmentModelTitle_model}" disabled="false"   />
+                                <p:outputLabel value="#{basic_i18n.EditBasicEquipmentModelLabel_manufacturer}" for="manufacturer" />
+                                <p:inputText id="manufacturer" value="#{item.manufacturer}" title="#{basic_i18n.EditBasicEquipmentModelTitle_manufacturer}" disabled="false"   />
+                                <p:outputLabel value="#{basic_i18n.EditBasicEquipmentModelLabel_description}" for="description" />
+                                <p:inputTextarea rows="4" cols="30" id="description" value="#{item.description}" title="#{basic_i18n.EditBasicEquipmentModelTitle_description}" />
+                                <p:outputLabel value="#{basic_i18n.EditBasicEquipmentModelLabel_commont}" for="commont" />
+                                <p:inputTextarea rows="4" cols="30" id="commont" value="#{item.commont}" title="#{basic_i18n.EditBasicEquipmentModelTitle_commont}" />
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton actionListener="#{basicEquipmentModelController.update}" value="#{basic_i18n.Save}" update="display,@form:@parent:BasicEquipmentModelListForm:datalist,:growl" oncomplete="handleSubmit(args,'BasicEquipmentModelEditDialog');"/>
+                    <p:commandButton type="button" value="#{basic_i18n.Cancel}" onclick="PF('BasicEquipmentModelEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#BasicEquipmentModelEditDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="BasicStationViewDlg" widgetVar="BasicStationViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{basic_i18n.ViewBasicStationTitle}">
+            <h:form id="BasicStationViewForm">
+                <h:panelGroup id="display" rendered="#{empty basicStationController.selectedItems != null}">
+                    <ui:repeat  value="#{basicStationController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.BasicStationEntityLabel}"/>
+                                <h:outputText value="#{item.statID}" title="#{basic_i18n.BasicStationEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="4" >
+                                <h:outputText value="#{basic_i18n.BasicStationLabel_statID}"/>
+                                <h:outputText value="#{item.statID}" title="#{basic_i18n.BasicStationTitle_statID}"/>
+                                <h:outputText value="#{basic_i18n.BasicStationLabel_statCode}"/>
+                                <h:outputText value="#{item.statCode}" title="#{basic_i18n.BasicStationTitle_statCode}"/>
+                                <h:outputText value="#{basic_i18n.BasicStationLabel_statName}"/>
+                                <h:outputText value="#{item.statName}" title="#{basic_i18n.BasicStationTitle_statName}"/>
+                                <h:outputText value="#{basic_i18n.BasicStationLabel_address}"/>
+                                <h:outputText value="#{item.address}" title="#{basic_i18n.BasicStationTitle_address}"/>
+                                <h:outputText value="#{basic_i18n.BasicStationLabel_owner}"/>
+                                <h:outputText value="#{item.owner}" title="#{basic_i18n.BasicStationTitle_owner}"/>
+                                <h:outputText value="#{basic_i18n.BasicStationLabel_type}"/>
+                                <h:outputText value="#{item.type}" title="#{basic_i18n.BasicStationTitle_type}"/>
+                                <h:outputText value="#{basic_i18n.BasicStationLabel_accomMaintainer}"/>
+                                <h:outputText value="#{item.accomMaintainer}" title="#{basic_i18n.BasicStationTitle_accomMaintainer}"/>
+                                <h:outputText value="#{basic_i18n.BasicStationLabel_status}"/>
+                                <h:outputText value="#{item.status}" title="#{basic_i18n.BasicStationTitle_status}"/>
+                                <h:outputText value="#{basic_i18n.BasicStationLabel_commont}"/>
+                                <h:outputText value="#{item.commont}" title="#{basic_i18n.BasicStationTitle_commont}"/>
+                                <h:outputText value="#{basic_i18n.BasicStationLabel_roomID}"/>
+                                <h:outputText value="#{item.roomID}" title="#{basic_i18n.BasicStationTitle_roomID}"/>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton type="button" value="#{basic_i18n.Close}" onclick="PF('BasicStationViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#BasicStationViewDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

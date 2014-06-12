@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{basic_i18n.ListBasicStationTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="BasicStationListForm">
+                <p:panel header="#{basic_i18n.ListBasicStationTitle}">
+                    <p:fieldset id="searchField" legend="${basic_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+                        <p:panelGrid   style="width:100%"  >
+                            <p:row>
+                                <p:column >
+                                    <p:panelGrid id="searchConsGrid" columns="8">
+
+
+                                        <p:outputLabel value="#{basic_i18n.BasicStationLabel_statID}" for="statID" />
+                                        <p:inputText id="statID" value="#{basicStationController.searchCons['statID']}" title="#{basic_i18n.BasicStationTitle_statID}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.BasicStationLabel_statCode}" for="statCode" />
+                                        <p:inputText id="statCode" value="#{basicStationController.searchCons['statCode']}" title="#{basic_i18n.BasicStationTitle_statCode}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.BasicStationLabel_statName}" for="statName" />
+                                        <p:inputText id="statName" value="#{basicStationController.searchCons['statName']}" title="#{basic_i18n.BasicStationTitle_statName}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.BasicStationLabel_address}" for="address" />
+                                        <p:inputText id="address" value="#{basicStationController.searchCons['address']}" title="#{basic_i18n.BasicStationTitle_address}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.BasicStationLabel_owner}" for="owner" />
+                                        <p:inputText id="owner" value="#{basicStationController.searchCons['owner']}" title="#{basic_i18n.BasicStationTitle_owner}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.BasicStationLabel_type}" for="type" />
+                                        <p:inputText id="type" value="#{basicStationController.searchCons['type']}" title="#{basic_i18n.BasicStationTitle_type}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.BasicStationLabel_accomMaintainer}" for="accomMaintainer" />
+                                        <p:inputText id="accomMaintainer" value="#{basicStationController.searchCons['accomMaintainer']}" title="#{basic_i18n.BasicStationTitle_accomMaintainer}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.BasicStationLabel_status}" for="status" />
+                                        <p:inputText id="status" value="#{basicStationController.searchCons['status']}" title="#{basic_i18n.BasicStationTitle_status}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.BasicStationLabel_commont}" for="commont" />
+                                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{basicStationController.searchCons['commont']}" title="#{basic_i18n.BasicStationTitle_commont}" />
+
+
+                                        <p:outputLabel value="#{basic_i18n.BasicStationLabel_roomID}" for="roomID" />
+                                        <p:selectOneMenu id="roomID" value="#{basicStationController.searchCons['roomID']}" filter="true"  filterMatchMode="contains" >
+                                            <f:selectItems value="#{basicRoomspotController.itemsAvailableSelectOne}"
+                                                           var="roomIDItem"
+                                                           itemValue="#{roomIDItem}"/>
+                                        </p:selectOneMenu>
+
+                                    </p:panelGrid>
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton id="searchButton" icon="ui-icon-search"   value="${basic_i18n.Search}" actionListener="#{basicStationController.searchItems}" update=":growl,datalist"/>
+                                    <br/>
+                                    <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${basic_i18n.GetAll}" actionListener="#{basicStationController.allItems}" update=":growl,datalist"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>                   
+                    </p:fieldset>
+
+                    <p:dataTable id="datalist" value="#{basicStationController.items}" var="item"
+                                 selection="#{basicStationController.selectedItems}"
+                                 rowKey="#{item.statID}"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 paginator="true" paginatorPosition="bottom"
+                                 rows="10" 
+                                 draggableColumns="true" resizableColumns="true" 
+                                 scrollable="true"   liveResize="true" liveScroll="true"
+                                 sortMode="multiple"
+                                 editable="true" 
+                                 stickyHeader="false" 
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+
+                        <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
+
+                        <p:column sortBy="#{item.statID}" filterBy="#{item.statID}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.BasicStationTitle_statID}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.statID}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.statCode}" filterBy="#{item.statCode}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.BasicStationTitle_statCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.statCode}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.statName}" filterBy="#{item.statName}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.BasicStationTitle_statName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.statName}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.address}" filterBy="#{item.address}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.BasicStationTitle_address}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.address}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.owner}" filterBy="#{item.owner}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.BasicStationTitle_owner}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.owner}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.type}" filterBy="#{item.type}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.BasicStationTitle_type}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.type}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.accomMaintainer}" filterBy="#{item.accomMaintainer}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.BasicStationTitle_accomMaintainer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.accomMaintainer}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.status}" filterBy="#{item.status}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.BasicStationTitle_status}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.status}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.commont}" filterBy="#{item.commont}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.BasicStationTitle_commont}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.commont}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.roomID}" filterBy="#{item.roomID}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.BasicStationTitle_roomID}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.roomID}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{basic_i18n.Create}" actionListener="#{basicStationController.prepareCreate}" update="@form:@parent:BasicStationCreateForm" oncomplete="PF('BasicStationCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{basic_i18n.View}" update="@form:@parent:BasicStationViewForm" oncomplete="PF('BasicStationViewDialog').show()" disabled="#{empty basicStationController.selectedItems}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{basic_i18n.Edit}" update="@form:@parent:BasicStationEditForm" oncomplete="PF('BasicStationEditDialog').show()" disabled="#{empty basicStationController.selectedItems}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{basic_i18n.Delete}" actionListener="#{basicStationController.destroy}" update=":growl,datalist" disabled="#{empty basicStationController.selectedItems}"/>
+                            <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                            <p:columnToggler datasource="datalist" trigger="toggler" />
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>

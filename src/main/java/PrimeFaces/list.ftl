@@ -68,13 +68,13 @@
     <#elseif entityDescriptor.blob>
                                                  <p:inputTextarea rows="4" cols="30" id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" />
     <#elseif entityDescriptor.relationshipOne>
-                                                 <p:selectOneMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" >
+                                                 <p:selectOneMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" filter="true"  filterMatchMode="contains" >
                                                         <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
                                                                  var="${entityDescriptor.id?replace(".","_")}Item"
                                                                 itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
                                                 </p:selectOneMenu>
     <#elseif entityDescriptor.relationshipMany>
-                                                <p:selectManyMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" >
+                                                <p:selectManyMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" filter="true"  filterMatchMode="contains" showCheckbox="true" >
                                                 <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
                                                         var="${entityDescriptor.id?replace(".","_")}Item"
                                                         itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>

@@ -13,14 +13,14 @@
             <p:layoutUnit id="top" position="north" size="100"  style=" overflow: hidden" >
             
 
-               <ui:include src="/sections/TopMenu.xhtml"/>
+              <!-- <ui:include src="/sections/TopMenu.xhtml"/>-->
 
                 <h:panelGroup style=" position: absolute;top: 10px;left:30px; overflow-style: move" >
                     <p:graphicImage   height="80px" library="design" name="logo.jpg" style="vertical-align: middle;"/> 
 
-                    <h:outputLabel  style="font-weight: bolder; font-size:xx-large ; position:  relative; left: 30px "  value="网 格 管 家"/>
+                    <h:outputLabel  style="font-weight: bolder; font-size:xx-large ; position:  relative; left: 30px "  value="${bundle.AppNameLabel}"/>
 
-                    <h:outputLabel  style="font-weight: bolder; font-size:large ; position: relative; top: 25px ; left: -50px  "   value=" -- Grid Operation And Management System" /> 
+                    <h:outputLabel  style="font-weight: bolder; font-size:large ; position: relative; top: 25px ; left: -50px  "   value="${bundle.AppSecondName}" /> 
                     
 
                 </h:panelGroup>
