@@ -18,8 +18,8 @@
             </f:facet>     
         </p:ajaxStatus>
 
-        <p:idleMonitor timeout="10000"  onidle="PF('idleDialog').show()" onactive="PF('idleDialog').hide()"/>
-        <p:dialog header="What's happening?" resizable="false"
+        <p:idleMonitor timeout="100000"  onidle="PF('idleDialog').show()" onactive="PF('idleDialog').hide()"/>
+        <p:dialog header="What's happening? " resizable="false"
                   widgetVar="idleDialog" modal="true" width="400">
             <h:outputText value="Dude, are you there?" />
         </p:dialog>
