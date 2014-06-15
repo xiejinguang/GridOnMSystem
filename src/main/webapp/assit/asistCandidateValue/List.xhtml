@@ -28,7 +28,7 @@
 
 
                                         <p:outputLabel value="#{asist_i18n.AsistCandidateValueLabel_id}" for="id" />
-                                        <p:inputText id="id" value="#{asistCandidateValueController.searchCons['id']}" title="#{asist_i18n.AsistCandidateValueTitle_id}"  />
+                                        <p:inputText id="id" value="#{asistCandidateValueController.searchCons['id']}" title="#{asist_i18n.AsistCandidateValueTitle_id}"   valueChangeListener="#{asistCandidateValueController.handleValueChange}" />
 
 
                                         <p:outputLabel value="#{asist_i18n.AsistCandidateValueLabel_accordingKey}" for="accordingKey" />
@@ -40,11 +40,20 @@
 
 
                                         <p:outputLabel value="#{asist_i18n.AsistCandidateValueLabel_parentID}" for="parentID" />
-                                        <p:selectOneMenu id="parentID" value="#{asistCandidateValueController.searchCons['parentID']}" filter="true"  filterMatchMode="contains" >
+                                        <p:selectOneMenu id="parentID"   value="#{asistCandidateValueController.searchCons['parentID']}" filter="true"  filterMatchMode="contains" var="v" valueChangeListener="#{asistCandidateValueController.handleValueChange}">
                                             <f:selectItem itemLabel="Select One" />
-                                            <f:selectItems value="#{asistCandidateValueController.itemsAvailableSelectOne}"
-                                                           var="parentIDItem"
-                                                           itemValue="#{parentIDItem}"/>
+                                            <f:selectItems  value="#{asistCandidateValueController.itemsAvailableSelectOne}"
+                                                            var="parentIDItem"
+                                                            itemValue="#{parentIDItem}" itemLabel="#{parentIDItem.id}" >
+
+                                            </f:selectItems>
+                                            <p:column><p:commandButton value="#{v}"><f:setPropertyActionListener value="#{v}"  target="#{asistCandidateValueController.selected}" /> </p:commandButton>
+                                            </p:column>
+                                            <p:ajax  />
+
+                                            
+
+
                                         </p:selectOneMenu>
 
                                     </p:panelGrid>
@@ -102,7 +111,7 @@
                             <h:outputText value="#{item.parentID}"/>
                         </p:column>
 
-                       
+
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{asist_i18n.Create}" actionListener="#{asistCandidateValueController.prepareCreate}" update="@form:@parent:AsistCandidateValueCreateForm" oncomplete="PF('AsistCandidateValueCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{asist_i18n.View}" update="@form:@parent:AsistCandidateValueViewForm" oncomplete="PF('AsistCandidateValueViewDialog').show()" disabled="#{empty asistCandidateValueController.selectedItems}"/>

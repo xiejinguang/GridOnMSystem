@@ -15,12 +15,14 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ValueChangeEvent;
 
 @Named("asistCandidateValueController")
 @ViewScoped
@@ -33,6 +35,21 @@ public class AsistCandidateValueController implements Serializable {
     private List<AsistCandidateValue> selectedItems;
     private Map<String, Object> searchCons;
     private ResourceBundle bundle;
+    private AsistCandidateValue selected;
+
+    public void handleValueChange(ValueChangeEvent event) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "ValueChanged", "oldvalue:" + event.getOldValue() + ";newvalue:" + event.getNewValue() + ";The Selected:" + this.selected));
+
+    }
+
+    public AsistCandidateValue getSelected() {
+        return selected;
+    }
+
+    public void setSelected(AsistCandidateValue selected) {
+        this.selected = selected;
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", "The Selected:" + selected));
+    }
 
     public AsistCandidateValueController() {
     }

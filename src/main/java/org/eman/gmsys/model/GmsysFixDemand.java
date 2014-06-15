@@ -30,7 +30,7 @@ import org.eman.basic.model.BasicStation;
  * @author 谢金光
  */
 @Entity
-@Table(name = "gmsys_fix_demand", catalog = "jobpromotion", schema = "", uniqueConstraints = {
+@Table(name = "gmsys_fix_demand",uniqueConstraints = {
     @UniqueConstraint(columnNames = {"demandCode"})})
 @XmlRootElement
 @NamedQueries({
