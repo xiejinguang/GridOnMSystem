@@ -18,21 +18,10 @@
             <var>security_i18n</var>
         </resource-bundle>
 
-        <resource-bundle>
-            <base-name>/org/eman/basic_i18n</base-name>
-            <var>basic_i18n</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/org/eman/assit_i18n</base-name>
-            <var>assit_i18n</var>
-        </resource-bundle>
+
         <resource-bundle>
             <base-name>/org/eman/gmsys_i18n</base-name>
             <var>gmsys_i18n</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/org/eman/assit_i18n</base-name>
-            <var>assit_i18n</var>
         </resource-bundle>
         <resource-bundle>
             <base-name>/org/eman/asist_i18n</base-name>

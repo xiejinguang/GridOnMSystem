@@ -206,10 +206,14 @@ public class ${controllerClassName} implements Serializable {
     }
 
     public List<${entityClassName}> searchItems() {
-        construtSearchParams(this.searchCons);
         
-        items = getFacade().findByConditions(construtSearchParams(this.searchCons));
+        
+        items = findItemsByConditions(construtSearchParams(this.searchCons));
         return items;
+    }
+
+    protected List<${entityClassName}> findItemsByConditions(Map<String,Object> params) {
+        return getFacade().findByConditions(params);
     }
 
     protected Map<String, Object>  construtSearchParams(Map<String, Object> params) {

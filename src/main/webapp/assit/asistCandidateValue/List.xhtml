@@ -40,15 +40,14 @@
 
 
                                         <p:outputLabel value="#{asist_i18n.AsistCandidateValueLabel_parentID}" for="parentID" />
-                                        <p:selectOneMenu id="parentID"   value="#{asistCandidateValueController.searchCons['parentID']}" filter="true"  filterMatchMode="contains" var="v" valueChangeListener="#{asistCandidateValueController.handleValueChange}">
+                                        <p:selectOneMenu id="parentID"   value="#{asistCandidateValueController.searchCons['parentID']}" filter="true"  filterMatchMode="contains" valueChangeListener="#{asistCandidateValueController.handleValueChange}">
                                             <f:selectItem itemLabel="Select One" />
                                             <f:selectItems  value="#{asistCandidateValueController.itemsAvailableSelectOne}"
                                                             var="parentIDItem"
                                                             itemValue="#{parentIDItem}" itemLabel="#{parentIDItem.id}" >
 
                                             </f:selectItems>
-                                            <p:column><p:commandButton value="#{v}"><f:setPropertyActionListener value="#{v}"  target="#{asistCandidateValueController.selected}" /> </p:commandButton>
-                                            </p:column>
+
                                             <p:ajax  />
 
                                             

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="AsistCandidateValueEditDlg" widgetVar="AsistCandidateValueEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{asist_i18n.EditAsistCandidateValueTitle}">
+            <h:form id="AsistCandidateValueEditForm">
+                <h:panelGroup id="display" rendered="#{empty asistCandidateValueTreeController.selectedItems != null}">
+                    <ui:repeat  value="#{asistCandidateValueTreeController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{asist_i18n.AsistCandidateValueEntityLabel}"/>
+                                <h:outputText value="#{item.id}" title="#{asist_i18n.AsistCandidateValueEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="2" >
+                                <p:outputLabel value="#{asist_i18n.EditAsistCandidateValueLabel_id}" for="id" />
+                                <p:inputText id="id" value="#{item.id}" title="#{asist_i18n.EditAsistCandidateValueTitle_id}" disabled="true"   required="true" requiredMessage="#{asist_i18n.EditAsistCandidateValueRequiredMessage_id}"/>
+                                <p:outputLabel value="#{asist_i18n.EditAsistCandidateValueLabel_accordingKey}" for="accordingKey" />
+                                <p:inputText id="accordingKey" value="#{item.accordingKey}" title="#{asist_i18n.EditAsistCandidateValueTitle_accordingKey}" disabled="false"   required="true" requiredMessage="#{asist_i18n.EditAsistCandidateValueRequiredMessage_accordingKey}"/>
+                                <p:outputLabel value="#{asist_i18n.EditAsistCandidateValueLabel_value}" for="value" />
+                                <p:inputText id="value" value="#{item.value}" title="#{asist_i18n.EditAsistCandidateValueTitle_value}" disabled="false"   required="true" requiredMessage="#{asist_i18n.EditAsistCandidateValueRequiredMessage_value}"/>
+                                <p:outputLabel value="#{asist_i18n.EditAsistCandidateValueLabel_parentID}" for="parentID" />
+                                <p:selectOneMenu id="parentID" value="#{item.parentID}" filter="true"  filterMatchMode="contains" >
+                                    <f:selectItem itemLabel="Select One" />
+                                    <f:selectItems value="#{asistCandidateValueTreeController.itemsAvailableSelectOne}"
+                                                   var="parentIDItem"
+                                                   itemValue="#{parentIDItem}"/>
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton actionListener="#{asistCandidateValueTreeController.update}" value="#{asist_i18n.Save}" update="display,@form:@parent:AsistCandidateValueListForm:datalist,:growl" oncomplete="handleSubmit(args,'AsistCandidateValueEditDialog');"/>
+                    <p:commandButton type="button" value="#{asist_i18n.Cancel}" onclick="PF('AsistCandidateValueEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#AsistCandidateValueEditDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>
