@@ -10,13 +10,13 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog id="AsistCandidateValueCreateDlg" widgetVar="AsistCandidateValueCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+        <p:dialog id="AsistCandidateValueAddNodeDlg" widgetVar="AsistCandidateValueAddNodeDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
                   onShow="fitViewport()" 
                   header="#{asist_i18n.CreateAsistCandidateValueTitle}">
-            <h:form id="AsistCandidateValueCreateForm">
+            <h:form id="AsistCandidateValueAddNodeform">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{not empty asistCandidateValueTreeController.created}">
+                    <p:panelGrid columns="2" rendered="#{asistCandidateValueTreeController.created != null}">
                         <p:outputLabel value="#{asist_i18n.CreateAsistCandidateValueLabel_id}" for="id" />
                         <p:inputText id="id" value="#{asistCandidateValueTreeController.created.id}" title="#{asist_i18n.CreateAsistCandidateValueTitle_id}"  disabled="true"       required="true" requiredMessage="#{asist_i18n.CreateAsistCandidateValueRequiredMessage_id}"/>
                         <p:outputLabel value="#{asist_i18n.CreateAsistCandidateValueLabel_accordingKey}" for="accordingKey" />
@@ -31,7 +31,7 @@
                                            itemValue="#{parentIDItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{asistCandidateValueTreeController.create}" value="#{asist_i18n.Save}" update="display,@form:@parent:AsistCandidateValueListForm:datalist,:growl" oncomplete="handleSubmit(args,'AsistCandidateValueCreateDialog');"/>
+                    <p:commandButton actionListener="#{asistCandidateValueTreeController.addNode}" value="#{asist_i18n.Save}" update="display,@form:@parent:AsistCandidateValueListForm:datalist,:growl" oncomplete="handleSubmit(args,'AsistCandidateValueAddNodeDialog');"/>
                     <p:commandButton type="button" value="#{asist_i18n.Cancel}" onclick="PF('AsistCandidateValueCreateDialog').hide()"/>
                 </h:panelGroup>
             </h:form>

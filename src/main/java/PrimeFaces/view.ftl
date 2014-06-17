@@ -45,7 +45,7 @@
                   onShow="fitViewport()" 
                 header="${r"#{"}${bundle}.View${entityName}Title${r"}"}">
             <h:form id="${entityName}ViewForm">
-                <h:panelGroup id="display" rendered="${r"#{"}empty ${managedBeanProperty} != null${r"}"}">
+                <h:panelGroup id="display" rendered="${r"#{"}not empty ${managedBeanProperty}${r"}"}">
                     <ui:repeat  value="${r"#{"}${managedBean}.selectedItems${r"}"}" var="item">
                         <p:panel toggleable="true" >
                             <f:facet name="header">

@@ -24,11 +24,11 @@
 
                     <p:treeTable id="datalist" value="#{asistCandidateValueTreeController.treeRoot}" var="item"
                                  selection="#{asistCandidateValueTreeController.selectedNodes}"   scrollable="true"
-                                 selectionMode="multiple" liveResize="true" 
+                                 selectionMode="multiple" liveResize="true"  resizableColumns="true" 
                                  >
 
-                        <p:ajax event="select"  listener="#{asistCandidateValueTreeController.synchronizeSelectedNodesToDatas}" immediate="false"  update="createButton,viewButton,editButton,deleteButton"/>
-                        <p:ajax event="unselect" listener="#{asistCandidateValueTreeController.synchronizeSelectedNodesToDatas}" immediate="false" update="createButton,viewButton editButton,deleteButton"/>
+                        <p:ajax event="select"  listener="#{asistCandidateValueTreeController.synchronizeSelectedNodesToDatas}" immediate="false"  update="createButton,viewButton,editButton,deleteButton,addButton,addNodeButton,addSubNodeButton"/>
+                        <p:ajax event="unselect" listener="#{asistCandidateValueTreeController.synchronizeSelectedNodesToDatas}" immediate="false" update="createButton,viewButton editButton,deleteButton,addButton,addNodeButton,addSubNodeButton"/>
 
 
 
@@ -64,8 +64,9 @@
 -->
 
                         <f:facet name="footer">
-                            <p:commandButton id="addButton" icon="ui-icon-plus"   value="#{asist_i18n.Add}" actionListener="#{asistCandidateValueTreeController.prepareCreate}" update="@form:@parent:AsistCandidateValueCreateForm" oncomplete="PF('AsistCandidateValueCreateDialog').show()"/>
-                            <p:commandButton id="addSubNodeButton" icon="ui-icon-plus"   value="#{asist_i18n.AddSubNode}" actionListener="#{asistCandidateValueTreeController.prepareCreate}" update="@form:@parent:AsistCandidateValueCreateForm" oncomplete="PF('AsistCandidateValueCreateDialog').show()"/>
+                            <p:commandButton id="addButton" icon="ui-icon-plus"   value="#{asist_i18n.Add}" actionListener="#{asistCandidateValueTreeController.prepareAddNode(asistCandidateValueTreeController.treeRoot)}" update="@form:@parent:AsistCandidateValueAddNodeForm" oncomplete="PF('AsistCandidateValueAddNodeDialog').show()" />
+                            <p:commandButton id="addNodeButton" icon="ui-icon-plus"   value="#{asist_i18n.AddNode}" actionListener="#{asistCandidateValueTreeController.prepareAddNode(asistCandidateValueTreeController.selectedNodes[0].parent)}"  update="@form:@parent:AsistCandidateValueAddNodeForm" oncomplete="PF('AsistCandidateValueAddNodeDialog').show()" disabled="#{empty asistCandidateValueTreeController.selectedItems}"/>
+                            <p:commandButton id="addSubNodeButton" icon="ui-icon-plus"   value="#{asist_i18n.AddSubNode}" actionListener="#{asistCandidateValueTreeController.prepareAddNode(asistCandidateValueTreeController.selectNodes[0])}" update="@form:@parent:AsistCandidateValueAddNodeForm" oncomplete="PF('AsistCandidateValueAddNodeDialog').show()" disabled="#{empty asistCandidateValueTreeController.selectedItems}"/>
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{asist_i18n.Create}" actionListener="#{asistCandidateValueTreeController.prepareCreate}" update="@form:@parent:AsistCandidateValueCreateForm" oncomplete="PF('AsistCandidateValueCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{asist_i18n.View}" update="@form:@parent:AsistCandidateValueViewForm" oncomplete="PF('AsistCandidateValueViewDialog').show()" disabled="#{empty asistCandidateValueTreeController.selectedItems}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{asist_i18n.Edit}" update="@form:@parent:AsistCandidateValueEditForm" oncomplete="PF('AsistCandidateValueEditDialog').show()" disabled="#{empty asistCandidateValueTreeController.selectedItems}"/>

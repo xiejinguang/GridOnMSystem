@@ -50,7 +50,7 @@
                     header="${r"#{"}${bundle}.Create${entityName}Title${r"}"}">
             <h:form id="${entityName}CreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="<#if entityDescriptors?size<=6>2<#elseif entityDescriptors?size<=12>4<#else>6</#if>" rendered="${r"#{"}${managedBeanProperty} != null${r"}"}">
+                    <p:panelGrid columns="<#if entityDescriptors?size<=6>2<#elseif entityDescriptors?size<=12>4<#else>6</#if>" rendered="${r"#{"}not empty ${managedBeanProperty}${r"}"}">
 <#list entityDescriptors as entityDescriptor>
 <#assign field =  managedBean  + ".created." + entityDescriptor.id>
                         <p:outputLabel value="${r"#{"}${bundle}.Create${entityName}Label_${entityDescriptor.id?replace(".","_")}${r"}"}" for="${entityDescriptor.id?replace(".","_")}" />

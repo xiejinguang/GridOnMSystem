@@ -26,6 +26,8 @@ public class AsistCandidateValueTreeController extends AsistCandidateValueContro
     private TreeNode selectedNode;
 
     private TreeNode[] selectedNodes;
+    
+    private TreeNode parent;
 
     /**
      * Get the value of selectedNodes
@@ -102,6 +104,8 @@ public class AsistCandidateValueTreeController extends AsistCandidateValueContro
     public void setTreeRoot(TreeNode treeRoot) {
         this.treeRoot = treeRoot;
     }
+    
+    
 
     public void synchronizeSelectedNodesToDatas() {
         if (this.selectedNodes != null && this.selectedNodes.length > 0) {
@@ -112,6 +116,18 @@ public class AsistCandidateValueTreeController extends AsistCandidateValueContro
             this.setSelectedItems(ss);
         }
 
+    }
+    
+    public void prepareAddNode(TreeNode parent){
+        prepareCreate();
+        this.parent = parent;
+        AsistCandidateValue p = (parent==null || parent.getData()==null)? null:((AsistCandidateValue)parent.getData()).getParentID();
+        this.getCreated().setParentID(p);
+    }
+    
+    public void addNode(){
+        this.create();
+        parent.getChildren().add(buildTreeNodeForEntity(this.getCreated(), parent));
     }
 
 }
