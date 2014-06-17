@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author 谢金光
  */
 @Entity
-//@Cacheable(false)
+@Cacheable(false)
 @Table(name = "asist_candidate_value")
 @XmlRootElement
 @NamedQueries({

@@ -29,7 +29,7 @@ import javax.faces.event.ValueChangeEvent;
 public class AsistCandidateValueController implements Serializable {
 
     @EJB
-    private org.eman.assit.facade.AsistCandidateValueFacade ejbFacade;
+    protected org.eman.assit.facade.AsistCandidateValueFacade ejbFacade;
     private List<AsistCandidateValue> items = null;
     private AsistCandidateValue created;
     private List<AsistCandidateValue> selectedItems;
@@ -165,7 +165,7 @@ public class AsistCandidateValueController implements Serializable {
         return items;
     }
 
-    private void persist(PersistAction persistAction, String successMessage) {
+    protected void persist(PersistAction persistAction, String successMessage) {
 
         try {
 

@@ -95,21 +95,21 @@ public class ${controllerClassName} implements Serializable {
 
 <#if isInjected?? && isInjected==true>
     @Resource
-    private UserTransaction utx = null;
+    protected UserTransaction utx = null;
     @PersistenceUnit<#if persistenceUnitName??>(unitName = "${persistenceUnitName}")</#if>
-    private EntityManagerFactory emf = null;
+    protected EntityManagerFactory emf = null;
 </#if>
 
 <#if ejbClassName??>
-    @EJB private ${ejbFullClassName} ejbFacade;
+    @EJB protected ${ejbFullClassName} ejbFacade;
 <#elseif jpaControllerClassName??>
-    private ${jpaControllerClassName} jpaController = null;
+    protected ${jpaControllerClassName} jpaController = null;
 </#if>
     private List<${entityClassName}> items = null;
     private ${entityClassName} created;
     private List<${entityClassName}> selectedItems;
     private Map<String,Object> searchCons;
-    private ResourceBundle bundle;
+    protected ResourceBundle bundle;
 
     public ${controllerClassName}() {
     }
@@ -259,7 +259,7 @@ public class ${controllerClassName} implements Serializable {
         return items;
     }
 
-    private void persist(PersistAction persistAction, String successMessage) {
+    protected void persist(PersistAction persistAction, String successMessage) {
 
         try {
 
