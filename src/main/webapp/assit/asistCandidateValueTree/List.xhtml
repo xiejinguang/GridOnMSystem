@@ -47,26 +47,28 @@
                             </f:facet>
                             <h:outputText value="#{item.accordingKey}"/>
                         </p:column>
-<!--
-                        <p:column sortBy="#{item.parentID}" filterBy="#{item.parentID}">
-                            <f:facet name="header">
-                                <h:outputText value="#{asist_i18n.AsistCandidateValueTitle_parentID}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.parentID}"/>
-                        </p:column>
-
-                        <p:column sortBy="#{item.id}" filterBy="#{item.id}">
-                            <f:facet name="header">
-                                <h:outputText value="#{asist_i18n.AsistCandidateValueTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
--->
+                        <!--
+                                                <p:column sortBy="#{item.parentID}" filterBy="#{item.parentID}">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{asist_i18n.AsistCandidateValueTitle_parentID}"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.parentID}"/>
+                                                </p:column>
+                        
+                                                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{asist_i18n.AsistCandidateValueTitle_id}"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.id}"/>
+                                                </p:column>
+                        -->
 
                         <f:facet name="footer">
-                            <p:commandButton id="addButton" icon="ui-icon-plus"   value="#{asist_i18n.Add}" actionListener="#{asistCandidateValueTreeController.prepareAddNode(asistCandidateValueTreeController.treeRoot)}" update="@form:@parent:AsistCandidateValueAddNodeForm" oncomplete="PF('AsistCandidateValueAddNodeDialog').show()" />
-                            <p:commandButton id="addNodeButton" icon="ui-icon-plus"   value="#{asist_i18n.AddNode}" actionListener="#{asistCandidateValueTreeController.prepareAddNode(asistCandidateValueTreeController.selectedNodes[0].parent)}"  update="@form:@parent:AsistCandidateValueAddNodeForm" oncomplete="PF('AsistCandidateValueAddNodeDialog').show()" disabled="#{empty asistCandidateValueTreeController.selectedItems}"/>
-                            <p:commandButton id="addSubNodeButton" icon="ui-icon-plus"   value="#{asist_i18n.AddSubNode}" actionListener="#{asistCandidateValueTreeController.prepareAddNode(asistCandidateValueTreeController.selectNodes[0])}" update="@form:@parent:AsistCandidateValueAddNodeForm" oncomplete="PF('AsistCandidateValueAddNodeDialog').show()" disabled="#{empty asistCandidateValueTreeController.selectedItems}"/>
+
+                            <p:commandButton id="addButton" icon="ui-icon-plus"   value="#{asist_i18n.Add}" actionListener="#{asistCandidateValueTreeController.prepareAddNode(asistCandidateValueTreeController.treeRoot)}" update="@form:@parent:AsistCandidateValueAddNodeform" oncomplete="PF('AsistCandidateValueAddNodeDialog').show()" />
+                            <p:commandButton id="addNodeButton" icon="ui-icon-plus"   value="#{asist_i18n.AddNode}" actionListener="#{asistCandidateValueTreeController.prepareAddNode(asistCandidateValueTreeController.selectedNodes[0].parent)}"  update="@form:@parent:AsistCandidateValueAddNodeform" oncomplete="PF('AsistCandidateValueAddNodeDialog').show()" disabled="#{empty asistCandidateValueTreeController.selectedItems}"/>
+                            <p:commandButton id="addSubNodeButton" icon="ui-icon-plus"   value="#{asist_i18n.AddSubNode}" actionListener="#{asistCandidateValueTreeController.prepareAddNode(asistCandidateValueTreeController.selectedNodes[0])}" update="@form:@parent:AsistCandidateValueAddNodeform" oncomplete="PF('AsistCandidateValueAddNodeDialog').show()" disabled="#{empty asistCandidateValueTreeController.selectedItems}"/>
+
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{asist_i18n.Create}" actionListener="#{asistCandidateValueTreeController.prepareCreate}" update="@form:@parent:AsistCandidateValueCreateForm" oncomplete="PF('AsistCandidateValueCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{asist_i18n.View}" update="@form:@parent:AsistCandidateValueViewForm" oncomplete="PF('AsistCandidateValueViewDialog').show()" disabled="#{empty asistCandidateValueTreeController.selectedItems}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{asist_i18n.Edit}" update="@form:@parent:AsistCandidateValueEditForm" oncomplete="PF('AsistCandidateValueEditDialog').show()" disabled="#{empty asistCandidateValueTreeController.selectedItems}"/>
@@ -82,6 +84,7 @@
 
                 </p:contextMenu>
             </h:form>
+            <ui:include src="Add.xhtml"/>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>

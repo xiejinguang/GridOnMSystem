@@ -3,9 +3,9 @@
   <persistence-unit name="GridOnMSystem_PU" transaction-type="JTA">
     <jta-data-source>jobpromotion(dev)</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <shared-cache-mode>DISABLE_SELECTIVE</shared-cache-mode>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
-      <property name="eclipselink.weaving.eager" value="true"/>
     </properties>
   </persistence-unit>
 </persistence>

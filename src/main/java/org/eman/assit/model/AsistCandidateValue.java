@@ -9,6 +9,7 @@ package org.eman.assit.model;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -28,6 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author 谢金光
  */
 @Entity
+//@Cacheable(false)
 @Table(name = "asist_candidate_value")
 @XmlRootElement
 @NamedQueries({
