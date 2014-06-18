@@ -30,7 +30,7 @@
                                 <p:outputLabel value="#{asist_i18n.EditAsistCandidateValueLabel_value}" for="value" />
                                 <p:inputText id="value" value="#{item.value}" title="#{asist_i18n.EditAsistCandidateValueTitle_value}" disabled="false"   required="true" requiredMessage="#{asist_i18n.EditAsistCandidateValueRequiredMessage_value}"/>
                                 <p:outputLabel value="#{asist_i18n.EditAsistCandidateValueLabel_parentID}" for="parentID" />
-                                <p:selectOneMenu id="parentID" value="#{item.parentID}" filter="true"  filterMatchMode="contains" >
+                                <p:selectOneMenu id="parentID" value="#{item.parentID}" filter="true"  filterMatchMode="contains" disabled="true">
                                     <f:selectItem itemLabel="Select One" />
                                     <f:selectItems value="#{asistCandidateValueTreeController.itemsAvailableSelectOne}"
                                                    var="parentIDItem"

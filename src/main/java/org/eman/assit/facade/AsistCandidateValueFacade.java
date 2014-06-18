@@ -6,10 +6,14 @@
 
 package org.eman.assit.facade;
 
+import java.util.Arrays;
+import java.util.Collection;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import org.eman.assit.model.AsistCandidateValue;
+import org.eman.assit.model.CandidateValue;
 
 /**
  *
@@ -28,5 +32,24 @@ public class AsistCandidateValueFacade extends AbstractFacade<AsistCandidateValu
     public AsistCandidateValueFacade() {
         super(AsistCandidateValue.class);
     }
-    
+    public void addChildren ( CandidateValue parent,CandidateValue... children){
+        for(CandidateValue child:children){
+            parent.getChildren().add(child);
+        }
+        this.edit((AsistCandidateValue)parent);        
+
+    }
+    @Override
+    @Transactional
+    public void remove(AsistCandidateValue entity){
+        super.remove(entity);
+        if( entity.getParentID()!=null ){
+            entity.getParentID().getAsistCandidateValueCollection().remove(entity);
+            this.edit(entity.getParentID());
+        }
+        
+            
+        
+    }
+   
 }

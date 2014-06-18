@@ -24,7 +24,7 @@
                         <p:outputLabel value="#{asist_i18n.CreateAsistCandidateValueLabel_value}" for="value" />
                         <p:inputText id="value" value="#{asistCandidateValueTreeController.created.value}" title="#{asist_i18n.CreateAsistCandidateValueTitle_value}"  disabled="false"       required="true" requiredMessage="#{asist_i18n.CreateAsistCandidateValueRequiredMessage_value}"/>
                         <p:outputLabel value="#{asist_i18n.CreateAsistCandidateValueLabel_parentID}" for="parentID" />
-                        <p:selectOneMenu id="parentID" value="#{asistCandidateValueTreeController.created.parentID}" filter="true"   filterMatchMode="contains"  >
+                        <p:selectOneMenu id="parentID" value="#{asistCandidateValueTreeController.created.parentID}" filter="true"   filterMatchMode="contains" disabled="true" >
                             <f:selectItem itemLabel="Select One" />
                             <f:selectItems value="#{asistCandidateValueTreeController.itemsAvailableSelectOne}"
                                            var="parentIDItem"

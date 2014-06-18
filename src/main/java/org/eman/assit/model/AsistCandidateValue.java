@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author 谢金光
  */
 @Entity
-@Cacheable(false)
+//@Cacheable(false)
 @Table(name = "asist_candidate_value")
 @XmlRootElement
 @NamedQueries({
@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "AsistCandidateValue.findById", query = "SELECT a FROM AsistCandidateValue a WHERE a.id = :id"),
     @NamedQuery(name = "AsistCandidateValue.findByAccordingKey", query = "SELECT a FROM AsistCandidateValue a WHERE a.accordingKey = :accordingKey"),
     @NamedQuery(name = "AsistCandidateValue.findByValue", query = "SELECT a FROM AsistCandidateValue a WHERE a.value = :value")})
-public class AsistCandidateValue implements Serializable {
+public class AsistCandidateValue implements Serializable, CandidateValue {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -74,26 +74,32 @@ public class AsistCandidateValue implements Serializable {
         this.value = value;
     }
 
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public void setId(String id) {
         this.id = id;
     }
 
+    @Override
     public String getAccordingKey() {
         return accordingKey;
     }
 
+    @Override
     public void setAccordingKey(String accordingKey) {
         this.accordingKey = accordingKey;
     }
 
+    @Override
     public String getValue() {
         return value;
     }
 
+    @Override
     public void setValue(String value) {
         this.value = value;
     }
@@ -103,14 +109,17 @@ public class AsistCandidateValue implements Serializable {
         return asistCandidateValueCollection;
     }
 
+
     public void setAsistCandidateValueCollection(Collection<AsistCandidateValue> asistCandidateValueCollection) {
         this.asistCandidateValueCollection = asistCandidateValueCollection;
     }
 
+   
     public AsistCandidateValue getParentID() {
         return parentID;
     }
 
+   
     public void setParentID(AsistCandidateValue parentID) {
         this.parentID = parentID;
     }
@@ -138,6 +147,29 @@ public class AsistCandidateValue implements Serializable {
     @Override
     public String toString() {
         return "org.eman.assit.model.AsistCandidateValue[ id=" + id + " ]";
+    }
+
+    @Override
+    public Collection<CandidateValue> getChildren() {
+        Collection<? extends CandidateValue> children =null;
+        children = asistCandidateValueCollection;
+        return (Collection<CandidateValue>)children;
+    }
+
+    @Override
+    public CandidateValue getParent() {
+        return this.getParentID();
+    }
+
+    @Override
+    public void setChildren(Collection<CandidateValue> candidateValueCollection) {
+        Collection<? extends CandidateValue> children =candidateValueCollection;        
+        this.setAsistCandidateValueCollection((Collection<AsistCandidateValue>)children);
+    }
+
+    @Override
+    public void setParent(CandidateValue parentID) {
+        this.setParentID((AsistCandidateValue)parentID);
     }
     
 }

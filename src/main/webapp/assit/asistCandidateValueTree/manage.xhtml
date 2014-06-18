@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition>
+        
+            #{asistCandidateValueTreeController.setAccordingKey(param['accordingKey'])}
+            #{asistCandidateValueTreeController.setNewValue(param['value'])}
+            #{asistCandidateValueTreeController.setCreateNotExist(param['createNotExist'])}            
+            <h:form id="AsistCandidateValueListForm">
+                <p:panel header="#{asist_i18n.ListAsistCandidateValueTitle}">
+
+
+                    <p:treeTable id="datalist" value="#{asistCandidateValueTreeController.treeRoot}" var="item"
+                                 selection="#{asistCandidateValueTreeController.selectedNodes}"   scrollable="true"
+                                 selectionMode="multiple" liveResize="true"  resizableColumns="true" 
+                                 >
+
+                        <p:ajax event="select"  listener="#{asistCandidateValueTreeController.synchronizeSelectedNodesToDatas}" immediate="false"  update="editButton,deleteButton,addButton,addNodeButton,addSubNodeButton"/>
+                        <p:ajax event="unselect" listener="#{asistCandidateValueTreeController.synchronizeSelectedNodesToDatas}" immediate="false" update="editButton,deleteButton,addButton,addNodeButton,addSubNodeButton"/>
+
+
+
+                        <p:column sortBy="#{item.value}" >
+                            <f:facet name="header">
+                                <h:outputText value="#{asist_i18n.AsistCandidateValueTitle_value}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.value}"/>
+                        </p:column>
+
+
+
+                        <p:column sortBy="#{item.accordingKey}">
+                            <f:facet name="header">
+                                <h:outputText value="#{asist_i18n.AsistCandidateValueTitle_accordingKey}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.accordingKey}"/>
+                        </p:column>
+                        <!--
+                                                <p:column sortBy="#{item.parentID}" filterBy="#{item.parentID}">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{asist_i18n.AsistCandidateValueTitle_parentID}"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.parentID}"/>
+                                                </p:column>
+                        
+                                                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{asist_i18n.AsistCandidateValueTitle_id}"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.id}"/>
+                                                </p:column>
+                        -->
+
+                        <f:facet name="footer" id="buttonBar">
+
+                            <p:commandButton id="addButton" icon="ui-icon-plus"   value="#{asist_i18n.Add}" actionListener="#{asistCandidateValueTreeController.prepareAddNode(asistCandidateValueTreeController.treeRoot)}" update="@form:@parent:AsistCandidateValueAddNodeform" oncomplete="PF('AsistCandidateValueAddNodeDialog').show()" />
+                            <p:commandButton id="addNodeButton" icon="ui-icon-plus"   value="#{asist_i18n.AddNode}" actionListener="#{asistCandidateValueTreeController.prepareAddNode(asistCandidateValueTreeController.selectedNodes[0].parent)}"  update="@form:@parent:AsistCandidateValueAddNodeform" oncomplete="PF('AsistCandidateValueAddNodeDialog').show()" disabled="#{empty asistCandidateValueTreeController.selectedItems}"/>
+                            <p:commandButton id="addSubNodeButton" icon="ui-icon-plus"   value="#{asist_i18n.AddSubNode}" actionListener="#{asistCandidateValueTreeController.prepareAddNode(asistCandidateValueTreeController.selectedNodes[0])}" update="@form:@parent:AsistCandidateValueAddNodeform" oncomplete="PF('AsistCandidateValueAddNodeDialog').show()" disabled="#{empty asistCandidateValueTreeController.selectedItems}"/>
+
+
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{asist_i18n.Edit}" update="@form:@parent:AsistCandidateValueEditForm" oncomplete="PF('AsistCandidateValueEditDialog').show()" disabled="#{empty asistCandidateValueTreeController.selectedItems}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{asist_i18n.Delete}" actionListener="#{asistCandidateValueTreeController.deleteNodes}" update=":growl,datalist" disabled="#{empty asistCandidateValueTreeController.selectedItems}"/>
+                        </f:facet>
+                    </p:treeTable>
+                </p:panel>
+                <p:contextMenu id="contextMenu" for="datalist">
+
+                    <p:menuitem id="addMenu" icon="ui-icon-plus"   value="#{asist_i18n.Add}" actionListener="#{asistCandidateValueTreeController.prepareAddNode(asistCandidateValueTreeController.treeRoot)}" update="@form:@parent:AsistCandidateValueAddNodeform" oncomplete="PF('AsistCandidateValueAddNodeDialog').show()" />
+                    <p:menuitem id="addNodeMenu" icon="ui-icon-plus"   value="#{asist_i18n.AddNode}" actionListener="#{asistCandidateValueTreeController.prepareAddNode(asistCandidateValueTreeController.selectedNodes[0].parent)}"  update="@form:@parent:AsistCandidateValueAddNodeform" oncomplete="PF('AsistCandidateValueAddNodeDialog').show()"/>
+                    <p:menuitem id="addSubNodeMenu" icon="ui-icon-plus"   value="#{asist_i18n.AddSubNode}" actionListener="#{asistCandidateValueTreeController.prepareAddNode(asistCandidateValueTreeController.selectedNodes[0])}" update="@form:@parent:AsistCandidateValueAddNodeform" oncomplete="PF('AsistCandidateValueAddNodeDialog').show()" />
+                    <p:menuitem id="editMenu"   icon="ui-icon-pencil" value="#{asist_i18n.Edit}" update="@form:@parent:AsistCandidateValueEditForm" oncomplete="PF('AsistCandidateValueEditDialog').show()"/>
+                    <p:menuitem id="deleteMenu" icon="ui-icon-trash"  value="#{asist_i18n.Delete}" actionListener="#{asistCandidateValueTreeController.deleteNodes}" update=":growl,datalist"/>
+
+                </p:contextMenu>
+            </h:form>
+            <ui:include src="Add.xhtml"/>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+
+    </ui:composition>
+</html>
+
