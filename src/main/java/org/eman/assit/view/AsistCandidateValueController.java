@@ -23,12 +23,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.event.ValueChangeEvent;
+import javax.inject.Inject;
 
 @Named("asistCandidateValueController")
 @ViewScoped
 public class AsistCandidateValueController implements Serializable {
 
-    @EJB
+    @Inject
     protected org.eman.assit.facade.AsistCandidateValueFacade ejbFacade;
     private List<AsistCandidateValue> items = null;
     private AsistCandidateValue created;

@@ -17,6 +17,7 @@ import org.eman.assit.model.AsistCandidateValue;
 import org.eman.assit.view.util.JsfUtil;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
+import org.slf4j.Logger;
 
 /**
  *
@@ -31,8 +32,30 @@ public class AsistCandidateValueTreeController extends AsistCandidateValueContro
     private TreeNode[] selectedNodes;
 
     private TreeNode parent;
-    
+
     private String accordingKey;
+
+    private String id;
+     @Inject
+   private Logger logger;
+
+    /**
+     * Get the value of id
+     *
+     * @return the value of id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @param id new value of id
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getAccordingKey() {
         return accordingKey;
@@ -106,8 +129,18 @@ public class AsistCandidateValueTreeController extends AsistCandidateValueContro
      */
     public TreeNode getTreeRoot() {
         if (treeRoot == null) {
-            if (accordingKey != null && !accordingKey.trim().isEmpty()) {
-                Map<String, Object> params = new HashMap<>();
+            Map<String, Object> params = new HashMap<>();
+            if (id != null && !id.trim().isEmpty()) {
+
+                AsistCandidateValue root = ejbFacade.find(id);
+                treeRoot = new DefaultTreeNode(root, null);
+                for (AsistCandidateValue v : root.getAsistCandidateValueCollection()) {
+                    buildTreeNodeForEntity(v, treeRoot);
+
+                }
+
+            } else if (accordingKey != null && !accordingKey.trim().isEmpty()) {
+
                 params.put("accordingKey", accordingKey);
                 List<AsistCandidateValue> roots = findItemsByConditions(params);
                 if (roots == null || roots.size() == 0) {
@@ -132,7 +165,7 @@ public class AsistCandidateValueTreeController extends AsistCandidateValueContro
 
             } else {
                 treeRoot = new DefaultTreeNode(null, null);
-                Map<String, Object> params = new HashMap<>();
+
                 params.put("parentID", null);
                 List<AsistCandidateValue> roots = findItemsByConditions(params);
                 for (AsistCandidateValue v : roots) {

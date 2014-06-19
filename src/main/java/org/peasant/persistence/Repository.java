@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.peasant.persistence;
 
 import java.util.List;
@@ -13,13 +12,15 @@ import java.util.Map;
  *
  * @author 谢金光
  */
-public interface Repository1<T> {
+public interface Repository<T> {
 
     int count();
 
+    T newInstance();
+
     void create(T entity);
 
-    void edit(T entity);
+    void save(T entity);
 
     T find(Object id);
 
@@ -30,5 +31,5 @@ public interface Repository1<T> {
     List<T> findRange(int[] range);
 
     void remove(T entity);
-    
+
 }

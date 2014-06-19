@@ -3,17 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.eman.assit.facade;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import org.eman.Asist;
+import org.eman.PersistenceUnit;
 import org.eman.assit.model.AsistCandidateValue;
 import org.eman.assit.model.CandidateValue;
+import org.slf4j.Logger;
 
 /**
  *
@@ -21,8 +27,11 @@ import org.eman.assit.model.CandidateValue;
  */
 @Stateless
 public class AsistCandidateValueFacade extends AbstractFacade<AsistCandidateValue> {
-    @PersistenceContext(unitName = "GridOnMSystem_PU")
+
+   @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
+   
+  
 
     @Override
     protected EntityManager getEntityManager() {
@@ -32,24 +41,38 @@ public class AsistCandidateValueFacade extends AbstractFacade<AsistCandidateValu
     public AsistCandidateValueFacade() {
         super(AsistCandidateValue.class);
     }
-    public void addChildren ( CandidateValue parent,CandidateValue... children){
-        for(CandidateValue child:children){
+
+    public void addChildren(CandidateValue parent, CandidateValue... children) {
+        for (CandidateValue child : children) {
             parent.getChildren().add(child);
         }
-        this.edit((AsistCandidateValue)parent);        
+        this.edit((AsistCandidateValue) parent);
 
     }
+
     @Override
     @Transactional
-    public void remove(AsistCandidateValue entity){
+    public void remove(AsistCandidateValue entity) {
         super.remove(entity);
-        if( entity.getParentID()!=null ){
+        if (entity.getParentID() != null) {
             entity.getParentID().getAsistCandidateValueCollection().remove(entity);
             this.edit(entity.getParentID());
         }
-        
-            
-        
+
     }
-   
+
+    public List<AsistCandidateValue> findBy(String accordingKey) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("accordingKey", accordingKey);
+        return findByConditions(params);
+
+    }
+
+    public List<AsistCandidateValue> findBy(String accordingKey, String value) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("accordingKey", accordingKey);
+        params.put("value", value);
+        return findByConditions(params);
+    }
+
 }
