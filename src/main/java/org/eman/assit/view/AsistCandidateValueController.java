@@ -29,7 +29,7 @@ import javax.inject.Inject;
 @ViewScoped
 public class AsistCandidateValueController implements Serializable {
 
-    @Inject
+    @EJB
     protected org.eman.assit.facade.AsistCandidateValueFacade ejbFacade;
     private List<AsistCandidateValue> items = null;
     private AsistCandidateValue created;

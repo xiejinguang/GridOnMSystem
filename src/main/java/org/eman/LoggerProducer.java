@@ -6,6 +6,7 @@
 
 package org.eman;
 
+import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
 import org.slf4j.Logger;
@@ -16,7 +17,10 @@ import org.slf4j.LoggerFactory;
  * @author 谢金光
  */
 public class LoggerProducer {
-    @Produces
+
+    public LoggerProducer() {
+    }
+    @Produces @Dependent
     public  Logger getDefaultLogger(){
        return LoggerFactory.getLogger("GlobalLogger");
     }
