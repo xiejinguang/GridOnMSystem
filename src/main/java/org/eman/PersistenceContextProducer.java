@@ -5,7 +5,9 @@
  */
 package org.eman;
 
+import java.io.Serializable;
 import javax.enterprise.inject.Produces;
+import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -13,20 +15,20 @@ import javax.persistence.PersistenceContext;
  *
  * @author 谢金光
  */
-public class PersistenceContextProducer {
+@Singleton
+public class PersistenceContextProducer implements Serializable {
 
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     EntityManager em;
 
     @Produces
-    @PersistenceUnit(name = "asist_PU")
-    public EntityManager getEntityManager() {
+    @Module(name = "asist")
+    public EntityManager getAsistEntityManager() {
         return em;
     }
 
-    @Produces
-    @Asist
-    public EntityManager getAsistEntityManager() {
+    @Produces 
+    public EntityManager getDefaultEntityManager() {
         return em;
     }
 }

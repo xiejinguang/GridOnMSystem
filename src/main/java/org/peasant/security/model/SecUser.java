@@ -31,17 +31,17 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author 谢金光
  */
 @Entity
-@Table(name="user_basic")
+@Table(name = "sec_user")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-    @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
-    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
-    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
-    @NamedQuery(name = "User.findByCreateTime", query = "SELECT u FROM User u WHERE u.createTime = :createTime"),
-    @NamedQuery(name = "User.findBySaltMod", query = "SELECT u FROM User u WHERE u.saltMod = :saltMod"),
-    @NamedQuery(name = "User.findBySaltPassword", query = "SELECT u FROM User u WHERE u.saltPassword = :saltPassword")})
-public class User implements Serializable {
+    @NamedQuery(name = "SecUser.findAll", query = "SELECT s FROM SecUser s"),
+    @NamedQuery(name = "SecUser.findByUsername", query = "SELECT s FROM SecUser s WHERE s.username = :username"),
+    @NamedQuery(name = "SecUser.findByPassword", query = "SELECT s FROM SecUser s WHERE s.password = :password"),
+    @NamedQuery(name = "SecUser.findByEmail", query = "SELECT s FROM SecUser s WHERE s.email = :email"),
+    @NamedQuery(name = "SecUser.findByCreateTime", query = "SELECT s FROM SecUser s WHERE s.createTime = :createTime"),
+    @NamedQuery(name = "SecUser.findBySaltMod", query = "SELECT s FROM SecUser s WHERE s.saltMod = :saltMod"),
+    @NamedQuery(name = "SecUser.findBySaltPassword", query = "SELECT s FROM SecUser s WHERE s.saltPassword = :saltPassword")})
+public class SecUser implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -69,16 +69,16 @@ public class User implements Serializable {
     @Column(length = 45)
     private String saltPassword;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "username")
-    private Collection<UserRole> userRoleCollection;
+    private Collection<SecUserRole> secUserRoleCollection;
 
-    public User() {
+    public SecUser() {
     }
 
-    public User(String username) {
+    public SecUser(String username) {
         this.username = username;
     }
 
-    public User(String username, String password) {
+    public SecUser(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -140,12 +140,12 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<UserRole> getUserRoleCollection() {
-        return userRoleCollection;
+    public Collection<SecUserRole> getSecUserRoleCollection() {
+        return secUserRoleCollection;
     }
 
-    public void setUserRoleCollection(Collection<UserRole> userRoleCollection) {
-        this.userRoleCollection = userRoleCollection;
+    public void setSecUserRoleCollection(Collection<SecUserRole> secUserRoleCollection) {
+        this.secUserRoleCollection = secUserRoleCollection;
     }
 
     @Override
@@ -158,10 +158,10 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof SecUser)) {
             return false;
         }
-        User other = (User) object;
+        SecUser other = (SecUser) object;
         if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
             return false;
         }
@@ -170,7 +170,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "org.peasant.security.model.User[ username=" + username + " ]";
+        return "org.peasant.security.model.SecUser[ username=" + username + " ]";
     }
     
 }

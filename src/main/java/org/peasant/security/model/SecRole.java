@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package org.peasant.security.model;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import java.util.UUID;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,17 +31,16 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author 谢金光
  */
 @Entity
-@Table(uniqueConstraints = {
+@Table(name = "sec_role", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"roleName"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r"),
-    @NamedQuery(name = "Role.findByRoleId", query = "SELECT r FROM Role r WHERE r.roleId = :roleId"),
-    @NamedQuery(name = "Role.findByRoleName", query = "SELECT r FROM Role r WHERE r.roleName = :roleName"),
-    @NamedQuery(name = "Role.findByDescription", query = "SELECT r FROM Role r WHERE r.description = :description"),
-    @NamedQuery(name = "Role.findByCreateTime", query = "SELECT r FROM Role r WHERE r.createTime = :createTime")})
-public class Role implements Serializable {
-
+    @NamedQuery(name = "SecRole.findAll", query = "SELECT s FROM SecRole s"),
+    @NamedQuery(name = "SecRole.findByRoleId", query = "SELECT s FROM SecRole s WHERE s.roleId = :roleId"),
+    @NamedQuery(name = "SecRole.findByRoleName", query = "SELECT s FROM SecRole s WHERE s.roleName = :roleName"),
+    @NamedQuery(name = "SecRole.findByDescription", query = "SELECT s FROM SecRole s WHERE s.description = :description"),
+    @NamedQuery(name = "SecRole.findByCreateTime", query = "SELECT s FROM SecRole s WHERE s.createTime = :createTime")})
+public class SecRole implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -49,13 +48,6 @@ public class Role implements Serializable {
     @Size(min = 1, max = 36)
     @Column(nullable = false, length = 36)
     private String roleId;
-    
-    @Basic(optional = false)
-    @NotNull
-    @Column
-    private UUID roleUIID;
-    
-    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -67,18 +59,18 @@ public class Role implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId")
-    private Collection<UserRole> userRoleCollection;
+    private Collection<SecUserRole> secUserRoleCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleroleId")
-    private Collection<RolePermission> rolePermissionCollection;
+    private Collection<SecRolePermission> secRolePermissionCollection;
 
-    public Role() {
+    public SecRole() {
     }
 
-    public Role(String roleId) {
+    public SecRole(String roleId) {
         this.roleId = roleId;
     }
 
-    public Role(String roleId, String roleName) {
+    public SecRole(String roleId, String roleName) {
         this.roleId = roleId;
         this.roleName = roleName;
     }
@@ -116,21 +108,21 @@ public class Role implements Serializable {
     }
 
     @XmlTransient
-    public Collection<UserRole> getUserRoleCollection() {
-        return userRoleCollection;
+    public Collection<SecUserRole> getSecUserRoleCollection() {
+        return secUserRoleCollection;
     }
 
-    public void setUserRoleCollection(Collection<UserRole> userRoleCollection) {
-        this.userRoleCollection = userRoleCollection;
+    public void setSecUserRoleCollection(Collection<SecUserRole> secUserRoleCollection) {
+        this.secUserRoleCollection = secUserRoleCollection;
     }
 
     @XmlTransient
-    public Collection<RolePermission> getRolePermissionCollection() {
-        return rolePermissionCollection;
+    public Collection<SecRolePermission> getSecRolePermissionCollection() {
+        return secRolePermissionCollection;
     }
 
-    public void setRolePermissionCollection(Collection<RolePermission> rolePermissionCollection) {
-        this.rolePermissionCollection = rolePermissionCollection;
+    public void setSecRolePermissionCollection(Collection<SecRolePermission> secRolePermissionCollection) {
+        this.secRolePermissionCollection = secRolePermissionCollection;
     }
 
     @Override
@@ -143,10 +135,10 @@ public class Role implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Role)) {
+        if (!(object instanceof SecRole)) {
             return false;
         }
-        Role other = (Role) object;
+        SecRole other = (SecRole) object;
         if ((this.roleId == null && other.roleId != null) || (this.roleId != null && !this.roleId.equals(other.roleId))) {
             return false;
         }
@@ -155,7 +147,7 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "org.peasant.security.model.Role[ roleId=" + roleId + " ]";
+        return "org.peasant.security.model.SecRole[ roleId=" + roleId + " ]";
     }
-
+    
 }

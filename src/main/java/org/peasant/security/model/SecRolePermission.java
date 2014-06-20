@@ -25,12 +25,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author 谢金光
  */
 @Entity
-@Table(name = "role_permission")
+@Table(name = "sec_role_permission")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "RolePermission.findAll", query = "SELECT r FROM RolePermission r"),
-    @NamedQuery(name = "RolePermission.findByIdrolePerm", query = "SELECT r FROM RolePermission r WHERE r.idrolePerm = :idrolePerm")})
-public class RolePermission implements Serializable {
+    @NamedQuery(name = "SecRolePermission.findAll", query = "SELECT s FROM SecRolePermission s"),
+    @NamedQuery(name = "SecRolePermission.findByIdrolePerm", query = "SELECT s FROM SecRolePermission s WHERE s.idrolePerm = :idrolePerm")})
+public class SecRolePermission implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -40,15 +40,15 @@ public class RolePermission implements Serializable {
     private String idrolePerm;
     @JoinColumn(name = "permission_permissionId", referencedColumnName = "permissionId", nullable = false)
     @ManyToOne(optional = false)
-    private Permission permissionpermissionId;
+    private SecPermission permissionpermissionId;
     @JoinColumn(name = "role_roleId", referencedColumnName = "roleId", nullable = false)
     @ManyToOne(optional = false)
-    private Role roleroleId;
+    private SecRole roleroleId;
 
-    public RolePermission() {
+    public SecRolePermission() {
     }
 
-    public RolePermission(String idrolePerm) {
+    public SecRolePermission(String idrolePerm) {
         this.idrolePerm = idrolePerm;
     }
 
@@ -60,19 +60,19 @@ public class RolePermission implements Serializable {
         this.idrolePerm = idrolePerm;
     }
 
-    public Permission getPermissionpermissionId() {
+    public SecPermission getPermissionpermissionId() {
         return permissionpermissionId;
     }
 
-    public void setPermissionpermissionId(Permission permissionpermissionId) {
+    public void setPermissionpermissionId(SecPermission permissionpermissionId) {
         this.permissionpermissionId = permissionpermissionId;
     }
 
-    public Role getRoleroleId() {
+    public SecRole getRoleroleId() {
         return roleroleId;
     }
 
-    public void setRoleroleId(Role roleroleId) {
+    public void setRoleroleId(SecRole roleroleId) {
         this.roleroleId = roleroleId;
     }
 
@@ -86,10 +86,10 @@ public class RolePermission implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof RolePermission)) {
+        if (!(object instanceof SecRolePermission)) {
             return false;
         }
-        RolePermission other = (RolePermission) object;
+        SecRolePermission other = (SecRolePermission) object;
         if ((this.idrolePerm == null && other.idrolePerm != null) || (this.idrolePerm != null && !this.idrolePerm.equals(other.idrolePerm))) {
             return false;
         }
@@ -98,7 +98,7 @@ public class RolePermission implements Serializable {
 
     @Override
     public String toString() {
-        return "org.peasant.security.model.RolePermission[ idrolePerm=" + idrolePerm + " ]";
+        return "org.peasant.security.model.SecRolePermission[ idrolePerm=" + idrolePerm + " ]";
     }
     
 }

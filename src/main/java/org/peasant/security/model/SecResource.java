@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -22,14 +23,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author 谢金光
  */
 @Entity
+@Table(name = "sec_resource")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Resource.findAll", query = "SELECT r FROM Resource r"),
-    @NamedQuery(name = "Resource.findByResourceId", query = "SELECT r FROM Resource r WHERE r.resourceId = :resourceId"),
-    @NamedQuery(name = "Resource.findByResCode", query = "SELECT r FROM Resource r WHERE r.resCode = :resCode"),
-    @NamedQuery(name = "Resource.findByResLabel", query = "SELECT r FROM Resource r WHERE r.resLabel = :resLabel"),
-    @NamedQuery(name = "Resource.findByPermCode", query = "SELECT r FROM Resource r WHERE r.permCode = :permCode")})
-public class Resource implements Serializable {
+    @NamedQuery(name = "SecResource.findAll", query = "SELECT s FROM SecResource s"),
+    @NamedQuery(name = "SecResource.findByResourceId", query = "SELECT s FROM SecResource s WHERE s.resourceId = :resourceId"),
+    @NamedQuery(name = "SecResource.findByResCode", query = "SELECT s FROM SecResource s WHERE s.resCode = :resCode"),
+    @NamedQuery(name = "SecResource.findByResLabel", query = "SELECT s FROM SecResource s WHERE s.resLabel = :resLabel"),
+    @NamedQuery(name = "SecResource.findByPermCode", query = "SELECT s FROM SecResource s WHERE s.permCode = :permCode")})
+public class SecResource implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -47,10 +49,10 @@ public class Resource implements Serializable {
     @Column(length = 45)
     private String permCode;
 
-    public Resource() {
+    public SecResource() {
     }
 
-    public Resource(String resourceId) {
+    public SecResource(String resourceId) {
         this.resourceId = resourceId;
     }
 
@@ -96,10 +98,10 @@ public class Resource implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Resource)) {
+        if (!(object instanceof SecResource)) {
             return false;
         }
-        Resource other = (Resource) object;
+        SecResource other = (SecResource) object;
         if ((this.resourceId == null && other.resourceId != null) || (this.resourceId != null && !this.resourceId.equals(other.resourceId))) {
             return false;
         }
@@ -108,7 +110,7 @@ public class Resource implements Serializable {
 
     @Override
     public String toString() {
-        return "org.peasant.security.model.Resource[ resourceId=" + resourceId + " ]";
+        return "org.peasant.security.model.SecResource[ resourceId=" + resourceId + " ]";
     }
     
 }

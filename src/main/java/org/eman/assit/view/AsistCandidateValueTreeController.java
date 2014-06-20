@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import javax.enterprise.inject.Produces;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ import org.eman.assit.view.util.JsfUtil;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -245,5 +247,4 @@ public class AsistCandidateValueTreeController extends AsistCandidateValueContro
 
         }
     }
-
 }

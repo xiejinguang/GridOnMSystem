@@ -6,9 +6,11 @@
 
 package org.eman;
 
+import java.io.Serializable;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
+import javax.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,12 +18,17 @@ import org.slf4j.LoggerFactory;
  *
  * @author 谢金光
  */
-public class LoggerProducer {
+@Singleton
+public class LoggerProducer implements Serializable{
 
     public LoggerProducer() {
     }
-    @Produces @Dependent
+    @Produces @Default
     public  Logger getDefaultLogger(){
-       return LoggerFactory.getLogger("GlobalLogger");
+       return LoggerFactory.getLogger("GlobalDefaultLogger");
+    }
+    @Produces @Module(name="asist")
+      public  Logger getAsistLogger(){
+       return LoggerFactory.getLogger("AsistLogger");
     }
 }

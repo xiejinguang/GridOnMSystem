@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,17 +27,18 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author 谢金光
  */
 @Entity
+@Table(name = "sec_permission")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Permission.findAll", query = "SELECT p FROM Permission p"),
-    @NamedQuery(name = "Permission.findByPermissionId", query = "SELECT p FROM Permission p WHERE p.permissionId = :permissionId"),
-    @NamedQuery(name = "Permission.findByPermName", query = "SELECT p FROM Permission p WHERE p.permName = :permName"),
-    @NamedQuery(name = "Permission.findByCode", query = "SELECT p FROM Permission p WHERE p.code = :code"),
-    @NamedQuery(name = "Permission.findByDomain", query = "SELECT p FROM Permission p WHERE p.domain = :domain"),
-    @NamedQuery(name = "Permission.findByAction", query = "SELECT p FROM Permission p WHERE p.action = :action"),
-    @NamedQuery(name = "Permission.findByTarget", query = "SELECT p FROM Permission p WHERE p.target = :target"),
-    @NamedQuery(name = "Permission.findByDescription", query = "SELECT p FROM Permission p WHERE p.description = :description")})
-public class Permission implements Serializable {
+    @NamedQuery(name = "SecPermission.findAll", query = "SELECT s FROM SecPermission s"),
+    @NamedQuery(name = "SecPermission.findByPermissionId", query = "SELECT s FROM SecPermission s WHERE s.permissionId = :permissionId"),
+    @NamedQuery(name = "SecPermission.findByPermName", query = "SELECT s FROM SecPermission s WHERE s.permName = :permName"),
+    @NamedQuery(name = "SecPermission.findByCode", query = "SELECT s FROM SecPermission s WHERE s.code = :code"),
+    @NamedQuery(name = "SecPermission.findByDomain", query = "SELECT s FROM SecPermission s WHERE s.domain = :domain"),
+    @NamedQuery(name = "SecPermission.findByAction", query = "SELECT s FROM SecPermission s WHERE s.action = :action"),
+    @NamedQuery(name = "SecPermission.findByTarget", query = "SELECT s FROM SecPermission s WHERE s.target = :target"),
+    @NamedQuery(name = "SecPermission.findByDescription", query = "SELECT s FROM SecPermission s WHERE s.description = :description")})
+public class SecPermission implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -63,12 +65,12 @@ public class Permission implements Serializable {
     @Column(length = 45)
     private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "permissionpermissionId")
-    private Collection<RolePermission> rolePermissionCollection;
+    private Collection<SecRolePermission> secRolePermissionCollection;
 
-    public Permission() {
+    public SecPermission() {
     }
 
-    public Permission(String permissionId) {
+    public SecPermission(String permissionId) {
         this.permissionId = permissionId;
     }
 
@@ -129,12 +131,12 @@ public class Permission implements Serializable {
     }
 
     @XmlTransient
-    public Collection<RolePermission> getRolePermissionCollection() {
-        return rolePermissionCollection;
+    public Collection<SecRolePermission> getSecRolePermissionCollection() {
+        return secRolePermissionCollection;
     }
 
-    public void setRolePermissionCollection(Collection<RolePermission> rolePermissionCollection) {
-        this.rolePermissionCollection = rolePermissionCollection;
+    public void setSecRolePermissionCollection(Collection<SecRolePermission> secRolePermissionCollection) {
+        this.secRolePermissionCollection = secRolePermissionCollection;
     }
 
     @Override
@@ -147,10 +149,10 @@ public class Permission implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Permission)) {
+        if (!(object instanceof SecPermission)) {
             return false;
         }
-        Permission other = (Permission) object;
+        SecPermission other = (SecPermission) object;
         if ((this.permissionId == null && other.permissionId != null) || (this.permissionId != null && !this.permissionId.equals(other.permissionId))) {
             return false;
         }
@@ -159,7 +161,7 @@ public class Permission implements Serializable {
 
     @Override
     public String toString() {
-        return "org.peasant.security.model.Permission[ permissionId=" + permissionId + " ]";
+        return "org.peasant.security.model.SecPermission[ permissionId=" + permissionId + " ]";
     }
     
 }

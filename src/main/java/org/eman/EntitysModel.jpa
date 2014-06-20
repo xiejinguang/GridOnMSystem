@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings id="_14032308434461" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:ns4="http://nbmodeler.java.net" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <jpa:entity class="UserDetail" minimized="false" id="_14032308434494">
+        <jpa:table name="user_detail"/>
+        <jpa:attributes>
+            <jpa:id name="username" attribute-type="java.lang.String" id="_140323084347022">
+                <jpa:column name="username" unique="false" nullable="false" insertable="true" updatable="true" table="user_detail" length="25"/>
+            </jpa:id>
+            <jpa:basic name="sex" optional="true" attribute-type="java.lang.String" id="_140323084347123">
+                <jpa:column name="sex" unique="false" nullable="true" insertable="true" updatable="true" table="user_detail" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="birthday" optional="true" attribute-type="java.util.Date" id="_140323084347124">
+                <jpa:column name="birthday" unique="false" nullable="true" insertable="true" updatable="true" table="user_detail"/>
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="firstName" optional="true" attribute-type="java.lang.String" id="_140323084347125">
+                <jpa:column name="firstName" unique="false" nullable="true" insertable="true" updatable="true" table="user_detail" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="lastName" optional="true" attribute-type="java.lang.String" id="_140323084347126">
+                <jpa:column name="lastName" unique="false" nullable="true" insertable="true" updatable="true" table="user_detail" length="45"/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="StationDetail" minimized="false" id="_14032308434635">
+        <jpa:table name="station_detail"/>
+        <jpa:attributes/>
+    </jpa:entity>
+    <jpa:entity class="BasicRoomspot" minimized="false" id="_14032308434636">
+        <jpa:table name="basic_roomspot">
+            <jpa:unique-constraint>
+                <jpa:column-name>roomCode</jpa:column-name>
+            </jpa:unique-constraint>
+        </jpa:table>
+        <jpa:attributes>
+            <jpa:id name="roomID" attribute-type="java.lang.String" id="_140323084347227">
+                <jpa:column name="roomID" unique="false" nullable="false" insertable="true" updatable="true" table="basic_roomspot" length="36"/>
+            </jpa:id>
+            <jpa:basic name="roomCode" optional="false" attribute-type="java.lang.String" id="_140323084347228">
+                <jpa:column name="roomCode" unique="false" nullable="false" insertable="true" updatable="true" table="basic_roomspot" length="20"/>
+            </jpa:basic>
+            <jpa:basic name="roomName" optional="false" attribute-type="java.lang.String" id="_140323084347229">
+                <jpa:column name="roomName" unique="false" nullable="false" insertable="true" updatable="true" table="basic_roomspot" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="province" optional="false" attribute-type="java.lang.String" id="_140323084347230">
+                <jpa:column name="province" unique="false" nullable="false" insertable="true" updatable="true" table="basic_roomspot" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="city" optional="false" attribute-type="java.lang.String" id="_140323084347231">
+                <jpa:column name="city" unique="false" nullable="false" insertable="true" updatable="true" table="basic_roomspot" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="county" optional="false" attribute-type="java.lang.String" id="_140323084347232">
+                <jpa:column name="county" unique="false" nullable="false" insertable="true" updatable="true" table="basic_roomspot" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="grid" optional="false" attribute-type="java.lang.String" id="_140323084347233">
+                <jpa:column name="grid" unique="false" nullable="false" insertable="true" updatable="true" table="basic_roomspot" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="address" optional="true" attribute-type="java.lang.String" id="_140323084347234">
+                <jpa:column name="address" unique="false" nullable="true" insertable="true" updatable="true" table="basic_roomspot" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="commont" optional="true" attribute-type="java.lang.String" id="_140323084347235">
+                <jpa:column name="commont" unique="false" nullable="true" insertable="true" updatable="true" table="basic_roomspot" length="65535"/>
+                <jpa:lob/>
+            </jpa:basic>
+            <jpa:basic name="status" optional="true" attribute-type="java.lang.String" id="_140323084347236">
+                <jpa:column name="status" unique="false" nullable="true" insertable="true" updatable="true" table="basic_roomspot" length="45"/>
+            </jpa:basic>
+            <jpa:one-to-many name="basicStationCollection" target-entity="BasicStation" mapped-by="roomID" connected-entity-id="_14032308434639" connected-attribute-id="_140323084347359" id="_140323084347337"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Resource" minimized="false" id="_14032308434637">
+        <jpa:table name="resource"/>
+        <jpa:attributes>
+            <jpa:id name="resourceId" attribute-type="java.lang.String" id="_140323084347338">
+                <jpa:column name="resourceId" unique="false" nullable="false" insertable="true" updatable="true" table="resource" length="36"/>
+            </jpa:id>
+            <jpa:basic name="resCode" optional="true" attribute-type="java.lang.String" id="_140323084347339">
+                <jpa:column name="resCode" unique="false" nullable="true" insertable="true" updatable="true" table="resource" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="resLabel" optional="true" attribute-type="java.lang.String" id="_140323084347340">
+                <jpa:column name="resLabel" unique="false" nullable="true" insertable="true" updatable="true" table="resource" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="permCode" optional="true" attribute-type="java.lang.String" id="_140323084347341">
+                <jpa:column name="permCode" unique="false" nullable="true" insertable="true" updatable="true" table="resource" length="45"/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="UserBasic" minimized="false" id="_14032308434638">
+        <jpa:table name="user_basic"/>
+        <jpa:attributes>
+            <jpa:id name="username" attribute-type="java.lang.String" id="_140323084347342">
+                <jpa:column name="username" unique="false" nullable="false" insertable="true" updatable="true" table="user_basic" length="25"/>
+            </jpa:id>
+            <jpa:basic name="password" optional="false" attribute-type="java.lang.String" id="_140323084347343">
+                <jpa:column name="password" unique="false" nullable="false" insertable="true" updatable="true" table="user_basic" length="32"/>
+            </jpa:basic>
+            <jpa:basic name="email" optional="true" attribute-type="java.lang.String" id="_140323084347344">
+                <jpa:column name="email" unique="false" nullable="true" insertable="true" updatable="true" table="user_basic" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="createTime" optional="true" attribute-type="java.util.Date" id="_140323084347345">
+                <jpa:column name="createTime" unique="false" nullable="true" insertable="true" updatable="true" table="user_basic"/>
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="salt" optional="true" attribute-type="byte []" id="_140323084347346">
+                <jpa:column name="salt" unique="false" nullable="true" insertable="true" updatable="true" table="user_basic"/>
+                <jpa:lob/>
+            </jpa:basic>
+            <jpa:basic name="saltMod" optional="true" attribute-type="java.lang.String" id="_140323084347347">
+                <jpa:column name="saltMod" unique="false" nullable="true" insertable="true" updatable="true" table="user_basic" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="saltPassword" optional="true" attribute-type="java.lang.String" id="_140323084347348">
+                <jpa:column name="saltPassword" unique="false" nullable="true" insertable="true" updatable="true" table="user_basic" length="45"/>
+            </jpa:basic>
+            <jpa:one-to-many name="userRoleCollection" target-entity="UserRole" mapped-by="username" connected-entity-id="_140323084346413" connected-attribute-id="_140323084347493" id="_140323084347349"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="BasicStation" minimized="false" id="_14032308434639">
+        <jpa:table name="basic_station">
+            <jpa:unique-constraint>
+                <jpa:column-name>statCode</jpa:column-name>
+            </jpa:unique-constraint>
+            <jpa:unique-constraint>
+                <jpa:column-name>statName</jpa:column-name>
+            </jpa:unique-constraint>
+        </jpa:table>
+        <jpa:attributes>
+            <jpa:id name="statID" attribute-type="java.lang.String" id="_140323084347350">
+                <jpa:column name="statID" unique="false" nullable="false" insertable="true" updatable="true" table="basic_station" length="36"/>
+            </jpa:id>
+            <jpa:basic name="statCode" optional="false" attribute-type="java.lang.String" id="_140323084347351">
+                <jpa:column name="statCode" unique="false" nullable="false" insertable="true" updatable="true" table="basic_station" length="20"/>
+            </jpa:basic>
+            <jpa:basic name="statName" optional="false" attribute-type="java.lang.String" id="_140323084347352">
+                <jpa:column name="statName" unique="false" nullable="false" insertable="true" updatable="true" table="basic_station" length="20"/>
+            </jpa:basic>
+            <jpa:basic name="address" optional="true" attribute-type="java.lang.String" id="_140323084347353">
+                <jpa:column name="address" unique="false" nullable="true" insertable="true" updatable="true" table="basic_station" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="owner" optional="false" attribute-type="java.lang.String" id="_140323084347354">
+                <jpa:column name="owner" unique="false" nullable="false" insertable="true" updatable="true" table="basic_station" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="type" optional="true" attribute-type="java.lang.String" id="_140323084347355">
+                <jpa:column name="type" unique="false" nullable="true" insertable="true" updatable="true" table="basic_station" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="accomMaintainer" optional="true" attribute-type="java.lang.String" id="_140323084347356">
+                <jpa:column name="accomMaintainer" unique="false" nullable="true" insertable="true" updatable="true" table="basic_station" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="status" optional="true" attribute-type="java.lang.String" id="_140323084347357">
+                <jpa:column name="status" unique="false" nullable="true" insertable="true" updatable="true" table="basic_station" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="commont" optional="true" attribute-type="java.lang.String" id="_140323084347358">
+                <jpa:column name="commont" unique="false" nullable="true" insertable="true" updatable="true" table="basic_station" length="65535"/>
+                <jpa:lob/>
+            </jpa:basic>
+            <jpa:many-to-one name="roomID" target-entity="BasicRoomspot" optional="false" primaryKey="false" connected-entity-id="_14032308434636" connected-attribute-id="_140323084347337" id="_140323084347359">
+                <jpa:join-column name="roomID" referenced-column-name="roomID" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="gmsysFixDemandCollection" target-entity="GmsysFixDemand" mapped-by="statID" connected-entity-id="_140323084346412" connected-attribute-id="_140323084347490" id="_140323084347460"/>
+            <jpa:one-to-many name="basicNetnodeCollection" target-entity="BasicNetnode" mapped-by="statID" connected-entity-id="_140323084346415" connected-attribute-id="_1403230843475103" id="_140323084347461"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Permission" minimized="false" id="_140323084346310">
+        <jpa:table name="permission"/>
+        <jpa:attributes>
+            <jpa:id name="permissionId" attribute-type="java.lang.String" id="_140323084347462">
+                <jpa:column name="permissionId" unique="false" nullable="false" insertable="true" updatable="true" table="permission" length="36"/>
+            </jpa:id>
+            <jpa:basic name="permName" optional="true" attribute-type="java.lang.String" id="_140323084347463">
+                <jpa:column name="permName" unique="false" nullable="true" insertable="true" updatable="true" table="permission" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="code" optional="true" attribute-type="java.lang.String" id="_140323084347464">
+                <jpa:column name="code" unique="false" nullable="true" insertable="true" updatable="true" table="permission" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="domain" optional="true" attribute-type="java.lang.String" id="_140323084347465">
+                <jpa:column name="domain" unique="false" nullable="true" insertable="true" updatable="true" table="permission" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="action" optional="true" attribute-type="java.lang.String" id="_140323084347466">
+                <jpa:column name="action" unique="false" nullable="true" insertable="true" updatable="true" table="permission" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="target" optional="true" attribute-type="java.lang.String" id="_140323084347467">
+                <jpa:column name="target" unique="false" nullable="true" insertable="true" updatable="true" table="permission" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="description" optional="true" attribute-type="java.lang.String" id="_140323084347468">
+                <jpa:column name="description" unique="false" nullable="true" insertable="true" updatable="true" table="permission" length="45"/>
+            </jpa:basic>
+            <jpa:one-to-many name="rolePermissionCollection" target-entity="RolePermission" mapped-by="permissionpermissionId" connected-entity-id="_140323084346419" connected-attribute-id="_1403230843475116" id="_140323084347469"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Attachment" minimized="false" id="_140323084346411">
+        <jpa:table name="attachment"/>
+        <jpa:attributes>
+            <jpa:id name="attachmentid" attribute-type="java.lang.String" id="_140323084347470">
+                <jpa:column name="ATTACHMENTID" unique="false" nullable="false" insertable="true" updatable="true" table="attachment" length="255"/>
+            </jpa:id>
+            <jpa:basic name="attacher" optional="true" attribute-type="java.lang.String" id="_140323084347471">
+                <jpa:column name="ATTACHER" unique="false" nullable="true" insertable="true" updatable="true" table="attachment" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="belonger" optional="true" attribute-type="java.lang.String" id="_140323084347472">
+                <jpa:column name="BELONGER" unique="false" nullable="true" insertable="true" updatable="true" table="attachment" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="contenttype" optional="true" attribute-type="java.lang.String" id="_140323084347473">
+                <jpa:column name="CONTENTTYPE" unique="false" nullable="true" insertable="true" updatable="true" table="attachment" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="name" optional="true" attribute-type="java.lang.String" id="_140323084347474">
+                <jpa:column name="NAME" unique="false" nullable="true" insertable="true" updatable="true" table="attachment" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="relpath" optional="true" attribute-type="java.lang.String" id="_140323084347475">
+                <jpa:column name="RELPATH" unique="false" nullable="true" insertable="true" updatable="true" table="attachment" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="size" optional="true" attribute-type="java.lang.Integer" id="_140323084347476">
+                <jpa:column name="SIZE" unique="false" nullable="true" insertable="true" updatable="true" table="attachment"/>
+            </jpa:basic>
+            <jpa:basic name="uploadtime" optional="true" attribute-type="java.util.Date" id="_140323084347477">
+                <jpa:column name="UPLOADTIME" unique="false" nullable="true" insertable="true" updatable="true" table="attachment"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="GmsysFixDemand" minimized="false" id="_140323084346412">
+        <jpa:table name="gmsys_fix_demand">
+            <jpa:unique-constraint>
+                <jpa:column-name>demandCode</jpa:column-name>
+            </jpa:unique-constraint>
+        </jpa:table>
+        <jpa:attributes>
+            <jpa:id name="demandID" attribute-type="java.lang.String" id="_140323084347478">
+                <jpa:column name="demandID" unique="false" nullable="false" insertable="true" updatable="true" table="gmsys_fix_demand" length="36"/>
+            </jpa:id>
+            <jpa:basic name="demandCode" optional="false" attribute-type="java.lang.String" id="_140323084347479">
+                <jpa:column name="demandCode" unique="false" nullable="false" insertable="true" updatable="true" table="gmsys_fix_demand" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="problemKind" optional="false" attribute-type="java.lang.String" id="_140323084347480">
+                <jpa:column name="problemKind" unique="false" nullable="false" insertable="true" updatable="true" table="gmsys_fix_demand" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="problemSubKind" optional="false" attribute-type="java.lang.String" id="_140323084347481">
+                <jpa:column name="problemSubKind" unique="false" nullable="false" insertable="true" updatable="true" table="gmsys_fix_demand" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="problemDetails" optional="false" attribute-type="java.lang.String" id="_140323084347482">
+                <jpa:column name="problemDetails" unique="false" nullable="false" insertable="true" updatable="true" table="gmsys_fix_demand" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="solution" optional="false" attribute-type="java.lang.String" id="_140323084347483">
+                <jpa:column name="solution" unique="false" nullable="false" insertable="true" updatable="true" table="gmsys_fix_demand" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="fixKind" optional="true" attribute-type="java.lang.String" id="_140323084347484">
+                <jpa:column name="fixKind" unique="false" nullable="true" insertable="true" updatable="true" table="gmsys_fix_demand" length="25"/>
+            </jpa:basic>
+            <jpa:basic name="budgetList" optional="true" attribute-type="java.lang.String" id="_140323084347485">
+                <jpa:column name="budgetList" unique="false" nullable="true" insertable="true" updatable="true" table="gmsys_fix_demand" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="budget" optional="true" attribute-type="java.lang.Long" id="_140323084347486">
+                <jpa:column name="budget" unique="false" nullable="true" insertable="true" updatable="true" table="gmsys_fix_demand"/>
+            </jpa:basic>
+            <jpa:basic name="discoverDate" optional="false" attribute-type="java.util.Date" id="_140323084347487">
+                <jpa:column name="discoverDate" unique="false" nullable="false" insertable="true" updatable="true" table="gmsys_fix_demand"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="source" optional="true" attribute-type="java.lang.String" id="_140323084347488">
+                <jpa:column name="source" unique="false" nullable="true" insertable="true" updatable="true" table="gmsys_fix_demand" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="status" optional="true" attribute-type="java.lang.String" id="_140323084347489">
+                <jpa:column name="status" unique="false" nullable="true" insertable="true" updatable="true" table="gmsys_fix_demand" length="45"/>
+            </jpa:basic>
+            <jpa:many-to-one name="statID" target-entity="BasicStation" optional="false" primaryKey="false" connected-entity-id="_14032308434639" connected-attribute-id="_140323084347460" id="_140323084347490">
+                <jpa:join-column name="statID" referenced-column-name="statID" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="UserRole" minimized="false" id="_140323084346413">
+        <jpa:table name="user_role"/>
+        <jpa:attributes>
+            <jpa:id name="iduserRole" attribute-type="java.lang.String" id="_140323084347491">
+                <jpa:column name="iduser_role" unique="false" nullable="false" insertable="true" updatable="true" table="user_role" length="36"/>
+            </jpa:id>
+            <jpa:many-to-one name="roleId" target-entity="Role" optional="false" primaryKey="false" connected-entity-id="_140323084346417" connected-attribute-id="_1403230843475113" id="_140323084347492">
+                <jpa:join-column name="roleId" referenced-column-name="roleId" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="username" target-entity="UserBasic" optional="false" primaryKey="false" connected-entity-id="_14032308434638" connected-attribute-id="_140323084347349" id="_140323084347493">
+                <jpa:join-column name="username" referenced-column-name="username" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Sequence" minimized="false" id="_140323084346414">
+        <jpa:table name="sequence"/>
+        <jpa:attributes>
+            <jpa:id name="seqName" attribute-type="java.lang.String" id="_140323084347494">
+                <jpa:column name="SEQ_NAME" unique="false" nullable="false" insertable="true" updatable="true" table="sequence" length="50"/>
+            </jpa:id>
+            <jpa:basic name="seqCount" optional="true" attribute-type="java.math.BigInteger" id="_140323084347495">
+                <jpa:column name="SEQ_COUNT" unique="false" nullable="true" insertable="true" updatable="true" table="sequence"/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="BasicNetnode" minimized="false" id="_140323084346415">
+        <jpa:table name="basic_netnode">
+            <jpa:unique-constraint>
+                <jpa:column-name>ossCode</jpa:column-name>
+            </jpa:unique-constraint>
+        </jpa:table>
+        <jpa:attributes>
+            <jpa:id name="netNodeID" attribute-type="java.lang.String" id="_140323084347596">
+                <jpa:column name="netNodeID" unique="false" nullable="false" insertable="true" updatable="true" table="basic_netnode" length="36"/>
+            </jpa:id>
+            <jpa:basic name="ossCode" optional="false" attribute-type="java.lang.String" id="_140323084347597">
+                <jpa:column name="ossCode" unique="false" nullable="false" insertable="true" updatable="true" table="basic_netnode" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="name" optional="true" attribute-type="java.lang.String" id="_140323084347598">
+                <jpa:column name="name" unique="false" nullable="true" insertable="true" updatable="true" table="basic_netnode" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="investTime" optional="true" attribute-type="java.util.Date" id="_140323084347599">
+                <jpa:column name="investTime" unique="false" nullable="true" insertable="true" updatable="true" table="basic_netnode"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="commont" optional="true" attribute-type="java.lang.String" id="_1403230843475100">
+                <jpa:column name="commont" unique="false" nullable="true" insertable="true" updatable="true" table="basic_netnode" length="65535"/>
+                <jpa:lob/>
+            </jpa:basic>
+            <jpa:basic name="status" optional="true" attribute-type="java.lang.String" id="_1403230843475101">
+                <jpa:column name="status" unique="false" nullable="true" insertable="true" updatable="true" table="basic_netnode" length="45"/>
+            </jpa:basic>
+            <jpa:many-to-one name="equipModelID" target-entity="BasicEquipmentModel" optional="false" primaryKey="false" connected-entity-id="_140323084346521" connected-attribute-id="_1403230843475127" id="_1403230843475102">
+                <jpa:join-column name="equipModelID" referenced-column-name="equipModelID" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="statID" target-entity="BasicStation" optional="false" primaryKey="false" connected-entity-id="_14032308434639" connected-attribute-id="_140323084347461" id="_1403230843475103">
+                <jpa:join-column name="statID" referenced-column-name="statID" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="AsistCandidateValue" minimized="false" id="_140323084346416">
+        <jpa:table name="asist_candidate_value"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.String" id="_1403230843475104">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="asist_candidate_value" length="36"/>
+            </jpa:id>
+            <jpa:basic name="accordingKey" optional="false" attribute-type="java.lang.String" id="_1403230843475105">
+                <jpa:column name="accordingKey" unique="false" nullable="false" insertable="true" updatable="true" table="asist_candidate_value" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="value" optional="false" attribute-type="java.lang.String" id="_1403230843475106">
+                <jpa:column name="value" unique="false" nullable="false" insertable="true" updatable="true" table="asist_candidate_value" length="45"/>
+            </jpa:basic>
+            <jpa:many-to-one name="parentID" target-entity="AsistCandidateValue" primaryKey="false" connected-entity-id="_140323084346416" connected-attribute-id="_1403230843475107" id="_1403230843475108">
+                <jpa:join-column name="parentID" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="asistCandidateValueCollection" target-entity="AsistCandidateValue" mapped-by="parentID" connected-entity-id="_140323084346416" connected-attribute-id="_1403230843475108" id="_1403230843475107"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Role" minimized="false" id="_140323084346417">
+        <jpa:table name="role">
+            <jpa:unique-constraint>
+                <jpa:column-name>roleName</jpa:column-name>
+            </jpa:unique-constraint>
+        </jpa:table>
+        <jpa:attributes>
+            <jpa:id name="roleId" attribute-type="java.lang.String" id="_1403230843475109">
+                <jpa:column name="roleId" unique="false" nullable="false" insertable="true" updatable="true" table="role" length="36"/>
+            </jpa:id>
+            <jpa:basic name="roleName" optional="false" attribute-type="java.lang.String" id="_1403230843475110">
+                <jpa:column name="roleName" unique="false" nullable="false" insertable="true" updatable="true" table="role" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="description" optional="true" attribute-type="java.lang.String" id="_1403230843475111">
+                <jpa:column name="description" unique="false" nullable="true" insertable="true" updatable="true" table="role" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="createTime" optional="true" attribute-type="java.util.Date" id="_1403230843475112">
+                <jpa:column name="createTime" unique="false" nullable="true" insertable="true" updatable="true" table="role"/>
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:one-to-many name="userRoleCollection" target-entity="UserRole" mapped-by="roleId" connected-entity-id="_140323084346413" connected-attribute-id="_140323084347492" id="_1403230843475113"/>
+            <jpa:one-to-many name="rolePermissionCollection" target-entity="RolePermission" mapped-by="roleroleId" connected-entity-id="_140323084346419" connected-attribute-id="_1403230843475117" id="_1403230843475114"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Account" minimized="false" id="_140323084346418">
+        <jpa:table name="account"/>
+        <jpa:attributes/>
+    </jpa:entity>
+    <jpa:entity class="RolePermission" minimized="false" id="_140323084346419">
+        <jpa:table name="role_permission"/>
+        <jpa:attributes>
+            <jpa:id name="idrolePerm" attribute-type="java.lang.String" id="_1403230843475115">
+                <jpa:column name="idrole_perm" unique="false" nullable="false" insertable="true" updatable="true" table="role_permission" length="36"/>
+            </jpa:id>
+            <jpa:many-to-one name="permissionpermissionId" target-entity="Permission" optional="false" primaryKey="false" connected-entity-id="_140323084346310" connected-attribute-id="_140323084347469" id="_1403230843475116">
+                <jpa:join-column name="permission_permissionId" referenced-column-name="permissionId" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="roleroleId" target-entity="Role" optional="false" primaryKey="false" connected-entity-id="_140323084346417" connected-attribute-id="_1403230843475114" id="_1403230843475117">
+                <jpa:join-column name="role_roleId" referenced-column-name="roleId" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Newentity" minimized="false" id="_140323084346420">
+        <jpa:table name="newentity"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_1403230843475118">
+                <jpa:column name="ID" unique="false" nullable="false" insertable="true" updatable="true" table="newentity"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="BasicEquipmentModel" minimized="false" id="_140323084346521">
+        <jpa:table name="basic_equipment_model"/>
+        <jpa:attributes>
+            <jpa:id name="equipModelID" attribute-type="java.lang.String" id="_1403230843475119">
+                <jpa:column name="equipModelID" unique="false" nullable="false" insertable="true" updatable="true" table="basic_equipment_model" length="36"/>
+            </jpa:id>
+            <jpa:basic name="type" optional="true" attribute-type="java.lang.String" id="_1403230843475120">
+                <jpa:column name="type" unique="false" nullable="true" insertable="true" updatable="true" table="basic_equipment_model" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="class1" optional="true" attribute-type="java.lang.String" id="_1403230843475121">
+                <jpa:column name="class" unique="false" nullable="true" insertable="true" updatable="true" table="basic_equipment_model" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="netType" optional="true" attribute-type="java.lang.String" id="_1403230843475122">
+                <jpa:column name="netType" unique="false" nullable="true" insertable="true" updatable="true" table="basic_equipment_model" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="model" optional="true" attribute-type="java.lang.String" id="_1403230843475123">
+                <jpa:column name="model" unique="false" nullable="true" insertable="true" updatable="true" table="basic_equipment_model" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="manufacturer" optional="true" attribute-type="java.lang.String" id="_1403230843475124">
+                <jpa:column name="manufacturer" unique="false" nullable="true" insertable="true" updatable="true" table="basic_equipment_model" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="description" optional="true" attribute-type="java.lang.String" id="_1403230843475125">
+                <jpa:column name="description" unique="false" nullable="true" insertable="true" updatable="true" table="basic_equipment_model" length="65535"/>
+                <jpa:lob/>
+            </jpa:basic>
+            <jpa:basic name="commont" optional="true" attribute-type="java.lang.String" id="_1403230843475126">
+                <jpa:column name="commont" unique="false" nullable="true" insertable="true" updatable="true" table="basic_equipment_model" length="65535"/>
+                <jpa:lob/>
+            </jpa:basic>
+            <jpa:one-to-many name="basicNetnodeCollection" target-entity="BasicNetnode" mapped-by="equipModelID" connected-entity-id="_140323084346415" connected-attribute-id="_1403230843475102" id="_1403230843475127"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:embeddable class="Address" minimized="false" id="_1403230876583">
+        <jpa:attributes>
+            <jpa:basic name="country" optional="true" attribute-type="String" id="_1403230890615159">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="province" attribute-type="String" id="_1403230979950160">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:basic>
+            <jpa:basic name="city" attribute-type="String" id="_1403230980455161">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:basic>
+            <jpa:basic name="county" attribute-type="String" id="_1403230980656162">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:basic>
+            <jpa:basic name="street" attribute-type="String" id="_1403230980854163">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:embeddable>
+    <jpa:diagram id="_14032308434472">
+        <plane elementRef="_14032308434461" id="_14032308434483_p">
+            <shape elementRef="_14032308434494" id="_14032308434494_gui">
+                <Bounds x="2258.0" y="829.0" width="155.0" height="163.0"/>
+            </shape>
+            <shape elementRef="_14032308434635" id="_14032308434635_gui">
+                <Bounds x="3102.0" y="829.0" width="171.0" height="26.0"/>
+            </shape>
+            <shape elementRef="_14032308434636" id="_14032308434636_gui">
+                <Bounds x="203.0" y="1144.0" width="186.0" height="309.0"/>
+            </shape>
+            <shape elementRef="_14032308434637" id="_14032308434637_gui">
+                <Bounds x="1979.0" y="829.0" width="151.0" height="141.0"/>
+            </shape>
+            <shape elementRef="_14032308434638" id="_14032308434638_gui">
+                <Bounds x="798.0" y="21.0" width="163.0" height="243.0"/>
+            </shape>
+            <shape elementRef="_14032308434639" id="_14032308434639_gui">
+                <Bounds x="568.0" y="829.0" width="212.0" height="331.0"/>
+            </shape>
+            <shape elementRef="_140323084346310" id="_140323084346310_gui">
+                <Bounds x="1363.0" y="1224.0" width="197.0" height="243.0"/>
+            </shape>
+            <shape elementRef="_140323084346411" id="_140323084346411_gui">
+                <Bounds x="3401.0" y="829.0" width="162.0" height="229.0"/>
+            </shape>
+            <shape elementRef="_140323084346412" id="_140323084346412_gui">
+                <Bounds x="870.0" y="948.0" width="198.0" height="353.0"/>
+            </shape>
+            <shape elementRef="_140323084346413" id="_140323084346413_gui">
+                <Bounds x="568.0" y="339.0" width="148.0" height="119.0"/>
+            </shape>
+            <shape elementRef="_140323084346414" id="_140323084346414_gui">
+                <Bounds x="2821.0" y="829.0" width="153.0" height="97.0"/>
+            </shape>
+            <shape elementRef="_140323084346415" id="_140323084346415_gui">
+                <Bounds x="332.0" y="302.0" width="175.0" height="243.0"/>
+            </shape>
+            <shape elementRef="_140323084346416" id="_140323084346416_gui">
+                <Bounds x="1624.0" y="829.0" width="227.0" height="177.0"/>
+            </shape>
+            <shape elementRef="_140323084346417" id="_140323084346417_gui">
+                <Bounds x="844.0" y="522.0" width="197.0" height="199.0"/>
+            </shape>
+            <shape elementRef="_140323084346418" id="_140323084346418_gui">
+                <Bounds x="3691.0" y="829.0" width="146.0" height="26.0"/>
+            </shape>
+            <shape elementRef="_140323084346419" id="_140323084346419_gui">
+                <Bounds x="1106.0" y="829.0" width="193.0" height="119.0"/>
+            </shape>
+            <shape elementRef="_140323084346420" id="_140323084346420_gui">
+                <Bounds x="2541.0" y="829.0" width="152.0" height="61.0"/>
+            </shape>
+            <shape elementRef="_140323084346521" id="_140323084346521_gui">
+                <Bounds x="32.0" y="829.0" width="222.0" height="265.0"/>
+            </shape>
+            <shape elementRef="_1403230876583" id="_1403230876583_gui">
+                <Bounds x="435.0" y="89.0" width="148.0" height="149.0"/>
+            </shape>
+        </plane>
+    </jpa:diagram>
+</jpa:entity-mappings>

@@ -26,16 +26,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author 谢金光
  */
 @Entity
-@Table(name = "user_detail")
+@Table(name = "sec_user_detail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "UserDetail.findAll", query = "SELECT u FROM UserDetail u"),
-    @NamedQuery(name = "UserDetail.findByUsername", query = "SELECT u FROM UserDetail u WHERE u.username = :username"),
-    @NamedQuery(name = "UserDetail.findBySex", query = "SELECT u FROM UserDetail u WHERE u.sex = :sex"),
-    @NamedQuery(name = "UserDetail.findByBirthday", query = "SELECT u FROM UserDetail u WHERE u.birthday = :birthday"),
-    @NamedQuery(name = "UserDetail.findByFirstName", query = "SELECT u FROM UserDetail u WHERE u.firstName = :firstName"),
-    @NamedQuery(name = "UserDetail.findByLastName", query = "SELECT u FROM UserDetail u WHERE u.lastName = :lastName")})
-public class UserDetail implements Serializable {
+    @NamedQuery(name = "SecUserDetail.findAll", query = "SELECT s FROM SecUserDetail s"),
+    @NamedQuery(name = "SecUserDetail.findByUsername", query = "SELECT s FROM SecUserDetail s WHERE s.username = :username"),
+    @NamedQuery(name = "SecUserDetail.findBySex", query = "SELECT s FROM SecUserDetail s WHERE s.sex = :sex"),
+    @NamedQuery(name = "SecUserDetail.findByBirthday", query = "SELECT s FROM SecUserDetail s WHERE s.birthday = :birthday"),
+    @NamedQuery(name = "SecUserDetail.findByFirstName", query = "SELECT s FROM SecUserDetail s WHERE s.firstName = :firstName"),
+    @NamedQuery(name = "SecUserDetail.findByLastName", query = "SELECT s FROM SecUserDetail s WHERE s.lastName = :lastName")})
+public class SecUserDetail implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -55,10 +55,10 @@ public class UserDetail implements Serializable {
     @Column(length = 45)
     private String lastName;
 
-    public UserDetail() {
+    public SecUserDetail() {
     }
 
-    public UserDetail(String username) {
+    public SecUserDetail(String username) {
         this.username = username;
     }
 
@@ -112,10 +112,10 @@ public class UserDetail implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserDetail)) {
+        if (!(object instanceof SecUserDetail)) {
             return false;
         }
-        UserDetail other = (UserDetail) object;
+        SecUserDetail other = (SecUserDetail) object;
         if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
             return false;
         }
@@ -124,7 +124,7 @@ public class UserDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "org.peasant.security.model.UserDetail[ username=" + username + " ]";
+        return "org.peasant.security.model.SecUserDetail[ username=" + username + " ]";
     }
     
 }

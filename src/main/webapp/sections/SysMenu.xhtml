@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
         <h:form id="SysMenuForm" prependId="false" >
-            <p:accordionPanel activeIndex="#{cookie['sysmenustate']}"  cache="true"  >
+            <p:accordionPanel    cache="true"  >
                 <p:ajax event="tabChange" update=":SysMenuForm" />
                 <p:tab title="基础信息系统">
                     <h:link target="_blank" outcome="/basic/basicRoomspot/List.xhtml" ><p:graphicImage value="/images/stack/music.png"  width="50px" style="vertical-align: middle"/>机房安装点信息</h:link>

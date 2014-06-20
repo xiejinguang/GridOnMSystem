@@ -23,6 +23,6 @@ import javax.inject.Qualifier;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value={ElementType.FIELD,ElementType.PARAMETER,ElementType.METHOD,ElementType.TYPE})
 
-public @interface PersistenceUnit {
+public @interface Module {
     String name();
 }

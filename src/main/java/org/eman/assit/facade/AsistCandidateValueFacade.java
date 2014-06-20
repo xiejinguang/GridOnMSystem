@@ -16,7 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import org.eman.Asist;
-import org.eman.PersistenceUnit;
+import org.eman.Module;
 import org.eman.assit.model.AsistCandidateValue;
 import org.eman.assit.model.CandidateValue;
 import org.slf4j.Logger;
@@ -28,10 +28,9 @@ import org.slf4j.Logger;
 @Stateless
 public class AsistCandidateValueFacade extends AbstractFacade<AsistCandidateValue> {
 
-   @PersistenceContext(unitName = "GridOnMSystem_PU")
+    @Inject
+    @Module(name = "asist")
     private EntityManager em;
-   
-  
 
     @Override
     protected EntityManager getEntityManager() {

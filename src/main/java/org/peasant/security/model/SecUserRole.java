@@ -25,12 +25,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author 谢金光
  */
 @Entity
-@Table(name = "user_role")
+@Table(name = "sec_user_role")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "UserRole.findAll", query = "SELECT u FROM UserRole u"),
-    @NamedQuery(name = "UserRole.findByIduserRole", query = "SELECT u FROM UserRole u WHERE u.iduserRole = :iduserRole")})
-public class UserRole implements Serializable {
+    @NamedQuery(name = "SecUserRole.findAll", query = "SELECT s FROM SecUserRole s"),
+    @NamedQuery(name = "SecUserRole.findByIduserRole", query = "SELECT s FROM SecUserRole s WHERE s.iduserRole = :iduserRole")})
+public class SecUserRole implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -40,15 +40,15 @@ public class UserRole implements Serializable {
     private String iduserRole;
     @JoinColumn(name = "roleId", referencedColumnName = "roleId", nullable = false)
     @ManyToOne(optional = false)
-    private Role roleId;
+    private SecRole roleId;
     @JoinColumn(name = "username", referencedColumnName = "username", nullable = false)
     @ManyToOne(optional = false)
-    private User username;
+    private SecUser username;
 
-    public UserRole() {
+    public SecUserRole() {
     }
 
-    public UserRole(String iduserRole) {
+    public SecUserRole(String iduserRole) {
         this.iduserRole = iduserRole;
     }
 
@@ -60,19 +60,19 @@ public class UserRole implements Serializable {
         this.iduserRole = iduserRole;
     }
 
-    public Role getRoleId() {
+    public SecRole getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Role roleId) {
+    public void setRoleId(SecRole roleId) {
         this.roleId = roleId;
     }
 
-    public User getUsername() {
+    public SecUser getUsername() {
         return username;
     }
 
-    public void setUsername(User username) {
+    public void setUsername(SecUser username) {
         this.username = username;
     }
 
@@ -86,10 +86,10 @@ public class UserRole implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserRole)) {
+        if (!(object instanceof SecUserRole)) {
             return false;
         }
-        UserRole other = (UserRole) object;
+        SecUserRole other = (SecUserRole) object;
         if ((this.iduserRole == null && other.iduserRole != null) || (this.iduserRole != null && !this.iduserRole.equals(other.iduserRole))) {
             return false;
         }
@@ -98,7 +98,7 @@ public class UserRole implements Serializable {
 
     @Override
     public String toString() {
-        return "org.peasant.security.model.UserRole[ iduserRole=" + iduserRole + " ]";
+        return "org.peasant.security.model.SecUserRole[ iduserRole=" + iduserRole + " ]";
     }
     
 }
