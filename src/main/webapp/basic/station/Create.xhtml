@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="StationCreateDlg" widgetVar="StationCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{basic_i18n.CreateStationTitle}">
+            <h:form id="StationCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{stationController.created != null}">
+                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_statID}" for="statID" />
+                        <p:inputText id="statID" value="#{stationController.created.statID}" title="#{basic_i18n.CreateStationTitle_statID}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.CreateStationRequiredMessage_statID}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_statCode}" for="statCode" />
+                        <p:inputText id="statCode" value="#{stationController.created.statCode}" title="#{basic_i18n.CreateStationTitle_statCode}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateStationRequiredMessage_statCode}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_statName}" for="statName" />
+                        <p:inputText id="statName" value="#{stationController.created.statName}" title="#{basic_i18n.CreateStationTitle_statName}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateStationRequiredMessage_statName}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{stationController.created.address}" title="#{basic_i18n.CreateStationTitle_address}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_owner}" for="owner" />
+                        <p:inputText id="owner" value="#{stationController.created.owner}" title="#{basic_i18n.CreateStationTitle_owner}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateStationRequiredMessage_owner}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{stationController.created.type}" title="#{basic_i18n.CreateStationTitle_type}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_accomMaintainer}" for="accomMaintainer" />
+                        <p:inputText id="accomMaintainer" value="#{stationController.created.accomMaintainer}" title="#{basic_i18n.CreateStationTitle_accomMaintainer}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{stationController.created.status}" title="#{basic_i18n.CreateStationTitle_status}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_commont}" for="commont" />
+                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{stationController.created.commont}" title="#{basic_i18n.CreateStationTitle_commont}" />
+                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_roomID}" for="roomID" />
+                        <p:selectOneMenu id="roomID" value="#{stationController.created.roomID}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_roomID}">
+                            <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
+                                           var="roomIDItem"
+                                           itemValue="#{roomIDItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{stationController.create}" value="#{basic_i18n.Save}" update="display,@form:@parent:StationListForm:datalist,:growl" oncomplete="handleSubmit(args,'StationCreateDialog');"/>
+                    <p:commandButton type="button" value="#{basic_i18n.Cancel}" onclick="PF('StationCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#StationCreateDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

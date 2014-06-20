@@ -6,7 +6,6 @@
 
 package org.eman.gmsys.facade;
 
-import org.eman.basic.facade.*;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.peasant.util.GenericFacade;
@@ -16,7 +15,10 @@ import org.peasant.util.GenericFacade;
  * @author 谢金光
  */
 public abstract class AbstractFacade<T> extends GenericFacade<T> {
-        public AbstractFacade(Class<T> entityClass) {
+
+
+    public AbstractFacade(Class<T> entityClass) {
         super(entityClass);
-    }  
+    }
+    
 }

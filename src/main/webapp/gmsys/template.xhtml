@@ -15,11 +15,10 @@
         <p:layout fullPage="true"  >
             <p:layoutUnit position="west" size="200" resizable="true"  >
                 <h:form id="menuForm">
-                    <p:menubar>
+                    <p:tieredMenu>
                         <p:menuitem value="#{gmsys_i18n.Home}" outcome="/index" icon="ui-icon-home"/>
-                        <p:menuitem value="GmsysFixDemand" outcome="/gmsys/gmsysFixDemand/List.xhtml" />
-
-                    </p:menubar>
+                        <p:menuitem value="FixDemand" outcome="/gmsys/fixDemand/List.xhtml" />
+                    </p:tieredMenu>
                 </h:form>
             </p:layoutUnit>
 

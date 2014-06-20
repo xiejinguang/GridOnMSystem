@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{basic_i18n.ListEquipmentModelTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="EquipmentModelListForm">
+                <p:panel header="#{basic_i18n.ListEquipmentModelTitle}">
+                    <p:fieldset id="searchField" legend="${basic_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+                        <p:panelGrid   style="width:100%"  >
+                            <p:row>
+                                <p:column >
+                                    <p:panelGrid id="searchConsGrid" columns="8">
+
+
+                                        <p:outputLabel value="#{basic_i18n.EquipmentModelLabel_equipModelID}" for="equipModelID" />
+                                        <p:inputText id="equipModelID" value="#{equipmentModelController.searchCons['equipModelID']}" title="#{basic_i18n.EquipmentModelTitle_equipModelID}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.EquipmentModelLabel_type}" for="type" />
+                                        <p:inputText id="type" value="#{equipmentModelController.searchCons['type']}" title="#{basic_i18n.EquipmentModelTitle_type}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.EquipmentModelLabel_class1}" for="class1" />
+                                        <p:inputText id="class1" value="#{equipmentModelController.searchCons['class1']}" title="#{basic_i18n.EquipmentModelTitle_class1}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.EquipmentModelLabel_netType}" for="netType" />
+                                        <p:inputText id="netType" value="#{equipmentModelController.searchCons['netType']}" title="#{basic_i18n.EquipmentModelTitle_netType}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.EquipmentModelLabel_model}" for="model" />
+                                        <p:inputText id="model" value="#{equipmentModelController.searchCons['model']}" title="#{basic_i18n.EquipmentModelTitle_model}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.EquipmentModelLabel_manufacturer}" for="manufacturer" />
+                                        <p:inputText id="manufacturer" value="#{equipmentModelController.searchCons['manufacturer']}" title="#{basic_i18n.EquipmentModelTitle_manufacturer}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.EquipmentModelLabel_commont}" for="commont" />
+                                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{equipmentModelController.searchCons['commont']}" title="#{basic_i18n.EquipmentModelTitle_commont}" />
+
+                                    </p:panelGrid>
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton id="searchButton" icon="ui-icon-search"   value="${basic_i18n.Search}" actionListener="#{equipmentModelController.searchItems}" update=":growl,datalist"/>
+                                    <br/>
+                                    <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${basic_i18n.GetAll}" actionListener="#{equipmentModelController.allItems}" update=":growl,datalist"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>                   
+                    </p:fieldset>
+
+                    <p:dataTable id="datalist" value="#{equipmentModelController.items}" var="item"
+                                 selection="#{equipmentModelController.selectedItems}"
+                                 rowKey="#{item.equipModelID}"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 paginator="true" paginatorPosition="bottom"
+                                 rows="10" 
+                                 draggableColumns="true" resizableColumns="true" 
+                                 scrollable="true"   liveResize="true" liveScroll="true"
+                                 sortMode="multiple"
+                                 editable="true" 
+                                 stickyHeader="false" 
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+
+                        <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
+
+                        <p:column sortBy="#{item.equipModelID}" filterBy="#{item.equipModelID}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.EquipmentModelTitle_equipModelID}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.equipModelID}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.type}" filterBy="#{item.type}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.EquipmentModelTitle_type}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.type}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.class1}" filterBy="#{item.class1}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.EquipmentModelTitle_class1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.class1}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.netType}" filterBy="#{item.netType}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.EquipmentModelTitle_netType}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.netType}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.model}" filterBy="#{item.model}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.EquipmentModelTitle_model}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.model}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.manufacturer}" filterBy="#{item.manufacturer}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.EquipmentModelTitle_manufacturer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.manufacturer}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.commont}" filterBy="#{item.commont}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.EquipmentModelTitle_commont}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.commont}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{basic_i18n.Create}" actionListener="#{equipmentModelController.prepareCreate}" update="@form:@parent:EquipmentModelCreateForm" oncomplete="PF('EquipmentModelCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{basic_i18n.View}" update="@form:@parent:EquipmentModelViewForm" oncomplete="PF('EquipmentModelViewDialog').show()" disabled="#{empty equipmentModelController.selectedItems}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{basic_i18n.Edit}" update="@form:@parent:EquipmentModelEditForm" oncomplete="PF('EquipmentModelEditDialog').show()" disabled="#{empty equipmentModelController.selectedItems}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{basic_i18n.Delete}" actionListener="#{equipmentModelController.destroy}" update=":growl,datalist" disabled="#{empty equipmentModelController.selectedItems}"/>
+                            <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                            <p:columnToggler datasource="datalist" trigger="toggler" />
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="FixDemandEditDlg" widgetVar="FixDemandEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{gmsys_i18n.EditFixDemandTitle}">
+            <h:form id="FixDemandEditForm">
+                <h:panelGroup id="display" rendered="#{empty fixDemandController.selectedItems != null}">
+                    <ui:repeat  value="#{fixDemandController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{gmsys_i18n.FixDemandEntityLabel}"/>
+                                <h:outputText value="#{item.demandID}" title="#{gmsys_i18n.FixDemandEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="6" >
+                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_demandID}" for="demandID" />
+                                <p:inputText id="demandID" value="#{item.demandID}" title="#{gmsys_i18n.EditFixDemandTitle_demandID}" disabled="true"   required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_demandID}"/>
+                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_demandCode}" for="demandCode" />
+                                <p:inputText id="demandCode" value="#{item.demandCode}" title="#{gmsys_i18n.EditFixDemandTitle_demandCode}" disabled="false"   required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_demandCode}"/>
+                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_problemKind}" for="problemKind" />
+                                <p:inputText id="problemKind" value="#{item.problemKind}" title="#{gmsys_i18n.EditFixDemandTitle_problemKind}" disabled="false"   required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_problemKind}"/>
+                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_problemSubKind}" for="problemSubKind" />
+                                <p:inputText id="problemSubKind" value="#{item.problemSubKind}" title="#{gmsys_i18n.EditFixDemandTitle_problemSubKind}" disabled="false"   required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_problemSubKind}"/>
+                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_problemDetails}" for="problemDetails" />
+                                <p:inputText id="problemDetails" value="#{item.problemDetails}" title="#{gmsys_i18n.EditFixDemandTitle_problemDetails}" disabled="false"   required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_problemDetails}"/>
+                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_solution}" for="solution" />
+                                <p:inputText id="solution" value="#{item.solution}" title="#{gmsys_i18n.EditFixDemandTitle_solution}" disabled="false"   required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_solution}"/>
+                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_fixKind}" for="fixKind" />
+                                <p:inputText id="fixKind" value="#{item.fixKind}" title="#{gmsys_i18n.EditFixDemandTitle_fixKind}" disabled="false"   />
+                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_budgetList}" for="budgetList" />
+                                <p:inputText id="budgetList" value="#{item.budgetList}" title="#{gmsys_i18n.EditFixDemandTitle_budgetList}" disabled="false"   />
+                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_budget}" for="budget" />
+                                <p:inputText id="budget" value="#{item.budget}" title="#{gmsys_i18n.EditFixDemandTitle_budget}" disabled="false"   />
+                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_discoverDate}" for="discoverDate" />
+                                <p:calendar id="discoverDate" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{item.discoverDate}" title="#{gmsys_i18n.EditFixDemandTitle_discoverDate}" required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_discoverDate}" showOn="button"/>
+                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_source}" for="source" />
+                                <p:inputText id="source" value="#{item.source}" title="#{gmsys_i18n.EditFixDemandTitle_source}" disabled="false"   />
+                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_status}" for="status" />
+                                <p:inputText id="status" value="#{item.status}" title="#{gmsys_i18n.EditFixDemandTitle_status}" disabled="false"   />
+                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_statID}" for="statID" />
+                                <p:selectOneMenu id="statID" value="#{item.statID}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_statID}">
+                                    <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
+                                                   var="statIDItem"
+                                                   itemValue="#{statIDItem}"/>
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton actionListener="#{fixDemandController.update}" value="#{gmsys_i18n.Save}" update="display,@form:@parent:FixDemandListForm:datalist,:growl" oncomplete="handleSubmit(args,'FixDemandEditDialog');"/>
+                    <p:commandButton type="button" value="#{gmsys_i18n.Cancel}" onclick="PF('FixDemandEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#FixDemandEditDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

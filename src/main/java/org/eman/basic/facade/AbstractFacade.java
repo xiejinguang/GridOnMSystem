@@ -14,8 +14,12 @@ import org.peasant.util.GenericFacade;
  *
  * @author 谢金光
  */
-public abstract class AbstractFacade<T> extends GenericFacade<T> {
-        public AbstractFacade(Class<T> entityClass) {
+public abstract class AbstractFacade<T> extends GenericFacade<T>{
+    
+
+    public AbstractFacade(Class<T> entityClass) {
         super(entityClass);
-    }  
+    }
+
+    
 }

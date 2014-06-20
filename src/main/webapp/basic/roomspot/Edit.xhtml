@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="RoomspotEditDlg" widgetVar="RoomspotEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{basic_i18n.EditRoomspotTitle}">
+            <h:form id="RoomspotEditForm">
+                <h:panelGroup id="display" rendered="#{empty roomspotController.selectedItems != null}">
+                    <ui:repeat  value="#{roomspotController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.RoomspotEntityLabel}"/>
+                                <h:outputText value="#{item.roomID}" title="#{basic_i18n.RoomspotEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="4" >
+                                <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_roomID}" for="roomID" />
+                                <p:inputText id="roomID" value="#{item.roomID}" title="#{basic_i18n.EditRoomspotTitle_roomID}" disabled="true"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_roomID}"/>
+                                <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_roomCode}" for="roomCode" />
+                                <p:inputText id="roomCode" value="#{item.roomCode}" title="#{basic_i18n.EditRoomspotTitle_roomCode}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_roomCode}"/>
+                                <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_roomName}" for="roomName" />
+                                <p:inputText id="roomName" value="#{item.roomName}" title="#{basic_i18n.EditRoomspotTitle_roomName}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_roomName}"/>
+                                <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_province}" for="province" />
+                                <p:inputText id="province" value="#{item.province}" title="#{basic_i18n.EditRoomspotTitle_province}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_province}"/>
+                                <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_city}" for="city" />
+                                <p:inputText id="city" value="#{item.city}" title="#{basic_i18n.EditRoomspotTitle_city}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_city}"/>
+                                <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_county}" for="county" />
+                                <p:inputText id="county" value="#{item.county}" title="#{basic_i18n.EditRoomspotTitle_county}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_county}"/>
+                                <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_grid}" for="grid" />
+                                <p:inputText id="grid" value="#{item.grid}" title="#{basic_i18n.EditRoomspotTitle_grid}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_grid}"/>
+                                <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_address}" for="address" />
+                                <p:inputText id="address" value="#{item.address}" title="#{basic_i18n.EditRoomspotTitle_address}" disabled="false"   />
+                                <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_commont}" for="commont" />
+                                <p:inputTextarea rows="4" cols="30" id="commont" value="#{item.commont}" title="#{basic_i18n.EditRoomspotTitle_commont}" />
+                                <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_status}" for="status" />
+                                <p:inputText id="status" value="#{item.status}" title="#{basic_i18n.EditRoomspotTitle_status}" disabled="false"   />
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton actionListener="#{roomspotController.update}" value="#{basic_i18n.Save}" update="display,@form:@parent:RoomspotListForm:datalist,:growl" oncomplete="handleSubmit(args,'RoomspotEditDialog');"/>
+                    <p:commandButton type="button" value="#{basic_i18n.Cancel}" onclick="PF('RoomspotEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#RoomspotEditDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{basic_i18n.ListNetnodeTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="NetnodeListForm">
+                <p:panel header="#{basic_i18n.ListNetnodeTitle}">
+                    <p:fieldset id="searchField" legend="${basic_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+                        <p:panelGrid   style="width:100%"  >
+                            <p:row>
+                                <p:column >
+                                    <p:panelGrid id="searchConsGrid" columns="8">
+
+
+                                        <p:outputLabel value="#{basic_i18n.NetnodeLabel_netNodeID}" for="netNodeID" />
+                                        <p:inputText id="netNodeID" value="#{netnodeController.searchCons['netNodeID']}" title="#{basic_i18n.NetnodeTitle_netNodeID}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.NetnodeLabel_ossCode}" for="ossCode" />
+                                        <p:inputText id="ossCode" value="#{netnodeController.searchCons['ossCode']}" title="#{basic_i18n.NetnodeTitle_ossCode}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.NetnodeLabel_name}" for="name" />
+                                        <p:inputText id="name" value="#{netnodeController.searchCons['name']}" title="#{basic_i18n.NetnodeTitle_name}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.NetnodeLabel_investTime}" for="investTime" />
+                                        <p:calendar id="investTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{netnodeController.searchCons['investTime']}" title="#{basic_i18n.NetnodeTitle_investTime}" showOn="button"/>
+
+
+                                        <p:outputLabel value="#{basic_i18n.NetnodeLabel_commont}" for="commont" />
+                                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{netnodeController.searchCons['commont']}" title="#{basic_i18n.NetnodeTitle_commont}" />
+
+
+                                        <p:outputLabel value="#{basic_i18n.NetnodeLabel_status}" for="status" />
+                                        <p:inputText id="status" value="#{netnodeController.searchCons['status']}" title="#{basic_i18n.NetnodeTitle_status}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.NetnodeLabel_equipModelID}" for="equipModelID" />
+                                        <p:selectOneMenu id="equipModelID" value="#{netnodeController.searchCons['equipModelID']}" filter="true"  filterMatchMode="contains" >
+                                            <f:selectItems value="#{equipmentModelController.itemsAvailableSelectOne}"
+                                                           var="equipModelIDItem"
+                                                           itemValue="#{equipModelIDItem}"/>
+                                        </p:selectOneMenu>
+
+
+                                        <p:outputLabel value="#{basic_i18n.NetnodeLabel_statID}" for="statID" />
+                                        <p:selectOneMenu id="statID" value="#{netnodeController.searchCons['statID']}" filter="true"  filterMatchMode="contains" >
+                                            <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
+                                                           var="statIDItem"
+                                                           itemValue="#{statIDItem}"/>
+                                        </p:selectOneMenu>
+
+                                    </p:panelGrid>
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton id="searchButton" icon="ui-icon-search"   value="${basic_i18n.Search}" actionListener="#{netnodeController.searchItems}" update=":growl,datalist"/>
+                                    <br/>
+                                    <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${basic_i18n.GetAll}" actionListener="#{netnodeController.allItems}" update=":growl,datalist"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>                   
+                    </p:fieldset>
+
+                    <p:dataTable id="datalist" value="#{netnodeController.items}" var="item"
+                                 selection="#{netnodeController.selectedItems}"
+                                 rowKey="#{item.netNodeID}"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 paginator="true" paginatorPosition="bottom"
+                                 rows="10" 
+                                 draggableColumns="true" resizableColumns="true" 
+                                 scrollable="true"   liveResize="true" liveScroll="true"
+                                 sortMode="multiple"
+                                 editable="true" 
+                                 stickyHeader="false" 
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+
+                        <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
+
+                        <p:column sortBy="#{item.netNodeID}" filterBy="#{item.netNodeID}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.NetnodeTitle_netNodeID}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.netNodeID}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.ossCode}" filterBy="#{item.ossCode}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.NetnodeTitle_ossCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ossCode}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.NetnodeTitle_name}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.investTime}" filterBy="#{item.investTime}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.NetnodeTitle_investTime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.investTime}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column sortBy="#{item.commont}" filterBy="#{item.commont}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.NetnodeTitle_commont}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.commont}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.status}" filterBy="#{item.status}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.NetnodeTitle_status}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.status}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.equipModelID}" filterBy="#{item.equipModelID}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.NetnodeTitle_equipModelID}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.equipModelID}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.statID}" filterBy="#{item.statID}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.NetnodeTitle_statID}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.statID}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{basic_i18n.Create}" actionListener="#{netnodeController.prepareCreate}" update="@form:@parent:NetnodeCreateForm" oncomplete="PF('NetnodeCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{basic_i18n.View}" update="@form:@parent:NetnodeViewForm" oncomplete="PF('NetnodeViewDialog').show()" disabled="#{empty netnodeController.selectedItems}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{basic_i18n.Edit}" update="@form:@parent:NetnodeEditForm" oncomplete="PF('NetnodeEditDialog').show()" disabled="#{empty netnodeController.selectedItems}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{basic_i18n.Delete}" actionListener="#{netnodeController.destroy}" update=":growl,datalist" disabled="#{empty netnodeController.selectedItems}"/>
+                            <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                            <p:columnToggler datasource="datalist" trigger="toggler" />
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{basic_i18n.ListRoomspotTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="RoomspotListForm">
+                <p:panel header="#{basic_i18n.ListRoomspotTitle}">
+                    <p:fieldset id="searchField" legend="${basic_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+                        <p:panelGrid   style="width:100%"  >
+                            <p:row>
+                                <p:column >
+                                    <p:panelGrid id="searchConsGrid" columns="8">
+
+
+                                        <p:outputLabel value="#{basic_i18n.RoomspotLabel_roomID}" for="roomID" />
+                                        <p:inputText id="roomID" value="#{roomspotController.searchCons['roomID']}" title="#{basic_i18n.RoomspotTitle_roomID}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.RoomspotLabel_roomCode}" for="roomCode" />
+                                        <p:inputText id="roomCode" value="#{roomspotController.searchCons['roomCode']}" title="#{basic_i18n.RoomspotTitle_roomCode}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.RoomspotLabel_roomName}" for="roomName" />
+                                        <p:inputText id="roomName" value="#{roomspotController.searchCons['roomName']}" title="#{basic_i18n.RoomspotTitle_roomName}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.RoomspotLabel_province}" for="province" />
+                                        <p:inputText id="province" value="#{roomspotController.searchCons['province']}" title="#{basic_i18n.RoomspotTitle_province}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.RoomspotLabel_city}" for="city" />
+                                        <p:inputText id="city" value="#{roomspotController.searchCons['city']}" title="#{basic_i18n.RoomspotTitle_city}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.RoomspotLabel_county}" for="county" />
+                                        <p:inputText id="county" value="#{roomspotController.searchCons['county']}" title="#{basic_i18n.RoomspotTitle_county}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.RoomspotLabel_grid}" for="grid" />
+                                        <p:inputText id="grid" value="#{roomspotController.searchCons['grid']}" title="#{basic_i18n.RoomspotTitle_grid}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.RoomspotLabel_address}" for="address" />
+                                        <p:inputText id="address" value="#{roomspotController.searchCons['address']}" title="#{basic_i18n.RoomspotTitle_address}"  />
+
+
+                                        <p:outputLabel value="#{basic_i18n.RoomspotLabel_commont}" for="commont" />
+                                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{roomspotController.searchCons['commont']}" title="#{basic_i18n.RoomspotTitle_commont}" />
+
+
+                                        <p:outputLabel value="#{basic_i18n.RoomspotLabel_status}" for="status" />
+                                        <p:inputText id="status" value="#{roomspotController.searchCons['status']}" title="#{basic_i18n.RoomspotTitle_status}"  />
+
+                                    </p:panelGrid>
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton id="searchButton" icon="ui-icon-search"   value="${basic_i18n.Search}" actionListener="#{roomspotController.searchItems}" update=":growl,datalist"/>
+                                    <br/>
+                                    <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${basic_i18n.GetAll}" actionListener="#{roomspotController.allItems}" update=":growl,datalist"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>                   
+                    </p:fieldset>
+
+                    <p:dataTable id="datalist" value="#{roomspotController.items}" var="item"
+                                 selection="#{roomspotController.selectedItems}"
+                                 rowKey="#{item.roomID}"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 paginator="true" paginatorPosition="bottom"
+                                 rows="10" 
+                                 draggableColumns="true" resizableColumns="true" 
+                                 scrollable="true"   liveResize="true" liveScroll="true"
+                                 sortMode="multiple"
+                                 editable="true" 
+                                 stickyHeader="false" 
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+
+                        <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
+
+                        <p:column sortBy="#{item.roomID}" filterBy="#{item.roomID}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.RoomspotTitle_roomID}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.roomID}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.roomCode}" filterBy="#{item.roomCode}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.RoomspotTitle_roomCode}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.roomCode}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.roomName}" filterBy="#{item.roomName}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.RoomspotTitle_roomName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.roomName}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.province}" filterBy="#{item.province}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.RoomspotTitle_province}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.province}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.city}" filterBy="#{item.city}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.RoomspotTitle_city}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.city}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.county}" filterBy="#{item.county}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.RoomspotTitle_county}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.county}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.grid}" filterBy="#{item.grid}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.RoomspotTitle_grid}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.grid}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.address}" filterBy="#{item.address}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.RoomspotTitle_address}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.address}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.commont}" filterBy="#{item.commont}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.RoomspotTitle_commont}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.commont}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.status}" filterBy="#{item.status}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.RoomspotTitle_status}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.status}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{basic_i18n.Create}" actionListener="#{roomspotController.prepareCreate}" update="@form:@parent:RoomspotCreateForm" oncomplete="PF('RoomspotCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{basic_i18n.View}" update="@form:@parent:RoomspotViewForm" oncomplete="PF('RoomspotViewDialog').show()" disabled="#{empty roomspotController.selectedItems}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{basic_i18n.Edit}" update="@form:@parent:RoomspotEditForm" oncomplete="PF('RoomspotEditDialog').show()" disabled="#{empty roomspotController.selectedItems}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{basic_i18n.Delete}" actionListener="#{roomspotController.destroy}" update=":growl,datalist" disabled="#{empty roomspotController.selectedItems}"/>
+                            <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                            <p:columnToggler datasource="datalist" trigger="toggler" />
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>

@@ -18,12 +18,10 @@
                 <h:form id="menuForm">
                     <p:menubar>
                         <p:menuitem value="#{basic_i18n.Home}" outcome="/index" icon="ui-icon-home"/>
-                        <p:submenu label="#{basic_i18n.Maintenance}">
-                            <p:menuitem value="BasicEquipmentModel" outcome="/basic/basicEquipmentModel/List.xhtml" />
-                            <p:menuitem value="BasicNetnode" outcome="/basic/basicNetnode/List.xhtml" />
-                            <p:menuitem value="BasicRoomspot" outcome="/basic/basicRoomspot/List.xhtml" />
-                            <p:menuitem value="BasicStation" outcome="/basic/basicStation/List.xhtml" />
-                        </p:submenu>
+                        <p:menuitem value="#{basic_i18n.EquipmentModelMenuLabel}" outcome="/basic/equipmentModel/List.xhtml" />
+                        <p:menuitem value="#{basic_i18n.NetnodeMenuLabel}" outcome="/basic/netnode/List.xhtml" />
+                        <p:menuitem value="#{basic_i18n.RoomspotMenuLabel}" outcome="/basic/roomspot/List.xhtml" />
+                        <p:menuitem value="#{basic_i18n.StationMenuLabel}" outcome="/basic/station/List.xhtml" />
                     </p:menubar>
                 </h:form>
             </p:layoutUnit>

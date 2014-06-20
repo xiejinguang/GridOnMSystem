@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="EquipmentModelCreateDlg" widgetVar="EquipmentModelCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport()" 
+                  header="#{basic_i18n.CreateEquipmentModelTitle}">
+            <h:form id="EquipmentModelCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{equipmentModelController.created != null}">
+                        <p:outputLabel value="#{basic_i18n.CreateEquipmentModelLabel_equipModelID}" for="equipModelID" />
+                        <p:inputText id="equipModelID" value="#{equipmentModelController.created.equipModelID}" title="#{basic_i18n.CreateEquipmentModelTitle_equipModelID}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.CreateEquipmentModelRequiredMessage_equipModelID}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateEquipmentModelLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{equipmentModelController.created.type}" title="#{basic_i18n.CreateEquipmentModelTitle_type}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.CreateEquipmentModelLabel_class1}" for="class1" />
+                        <p:inputText id="class1" value="#{equipmentModelController.created.class1}" title="#{basic_i18n.CreateEquipmentModelTitle_class1}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.CreateEquipmentModelLabel_netType}" for="netType" />
+                        <p:inputText id="netType" value="#{equipmentModelController.created.netType}" title="#{basic_i18n.CreateEquipmentModelTitle_netType}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.CreateEquipmentModelLabel_model}" for="model" />
+                        <p:inputText id="model" value="#{equipmentModelController.created.model}" title="#{basic_i18n.CreateEquipmentModelTitle_model}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.CreateEquipmentModelLabel_manufacturer}" for="manufacturer" />
+                        <p:inputText id="manufacturer" value="#{equipmentModelController.created.manufacturer}" title="#{basic_i18n.CreateEquipmentModelTitle_manufacturer}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.CreateEquipmentModelLabel_commont}" for="commont" />
+                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{equipmentModelController.created.commont}" title="#{basic_i18n.CreateEquipmentModelTitle_commont}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{equipmentModelController.create}" value="#{basic_i18n.Save}" update="display,@form:@parent:EquipmentModelListForm:datalist,:growl" oncomplete="handleSubmit(args,'EquipmentModelCreateDialog');"/>
+                    <p:commandButton type="button" value="#{basic_i18n.Cancel}" onclick="PF('EquipmentModelCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+    <script type="text/javascript">
+
+        function fitViewport() {
+            var source = $('#EquipmentModelCreateDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
+
+        }
+
+
+    </script>
+</html>
