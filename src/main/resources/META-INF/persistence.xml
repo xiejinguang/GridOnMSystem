@@ -8,18 +8,4 @@
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
-  <persistence-unit name="DEFAULT_PU" transaction-type="JTA">
-    <jta-data-source>jdbc/sample</jta-data-source>
-    <class>org.peasant.security.model.UserRole</class>
-    <class>org.peasant.security.model.Resource</class>
-    <class>org.peasant.security.model.UserDetail</class>
-    <class>org.peasant.security.model.Role</class>
-    <class>org.peasant.security.model.RolePermission</class>
-    <class>org.peasant.security.model.User</class>
-    <class>org.peasant.security.model.Permission</class>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
-    </properties>
-  </persistence-unit>
 </persistence>

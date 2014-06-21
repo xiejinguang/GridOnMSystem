@@ -34,19 +34,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     @UniqueConstraint(columnNames = {"demandCode"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "GmsysFixDemand.findAll", query = "SELECT g FROM GmsysFixDemand g"),
-    @NamedQuery(name = "GmsysFixDemand.findByDemandID", query = "SELECT g FROM GmsysFixDemand g WHERE g.demandID = :demandID"),
-    @NamedQuery(name = "GmsysFixDemand.findByDemandCode", query = "SELECT g FROM GmsysFixDemand g WHERE g.demandCode = :demandCode"),
-    @NamedQuery(name = "GmsysFixDemand.findByProblemKind", query = "SELECT g FROM GmsysFixDemand g WHERE g.problemKind = :problemKind"),
-    @NamedQuery(name = "GmsysFixDemand.findByProblemSubKind", query = "SELECT g FROM GmsysFixDemand g WHERE g.problemSubKind = :problemSubKind"),
-    @NamedQuery(name = "GmsysFixDemand.findByProblemDetails", query = "SELECT g FROM GmsysFixDemand g WHERE g.problemDetails = :problemDetails"),
-    @NamedQuery(name = "GmsysFixDemand.findBySolution", query = "SELECT g FROM GmsysFixDemand g WHERE g.solution = :solution"),
-    @NamedQuery(name = "GmsysFixDemand.findByFixKind", query = "SELECT g FROM GmsysFixDemand g WHERE g.fixKind = :fixKind"),
-    @NamedQuery(name = "GmsysFixDemand.findByBudgetList", query = "SELECT g FROM GmsysFixDemand g WHERE g.budgetList = :budgetList"),
-    @NamedQuery(name = "GmsysFixDemand.findByBudget", query = "SELECT g FROM GmsysFixDemand g WHERE g.budget = :budget"),
-    @NamedQuery(name = "GmsysFixDemand.findByDiscoverDate", query = "SELECT g FROM GmsysFixDemand g WHERE g.discoverDate = :discoverDate"),
-    @NamedQuery(name = "GmsysFixDemand.findBySource", query = "SELECT g FROM GmsysFixDemand g WHERE g.source = :source"),
-    @NamedQuery(name = "GmsysFixDemand.findByStatus", query = "SELECT g FROM GmsysFixDemand g WHERE g.status = :status")})
+    @NamedQuery(name = "FixDemand.findAll", query = "SELECT g FROM FixDemand g"),
+    @NamedQuery(name = "FixDemand.findByDemandID", query = "SELECT g FROM FixDemand g WHERE g.demandID = :demandID"),
+    @NamedQuery(name = "FixDemand.findByDemandCode", query = "SELECT g FROM FixDemand g WHERE g.demandCode = :demandCode"),
+    @NamedQuery(name = "FixDemand.findByProblemKind", query = "SELECT g FROM FixDemand g WHERE g.problemKind = :problemKind"),
+    @NamedQuery(name = "FixDemand.findByProblemSubKind", query = "SELECT g FROM FixDemand g WHERE g.problemSubKind = :problemSubKind"),
+    @NamedQuery(name = "FixDemand.findByProblemDetails", query = "SELECT g FROM FixDemand g WHERE g.problemDetails = :problemDetails"),
+    @NamedQuery(name = "FixDemand.findBySolution", query = "SELECT g FROM FixDemand g WHERE g.solution = :solution"),
+    @NamedQuery(name = "FixDemand.findByFixKind", query = "SELECT g FROM FixDemand g WHERE g.fixKind = :fixKind"),
+    @NamedQuery(name = "FixDemand.findByBudgetList", query = "SELECT g FROM FixDemand g WHERE g.budgetList = :budgetList"),
+    @NamedQuery(name = "FixDemand.findByBudget", query = "SELECT g FROM FixDemand g WHERE g.budget = :budget"),
+    @NamedQuery(name = "FixDemand.findByDiscoverDate", query = "SELECT g FROM FixDemand g WHERE g.discoverDate = :discoverDate"),
+    @NamedQuery(name = "FixDemand.findBySource", query = "SELECT g FROM FixDemand g WHERE g.source = :source"),
+    @NamedQuery(name = "FixDemand.findByStatus", query = "SELECT g FROM FixDemand g WHERE g.status = :status")})
 public class FixDemand implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
