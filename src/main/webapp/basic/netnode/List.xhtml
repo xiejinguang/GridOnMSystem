@@ -26,8 +26,8 @@
                                     <p:panelGrid id="searchConsGrid" columns="8">
 
 
-                                        <p:outputLabel value="#{basic_i18n.NetnodeLabel_netNodeID}" for="netNodeID" />
-                                        <p:inputText id="netNodeID" value="#{netnodeController.searchCons['netNodeID']}" title="#{basic_i18n.NetnodeTitle_netNodeID}"  />
+                                        <p:outputLabel value="#{basic_i18n.NetnodeLabel_id}" for="id" />
+                                        <p:inputText id="id" value="#{netnodeController.searchCons['id']}" title="#{basic_i18n.NetnodeTitle_id}"  />
 
 
                                         <p:outputLabel value="#{basic_i18n.NetnodeLabel_ossCode}" for="ossCode" />
@@ -50,11 +50,11 @@
                                         <p:inputText id="status" value="#{netnodeController.searchCons['status']}" title="#{basic_i18n.NetnodeTitle_status}"  />
 
 
-                                        <p:outputLabel value="#{basic_i18n.NetnodeLabel_equipModelID}" for="equipModelID" />
-                                        <p:selectOneMenu id="equipModelID" value="#{netnodeController.searchCons['equipModelID']}" filter="true"  filterMatchMode="contains" >
+                                        <p:outputLabel value="#{basic_i18n.NetnodeLabel_equipModelId}" for="equipModelId" />
+                                        <p:selectOneMenu id="equipModelId" value="#{netnodeController.searchCons['equipModelId']}" filter="true"  filterMatchMode="contains" >
                                             <f:selectItems value="#{equipmentModelController.itemsAvailableSelectOne}"
-                                                           var="equipModelIDItem"
-                                                           itemValue="#{equipModelIDItem}"/>
+                                                           var="equipModelIdItem"
+                                                           itemValue="#{equipModelIdItem}"/>
                                         </p:selectOneMenu>
 
 
@@ -78,7 +78,7 @@
 
                     <p:dataTable id="datalist" value="#{netnodeController.items}" var="item"
                                  selection="#{netnodeController.selectedItems}"
-                                 rowKey="#{item.netNodeID}"
+                                 rowKey="#{item.id}"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  paginator="true" paginatorPosition="bottom"
                                  rows="10" 
@@ -94,11 +94,11 @@
 
                         <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
 
-                        <p:column sortBy="#{item.netNodeID}" filterBy="#{item.netNodeID}">
+                        <p:column sortBy="#{item.id}" filterBy="#{item.id}">
                             <f:facet name="header">
-                                <h:outputText value="#{basic_i18n.NetnodeTitle_netNodeID}"/>
+                                <h:outputText value="#{basic_i18n.NetnodeTitle_id}"/>
                             </f:facet>
-                            <h:outputText value="#{item.netNodeID}"/>
+                            <h:outputText value="#{item.id}"/>
                         </p:column>
                         <p:column sortBy="#{item.ossCode}" filterBy="#{item.ossCode}">
                             <f:facet name="header">
@@ -132,11 +132,11 @@
                             </f:facet>
                             <h:outputText value="#{item.status}"/>
                         </p:column>
-                        <p:column sortBy="#{item.equipModelID}" filterBy="#{item.equipModelID}">
+                        <p:column sortBy="#{item.equipModelId}" filterBy="#{item.equipModelId}">
                             <f:facet name="header">
-                                <h:outputText value="#{basic_i18n.NetnodeTitle_equipModelID}"/>
+                                <h:outputText value="#{basic_i18n.NetnodeTitle_equipModelId}"/>
                             </f:facet>
-                            <h:outputText value="#{item.equipModelID}"/>
+                            <h:outputText value="#{item.equipModelId}"/>
                         </p:column>
                         <p:column sortBy="#{item.statID}" filterBy="#{item.statID}">
                             <f:facet name="header">

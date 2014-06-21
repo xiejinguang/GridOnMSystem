@@ -26,8 +26,8 @@
                                     <p:panelGrid id="searchConsGrid" columns="8">
 
 
-                                        <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_demandID}" for="demandID" />
-                                        <p:inputText id="demandID" value="#{fixDemandController.searchCons['demandID']}" title="#{gmsys_i18n.FixDemandTitle_demandID}"  />
+                                        <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_id}" for="id" />
+                                        <p:inputText id="id" value="#{fixDemandController.searchCons['id']}" title="#{gmsys_i18n.FixDemandTitle_id}"  />
 
 
                                         <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_demandCode}" for="demandCode" />
@@ -74,11 +74,11 @@
                                         <p:inputText id="status" value="#{fixDemandController.searchCons['status']}" title="#{gmsys_i18n.FixDemandTitle_status}"  />
 
 
-                                        <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_statID}" for="statID" />
-                                        <p:selectOneMenu id="statID" value="#{fixDemandController.searchCons['statID']}" filter="true"  filterMatchMode="contains" >
+                                        <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_stationId}" for="stationId" />
+                                        <p:selectOneMenu id="stationId" value="#{fixDemandController.searchCons['stationId']}" filter="true"  filterMatchMode="contains" >
                                             <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
-                                                           var="statIDItem"
-                                                           itemValue="#{statIDItem}"/>
+                                                           var="stationIdItem"
+                                                           itemValue="#{stationIdItem}"/>
                                         </p:selectOneMenu>
 
                                     </p:panelGrid>
@@ -94,7 +94,7 @@
 
                     <p:dataTable id="datalist" value="#{fixDemandController.items}" var="item"
                                  selection="#{fixDemandController.selectedItems}"
-                                 rowKey="#{item.demandID}"
+                                 rowKey="#{item.id}"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  paginator="true" paginatorPosition="bottom"
                                  rows="10" 
@@ -110,11 +110,11 @@
 
                         <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
 
-                        <p:column sortBy="#{item.demandID}" filterBy="#{item.demandID}">
+                        <p:column sortBy="#{item.id}" filterBy="#{item.id}">
                             <f:facet name="header">
-                                <h:outputText value="#{gmsys_i18n.FixDemandTitle_demandID}"/>
+                                <h:outputText value="#{gmsys_i18n.FixDemandTitle_id}"/>
                             </f:facet>
-                            <h:outputText value="#{item.demandID}"/>
+                            <h:outputText value="#{item.id}"/>
                         </p:column>
                         <p:column sortBy="#{item.demandCode}" filterBy="#{item.demandCode}">
                             <f:facet name="header">
@@ -184,11 +184,11 @@
                             </f:facet>
                             <h:outputText value="#{item.status}"/>
                         </p:column>
-                        <p:column sortBy="#{item.statID}" filterBy="#{item.statID}">
+                        <p:column sortBy="#{item.stationId}" filterBy="#{item.stationId}">
                             <f:facet name="header">
-                                <h:outputText value="#{gmsys_i18n.FixDemandTitle_statID}"/>
+                                <h:outputText value="#{gmsys_i18n.FixDemandTitle_stationId}"/>
                             </f:facet>
-                            <h:outputText value="#{item.statID}"/>
+                            <h:outputText value="#{item.stationId}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{gmsys_i18n.Create}" actionListener="#{fixDemandController.prepareCreate}" update="@form:@parent:FixDemandCreateForm" oncomplete="PF('FixDemandCreateDialog').show()"/>

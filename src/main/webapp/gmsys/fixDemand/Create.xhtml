@@ -17,8 +17,8 @@
             <h:form id="FixDemandCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="6" rendered="#{fixDemandController.created != null}">
-                        <p:outputLabel value="#{gmsys_i18n.CreateFixDemandLabel_demandID}" for="demandID" />
-                        <p:inputText id="demandID" value="#{fixDemandController.created.demandID}" title="#{gmsys_i18n.CreateFixDemandTitle_demandID}"  disabled="true"       required="true" requiredMessage="#{gmsys_i18n.CreateFixDemandRequiredMessage_demandID}"/>
+                        <p:outputLabel value="#{gmsys_i18n.CreateFixDemandLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{fixDemandController.created.id}" title="#{gmsys_i18n.CreateFixDemandTitle_id}"  disabled="true"       required="true" requiredMessage="#{gmsys_i18n.CreateFixDemandRequiredMessage_id}"/>
                         <p:outputLabel value="#{gmsys_i18n.CreateFixDemandLabel_demandCode}" for="demandCode" />
                         <p:inputText id="demandCode" value="#{fixDemandController.created.demandCode}" title="#{gmsys_i18n.CreateFixDemandTitle_demandCode}"  disabled="false"       required="true" requiredMessage="#{gmsys_i18n.CreateFixDemandRequiredMessage_demandCode}"/>
                         <p:outputLabel value="#{gmsys_i18n.CreateFixDemandLabel_problemKind}" for="problemKind" />
@@ -41,11 +41,11 @@
                         <p:inputText id="source" value="#{fixDemandController.created.source}" title="#{gmsys_i18n.CreateFixDemandTitle_source}"  disabled="false"       />
                         <p:outputLabel value="#{gmsys_i18n.CreateFixDemandLabel_status}" for="status" />
                         <p:inputText id="status" value="#{fixDemandController.created.status}" title="#{gmsys_i18n.CreateFixDemandTitle_status}"  disabled="false"       />
-                        <p:outputLabel value="#{gmsys_i18n.CreateFixDemandLabel_statID}" for="statID" />
-                        <p:selectOneMenu id="statID" value="#{fixDemandController.created.statID}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_statID}">
+                        <p:outputLabel value="#{gmsys_i18n.CreateFixDemandLabel_stationId}" for="stationId" />
+                        <p:selectOneMenu id="stationId" value="#{fixDemandController.created.stationId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_stationId}">
                             <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
-                                           var="statIDItem"
-                                           itemValue="#{statIDItem}"/>
+                                           var="stationIdItem"
+                                           itemValue="#{stationIdItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{fixDemandController.create}" value="#{gmsys_i18n.Save}" update="display,@form:@parent:FixDemandListForm:datalist,:growl" oncomplete="handleSubmit(args,'FixDemandCreateDialog');"/>

@@ -71,7 +71,7 @@ public class FixDemandController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setDemandID(org.eman.util.Utils.generateUniqueKey());
+        created.setId(org.eman.util.Utils.generateUniqueKey());
     }
 
     private FixDemandFacade getFacade() {
@@ -234,7 +234,7 @@ public class FixDemandController implements Serializable {
             }
             if (object instanceof FixDemand) {
                 FixDemand o = (FixDemand) object;
-                return getStringKey(o.getDemandID());
+                return getStringKey(o.getId());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), FixDemand.class.getName()});
                 return null;

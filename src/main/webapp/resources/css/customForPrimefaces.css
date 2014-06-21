@@ -14,11 +14,55 @@ and open the template in the editor.
 .ui-layout-unit-content{
     overflow: hidden;
 }
+
 .ui-selectonemenu{
     min-width: 100px;
     max-width: 200px;
 }
+
 .ui-sortable-column{
     min-width: 100px;
-    max-width: 200px;
+    max-width: 300px;
+
+}
+
+.ui-tieredmenu{
+    width:100%;
+
+}
+.ui-menu-list{
+    width:100%;
+
+}
+.ui-menuitem{
+    height: 40px;
+    background-color: #616161;
+    vertical-align: middle;
+    text-align: center;
+    alignment-baseline: middle;
+
+}
+.ui-menuitem-link{
+    height: 40px;
+    vertical-align: middle;
+    text-align: center;
+    alignment-baseline: middle;
+}
+.ui-menuitem-text{
+    height: 35px;
+    font-size: large;
+    color:#DC8700;
+    text-align: center;
+    vertical-align: middle;
+    alignment-baseline: middle;
+}
+.ui-menuitem-icon{
+    text-align: center;
+    vertical-align: middle;
+    width: 35px;
+}
+.ui-icon-myhome{
+    background-image: url(/eman/resources/design/home.png) ;
+    height: 16px;
+    width: 16px;
 }

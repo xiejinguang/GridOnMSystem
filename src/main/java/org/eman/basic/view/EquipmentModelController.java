@@ -71,7 +71,7 @@ public class EquipmentModelController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setEquipModelID(org.eman.util.Utils.generateUniqueKey());
+        created.setId(org.eman.util.Utils.generateUniqueKey());
     }
 
     private EquipmentModelFacade getFacade() {
@@ -234,7 +234,7 @@ public class EquipmentModelController implements Serializable {
             }
             if (object instanceof EquipmentModel) {
                 EquipmentModel o = (EquipmentModel) object;
-                return getStringKey(o.getEquipModelID());
+                return getStringKey(o.getId());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), EquipmentModel.class.getName()});
                 return null;

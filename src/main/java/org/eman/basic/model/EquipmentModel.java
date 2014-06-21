@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "EquipmentModel.findAll", query = "SELECT e FROM EquipmentModel e"),
-    @NamedQuery(name = "EquipmentModel.findByEquipModelID", query = "SELECT e FROM EquipmentModel e WHERE e.equipModelID = :equipModelID"),
+    @NamedQuery(name = "EquipmentModel.findById", query = "SELECT e FROM EquipmentModel e WHERE e.id = :id"),
     @NamedQuery(name = "EquipmentModel.findByType", query = "SELECT e FROM EquipmentModel e WHERE e.type = :type"),
     @NamedQuery(name = "EquipmentModel.findByClass1", query = "SELECT e FROM EquipmentModel e WHERE e.class1 = :class1"),
     @NamedQuery(name = "EquipmentModel.findByNetType", query = "SELECT e FROM EquipmentModel e WHERE e.netType = :netType"),
@@ -45,7 +45,7 @@ public class EquipmentModel implements Serializable {
     @NotNull
     @Size(min = 1, max = 36)
     @Column(nullable = false, length = 36)
-    private String equipModelID;
+    private String id;
     @Size(max = 45)
     @Column(length = 45)
     private String type;
@@ -65,22 +65,22 @@ public class EquipmentModel implements Serializable {
     @Size(max = 65535)
     @Column(length = 65535)
     private String commont;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipModelID")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipModelId")
     private Collection<Netnode> netnodeCollection;
 
     public EquipmentModel() {
     }
 
-    public EquipmentModel(String equipModelID) {
-        this.equipModelID = equipModelID;
+    public EquipmentModel(String id) {
+        this.id = id;
     }
 
-    public String getEquipModelID() {
-        return equipModelID;
+    public String getId() {
+        return id;
     }
 
-    public void setEquipModelID(String equipModelID) {
-        this.equipModelID = equipModelID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getType() {
@@ -143,7 +143,7 @@ public class EquipmentModel implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (equipModelID != null ? equipModelID.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -154,7 +154,7 @@ public class EquipmentModel implements Serializable {
             return false;
         }
         EquipmentModel other = (EquipmentModel) object;
-        if ((this.equipModelID == null && other.equipModelID != null) || (this.equipModelID != null && !this.equipModelID.equals(other.equipModelID))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -162,7 +162,7 @@ public class EquipmentModel implements Serializable {
 
     @Override
     public String toString() {
-        return "org.eman.assit.model.EquipmentModel[ equipModelID=" + equipModelID + " ]";
+        return "org.eman.basic.model.EquipmentModel[ id=" + id + " ]";
     }
     
 }

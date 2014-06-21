@@ -26,8 +26,8 @@
                                     <p:panelGrid id="searchConsGrid" columns="8">
 
 
-                                        <p:outputLabel value="#{basic_i18n.RoomspotLabel_roomID}" for="roomID" />
-                                        <p:inputText id="roomID" value="#{roomspotController.searchCons['roomID']}" title="#{basic_i18n.RoomspotTitle_roomID}"  />
+                                        <p:outputLabel value="#{basic_i18n.RoomspotLabel_id}" for="id" />
+                                        <p:inputText id="id" value="#{roomspotController.searchCons['id']}" title="#{basic_i18n.RoomspotTitle_id}"  />
 
 
                                         <p:outputLabel value="#{basic_i18n.RoomspotLabel_roomCode}" for="roomCode" />
@@ -54,6 +54,10 @@
                                         <p:inputText id="grid" value="#{roomspotController.searchCons['grid']}" title="#{basic_i18n.RoomspotTitle_grid}"  />
 
 
+                                        <p:outputLabel value="#{basic_i18n.RoomspotLabel_propertyOwner}" for="propertyOwner" />
+                                        <p:inputText id="propertyOwner" value="#{roomspotController.searchCons['propertyOwner']}" title="#{basic_i18n.RoomspotTitle_propertyOwner}"  />
+
+
                                         <p:outputLabel value="#{basic_i18n.RoomspotLabel_address}" for="address" />
                                         <p:inputText id="address" value="#{roomspotController.searchCons['address']}" title="#{basic_i18n.RoomspotTitle_address}"  />
 
@@ -78,7 +82,7 @@
 
                     <p:dataTable id="datalist" value="#{roomspotController.items}" var="item"
                                  selection="#{roomspotController.selectedItems}"
-                                 rowKey="#{item.roomID}"
+                                 rowKey="#{item.id}"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  paginator="true" paginatorPosition="bottom"
                                  rows="10" 
@@ -94,11 +98,11 @@
 
                         <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
 
-                        <p:column sortBy="#{item.roomID}" filterBy="#{item.roomID}">
+                        <p:column sortBy="#{item.id}" filterBy="#{item.id}">
                             <f:facet name="header">
-                                <h:outputText value="#{basic_i18n.RoomspotTitle_roomID}"/>
+                                <h:outputText value="#{basic_i18n.RoomspotTitle_id}"/>
                             </f:facet>
-                            <h:outputText value="#{item.roomID}"/>
+                            <h:outputText value="#{item.id}"/>
                         </p:column>
                         <p:column sortBy="#{item.roomCode}" filterBy="#{item.roomCode}">
                             <f:facet name="header">
@@ -135,6 +139,12 @@
                                 <h:outputText value="#{basic_i18n.RoomspotTitle_grid}"/>
                             </f:facet>
                             <h:outputText value="#{item.grid}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.propertyOwner}" filterBy="#{item.propertyOwner}">
+                            <f:facet name="header">
+                                <h:outputText value="#{basic_i18n.RoomspotTitle_propertyOwner}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.propertyOwner}"/>
                         </p:column>
                         <p:column sortBy="#{item.address}" filterBy="#{item.address}">
                             <f:facet name="header">

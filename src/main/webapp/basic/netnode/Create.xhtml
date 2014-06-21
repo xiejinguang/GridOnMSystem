@@ -17,8 +17,8 @@
             <h:form id="NetnodeCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{netnodeController.created != null}">
-                        <p:outputLabel value="#{basic_i18n.CreateNetnodeLabel_netNodeID}" for="netNodeID" />
-                        <p:inputText id="netNodeID" value="#{netnodeController.created.netNodeID}" title="#{basic_i18n.CreateNetnodeTitle_netNodeID}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.CreateNetnodeRequiredMessage_netNodeID}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateNetnodeLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{netnodeController.created.id}" title="#{basic_i18n.CreateNetnodeTitle_id}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.CreateNetnodeRequiredMessage_id}"/>
                         <p:outputLabel value="#{basic_i18n.CreateNetnodeLabel_ossCode}" for="ossCode" />
                         <p:inputText id="ossCode" value="#{netnodeController.created.ossCode}" title="#{basic_i18n.CreateNetnodeTitle_ossCode}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateNetnodeRequiredMessage_ossCode}"/>
                         <p:outputLabel value="#{basic_i18n.CreateNetnodeLabel_name}" for="name" />
@@ -29,11 +29,11 @@
                         <p:inputTextarea rows="4" cols="30" id="commont" value="#{netnodeController.created.commont}" title="#{basic_i18n.CreateNetnodeTitle_commont}" />
                         <p:outputLabel value="#{basic_i18n.CreateNetnodeLabel_status}" for="status" />
                         <p:inputText id="status" value="#{netnodeController.created.status}" title="#{basic_i18n.CreateNetnodeTitle_status}"  disabled="false"       />
-                        <p:outputLabel value="#{basic_i18n.CreateNetnodeLabel_equipModelID}" for="equipModelID" />
-                        <p:selectOneMenu id="equipModelID" value="#{netnodeController.created.equipModelID}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditNetnodeRequiredMessage_equipModelID}">
+                        <p:outputLabel value="#{basic_i18n.CreateNetnodeLabel_equipModelId}" for="equipModelId" />
+                        <p:selectOneMenu id="equipModelId" value="#{netnodeController.created.equipModelId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditNetnodeRequiredMessage_equipModelId}">
                             <f:selectItems value="#{equipmentModelController.itemsAvailableSelectOne}"
-                                           var="equipModelIDItem"
-                                           itemValue="#{equipModelIDItem}"/>
+                                           var="equipModelIdItem"
+                                           itemValue="#{equipModelIdItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{basic_i18n.CreateNetnodeLabel_statID}" for="statID" />
                         <p:selectOneMenu id="statID" value="#{netnodeController.created.statID}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditNetnodeRequiredMessage_statID}">

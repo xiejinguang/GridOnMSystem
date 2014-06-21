@@ -20,11 +20,11 @@
                         <p:panel toggleable="true" >
                             <f:facet name="header">
                                 <h:outputText value="#{basic_i18n.RoomspotEntityLabel}"/>
-                                <h:outputText value="#{item.roomID}" title="#{basic_i18n.RoomspotEntityTitle}"/>
+                                <h:outputText value="#{item.id}" title="#{basic_i18n.RoomspotEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="4" >
-                                <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_roomID}" for="roomID" />
-                                <p:inputText id="roomID" value="#{item.roomID}" title="#{basic_i18n.EditRoomspotTitle_roomID}" disabled="true"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_roomID}"/>
+                                <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_id}" for="id" />
+                                <p:inputText id="id" value="#{item.id}" title="#{basic_i18n.EditRoomspotTitle_id}" disabled="true"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_id}"/>
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_roomCode}" for="roomCode" />
                                 <p:inputText id="roomCode" value="#{item.roomCode}" title="#{basic_i18n.EditRoomspotTitle_roomCode}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_roomCode}"/>
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_roomName}" for="roomName" />
@@ -37,6 +37,8 @@
                                 <p:inputText id="county" value="#{item.county}" title="#{basic_i18n.EditRoomspotTitle_county}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_county}"/>
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_grid}" for="grid" />
                                 <p:inputText id="grid" value="#{item.grid}" title="#{basic_i18n.EditRoomspotTitle_grid}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_grid}"/>
+                                <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_propertyOwner}" for="propertyOwner" />
+                                <p:inputText id="propertyOwner" value="#{item.propertyOwner}" title="#{basic_i18n.EditRoomspotTitle_propertyOwner}" disabled="false"   />
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_address}" for="address" />
                                 <p:inputText id="address" value="#{item.address}" title="#{basic_i18n.EditRoomspotTitle_address}" disabled="false"   />
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_commont}" for="commont" />

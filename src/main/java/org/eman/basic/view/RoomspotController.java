@@ -71,7 +71,7 @@ public class RoomspotController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setRoomID(org.eman.util.Utils.generateUniqueKey());
+        created.setId(org.eman.util.Utils.generateUniqueKey());
     }
 
     private RoomspotFacade getFacade() {
@@ -234,7 +234,7 @@ public class RoomspotController implements Serializable {
             }
             if (object instanceof Roomspot) {
                 Roomspot o = (Roomspot) object;
-                return getStringKey(o.getRoomID());
+                return getStringKey(o.getId());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Roomspot.class.getName()});
                 return null;

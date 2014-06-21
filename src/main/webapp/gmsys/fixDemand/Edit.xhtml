@@ -20,11 +20,11 @@
                         <p:panel toggleable="true" >
                             <f:facet name="header">
                                 <h:outputText value="#{gmsys_i18n.FixDemandEntityLabel}"/>
-                                <h:outputText value="#{item.demandID}" title="#{gmsys_i18n.FixDemandEntityTitle}"/>
+                                <h:outputText value="#{item.id}" title="#{gmsys_i18n.FixDemandEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="6" >
-                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_demandID}" for="demandID" />
-                                <p:inputText id="demandID" value="#{item.demandID}" title="#{gmsys_i18n.EditFixDemandTitle_demandID}" disabled="true"   required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_demandID}"/>
+                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_id}" for="id" />
+                                <p:inputText id="id" value="#{item.id}" title="#{gmsys_i18n.EditFixDemandTitle_id}" disabled="true"   required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_id}"/>
                                 <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_demandCode}" for="demandCode" />
                                 <p:inputText id="demandCode" value="#{item.demandCode}" title="#{gmsys_i18n.EditFixDemandTitle_demandCode}" disabled="false"   required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_demandCode}"/>
                                 <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_problemKind}" for="problemKind" />
@@ -47,11 +47,11 @@
                                 <p:inputText id="source" value="#{item.source}" title="#{gmsys_i18n.EditFixDemandTitle_source}" disabled="false"   />
                                 <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_status}" for="status" />
                                 <p:inputText id="status" value="#{item.status}" title="#{gmsys_i18n.EditFixDemandTitle_status}" disabled="false"   />
-                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_statID}" for="statID" />
-                                <p:selectOneMenu id="statID" value="#{item.statID}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_statID}">
+                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_stationId}" for="stationId" />
+                                <p:selectOneMenu id="stationId" value="#{item.stationId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_stationId}">
                                     <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
-                                                   var="statIDItem"
-                                                   itemValue="#{statIDItem}"/>
+                                                   var="stationIdItem"
+                                                   itemValue="#{stationIdItem}"/>
                                 </p:selectOneMenu>
                             </p:panelGrid>
                         </p:panel>

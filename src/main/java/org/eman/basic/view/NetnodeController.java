@@ -71,7 +71,7 @@ public class NetnodeController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setNetNodeID(org.eman.util.Utils.generateUniqueKey());
+        created.setId(org.eman.util.Utils.generateUniqueKey());
     }
 
     private NetnodeFacade getFacade() {
@@ -234,7 +234,7 @@ public class NetnodeController implements Serializable {
             }
             if (object instanceof Netnode) {
                 Netnode o = (Netnode) object;
-                return getStringKey(o.getNetNodeID());
+                return getStringKey(o.getId());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Netnode.class.getName()});
                 return null;

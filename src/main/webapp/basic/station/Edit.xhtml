@@ -20,15 +20,15 @@
                         <p:panel toggleable="true" >
                             <f:facet name="header">
                                 <h:outputText value="#{basic_i18n.StationEntityLabel}"/>
-                                <h:outputText value="#{item.statID}" title="#{basic_i18n.StationEntityTitle}"/>
+                                <h:outputText value="#{item.id}" title="#{basic_i18n.StationEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="4" >
-                                <p:outputLabel value="#{basic_i18n.EditStationLabel_statID}" for="statID" />
-                                <p:inputText id="statID" value="#{item.statID}" title="#{basic_i18n.EditStationTitle_statID}" disabled="true"   required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_statID}"/>
+                                <p:outputLabel value="#{basic_i18n.EditStationLabel_id}" for="id" />
+                                <p:inputText id="id" value="#{item.id}" title="#{basic_i18n.EditStationTitle_id}" disabled="true"   required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_id}"/>
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_statCode}" for="statCode" />
                                 <p:inputText id="statCode" value="#{item.statCode}" title="#{basic_i18n.EditStationTitle_statCode}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_statCode}"/>
-                                <p:outputLabel value="#{basic_i18n.EditStationLabel_statName}" for="statName" />
-                                <p:inputText id="statName" value="#{item.statName}" title="#{basic_i18n.EditStationTitle_statName}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_statName}"/>
+                                <p:outputLabel value="#{basic_i18n.EditStationLabel_name}" for="name" />
+                                <p:inputText id="name" value="#{item.name}" title="#{basic_i18n.EditStationTitle_name}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_name}"/>
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_address}" for="address" />
                                 <p:inputText id="address" value="#{item.address}" title="#{basic_i18n.EditStationTitle_address}" disabled="false"   />
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_owner}" for="owner" />
@@ -41,11 +41,11 @@
                                 <p:inputText id="status" value="#{item.status}" title="#{basic_i18n.EditStationTitle_status}" disabled="false"   />
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_commont}" for="commont" />
                                 <p:inputTextarea rows="4" cols="30" id="commont" value="#{item.commont}" title="#{basic_i18n.EditStationTitle_commont}" />
-                                <p:outputLabel value="#{basic_i18n.EditStationLabel_roomID}" for="roomID" />
-                                <p:selectOneMenu id="roomID" value="#{item.roomID}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_roomID}">
+                                <p:outputLabel value="#{basic_i18n.EditStationLabel_roomspotId}" for="roomspotId" />
+                                <p:selectOneMenu id="roomspotId" value="#{item.roomspotId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_roomspotId}">
                                     <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
-                                                   var="roomIDItem"
-                                                   itemValue="#{roomIDItem}"/>
+                                                   var="roomspotIdItem"
+                                                   itemValue="#{roomspotIdItem}"/>
                                 </p:selectOneMenu>
                             </p:panelGrid>
                         </p:panel>

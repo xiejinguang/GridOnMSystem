@@ -26,16 +26,16 @@
                                     <p:panelGrid id="searchConsGrid" columns="8">
 
 
-                                        <p:outputLabel value="#{basic_i18n.StationLabel_statID}" for="statID" />
-                                        <p:inputText id="statID" value="#{stationController.searchCons['statID']}" title="#{basic_i18n.StationTitle_statID}"  />
+                                        <p:outputLabel value="#{basic_i18n.StationLabel_id}" for="id" />
+                                        <p:inputText id="id" value="#{stationController.searchCons['id']}" title="#{basic_i18n.StationTitle_id}"  />
 
 
                                         <p:outputLabel value="#{basic_i18n.StationLabel_statCode}" for="statCode" />
                                         <p:inputText id="statCode" value="#{stationController.searchCons['statCode']}" title="#{basic_i18n.StationTitle_statCode}"  />
 
 
-                                        <p:outputLabel value="#{basic_i18n.StationLabel_statName}" for="statName" />
-                                        <p:inputText id="statName" value="#{stationController.searchCons['statName']}" title="#{basic_i18n.StationTitle_statName}"  />
+                                        <p:outputLabel value="#{basic_i18n.StationLabel_name}" for="name" />
+                                        <p:inputText id="name" value="#{stationController.searchCons['name']}" title="#{basic_i18n.StationTitle_name}"  />
 
 
                                         <p:outputLabel value="#{basic_i18n.StationLabel_address}" for="address" />
@@ -62,11 +62,11 @@
                                         <p:inputTextarea rows="4" cols="30" id="commont" value="#{stationController.searchCons['commont']}" title="#{basic_i18n.StationTitle_commont}" />
 
 
-                                        <p:outputLabel value="#{basic_i18n.StationLabel_roomID}" for="roomID" />
-                                        <p:selectOneMenu id="roomID" value="#{stationController.searchCons['roomID']}" filter="true"  filterMatchMode="contains" >
+                                        <p:outputLabel value="#{basic_i18n.StationLabel_roomspotId}" for="roomspotId" />
+                                        <p:selectOneMenu id="roomspotId" value="#{stationController.searchCons['roomspotId']}" filter="true"  filterMatchMode="contains" >
                                             <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
-                                                           var="roomIDItem"
-                                                           itemValue="#{roomIDItem}"/>
+                                                           var="roomspotIdItem"
+                                                           itemValue="#{roomspotIdItem}"/>
                                         </p:selectOneMenu>
 
                                     </p:panelGrid>
@@ -82,7 +82,7 @@
 
                     <p:dataTable id="datalist" value="#{stationController.items}" var="item"
                                  selection="#{stationController.selectedItems}"
-                                 rowKey="#{item.statID}"
+                                 rowKey="#{item.id}"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  paginator="true" paginatorPosition="bottom"
                                  rows="10" 
@@ -98,11 +98,11 @@
 
                         <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
 
-                        <p:column sortBy="#{item.statID}" filterBy="#{item.statID}">
+                        <p:column sortBy="#{item.id}" filterBy="#{item.id}">
                             <f:facet name="header">
-                                <h:outputText value="#{basic_i18n.StationTitle_statID}"/>
+                                <h:outputText value="#{basic_i18n.StationTitle_id}"/>
                             </f:facet>
-                            <h:outputText value="#{item.statID}"/>
+                            <h:outputText value="#{item.id}"/>
                         </p:column>
                         <p:column sortBy="#{item.statCode}" filterBy="#{item.statCode}">
                             <f:facet name="header">
@@ -110,11 +110,11 @@
                             </f:facet>
                             <h:outputText value="#{item.statCode}"/>
                         </p:column>
-                        <p:column sortBy="#{item.statName}" filterBy="#{item.statName}">
+                        <p:column sortBy="#{item.name}" filterBy="#{item.name}">
                             <f:facet name="header">
-                                <h:outputText value="#{basic_i18n.StationTitle_statName}"/>
+                                <h:outputText value="#{basic_i18n.StationTitle_name}"/>
                             </f:facet>
-                            <h:outputText value="#{item.statName}"/>
+                            <h:outputText value="#{item.name}"/>
                         </p:column>
                         <p:column sortBy="#{item.address}" filterBy="#{item.address}">
                             <f:facet name="header">
@@ -152,11 +152,11 @@
                             </f:facet>
                             <h:outputText value="#{item.commont}"/>
                         </p:column>
-                        <p:column sortBy="#{item.roomID}" filterBy="#{item.roomID}">
+                        <p:column sortBy="#{item.roomspotId}" filterBy="#{item.roomspotId}">
                             <f:facet name="header">
-                                <h:outputText value="#{basic_i18n.StationTitle_roomID}"/>
+                                <h:outputText value="#{basic_i18n.StationTitle_roomspotId}"/>
                             </f:facet>
-                            <h:outputText value="#{item.roomID}"/>
+                            <h:outputText value="#{item.roomspotId}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{basic_i18n.Create}" actionListener="#{stationController.prepareCreate}" update="@form:@parent:StationCreateForm" oncomplete="PF('StationCreateDialog').show()"/>

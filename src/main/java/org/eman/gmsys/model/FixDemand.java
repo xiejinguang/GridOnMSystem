@@ -6,7 +6,6 @@
 
 package org.eman.gmsys.model;
 
-import org.eman.basic.model.Station;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -24,6 +23,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.eman.basic.model.Station;
 
 /**
  *
@@ -34,19 +34,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     @UniqueConstraint(columnNames = {"demandCode"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "FixDemand.findAll", query = "SELECT g FROM FixDemand g"),
-    @NamedQuery(name = "FixDemand.findByDemandID", query = "SELECT g FROM FixDemand g WHERE g.demandID = :demandID"),
-    @NamedQuery(name = "FixDemand.findByDemandCode", query = "SELECT g FROM FixDemand g WHERE g.demandCode = :demandCode"),
-    @NamedQuery(name = "FixDemand.findByProblemKind", query = "SELECT g FROM FixDemand g WHERE g.problemKind = :problemKind"),
-    @NamedQuery(name = "FixDemand.findByProblemSubKind", query = "SELECT g FROM FixDemand g WHERE g.problemSubKind = :problemSubKind"),
-    @NamedQuery(name = "FixDemand.findByProblemDetails", query = "SELECT g FROM FixDemand g WHERE g.problemDetails = :problemDetails"),
-    @NamedQuery(name = "FixDemand.findBySolution", query = "SELECT g FROM FixDemand g WHERE g.solution = :solution"),
-    @NamedQuery(name = "FixDemand.findByFixKind", query = "SELECT g FROM FixDemand g WHERE g.fixKind = :fixKind"),
-    @NamedQuery(name = "FixDemand.findByBudgetList", query = "SELECT g FROM FixDemand g WHERE g.budgetList = :budgetList"),
-    @NamedQuery(name = "FixDemand.findByBudget", query = "SELECT g FROM FixDemand g WHERE g.budget = :budget"),
-    @NamedQuery(name = "FixDemand.findByDiscoverDate", query = "SELECT g FROM FixDemand g WHERE g.discoverDate = :discoverDate"),
-    @NamedQuery(name = "FixDemand.findBySource", query = "SELECT g FROM FixDemand g WHERE g.source = :source"),
-    @NamedQuery(name = "FixDemand.findByStatus", query = "SELECT g FROM FixDemand g WHERE g.status = :status")})
+    @NamedQuery(name = "FixDemand.findAll", query = "SELECT f FROM FixDemand f"),
+    @NamedQuery(name = "FixDemand.findById", query = "SELECT f FROM FixDemand f WHERE f.id = :id"),
+    @NamedQuery(name = "FixDemand.findByDemandCode", query = "SELECT f FROM FixDemand f WHERE f.demandCode = :demandCode"),
+    @NamedQuery(name = "FixDemand.findByProblemKind", query = "SELECT f FROM FixDemand f WHERE f.problemKind = :problemKind"),
+    @NamedQuery(name = "FixDemand.findByProblemSubKind", query = "SELECT f FROM FixDemand f WHERE f.problemSubKind = :problemSubKind"),
+    @NamedQuery(name = "FixDemand.findByProblemDetails", query = "SELECT f FROM FixDemand f WHERE f.problemDetails = :problemDetails"),
+    @NamedQuery(name = "FixDemand.findBySolution", query = "SELECT f FROM FixDemand f WHERE f.solution = :solution"),
+    @NamedQuery(name = "FixDemand.findByFixKind", query = "SELECT f FROM FixDemand f WHERE f.fixKind = :fixKind"),
+    @NamedQuery(name = "FixDemand.findByBudgetList", query = "SELECT f FROM FixDemand f WHERE f.budgetList = :budgetList"),
+    @NamedQuery(name = "FixDemand.findByBudget", query = "SELECT f FROM FixDemand f WHERE f.budget = :budget"),
+    @NamedQuery(name = "FixDemand.findByDiscoverDate", query = "SELECT f FROM FixDemand f WHERE f.discoverDate = :discoverDate"),
+    @NamedQuery(name = "FixDemand.findBySource", query = "SELECT f FROM FixDemand f WHERE f.source = :source"),
+    @NamedQuery(name = "FixDemand.findByStatus", query = "SELECT f FROM FixDemand f WHERE f.status = :status")})
 public class FixDemand implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -54,7 +54,7 @@ public class FixDemand implements Serializable {
     @NotNull
     @Size(min = 1, max = 36)
     @Column(nullable = false, length = 36)
-    private String demandID;
+    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -98,19 +98,19 @@ public class FixDemand implements Serializable {
     @Size(max = 45)
     @Column(length = 45)
     private String status;
-    @JoinColumn(name = "statID", referencedColumnName = "statID", nullable = false)
+    @JoinColumn(name = "stationId", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Station statID;
+    private Station stationId;
 
     public FixDemand() {
     }
 
-    public FixDemand(String demandID) {
-        this.demandID = demandID;
+    public FixDemand(String id) {
+        this.id = id;
     }
 
-    public FixDemand(String demandID, String demandCode, String problemKind, String problemSubKind, String problemDetails, String solution, Date discoverDate) {
-        this.demandID = demandID;
+    public FixDemand(String id, String demandCode, String problemKind, String problemSubKind, String problemDetails, String solution, Date discoverDate) {
+        this.id = id;
         this.demandCode = demandCode;
         this.problemKind = problemKind;
         this.problemSubKind = problemSubKind;
@@ -119,12 +119,12 @@ public class FixDemand implements Serializable {
         this.discoverDate = discoverDate;
     }
 
-    public String getDemandID() {
-        return demandID;
+    public String getId() {
+        return id;
     }
 
-    public void setDemandID(String demandID) {
-        this.demandID = demandID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDemandCode() {
@@ -215,18 +215,18 @@ public class FixDemand implements Serializable {
         this.status = status;
     }
 
-    public Station getStatID() {
-        return statID;
+    public Station getStationId() {
+        return stationId;
     }
 
-    public void setStatID(Station statID) {
-        this.statID = statID;
+    public void setStationId(Station stationId) {
+        this.stationId = stationId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (demandID != null ? demandID.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -237,7 +237,7 @@ public class FixDemand implements Serializable {
             return false;
         }
         FixDemand other = (FixDemand) object;
-        if ((this.demandID == null && other.demandID != null) || (this.demandID != null && !this.demandID.equals(other.demandID))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -245,7 +245,7 @@ public class FixDemand implements Serializable {
 
     @Override
     public String toString() {
-        return "org.eman.gmsys.model.GmsysFixDemand[ demandID=" + demandID + " ]";
+        return "org.eman.basic.model.FixDemand[ id=" + id + " ]";
     }
     
 }

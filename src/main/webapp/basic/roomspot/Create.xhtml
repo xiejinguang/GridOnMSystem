@@ -17,8 +17,8 @@
             <h:form id="RoomspotCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{roomspotController.created != null}">
-                        <p:outputLabel value="#{basic_i18n.CreateRoomspotLabel_roomID}" for="roomID" />
-                        <p:inputText id="roomID" value="#{roomspotController.created.roomID}" title="#{basic_i18n.CreateRoomspotTitle_roomID}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.CreateRoomspotRequiredMessage_roomID}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateRoomspotLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{roomspotController.created.id}" title="#{basic_i18n.CreateRoomspotTitle_id}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.CreateRoomspotRequiredMessage_id}"/>
                         <p:outputLabel value="#{basic_i18n.CreateRoomspotLabel_roomCode}" for="roomCode" />
                         <p:inputText id="roomCode" value="#{roomspotController.created.roomCode}" title="#{basic_i18n.CreateRoomspotTitle_roomCode}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateRoomspotRequiredMessage_roomCode}"/>
                         <p:outputLabel value="#{basic_i18n.CreateRoomspotLabel_roomName}" for="roomName" />
@@ -31,6 +31,8 @@
                         <p:inputText id="county" value="#{roomspotController.created.county}" title="#{basic_i18n.CreateRoomspotTitle_county}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateRoomspotRequiredMessage_county}"/>
                         <p:outputLabel value="#{basic_i18n.CreateRoomspotLabel_grid}" for="grid" />
                         <p:inputText id="grid" value="#{roomspotController.created.grid}" title="#{basic_i18n.CreateRoomspotTitle_grid}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateRoomspotRequiredMessage_grid}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateRoomspotLabel_propertyOwner}" for="propertyOwner" />
+                        <p:inputText id="propertyOwner" value="#{roomspotController.created.propertyOwner}" title="#{basic_i18n.CreateRoomspotTitle_propertyOwner}"  disabled="false"       />
                         <p:outputLabel value="#{basic_i18n.CreateRoomspotLabel_address}" for="address" />
                         <p:inputText id="address" value="#{roomspotController.created.address}" title="#{basic_i18n.CreateRoomspotTitle_address}"  disabled="false"       />
                         <p:outputLabel value="#{basic_i18n.CreateRoomspotLabel_commont}" for="commont" />

@@ -34,13 +34,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Roomspot.findAll", query = "SELECT r FROM Roomspot r"),
-    @NamedQuery(name = "Roomspot.findByRoomID", query = "SELECT r FROM Roomspot r WHERE r.roomID = :roomID"),
+    @NamedQuery(name = "Roomspot.findById", query = "SELECT r FROM Roomspot r WHERE r.id = :id"),
     @NamedQuery(name = "Roomspot.findByRoomCode", query = "SELECT r FROM Roomspot r WHERE r.roomCode = :roomCode"),
     @NamedQuery(name = "Roomspot.findByRoomName", query = "SELECT r FROM Roomspot r WHERE r.roomName = :roomName"),
     @NamedQuery(name = "Roomspot.findByProvince", query = "SELECT r FROM Roomspot r WHERE r.province = :province"),
     @NamedQuery(name = "Roomspot.findByCity", query = "SELECT r FROM Roomspot r WHERE r.city = :city"),
     @NamedQuery(name = "Roomspot.findByCounty", query = "SELECT r FROM Roomspot r WHERE r.county = :county"),
     @NamedQuery(name = "Roomspot.findByGrid", query = "SELECT r FROM Roomspot r WHERE r.grid = :grid"),
+    @NamedQuery(name = "Roomspot.findByPropertyOwner", query = "SELECT r FROM Roomspot r WHERE r.propertyOwner = :propertyOwner"),
     @NamedQuery(name = "Roomspot.findByAddress", query = "SELECT r FROM Roomspot r WHERE r.address = :address"),
     @NamedQuery(name = "Roomspot.findByStatus", query = "SELECT r FROM Roomspot r WHERE r.status = :status")})
 public class Roomspot implements Serializable {
@@ -50,11 +51,11 @@ public class Roomspot implements Serializable {
     @NotNull
     @Size(min = 1, max = 36)
     @Column(nullable = false, length = 36)
-    private String roomID;
+    private String id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
-    @Column(nullable = false, length = 20)
+    @Size(min = 1, max = 45)
+    @Column(nullable = false, length = 45)
     private String roomCode;
     @Basic(optional = false)
     @NotNull
@@ -81,6 +82,9 @@ public class Roomspot implements Serializable {
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
     private String grid;
+    @Size(max = 45)
+    @Column(length = 45)
+    private String propertyOwner;
     @Size(max = 255)
     @Column(length = 255)
     private String address;
@@ -91,18 +95,18 @@ public class Roomspot implements Serializable {
     @Size(max = 45)
     @Column(length = 45)
     private String status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomID")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomspotId")
     private Collection<Station> stationCollection;
 
     public Roomspot() {
     }
 
-    public Roomspot(String roomID) {
-        this.roomID = roomID;
+    public Roomspot(String id) {
+        this.id = id;
     }
 
-    public Roomspot(String roomID, String roomCode, String roomName, String province, String city, String county, String grid) {
-        this.roomID = roomID;
+    public Roomspot(String id, String roomCode, String roomName, String province, String city, String county, String grid) {
+        this.id = id;
         this.roomCode = roomCode;
         this.roomName = roomName;
         this.province = province;
@@ -111,12 +115,12 @@ public class Roomspot implements Serializable {
         this.grid = grid;
     }
 
-    public String getRoomID() {
-        return roomID;
+    public String getId() {
+        return id;
     }
 
-    public void setRoomID(String roomID) {
-        this.roomID = roomID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getRoomCode() {
@@ -167,6 +171,14 @@ public class Roomspot implements Serializable {
         this.grid = grid;
     }
 
+    public String getPropertyOwner() {
+        return propertyOwner;
+    }
+
+    public void setPropertyOwner(String propertyOwner) {
+        this.propertyOwner = propertyOwner;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -203,7 +215,7 @@ public class Roomspot implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (roomID != null ? roomID.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -214,7 +226,7 @@ public class Roomspot implements Serializable {
             return false;
         }
         Roomspot other = (Roomspot) object;
-        if ((this.roomID == null && other.roomID != null) || (this.roomID != null && !this.roomID.equals(other.roomID))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -222,7 +234,7 @@ public class Roomspot implements Serializable {
 
     @Override
     public String toString() {
-        return "org.eman.gmsys.model.Roomspot[ roomID=" + roomID + " ]";
+        return "org.eman.basic.model.Roomspot[ id=" + id + " ]";
     }
     
 }

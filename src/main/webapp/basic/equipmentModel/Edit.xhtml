@@ -20,11 +20,11 @@
                         <p:panel toggleable="true" >
                             <f:facet name="header">
                                 <h:outputText value="#{basic_i18n.EquipmentModelEntityLabel}"/>
-                                <h:outputText value="#{item.equipModelID}" title="#{basic_i18n.EquipmentModelEntityTitle}"/>
+                                <h:outputText value="#{item.id}" title="#{basic_i18n.EquipmentModelEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="4" >
-                                <p:outputLabel value="#{basic_i18n.EditEquipmentModelLabel_equipModelID}" for="equipModelID" />
-                                <p:inputText id="equipModelID" value="#{item.equipModelID}" title="#{basic_i18n.EditEquipmentModelTitle_equipModelID}" disabled="true"   required="true" requiredMessage="#{basic_i18n.EditEquipmentModelRequiredMessage_equipModelID}"/>
+                                <p:outputLabel value="#{basic_i18n.EditEquipmentModelLabel_id}" for="id" />
+                                <p:inputText id="id" value="#{item.id}" title="#{basic_i18n.EditEquipmentModelTitle_id}" disabled="true"   required="true" requiredMessage="#{basic_i18n.EditEquipmentModelRequiredMessage_id}"/>
                                 <p:outputLabel value="#{basic_i18n.EditEquipmentModelLabel_type}" for="type" />
                                 <p:inputText id="type" value="#{item.type}" title="#{basic_i18n.EditEquipmentModelTitle_type}" disabled="false"   />
                                 <p:outputLabel value="#{basic_i18n.EditEquipmentModelLabel_class1}" for="class1" />

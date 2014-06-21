@@ -6,6 +6,7 @@
 
 package org.eman.basic.model;
 
+import org.eman.gmsys.model.FixDemand;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -25,7 +26,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.eman.gmsys.model.FixDemand;
 
 /**
  *
@@ -33,14 +33,14 @@ import org.eman.gmsys.model.FixDemand;
  */
 @Entity
 @Table(name = "basic_station", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"statCode"}),
-    @UniqueConstraint(columnNames = {"statName"})})
+    @UniqueConstraint(columnNames = {"name"}),
+    @UniqueConstraint(columnNames = {"statCode"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Station.findAll", query = "SELECT s FROM Station s"),
-    @NamedQuery(name = "Station.findByStatID", query = "SELECT s FROM Station s WHERE s.statID = :statID"),
+    @NamedQuery(name = "Station.findById", query = "SELECT s FROM Station s WHERE s.id = :id"),
     @NamedQuery(name = "Station.findByStatCode", query = "SELECT s FROM Station s WHERE s.statCode = :statCode"),
-    @NamedQuery(name = "Station.findByStatName", query = "SELECT s FROM Station s WHERE s.statName = :statName"),
+    @NamedQuery(name = "Station.findByName", query = "SELECT s FROM Station s WHERE s.name = :name"),
     @NamedQuery(name = "Station.findByAddress", query = "SELECT s FROM Station s WHERE s.address = :address"),
     @NamedQuery(name = "Station.findByOwner", query = "SELECT s FROM Station s WHERE s.owner = :owner"),
     @NamedQuery(name = "Station.findByType", query = "SELECT s FROM Station s WHERE s.type = :type"),
@@ -53,7 +53,7 @@ public class Station implements Serializable {
     @NotNull
     @Size(min = 1, max = 36)
     @Column(nullable = false, length = 36)
-    private String statID;
+    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -63,7 +63,7 @@ public class Station implements Serializable {
     @NotNull
     @Size(min = 1, max = 20)
     @Column(nullable = false, length = 20)
-    private String statName;
+    private String name;
     @Size(max = 45)
     @Column(length = 45)
     private String address;
@@ -85,32 +85,34 @@ public class Station implements Serializable {
     @Size(max = 65535)
     @Column(length = 65535)
     private String commont;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stationId")
+    private Collection<FixDemand> fixDemandCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "statID")
-    private Collection<FixDemand> gmsysFixDemandCollection;
-    @JoinColumn(name = "roomID", referencedColumnName = "roomID", nullable = false)
+    private Collection<Netnode> netnodeCollection;
+    @JoinColumn(name = "roomspotId", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Roomspot roomID;
+    private Roomspot roomspotId;
 
     public Station() {
     }
 
-    public Station(String statID) {
-        this.statID = statID;
+    public Station(String id) {
+        this.id = id;
     }
 
-    public Station(String statID, String statCode, String statName, String owner) {
-        this.statID = statID;
+    public Station(String id, String statCode, String name, String owner) {
+        this.id = id;
         this.statCode = statCode;
-        this.statName = statName;
+        this.name = name;
         this.owner = owner;
     }
 
-    public String getStatID() {
-        return statID;
+    public String getId() {
+        return id;
     }
 
-    public void setStatID(String statID) {
-        this.statID = statID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getStatCode() {
@@ -121,12 +123,12 @@ public class Station implements Serializable {
         this.statCode = statCode;
     }
 
-    public String getStatName() {
-        return statName;
+    public String getName() {
+        return name;
     }
 
-    public void setStatName(String statName) {
-        this.statName = statName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAddress() {
@@ -178,26 +180,35 @@ public class Station implements Serializable {
     }
 
     @XmlTransient
-    public Collection<FixDemand> getGmsysFixDemandCollection() {
-        return gmsysFixDemandCollection;
+    public Collection<FixDemand> getFixDemandCollection() {
+        return fixDemandCollection;
     }
 
-    public void setGmsysFixDemandCollection(Collection<FixDemand> gmsysFixDemandCollection) {
-        this.gmsysFixDemandCollection = gmsysFixDemandCollection;
+    public void setFixDemandCollection(Collection<FixDemand> fixDemandCollection) {
+        this.fixDemandCollection = fixDemandCollection;
     }
 
-    public Roomspot getRoomID() {
-        return roomID;
+    @XmlTransient
+    public Collection<Netnode> getNetnodeCollection() {
+        return netnodeCollection;
     }
 
-    public void setRoomID(Roomspot roomID) {
-        this.roomID = roomID;
+    public void setNetnodeCollection(Collection<Netnode> netnodeCollection) {
+        this.netnodeCollection = netnodeCollection;
+    }
+
+    public Roomspot getRoomspotId() {
+        return roomspotId;
+    }
+
+    public void setRoomspotId(Roomspot roomspotId) {
+        this.roomspotId = roomspotId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (statID != null ? statID.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -208,7 +219,7 @@ public class Station implements Serializable {
             return false;
         }
         Station other = (Station) object;
-        if ((this.statID == null && other.statID != null) || (this.statID != null && !this.statID.equals(other.statID))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -216,7 +227,7 @@ public class Station implements Serializable {
 
     @Override
     public String toString() {
-        return "org.eman.gmsys.model.Station[ statID=" + statID + " ]";
+        return "org.eman.basic.model.Station[ id=" + id + " ]";
     }
     
 }

@@ -17,12 +17,12 @@
             <h:form id="StationCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{stationController.created != null}">
-                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_statID}" for="statID" />
-                        <p:inputText id="statID" value="#{stationController.created.statID}" title="#{basic_i18n.CreateStationTitle_statID}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.CreateStationRequiredMessage_statID}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{stationController.created.id}" title="#{basic_i18n.CreateStationTitle_id}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.CreateStationRequiredMessage_id}"/>
                         <p:outputLabel value="#{basic_i18n.CreateStationLabel_statCode}" for="statCode" />
                         <p:inputText id="statCode" value="#{stationController.created.statCode}" title="#{basic_i18n.CreateStationTitle_statCode}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateStationRequiredMessage_statCode}"/>
-                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_statName}" for="statName" />
-                        <p:inputText id="statName" value="#{stationController.created.statName}" title="#{basic_i18n.CreateStationTitle_statName}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateStationRequiredMessage_statName}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{stationController.created.name}" title="#{basic_i18n.CreateStationTitle_name}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateStationRequiredMessage_name}"/>
                         <p:outputLabel value="#{basic_i18n.CreateStationLabel_address}" for="address" />
                         <p:inputText id="address" value="#{stationController.created.address}" title="#{basic_i18n.CreateStationTitle_address}"  disabled="false"       />
                         <p:outputLabel value="#{basic_i18n.CreateStationLabel_owner}" for="owner" />
@@ -35,11 +35,11 @@
                         <p:inputText id="status" value="#{stationController.created.status}" title="#{basic_i18n.CreateStationTitle_status}"  disabled="false"       />
                         <p:outputLabel value="#{basic_i18n.CreateStationLabel_commont}" for="commont" />
                         <p:inputTextarea rows="4" cols="30" id="commont" value="#{stationController.created.commont}" title="#{basic_i18n.CreateStationTitle_commont}" />
-                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_roomID}" for="roomID" />
-                        <p:selectOneMenu id="roomID" value="#{stationController.created.roomID}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_roomID}">
+                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_roomspotId}" for="roomspotId" />
+                        <p:selectOneMenu id="roomspotId" value="#{stationController.created.roomspotId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_roomspotId}">
                             <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
-                                           var="roomIDItem"
-                                           itemValue="#{roomIDItem}"/>
+                                           var="roomspotIdItem"
+                                           itemValue="#{roomspotIdItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{stationController.create}" value="#{basic_i18n.Save}" update="display,@form:@parent:StationListForm:datalist,:growl" oncomplete="handleSubmit(args,'StationCreateDialog');"/>

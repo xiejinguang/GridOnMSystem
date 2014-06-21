@@ -26,8 +26,8 @@
                                     <p:panelGrid id="searchConsGrid" columns="8">
 
 
-                                        <p:outputLabel value="#{basic_i18n.EquipmentModelLabel_equipModelID}" for="equipModelID" />
-                                        <p:inputText id="equipModelID" value="#{equipmentModelController.searchCons['equipModelID']}" title="#{basic_i18n.EquipmentModelTitle_equipModelID}"  />
+                                        <p:outputLabel value="#{basic_i18n.EquipmentModelLabel_id}" for="id" />
+                                        <p:inputText id="id" value="#{equipmentModelController.searchCons['id']}" title="#{basic_i18n.EquipmentModelTitle_id}"  />
 
 
                                         <p:outputLabel value="#{basic_i18n.EquipmentModelLabel_type}" for="type" />
@@ -66,7 +66,7 @@
 
                     <p:dataTable id="datalist" value="#{equipmentModelController.items}" var="item"
                                  selection="#{equipmentModelController.selectedItems}"
-                                 rowKey="#{item.equipModelID}"
+                                 rowKey="#{item.id}"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  paginator="true" paginatorPosition="bottom"
                                  rows="10" 
@@ -82,11 +82,11 @@
 
                         <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
 
-                        <p:column sortBy="#{item.equipModelID}" filterBy="#{item.equipModelID}">
+                        <p:column sortBy="#{item.id}" filterBy="#{item.id}">
                             <f:facet name="header">
-                                <h:outputText value="#{basic_i18n.EquipmentModelTitle_equipModelID}"/>
+                                <h:outputText value="#{basic_i18n.EquipmentModelTitle_id}"/>
                             </f:facet>
-                            <h:outputText value="#{item.equipModelID}"/>
+                            <h:outputText value="#{item.id}"/>
                         </p:column>
                         <p:column sortBy="#{item.type}" filterBy="#{item.type}">
                             <f:facet name="header">

@@ -17,11 +17,11 @@
                         <p:panel toggleable="true" >
                             <f:facet name="header">
                                 <h:outputText value="#{gmsys_i18n.FixDemandEntityLabel}"/>
-                                <h:outputText value="#{item.demandID}" title="#{gmsys_i18n.FixDemandEntityTitle}"/>
+                                <h:outputText value="#{item.id}" title="#{gmsys_i18n.FixDemandEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="6" >
-                                <h:outputText value="#{gmsys_i18n.FixDemandLabel_demandID}"/>
-                                <h:outputText value="#{item.demandID}" title="#{gmsys_i18n.FixDemandTitle_demandID}"/>
+                                <h:outputText value="#{gmsys_i18n.FixDemandLabel_id}"/>
+                                <h:outputText value="#{item.id}" title="#{gmsys_i18n.FixDemandTitle_id}"/>
                                 <h:outputText value="#{gmsys_i18n.FixDemandLabel_demandCode}"/>
                                 <h:outputText value="#{item.demandCode}" title="#{gmsys_i18n.FixDemandTitle_demandCode}"/>
                                 <h:outputText value="#{gmsys_i18n.FixDemandLabel_problemKind}"/>
@@ -46,8 +46,8 @@
                                 <h:outputText value="#{item.source}" title="#{gmsys_i18n.FixDemandTitle_source}"/>
                                 <h:outputText value="#{gmsys_i18n.FixDemandLabel_status}"/>
                                 <h:outputText value="#{item.status}" title="#{gmsys_i18n.FixDemandTitle_status}"/>
-                                <h:outputText value="#{gmsys_i18n.FixDemandLabel_statID}"/>
-                                <h:outputText value="#{item.statID}" title="#{gmsys_i18n.FixDemandTitle_statID}"/>
+                                <h:outputText value="#{gmsys_i18n.FixDemandLabel_stationId}"/>
+                                <h:outputText value="#{item.stationId}" title="#{gmsys_i18n.FixDemandTitle_stationId}"/>
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>

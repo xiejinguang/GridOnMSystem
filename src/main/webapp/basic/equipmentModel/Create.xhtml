@@ -17,8 +17,8 @@
             <h:form id="EquipmentModelCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{equipmentModelController.created != null}">
-                        <p:outputLabel value="#{basic_i18n.CreateEquipmentModelLabel_equipModelID}" for="equipModelID" />
-                        <p:inputText id="equipModelID" value="#{equipmentModelController.created.equipModelID}" title="#{basic_i18n.CreateEquipmentModelTitle_equipModelID}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.CreateEquipmentModelRequiredMessage_equipModelID}"/>
+                        <p:outputLabel value="#{basic_i18n.CreateEquipmentModelLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{equipmentModelController.created.id}" title="#{basic_i18n.CreateEquipmentModelTitle_id}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.CreateEquipmentModelRequiredMessage_id}"/>
                         <p:outputLabel value="#{basic_i18n.CreateEquipmentModelLabel_type}" for="type" />
                         <p:inputText id="type" value="#{equipmentModelController.created.type}" title="#{basic_i18n.CreateEquipmentModelTitle_type}"  disabled="false"       />
                         <p:outputLabel value="#{basic_i18n.CreateEquipmentModelLabel_class1}" for="class1" />

@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Netnode.findAll", query = "SELECT n FROM Netnode n"),
-    @NamedQuery(name = "Netnode.findByNetNodeID", query = "SELECT n FROM Netnode n WHERE n.netNodeID = :netNodeID"),
+    @NamedQuery(name = "Netnode.findById", query = "SELECT n FROM Netnode n WHERE n.id = :id"),
     @NamedQuery(name = "Netnode.findByOssCode", query = "SELECT n FROM Netnode n WHERE n.ossCode = :ossCode"),
     @NamedQuery(name = "Netnode.findByName", query = "SELECT n FROM Netnode n WHERE n.name = :name"),
     @NamedQuery(name = "Netnode.findByInvestTime", query = "SELECT n FROM Netnode n WHERE n.investTime = :investTime"),
@@ -47,7 +47,7 @@ public class Netnode implements Serializable {
     @NotNull
     @Size(min = 1, max = 36)
     @Column(nullable = false, length = 36)
-    private String netNodeID;
+    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -65,31 +65,31 @@ public class Netnode implements Serializable {
     @Size(max = 45)
     @Column(length = 45)
     private String status;
-    @JoinColumn(name = "equipModelID", referencedColumnName = "equipModelID", nullable = false)
+    @JoinColumn(name = "equipModelId", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private EquipmentModel equipModelID;
-    @JoinColumn(name = "statID", referencedColumnName = "statID", nullable = false)
+    private EquipmentModel equipModelId;
+    @JoinColumn(name = "statID", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Station statID;
 
     public Netnode() {
     }
 
-    public Netnode(String netNodeID) {
-        this.netNodeID = netNodeID;
+    public Netnode(String id) {
+        this.id = id;
     }
 
-    public Netnode(String netNodeID, String ossCode) {
-        this.netNodeID = netNodeID;
+    public Netnode(String id, String ossCode) {
+        this.id = id;
         this.ossCode = ossCode;
     }
 
-    public String getNetNodeID() {
-        return netNodeID;
+    public String getId() {
+        return id;
     }
 
-    public void setNetNodeID(String netNodeID) {
-        this.netNodeID = netNodeID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getOssCode() {
@@ -132,12 +132,12 @@ public class Netnode implements Serializable {
         this.status = status;
     }
 
-    public EquipmentModel getEquipModelID() {
-        return equipModelID;
+    public EquipmentModel getEquipModelId() {
+        return equipModelId;
     }
 
-    public void setEquipModelID(EquipmentModel equipModelID) {
-        this.equipModelID = equipModelID;
+    public void setEquipModelId(EquipmentModel equipModelId) {
+        this.equipModelId = equipModelId;
     }
 
     public Station getStatID() {
@@ -151,7 +151,7 @@ public class Netnode implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (netNodeID != null ? netNodeID.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -162,7 +162,7 @@ public class Netnode implements Serializable {
             return false;
         }
         Netnode other = (Netnode) object;
-        if ((this.netNodeID == null && other.netNodeID != null) || (this.netNodeID != null && !this.netNodeID.equals(other.netNodeID))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -170,7 +170,7 @@ public class Netnode implements Serializable {
 
     @Override
     public String toString() {
-        return "org.eman.assit.model.Netnode[ netNodeID=" + netNodeID + " ]";
+        return "org.eman.basic.model.Netnode[ id=" + id + " ]";
     }
     
 }
