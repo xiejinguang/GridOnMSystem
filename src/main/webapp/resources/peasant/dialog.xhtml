@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+    <cc:interface>
+        <cc:attribute name="params"  type="java.util.Map<String,List<String>>"  required="true" />
+        <cc:attribute name="onReturn"   method-signature="java.lang.Object action()"/>
+        <cc:attribute name="outcome" type="java.lang.String" rendered="true"/>
+        <cc:attribute name="update" type="java.lang.String" default="@this" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:commandButton value="" actionListener="#{dialogBean.showDialog(cc.attrs.outcome,cc.attrs.params)}" update="#{cc.attrs.update}">
+            <p:ajax event="dialogReturn" update="" listener="#{cc.attrs.onReturn}"/>
+        </p:commandButton>
+    </cc:implementation>
+</html>
