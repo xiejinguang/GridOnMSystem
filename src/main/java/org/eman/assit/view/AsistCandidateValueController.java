@@ -25,6 +25,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 
+
 @Named("asistCandidateValueController")
 @ViewScoped
 public class AsistCandidateValueController implements Serializable {
@@ -37,10 +38,9 @@ public class AsistCandidateValueController implements Serializable {
     private Map<String, Object> searchCons;
     private ResourceBundle bundle;
     private AsistCandidateValue selected;
-
     public void handleValueChange(ValueChangeEvent event) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "ValueChanged", "oldvalue:" + event.getOldValue() + ";newvalue:" + event.getNewValue() + ";The Selected:" + this.selected));
-
+        
     }
 
     public AsistCandidateValue getSelected() {

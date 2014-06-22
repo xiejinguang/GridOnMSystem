@@ -4,19 +4,19 @@
  * and open the template in the editor.
  */
 
-package org.eman.basic.facade;
+package org.eman.basic;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.eman.basic.model.Station;
+import org.eman.basic.model.Roomspot;
 
 /**
  *
  * @author 谢金光
  */
 @Stateless
-public class StationFacade extends AbstractFacade<Station> {
+public class RoomspotFacade extends AbstractFacade<Roomspot> {
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
 
@@ -25,8 +25,8 @@ public class StationFacade extends AbstractFacade<Station> {
         return em;
     }
 
-    public StationFacade() {
-        super(Station.class);
+    public RoomspotFacade() {
+        super(Roomspot.class);
     }
     
 }

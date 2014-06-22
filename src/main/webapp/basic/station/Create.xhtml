@@ -16,27 +16,28 @@
                   header="#{basic_i18n.CreateStationTitle}">
             <h:form id="StationCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="4" rendered="#{stationController.created != null}">
-                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{stationController.created.id}" title="#{basic_i18n.CreateStationTitle_id}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.CreateStationRequiredMessage_id}"/>
-                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_statCode}" for="statCode" />
-                        <p:inputText id="statCode" value="#{stationController.created.statCode}" title="#{basic_i18n.CreateStationTitle_statCode}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateStationRequiredMessage_statCode}"/>
-                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{stationController.created.name}" title="#{basic_i18n.CreateStationTitle_name}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateStationRequiredMessage_name}"/>
-                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_address}" for="address" />
-                        <p:inputText id="address" value="#{stationController.created.address}" title="#{basic_i18n.CreateStationTitle_address}"  disabled="false"       />
-                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_owner}" for="owner" />
-                        <p:inputText id="owner" value="#{stationController.created.owner}" title="#{basic_i18n.CreateStationTitle_owner}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.CreateStationRequiredMessage_owner}"/>
-                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_type}" for="type" />
-                        <p:inputText id="type" value="#{stationController.created.type}" title="#{basic_i18n.CreateStationTitle_type}"  disabled="false"       />
-                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_accomMaintainer}" for="accomMaintainer" />
-                        <p:inputText id="accomMaintainer" value="#{stationController.created.accomMaintainer}" title="#{basic_i18n.CreateStationTitle_accomMaintainer}"  disabled="false"       />
-                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_status}" for="status" />
-                        <p:inputText id="status" value="#{stationController.created.status}" title="#{basic_i18n.CreateStationTitle_status}"  disabled="false"       />
-                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_commont}" for="commont" />
-                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{stationController.created.commont}" title="#{basic_i18n.CreateStationTitle_commont}" />
-                        <p:outputLabel value="#{basic_i18n.CreateStationLabel_roomspotId}" for="roomspotId" />
+                    <p:panelGrid columns="4" rendered="#{not empty stationController.created}">
+                        <p:outputLabel value="#{basic_i18n.EditStationLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{stationController.created.id}" title="#{basic_i18n.EditStationTitle_id}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_id}"/>
+                        <p:outputLabel value="#{basic_i18n.EditStationLabel_statCode}" for="statCode" />
+                        <p:inputText id="statCode" value="#{stationController.created.statCode}" title="#{basic_i18n.EditStationTitle_statCode}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_statCode}"/>
+                        <p:outputLabel value="#{basic_i18n.EditStationLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{stationController.created.name}" title="#{basic_i18n.EditStationTitle_name}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_name}"/>
+                        <p:outputLabel value="#{basic_i18n.EditStationLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{stationController.created.address}" title="#{basic_i18n.EditStationTitle_address}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.EditStationLabel_owner}" for="owner" />
+                        <p:inputText id="owner" value="#{stationController.created.owner}" title="#{basic_i18n.EditStationTitle_owner}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_owner}"/>
+                        <p:outputLabel value="#{basic_i18n.EditStationLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{stationController.created.type}" title="#{basic_i18n.EditStationTitle_type}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.EditStationLabel_accomMaintainer}" for="accomMaintainer" />
+                        <p:inputText id="accomMaintainer" value="#{stationController.created.accomMaintainer}" title="#{basic_i18n.EditStationTitle_accomMaintainer}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.EditStationLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{stationController.created.status}" title="#{basic_i18n.EditStationTitle_status}"  disabled="false"       />
+                        <p:outputLabel value="#{basic_i18n.EditStationLabel_commont}" for="commont" />
+                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{stationController.created.commont}" title="#{basic_i18n.EditStationTitle_commont}" />
+                        <p:outputLabel value="#{basic_i18n.EditStationLabel_roomspotId}" for="roomspotId" />
                         <p:selectOneMenu id="roomspotId" value="#{stationController.created.roomspotId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_roomspotId}">
+                            <f:selectItem itemLabel="Select One" />
                             <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
                                            var="roomspotIdItem"
                                            itemValue="#{roomspotIdItem}"/>

@@ -29,4 +29,15 @@ public class DialogBean  implements Serializable{
         RequestContext.getCurrentInstance().openDialog(null, null, null);
     }
     
+    public void closeDialog(){
+        RequestContext.getCurrentInstance().closeDialog(null);
+    }
+    
+    public void selectData(Object data){
+        RequestContext.getCurrentInstance().closeDialog(data);
+    }
+    
+    public void showDialog(String outcome){
+        RequestContext.getCurrentInstance().openDialog(null, null, null);
+    }
 }

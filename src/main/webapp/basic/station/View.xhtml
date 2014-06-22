@@ -12,7 +12,7 @@
                   onShow="fitViewport()" 
                   header="#{basic_i18n.ViewStationTitle}">
             <h:form id="StationViewForm">
-                <h:panelGroup id="display" rendered="#{empty stationController.selectedItems != null}">
+                <h:panelGroup id="display" rendered="#{not empty stationController.selectedItems}">
                     <ui:repeat  value="#{stationController.selectedItems}" var="item">
                         <p:panel toggleable="true" >
                             <f:facet name="header">

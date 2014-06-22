@@ -42,16 +42,12 @@
                                         <p:calendar id="investTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{netnodeController.searchCons['investTime']}" title="#{basic_i18n.NetnodeTitle_investTime}" showOn="button"/>
 
 
-                                        <p:outputLabel value="#{basic_i18n.NetnodeLabel_commont}" for="commont" />
-                                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{netnodeController.searchCons['commont']}" title="#{basic_i18n.NetnodeTitle_commont}" />
-
-
                                         <p:outputLabel value="#{basic_i18n.NetnodeLabel_status}" for="status" />
                                         <p:inputText id="status" value="#{netnodeController.searchCons['status']}" title="#{basic_i18n.NetnodeTitle_status}"  />
 
 
                                         <p:outputLabel value="#{basic_i18n.NetnodeLabel_equipModelId}" for="equipModelId" />
-                                        <p:selectOneMenu id="equipModelId" value="#{netnodeController.searchCons['equipModelId']}" filter="true"  filterMatchMode="contains" >
+                                        <p:selectOneMenu id="equipModelId" value="#{netnodeController.searchCons['equipModelId']}" filter="true"  filterMatchMode="contains"  converter="org.eman.EquipmentModel"  >
                                             <f:selectItems value="#{equipmentModelController.itemsAvailableSelectOne}"
                                                            var="equipModelIdItem"
                                                            itemValue="#{equipModelIdItem}"/>
@@ -59,7 +55,7 @@
 
 
                                         <p:outputLabel value="#{basic_i18n.NetnodeLabel_statID}" for="statID" />
-                                        <p:selectOneMenu id="statID" value="#{netnodeController.searchCons['statID']}" filter="true"  filterMatchMode="contains" >
+                                        <p:selectOneMenu id="statID" value="#{netnodeController.searchCons['statID']}" filter="true"  filterMatchMode="contains"  converter="org.eman.Station"  >
                                             <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
                                                            var="statIDItem"
                                                            itemValue="#{statIDItem}"/>

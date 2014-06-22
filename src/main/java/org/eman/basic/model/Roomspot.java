@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.eman.basic.model;
 
 import java.io.Serializable;
@@ -45,6 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Roomspot.findByAddress", query = "SELECT r FROM Roomspot r WHERE r.address = :address"),
     @NamedQuery(name = "Roomspot.findByStatus", query = "SELECT r FROM Roomspot r WHERE r.status = :status")})
 public class Roomspot implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -82,8 +82,10 @@ public class Roomspot implements Serializable {
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
     private String grid;
+    @Basic(optional = false)
+    @NotNull
     @Size(max = 45)
-    @Column(length = 45)
+    @Column(nullable = false, length = 45)
     private String propertyOwner;
     @Size(max = 255)
     @Column(length = 255)
@@ -236,5 +238,5 @@ public class Roomspot implements Serializable {
     public String toString() {
         return "org.eman.basic.model.Roomspot[ id=" + id + " ]";
     }
-    
+
 }

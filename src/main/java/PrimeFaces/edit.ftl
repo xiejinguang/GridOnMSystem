@@ -57,8 +57,10 @@
                                 <h:outputText value="${r"#{"}item.${entityIdField}${r"}"}" title="${r"#{"}${bundle}.${entityName}EntityTitle}"/>
                             </f:facet>
                     <p:panelGrid columns="<#if entityDescriptors?size<=6>2<#elseif entityDescriptors?size<=12>4<#else>6</#if>" >
+
 <#list entityDescriptors as entityDescriptor>
 <#assign field = "item."+ entityDescriptor.id>
+                        <!-- for ${field} -->
                         <p:outputLabel value="${r"#{"}${bundle}.Edit${entityName}Label_${entityDescriptor.id?replace(".","_")}${r"}"}" for="${entityDescriptor.id?replace(".","_")}" />
     <#if entityDescriptor.dateTimeFormat?? && entityDescriptor.dateTimeFormat != "">
                         <p:calendar id="${entityDescriptor.id?replace(".","_")}" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.Edit${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if> showOn="button"/>

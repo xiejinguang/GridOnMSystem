@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.eman.basic.model;
 
 import java.io.Serializable;
@@ -39,6 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "EquipmentModel.findByModel", query = "SELECT e FROM EquipmentModel e WHERE e.model = :model"),
     @NamedQuery(name = "EquipmentModel.findByManufacturer", query = "SELECT e FROM EquipmentModel e WHERE e.manufacturer = :manufacturer")})
 public class EquipmentModel implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -46,17 +46,25 @@ public class EquipmentModel implements Serializable {
     @Size(min = 1, max = 36)
     @Column(nullable = false, length = 36)
     private String id;
+    @Basic(optional = false)
+    @NotNull
     @Size(max = 45)
-    @Column(length = 45)
+    @Column(nullable = false, length = 45)
     private String type;
+    @Basic(optional = false)
+    @NotNull
     @Size(max = 45)
-    @Column(name = "class", length = 45)
+    @Column(nullable = false, name = "class", length = 45)
     private String class1;
+    @Basic(optional = false)
+    @NotNull
     @Size(max = 45)
-    @Column(length = 45)
+    @Column(nullable = false, length = 45)
     private String netType;
+    @Basic(optional = false)
+    @NotNull
     @Size(max = 45)
-    @Column(length = 45)
+    @Column(nullable = false, length = 45)
     private String model;
     @Size(max = 45)
     @Column(length = 45)
@@ -164,5 +172,5 @@ public class EquipmentModel implements Serializable {
     public String toString() {
         return "org.eman.basic.model.EquipmentModel[ id=" + id + " ]";
     }
-    
+
 }

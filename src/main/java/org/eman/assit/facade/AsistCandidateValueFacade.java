@@ -5,9 +5,11 @@
  */
 package org.eman.assit.facade;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateless;
@@ -72,6 +74,22 @@ public class AsistCandidateValueFacade extends AbstractFacade<AsistCandidateValu
         params.put("accordingKey", accordingKey);
         params.put("value", value);
         return findByConditions(params);
+    }
+
+    public List<AsistCandidateValue> findBy(String accordingKey, String value, boolean notExistCreate) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("accordingKey", accordingKey);
+        params.put("value", value);
+        List<AsistCandidateValue> result = findByConditions(params);
+        if ((result == null || result.isEmpty()) && notExistCreate) {
+            AsistCandidateValue v = new AsistCandidateValue(java.util.UUID.randomUUID().toString(), accordingKey, value);
+            edit(v);
+            if (result == null) {
+                result = new ArrayList<>();
+            }
+            result.add(v);
+        }
+        return result;
     }
 
 }

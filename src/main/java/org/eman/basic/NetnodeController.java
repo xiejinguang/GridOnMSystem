@@ -1,9 +1,8 @@
-package org.eman.basic.view;
+package org.eman.basic;
 
 import org.eman.basic.model.Netnode;
-import org.eman.basic.view.util.JsfUtil;
-import org.eman.basic.view.util.JsfUtil.PersistAction;
-import org.eman.basic.facade.NetnodeFacade;
+import org.eman.basic.util.JsfUtil;
+import org.eman.basic.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -22,26 +21,28 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 @Named("netnodeController")
 @ViewScoped
 public class NetnodeController implements Serializable {
 
-    @EJB
-    private org.eman.basic.facade.NetnodeFacade ejbFacade;
+
+    @EJB protected org.eman.basic.NetnodeFacade ejbFacade;
     private List<Netnode> items = null;
     private Netnode created;
     private List<Netnode> selectedItems;
-    private Map<String, Object> searchCons;
-    private ResourceBundle bundle;
+    private Map<String,Object> searchCons;
+    protected ResourceBundle bundle;
 
     public NetnodeController() {
     }
-
+    
     @PostConstruct
-    public void init() {
+    public void init(){
         this.searchCons = new HashMap();
         this.bundle = ResourceBundle.getBundle("/org/eman/basic_i18n");
     }
+
 
     public Netnode getCreated() {
         return created;
@@ -51,12 +52,12 @@ public class NetnodeController implements Serializable {
         this.created = created;
     }
 
-    public List<Netnode> getSelectedItems() {
+    public  List<Netnode> getSelectedItems() {
         return selectedItems;
     }
-
-    public void setSelectedItems(List<Netnode> selectedItems) {
-        this.selectedItems = selectedItems;
+    
+    public void setSelectedItems(List<Netnode> selectedItems){
+        this.selectedItems =selectedItems;
     }
 
     public Map<String, Object> getSearchCons() {
@@ -67,10 +68,11 @@ public class NetnodeController implements Serializable {
         this.searchCons = searchCons;
     }
 
+
     protected void setEmbeddableKeys() {
     }
 
-    protected void initializeKey() {
+    protected void initializeKey(){
         created.setId(org.eman.util.Utils.generateUniqueKey());
     }
 
@@ -84,6 +86,8 @@ public class NetnodeController implements Serializable {
         initializeKey();
         return created;
     }
+        
+
 
     public void create() {
         persist(PersistAction.CREATE, bundle.getString("NetnodeCreated"));
@@ -105,25 +109,29 @@ public class NetnodeController implements Serializable {
     }
 
     public List<Netnode> searchItems() {
-        construtSearchParams(this.searchCons);
-
-        items = getFacade().findByConditions(construtSearchParams(this.searchCons));
+        
+        
+        items = findItemsByConditions(construtSearchParams(this.searchCons));
         return items;
     }
 
-    protected Map<String, Object> construtSearchParams(Map<String, Object> params) {
+    protected List<Netnode> findItemsByConditions(Map<String,Object> params) {
+        return getFacade().findByConditions(params);
+    }
+
+    protected Map<String, Object>  construtSearchParams(Map<String, Object> params) {
         Map<String, Object> newparams = new HashMap<>();
-        for (String param : searchCons.keySet()) {
+        for(String param:searchCons.keySet()){
             Object value = searchCons.get(param);
-            if (value != null) {
-                if (value instanceof String) {
-                    if (((String) value).isEmpty()) {
-                        continue;
-                    } else {
-                        newparams.put(param, '%' + ((String) value) + '%');
+            if(value!=null){
+                if(value instanceof String){
+                    if(((String)value).isEmpty()){
+                        continue;                        
+                    }else{
+                        newparams.put(param, '%'+((String)value)+'%');
                         continue;
                     }
-                } else {
+                }else{
                     newparams.put(param, value);
                 }
             }
@@ -131,62 +139,62 @@ public class NetnodeController implements Serializable {
         return newparams;
     }
 
+
     public List<Netnode> allItems() {
-        items = getFacade().findAll();
+            items = getFacade().findAll();
 
         return items;
     }
 
+
+
+
+
+
     public List<Netnode> getItems() {
-        if (null == items) {
+        if(null==items){
             //TODO,根据上次查询条件记录获取记录
         }
         return items;
     }
 
-    private void persist(PersistAction persistAction, String successMessage) {
+    protected void persist(PersistAction persistAction, String successMessage) {
 
         try {
 
-            switch (persistAction) {
-                case CREATE:
-                    getFacade().edit(created);
-                    break;
-
-                default: {
-                    for (Netnode selected : selectedItems) {
-                        if (selected != null) {
-                            setEmbeddableKeys();
-                            switch (persistAction) {
-                                case DELETE:
-                                    getFacade().remove(selected);
-                                    break;
-                                case UPDATE:
-                                    getFacade().edit(selected);
-                                    break;
-                            }
+        switch (persistAction) {
+            case CREATE:getFacade().edit(created);break;
+            
+            default:{
+                for( Netnode selected : selectedItems){
+                    if (selected != null) {
+                        setEmbeddableKeys();
+                        switch (persistAction) {
+                            case DELETE: getFacade().remove(selected);break;               
+                            case UPDATE: getFacade().edit(selected);break;
                         }
                     }
                 }
-
             }
 
-            JsfUtil.addSuccessMessage(successMessage);
-        } catch (EJBException ex) {
-            String msg = "";
-            Throwable cause = ex.getCause();
-            if (cause != null) {
-                msg = cause.getLocalizedMessage();
-            }
-            if (msg.length() > 0) {
-                JsfUtil.addErrorMessage(msg);
-            } else {
+        }
+
+                JsfUtil.addSuccessMessage(successMessage);
+            } catch (EJBException ex) {
+                String msg = "";
+                Throwable cause = ex.getCause();
+                if (cause != null) {
+                    msg = cause.getLocalizedMessage();
+                }
+                if (msg.length() > 0) {
+                    JsfUtil.addErrorMessage(msg);
+                } else {
+                    JsfUtil.addErrorMessage(ex, bundle.getString("PersistenceErrorOccured"));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
                 JsfUtil.addErrorMessage(ex, bundle.getString("PersistenceErrorOccured"));
             }
-        } catch (Exception ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-            JsfUtil.addErrorMessage(ex, bundle.getString("PersistenceErrorOccured"));
-        }
 
     }
 
@@ -202,7 +210,7 @@ public class NetnodeController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Netnode.class)
+    @FacesConverter(forClass=Netnode.class)
     public static class NetnodeControllerConverter implements Converter {
 
         @Override
@@ -210,7 +218,7 @@ public class NetnodeController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            NetnodeController controller = (NetnodeController) facesContext.getApplication().getELResolver().
+            NetnodeController controller = (NetnodeController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "netnodeController");
             return controller.getNetnode(getKey(value));
         }

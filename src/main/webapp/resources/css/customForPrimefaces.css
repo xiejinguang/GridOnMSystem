@@ -30,38 +30,30 @@ and open the template in the editor.
     width:100%;
 
 }
-.ui-menu-list{
-    width:100%;
 
-}
-.ui-menuitem{
+.my-menuitem{
     height: 40px;
     background-color: #616161;
+    color: #DC8700;
     vertical-align: middle;
     text-align: center;
     alignment-baseline: middle;
 
 }
-.ui-menuitem-link{
-    height: 40px;
-    vertical-align: middle;
-    text-align: center;
-    alignment-baseline: middle;
-}
-.ui-menuitem-text{
+.my-menuitem-text{
     height: 35px;
     font-size: large;
-    color:#DC8700;
+    color: #000;
     text-align: center;
     vertical-align: middle;
-    alignment-baseline: middle;
+    alignment-baseline: middle;    
 }
-.ui-menuitem-icon{
+.my-menuitem-icon{
     text-align: center;
     vertical-align: middle;
     width: 35px;
 }
-.ui-icon-myhome{
+.my-icon-home{
     background-image: url(/eman/resources/design/home.png) ;
     height: 16px;
     width: 16px;

@@ -58,12 +58,8 @@
                                         <p:inputText id="status" value="#{stationController.searchCons['status']}" title="#{basic_i18n.StationTitle_status}"  />
 
 
-                                        <p:outputLabel value="#{basic_i18n.StationLabel_commont}" for="commont" />
-                                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{stationController.searchCons['commont']}" title="#{basic_i18n.StationTitle_commont}" />
-
-
                                         <p:outputLabel value="#{basic_i18n.StationLabel_roomspotId}" for="roomspotId" />
-                                        <p:selectOneMenu id="roomspotId" value="#{stationController.searchCons['roomspotId']}" filter="true"  filterMatchMode="contains" >
+                                        <p:selectOneMenu id="roomspotId" value="#{stationController.searchCons['roomspotId']}" filter="true"  filterMatchMode="contains"  converter="org.eman.Roomspot"  >
                                             <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
                                                            var="roomspotIdItem"
                                                            itemValue="#{roomspotIdItem}"/>

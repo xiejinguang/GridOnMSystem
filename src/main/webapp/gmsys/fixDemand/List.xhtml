@@ -75,7 +75,7 @@
 
 
                                         <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_stationId}" for="stationId" />
-                                        <p:selectOneMenu id="stationId" value="#{fixDemandController.searchCons['stationId']}" filter="true"  filterMatchMode="contains" >
+                                        <p:selectOneMenu id="stationId" value="#{fixDemandController.searchCons['stationId']}" filter="true"  filterMatchMode="contains"  converter="javax.faces.Station"  >
                                             <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
                                                            var="stationIdItem"
                                                            itemValue="#{stationIdItem}"/>

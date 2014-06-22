@@ -339,8 +339,8 @@ public class ${controllerClassName} implements Serializable {
 </#if>
     }
 
-    @FacesConverter(forClass=${entityClassName}.class)
-    public static class ${controllerClassName}Converter implements Converter {
+    @FacesConverter(forClass=${entityClassName}.class,value="${entityClassName}")
+    public static class ${entityClassName}FacesConverter implements Converter {
 <#if keyEmbedded>
 
         private static final String SEPARATOR = "#";

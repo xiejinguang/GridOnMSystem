@@ -53,8 +53,9 @@ public class Netnode implements Serializable {
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
     private String ossCode;
+    @Basic(optional = false)
     @Size(max = 45)
-    @Column(length = 45)
+    @Column(nullable = false, length = 45)
     private String name;
     @Temporal(TemporalType.DATE)
     private Date investTime;

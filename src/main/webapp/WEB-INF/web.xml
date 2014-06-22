@@ -5,6 +5,16 @@
         <param-value>Development</param-value>
     </context-param>
     <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <!-- 程序状态保存在客户端 -->
+        <param-value>client</param-value>
+    </context-param>
+    <context-param>        
+        <param-name>javax.faces.NUMBER_OF_VIEWS_IN_SESSION</param-name>
+        <param-value>-1</param-value>
+    </context-param>
+    
+    <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>cupertino</param-value>
     </context-param>
@@ -40,13 +50,13 @@
     </context-param>
     <context-param>
         <!--this is not necessary,if you uing the default location:/WEB-INI/shiro.ini,
-        You may also specify other non-ServletContext resource locations by using classpath:, url:, or file: 
--->
+                You may also specify other non-ServletContext resource locations by using classpath:, url:, or file: 
+        -->
         <param-name>shiroConfigLocations</param-name>
         <param-value>/WEB-INF/shiro.ini</param-value>
     </context-param>
     <listener>
-         <!--
+        <!--
         <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
         -->
         

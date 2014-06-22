@@ -53,13 +53,15 @@
                     <p:panelGrid columns="<#if entityDescriptors?size<=6>2<#elseif entityDescriptors?size<=12>4<#else>6</#if>" rendered="${r"#{"}not empty ${managedBeanProperty}${r"}"}">
 <#list entityDescriptors as entityDescriptor>
 <#assign field =  managedBean  + ".created." + entityDescriptor.id>
-                        <p:outputLabel value="${r"#{"}${bundle}.Create${entityName}Label_${entityDescriptor.id?replace(".","_")}${r"}"}" for="${entityDescriptor.id?replace(".","_")}" />
+
+                        <!-- for ${field} -->
+                        <p:outputLabel value="${r"#{"}${bundle}.Edit${entityName}Label_${entityDescriptor.id?replace(".","_")}${r"}"}" for="${entityDescriptor.id?replace(".","_")}" />
     <#if entityDescriptor.dateTimeFormat?? && entityDescriptor.dateTimeFormat != "">
                         <p:calendar id="${entityDescriptor.id?replace(".","_")}" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.Edit${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if> showOn="button"/>
     <#elseif entityDescriptor.returnType?matches(".*[Bb]+oolean")>
                         <p:selectBooleanCheckbox id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>/>
     <#elseif entityDescriptor.blob>
-                        <p:inputTextarea rows="4" cols="30" id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.Create${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Create${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>/>
+                        <p:inputTextarea rows="4" cols="30" id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.Edit${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>/>
     <#elseif entityDescriptor.relationshipOne>
                         <p:selectOneMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" filter="true"  filterMatchMode="contains" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>>
                             <f:selectItem itemLabel="Select One" />
@@ -74,7 +76,7 @@
                                            var="${entityDescriptor.id?replace(".","_")}Item"
                                            itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
     <#else>
-                        <p:inputText id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.Create${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}"  disabled="<#if entityDescriptor.id == entityIdField>true<#else>false</#if>"       <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Create${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>/>
+                        <p:inputText id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.Edit${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}"  disabled="<#if entityDescriptor.id == entityIdField>true<#else>false</#if>"       <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>/>
     </#if>
 </#list>
                     </p:panelGrid>

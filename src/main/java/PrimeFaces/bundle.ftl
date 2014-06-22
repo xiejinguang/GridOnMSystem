@@ -27,91 +27,83 @@
   be found in category JavaServer Faces->JSF from Entity.
 
 </#if>
-PersistenceErrorOccured=A persistence error occurred.
-Search=Search
-SearchAll = SearchAll
-GetAll = ALL
-SearchConsTitle = Search Conditions
-Add = Add
-AddNode = AddNode
-AddSubNode = AddSubNode
-Create=Create
-View=View
-Edit=Edit
-Delete=Delete
-Close=Close
-Cancel=Cancel
-Save=Save
-SelectOneMessage=Select One...
-Home=Home
-Maintenance=Maintenance
-AppName=${projectName}
-AppNameLabel=${projectName}
-ModuleName = Module
-ModuleNameLabel = Module
+PersistenceErrorOccured =  发生一个持久化错误。
+Search =  查 找
+SearchAll  =  查找所有
+GetAll  =  全 部
+SearchConsTitle  =  查找条件
+Add  =  添加
+AddNode  =  添加节点
+AddSubNode  =  添加子节点
+Create =  创 建
+View =  查 看
+Edit =  编 辑
+Delete =  删 除
+Close =  关 闭
+Cancel =  取 消
+Save =  保 存
+SelectOneMessage =  选择...
+Home =  首 页
+Maintenance =  维 护
+AppName = ${projectName}
+AppNameLabel  =  ${projectName}
+ModuleName  =  Module
+ModuleNameLabel  =  Module
 
 <#list entities as entity>
 #
 #
 #For ${entity.entityClassName}
 
-${entity.entityClassName}Created=${entity.entityClassName} was successfully created.
-${entity.entityClassName}Updated=${entity.entityClassName} was successfully updated.
-${entity.entityClassName}Deleted=${entity.entityClassName} was successfully deleted.
-${entity.entityClassName}EntityLabel=${entity.entityClassName}-
-${entity.entityClassName}EntityTitle=${entity.entityClassName}
+${entity.entityClassName}Created  =  ${entity.entityClassName},已成功创建！
+${entity.entityClassName}Updated  =  ${entity.entityClassName},已成功更新！
+${entity.entityClassName}Deleted  =  ${entity.entityClassName},已成功删除！
+${entity.entityClassName}EntityLabel  =  ${entity.entityClassName}：
+${entity.entityClassName}EntityTitle  =  ${entity.entityClassName}
 
 #For Menu
-${entity.entityClassName}MenuLabel = ${entity.entityClassName}
+${entity.entityClassName}MenuLabel  =  ${entity.entityClassName}
 
 
 #For Link
-${entity.entityClassName}EditLink=Edit
-${entity.entityClassName}ViewLink=View
-${entity.entityClassName}CreateLink=Create New ${entity.entityClassName}
-${entity.entityClassName}IndexLink=Index
-${entity.entityClassName}DestroyLink=Destroy
-${entity.entityClassName}SaveLink=Save
-${entity.entityClassName}ShowAllLink=Show All ${entity.entityClassName} Items
+${entity.entityClassName}EditLink  =  编 辑
+${entity.entityClassName}ViewLink  =  查 看
+${entity.entityClassName}CreateLink  =  创建新${entity.entityClassName}
+${entity.entityClassName}IndexLink  =  首 页
+${entity.entityClassName}DestroyLink  =  销 毁
+${entity.entityClassName}SaveLink  =  保 存
+${entity.entityClassName}ShowAllLink  =  显示全部${entity.entityClassName}
+
+#For ${entity.entityClassName} common 
+    <#list entity.entityDescriptors as entityDescriptor>
+${entity.entityClassName}Title_${entityDescriptor.id?replace(".","_")} = ${entityDescriptor.label}
+${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")} = ${entityDescriptor.label}:
+    </#list>
 
 
 #For List ${entity.entityClassName}
-    <#list entity.entityDescriptors as entityDescriptor>
-${entity.entityClassName}Title_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}
-${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}:
-    </#list>
+
+List${entity.entityClassName}Title =  ${entity.entityClassName}列表
+List${entity.entityClassName}Empty = (No ${entity.entityClassName} Items Found)
+
+#For View ${entity.entityClassName}
+View${entity.entityClassName}Title = 查看 ${entity.entityClassName}
+
+
 #
 #For Create ${entity.entityClassName}
 
-Create${entity.entityClassName}Title=Create New ${entity.entityClassName}
+Create${entity.entityClassName}Title = 创建 新${entity.entityClassName}
 
-    <#list entity.entityDescriptors as entityDescriptor>
-Create${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}:
-<#if entityDescriptor.required>Create${entity.entityClassName}RequiredMessage_${entityDescriptor.id?replace(".","_")}=The ${entityDescriptor.label} field is required.
-</#if>Create${entity.entityClassName}Title_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}
-    </#list>
-#
 #For Edit ${entity.entityClassName}
-Edit${entity.entityClassName}Title=Edit ${entity.entityClassName}
+Edit${entity.entityClassName}Title = 编辑 ${entity.entityClassName}
 
     <#list entity.entityDescriptors as entityDescriptor>
-Edit${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}:
-<#if entityDescriptor.required>Edit${entity.entityClassName}RequiredMessage_${entityDescriptor.id?replace(".","_")}=The ${entityDescriptor.label} field is required.
-</#if>Edit${entity.entityClassName}Title_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}
+Edit${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")} = ${entityDescriptor.label}:
+<#if entityDescriptor.required>Edit${entity.entityClassName}RequiredMessage_${entityDescriptor.id?replace(".","_")} = 字段“${entityDescriptor.label} ”不能为空！
+</#if>Edit${entity.entityClassName}Title_${entityDescriptor.id?replace(".","_")} = ${entityDescriptor.label}
     </#list>
 #
-#For View ${entity.entityClassName}
-View${entity.entityClassName}Title=View ${entity.entityClassName}
-
-
-    <#list entity.entityDescriptors as entityDescriptor>
-View${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}:
-View${entity.entityClassName}Title_${entityDescriptor.id?replace(".","_")}=${entityDescriptor.label}
-    </#list>
-List${entity.entityClassName}Title=List of ${entity.entityClassName}
-List${entity.entityClassName}Empty=(No ${entity.entityClassName} Items Found)
-
-
 
 
 </#list>

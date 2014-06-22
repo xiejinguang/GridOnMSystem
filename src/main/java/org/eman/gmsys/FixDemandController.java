@@ -1,9 +1,8 @@
-package org.eman.basic.view;
+package org.eman.gmsys;
 
-import org.peasant.util.repositoryimpl.DBAttachment;
-import org.eman.basic.view.util.JsfUtil;
-import org.eman.basic.view.util.JsfUtil.PersistAction;
-import org.eman.basic.ejb.DBAttachmentFacade;
+import org.eman.gmsys.model.FixDemand;
+import org.eman.gmsys.util.JsfUtil;
+import org.eman.gmsys.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -22,40 +21,40 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("dBAttachmentController")
+@Named("fixDemandController")
 @ViewScoped
-public class DBAttachmentController implements Serializable {
+public class FixDemandController implements Serializable {
 
     @EJB
-    private org.eman.basic.ejb.DBAttachmentFacade ejbFacade;
-    private List<DBAttachment> items = null;
-    private DBAttachment created;
-    private List<DBAttachment> selectedItems;
+    protected org.eman.gmsys.FixDemandFacade ejbFacade;
+    private List<FixDemand> items = null;
+    private FixDemand created;
+    private List<FixDemand> selectedItems;
     private Map<String, Object> searchCons;
-    private ResourceBundle bundle;
+    protected ResourceBundle bundle;
 
-    public DBAttachmentController() {
+    public FixDemandController() {
     }
 
     @PostConstruct
     public void init() {
         this.searchCons = new HashMap();
-        this.bundle = ResourceBundle.getBundle( "/Bundle");        
+        this.bundle = ResourceBundle.getBundle("/org/eman/gmsys_i18n");
     }
 
-    public DBAttachment getCreated() {
+    public FixDemand getCreated() {
         return created;
     }
 
-    public void setCreated(DBAttachment created) {
+    public void setCreated(FixDemand created) {
         this.created = created;
     }
 
-    public List<DBAttachment> getSelectedItems() {
+    public List<FixDemand> getSelectedItems() {
         return selectedItems;
     }
 
-    public void setSelectedItems(List<DBAttachment> selectedItems) {
+    public void setSelectedItems(List<FixDemand> selectedItems) {
         this.selectedItems = selectedItems;
     }
 
@@ -70,60 +69,84 @@ public class DBAttachmentController implements Serializable {
     protected void setEmbeddableKeys() {
     }
 
-    protected void initializeEmbeddableKey() {
+    protected void initializeKey() {
+        created.setId(org.eman.util.Utils.generateUniqueKey());
     }
 
-    private DBAttachmentFacade getFacade() {
+    private FixDemandFacade getFacade() {
         return ejbFacade;
     }
 
-    public DBAttachment prepareCreate() {
-        created = new DBAttachment();
-        initializeEmbeddableKey();
+    public FixDemand prepareCreate() {
+
+        created = new FixDemand();
+        initializeKey();
         return created;
     }
 
-    public List<DBAttachment> prepareSearch() {
-        this.items = null;
-        return this.items;
-
-    }
-
     public void create() {
-        persist(PersistAction.CREATE, bundle.getString("DBAttachmentCreated"));
+        persist(PersistAction.CREATE, bundle.getString("FixDemandCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, bundle.getString("DBAttachmentUpdated"));
+        persist(PersistAction.UPDATE, bundle.getString("FixDemandUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, bundle.getString("DBAttachmentDeleted"));
+        persist(PersistAction.DELETE, bundle.getString("FixDemandDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selectedItems = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<DBAttachment> searchItems() {
-        items = getFacade().findByConditions(searchCons);
+    public List<FixDemand> searchItems() {
+
+        items = findItemsByConditions(construtSearchParams(this.searchCons));
         return items;
     }
 
-    public List<DBAttachment> allItems() {
+    protected List<FixDemand> findItemsByConditions(Map<String, Object> params) {
+        return getFacade().findByConditions(params);
+    }
+
+    protected Map<String, Object> construtSearchParams(Map<String, Object> params) {
+        Map<String, Object> newparams = new HashMap<>();
+        for (String param : searchCons.keySet()) {
+            Object value = searchCons.get(param);
+            if (value != null) {
+                if (value instanceof String) {
+                    if (((String) value).isEmpty()) {
+                        continue;
+                    } else {
+                        newparams.put(param, '%' + ((String) value) + '%');
+                        continue;
+                    }
+                } else {
+                    newparams.put(param, value);
+                }
+            }
+        }
+        return newparams;
+    }
+
+    public List<FixDemand> allItems() {
         items = getFacade().findAll();
 
         return items;
     }
 
-    public List<DBAttachment> getItems() {
+    public List<FixDemand> getItems() {
+        if (null == items) {
+            //TODO,根据上次查询条件记录获取记录
+        }
         return items;
     }
 
-    private void persist(PersistAction persistAction, String successMessage) {
+    protected void persist(PersistAction persistAction, String successMessage) {
 
         try {
 
@@ -133,7 +156,7 @@ public class DBAttachmentController implements Serializable {
                     break;
 
                 default: {
-                    for (DBAttachment selected : selectedItems) {
+                    for (FixDemand selected : selectedItems) {
                         if (selected != null) {
                             setEmbeddableKeys();
                             switch (persistAction) {
@@ -169,29 +192,29 @@ public class DBAttachmentController implements Serializable {
 
     }
 
-    public DBAttachment getDBAttachment(java.lang.String id) {
+    public FixDemand getFixDemand(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<DBAttachment> getItemsAvailableSelectMany() {
+    public List<FixDemand> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<DBAttachment> getItemsAvailableSelectOne() {
+    public List<FixDemand> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = DBAttachment.class)
-    public static class DBAttachmentControllerConverter implements Converter {
+    @FacesConverter(forClass = FixDemand.class)
+    public static class FixDemandControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            DBAttachmentController controller = (DBAttachmentController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "dBAttachmentController");
-            return controller.getDBAttachment(getKey(value));
+            FixDemandController controller = (FixDemandController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "fixDemandController");
+            return controller.getFixDemand(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -211,11 +234,11 @@ public class DBAttachmentController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof DBAttachment) {
-                DBAttachment o = (DBAttachment) object;
-                return getStringKey(o.getAttachmentId());
+            if (object instanceof FixDemand) {
+                FixDemand o = (FixDemand) object;
+                return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), DBAttachment.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), FixDemand.class.getName()});
                 return null;
             }
         }

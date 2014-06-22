@@ -4,19 +4,19 @@
  * and open the template in the editor.
  */
 
-package org.eman.basic.facade;
+package org.eman.gmsys;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.eman.basic.model.EquipmentModel;
+import org.eman.gmsys.model.FixDemand;
 
 /**
  *
  * @author 谢金光
  */
 @Stateless
-public class EquipmentModelFacade extends AbstractFacade<EquipmentModel> {
+public class FixDemandFacade extends AbstractFacade<FixDemand> {
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
 
@@ -25,8 +25,8 @@ public class EquipmentModelFacade extends AbstractFacade<EquipmentModel> {
         return em;
     }
 
-    public EquipmentModelFacade() {
-        super(EquipmentModel.class);
+    public FixDemandFacade() {
+        super(FixDemand.class);
     }
     
 }

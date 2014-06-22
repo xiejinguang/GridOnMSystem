@@ -18,47 +18,55 @@
             <var>security_i18n</var>
         </resource-bundle>
 
+        <resource-bundle>
+            <base-name>/org/eman/asist_i18n</base-name>
+            <var>asist_i18n</var>
+        </resource-bundle>
+        
+        <resource-bundle>
+            <base-name>/org/eman/basic_i18n</base-name>
+            <var>basic_i18n</var>
+        </resource-bundle>
+
 
         <resource-bundle>
             <base-name>/org/eman/gmsys_i18n</base-name>
             <var>gmsys_i18n</var>
         </resource-bundle>
-        <resource-bundle>
-            <base-name>/org/eman/asist_i18n</base-name>
-            <var>asist_i18n</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/org/eman/basic_i18n</base-name>
-            <var>basic_i18n</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/org/eman/gmsys_i18n</base-name>
-            <var>gmsys_i18n</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/org/eman/basic_i18n</base-name>
-            <var>basic_i18n</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/org/eman/gmsys_i18n</base-name>
-            <var>gmsys_i18n</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/org/eman/basic_i18n</base-name>
-            <var>basic_i18n</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/org/eman/gmsys_i18n</base-name>
-            <var>gmsys_i18n</var>
-        </resource-bundle>
+
+   
     </application>
     
     <navigation-rule>
         <navigation-case>
             <from-outcome>login</from-outcome>
             <to-view-id>/security/login.jsf</to-view-id>
+        </navigation-case>    
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>setcandidatevalues</from-outcome>
+            <to-view-id>/asist/asistCandidateValueTree</to-view-id>
+        </navigation-case>    
+    </navigation-rule>
+    
+    
+    
+    <navigation-rule>
+        <description>选择数据</description>
+        <navigation-case>
+            <from-outcome>selectEquipmentModel</from-outcome>
+            <to-view-id>/basic/equipmentModel/select</to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+    
+    
+    
+    
+    
+    
     <managed-bean>
         <managed-bean-name>fileUploadClr</managed-bean-name>
         <managed-bean-class>org.peasant.util.web.FileUploadClr</managed-bean-class>

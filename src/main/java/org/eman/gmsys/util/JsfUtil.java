@@ -1,4 +1,4 @@
-package org.eman.basic.view.util;
+package org.eman.gmsys.util;
 
 import java.util.List;
 import javax.faces.application.FacesMessage;

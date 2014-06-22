@@ -4,19 +4,19 @@
  * and open the template in the editor.
  */
 
-package org.eman.basic.facade;
+package org.eman.basic;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.eman.basic.model.Netnode;
+import org.eman.basic.model.EquipmentModel;
 
 /**
  *
  * @author 谢金光
  */
 @Stateless
-public class NetnodeFacade extends AbstractFacade<Netnode> {
+public class EquipmentModelFacade extends AbstractFacade<EquipmentModel> {
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
 
@@ -25,8 +25,8 @@ public class NetnodeFacade extends AbstractFacade<Netnode> {
         return em;
     }
 
-    public NetnodeFacade() {
-        super(Netnode.class);
+    public EquipmentModelFacade() {
+        super(EquipmentModel.class);
     }
     
 }
