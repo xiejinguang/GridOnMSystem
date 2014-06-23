@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.eman.assit.view;
+package org.eman.asist.view;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -14,8 +14,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.eman.assit.model.AsistCandidateValue;
-import org.eman.assit.view.util.JsfUtil;
+import org.eman.asist.model.AsistCandidateValue;
+import org.eman.asist.view.util.JsfUtil;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;

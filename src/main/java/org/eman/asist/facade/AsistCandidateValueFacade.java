@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.eman.assit.facade;
+package org.eman.asist.facade;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,8 +19,8 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import org.eman.Asist;
 import org.eman.Module;
-import org.eman.assit.model.AsistCandidateValue;
-import org.eman.assit.model.CandidateValue;
+import org.eman.asist.model.AsistCandidateValue;
+import org.eman.asist.model.CandidateValue;
 import org.slf4j.Logger;
 
 /**

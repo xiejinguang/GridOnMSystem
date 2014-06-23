@@ -5,16 +5,14 @@
       xmlns:p="http://primefaces.org/ui">
 
     <cc:interface>
-        <cc:attribute name="params"  type="java.util.Map<String,List<String>>"  required="true" />
-        <cc:attribute name="onReturn"   method-signature="java.lang.Object action()"/>
+        <cc:attribute name="params"  type="java.util.Map"  required="true" />
         <cc:attribute name="outcome" type="java.lang.String" rendered="true"/>
-        <cc:attribute name="update" type="java.lang.String" default="@this" />
+        <cc:clientBehavior name="dialogReturn" event="dialogReturn" targets="dialogButton"/>
     </cc:interface>
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        <p:commandButton value="" actionListener="#{dialogBean.showDialog(cc.attrs.outcome,cc.attrs.params)}" update="#{cc.attrs.update}">
-            <p:ajax event="dialogReturn" update="" listener="#{cc.attrs.onReturn}"/>
+        <p:commandButton id="dialogButton" value="设置" actionListener="#{dialogBean.showDialog(cc.attrs.outcome,cc.attrs.params)}" >            
         </p:commandButton>
     </cc:implementation>
 </html>

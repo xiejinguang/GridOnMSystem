@@ -14,8 +14,8 @@
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
                   onShow="fitViewport()" 
                   header="#{asist_i18n.CreateAsistCandidateValueTitle}">
-            <h:form id="AsistCandidateValueAddNodeform">
-                <h:panelGroup id="display">
+            <h:form id="AsistCandidateValueAddNodeform" >
+                <h:panelGroup id="display"  >
                     <p:panelGrid columns="2" rendered="#{not empty asistCandidateValueTreeController.created}">
                         <p:outputLabel value="#{asist_i18n.CreateAsistCandidateValueLabel_id}" for="id" />
                         <p:inputText id="id" value="#{asistCandidateValueTreeController.created.id}" title="#{asist_i18n.CreateAsistCandidateValueTitle_id}"  disabled="true"       required="true" requiredMessage="#{asist_i18n.CreateAsistCandidateValueRequiredMessage_id}"/>
@@ -31,8 +31,11 @@
                                            itemValue="#{parentIDItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    <div style=" text-align: center">
                     <p:commandButton actionListener="#{asistCandidateValueTreeController.addNode}" value="#{asist_i18n.Save}" update="display,@form:@parent:AsistCandidateValueListForm:datalist,:growl" oncomplete="handleSubmit(args,'AsistCandidateValueAddNodeDialog');"/>
+                    <p:spacer width="20px" />
                     <p:commandButton type="button" value="#{asist_i18n.Cancel}" onclick="PF('AsistCandidateValueAddNodeDialog').hide()"/>
+                    </div>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

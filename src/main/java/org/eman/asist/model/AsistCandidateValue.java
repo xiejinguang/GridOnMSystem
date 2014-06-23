@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.eman.assit.model;
+package org.eman.asist.model;
 
 import java.io.Serializable;
 import java.util.Collection;

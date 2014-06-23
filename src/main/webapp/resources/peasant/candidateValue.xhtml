@@ -3,17 +3,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"      
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ps = "http://xmlns.jcp.org/jsf/composite/peasant">
+      xmlns:ps = "http://xmlns.jcp.org/jsf/composite/peasant"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <!-- INTERFACE -->
     <cc:interface>
         <cc:attribute name="rootId"  type="java.lang.String"  required="true" />
-        <cc:attribute name="onReturn"   method-signature="java.lang.Object action()"/>
+        <cc:attribute name="onReturn"    method-signature="java.lang.Object handleDialogReturn(org.primefaces.event.SelectEvent)" default="null"/>
         <cc:attribute name="update" type="java.lang.String" default="@this" />
     </cc:interface>
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        <ps:dialog params="#{{'id':[cc.attrs.rootId]}}" onReturn="#{cc.attrs.onReturn}" outcome="setcandidatevalues" update="#{cc.attrs.update}" />
+        <ps:dialog id="dialogButton" params="#{{'id':[cc.attrs.rootId]}}"  outcome="setcandidatevalues" >
+            <p:ajax event="dialogReturn"   update="@composite:@composite:@parent:#{cc.attrs.update}" listener="#{cc.attrs.onReturn}"/>
+        </ps:dialog>
     </cc:implementation>
 </html>

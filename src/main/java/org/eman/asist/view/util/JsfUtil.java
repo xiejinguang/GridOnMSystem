@@ -1,4 +1,4 @@
-package org.eman.assit.view.util;
+package org.eman.asist.view.util;
 
 import java.util.List;
 import javax.faces.application.FacesMessage;

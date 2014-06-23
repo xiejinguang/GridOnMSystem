@@ -10,19 +10,22 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.eman.assit.CandidateValueConstants;
-import org.eman.assit.facade.AsistCandidateValueFacade;
-import org.eman.assit.model.CandidateValue;
+import org.eman.asist.CandidateValueConstants;
+import org.eman.asist.facade.AsistCandidateValueFacade;
+import org.eman.asist.model.CandidateValue;
 import org.eman.basic.model.Roomspot;
 import org.eman.basic.util.JsfUtil;
 import org.eman.basic.util.JsfUtil.PersistAction;
+import org.primefaces.event.SelectEvent;
 
 @Named("roomspotController")
 @ViewScoped
@@ -41,6 +44,10 @@ public class RoomspotController implements Serializable {
 
     private CandidateValue statusCVs;
     private CandidateValue companyCVs;
+    private CandidateValue provinceCVs;
+    private CandidateValue cityCVs;
+    private CandidateValue countyCVs;
+    private CandidateValue gridCVs;
 
     public RoomspotController() {
     }
@@ -49,8 +56,10 @@ public class RoomspotController implements Serializable {
     public void init() {
         this.searchCons = new HashMap();
         this.bundle = ResourceBundle.getBundle("/org/eman/basic_i18n");
+        this.statusCVs = candidateValueFacade.findBy(CandidateValueConstants.RoomspotStatusKey, CandidateValueConstants.RoomspotStatusValue, true).get(0);
         this.companyCVs = candidateValueFacade.findBy(CandidateValueConstants.CompanyKey, CandidateValueConstants.CompanyValue, true).get(0);
-        this.companyCVs = candidateValueFacade.findBy(CandidateValueConstants.RoomspotStatusKey, CandidateValueConstants.RoomspotStatusValue, true).get(0);
+        this.gridCVs = candidateValueFacade.findBy(CandidateValueConstants.GridKey, CandidateValueConstants.GridValue, true).get(0);
+        this.provinceCVs = candidateValueFacade.findBy(CandidateValueConstants.ProvinceKey, CandidateValueConstants.ProvinceValue, true).get(0);
     }
 
     public Roomspot getCreated() {
@@ -221,6 +230,7 @@ public class RoomspotController implements Serializable {
      * @return the value of companyCVs
      */
     public CandidateValue getCompanyCVs() {
+
         return companyCVs;
     }
 
@@ -239,6 +249,7 @@ public class RoomspotController implements Serializable {
      * @return the value of statusCVs
      */
     public CandidateValue getStatusCVs() {
+
         return statusCVs;
     }
 
@@ -249,6 +260,59 @@ public class RoomspotController implements Serializable {
      */
     public void setStatusCVs(CandidateValue statusCVs) {
         this.statusCVs = statusCVs;
+    }
+
+    public CandidateValue getProvinceCVs() {
+        return provinceCVs;
+    }
+
+    public void setProvinceCVs(CandidateValue provinceCVs) {
+        this.provinceCVs = provinceCVs;
+    }
+
+    public CandidateValue getCityCVs() {
+        return cityCVs;
+    }
+
+    public void setCityCVs(CandidateValue cityCVs) {
+        this.cityCVs = cityCVs;
+    }
+
+    public CandidateValue getCountyCVs() {
+        return countyCVs;
+    }
+
+    public void setCountyCVs(CandidateValue countyCVs) {
+        this.countyCVs = countyCVs;
+    }
+
+    public void handleProvinceChange(ValueChangeEvent event) {
+        this.cityCVs = getChildCandidateValueByValue(provinceCVs, (String) event.getNewValue());
+    }
+
+    public CandidateValue getChildCandidateValueByValue(CandidateValue parent, String value) {
+        for (CandidateValue v : parent.getChildren()) {
+            if (value.equals(v.getValue())) {
+                return v;
+            }
+        }
+        return null;
+    }
+
+    public void handleCityChange(ValueChangeEvent event) {
+        this.countyCVs = getChildCandidateValueByValue(cityCVs, (String) event.getNewValue());
+    }
+    
+    public void handleDialogReturn(SelectEvent e){
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.toString()));
+    }
+
+    public CandidateValue getGridCVs() {
+        return gridCVs;
+    }
+
+    public void setGridCVs(CandidateValue gridCVs) {
+        this.gridCVs = gridCVs;
     }
 
     @FacesConverter(forClass = Roomspot.class, value = "org.eman.Roomspot")

@@ -7,7 +7,8 @@
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ps = "http://xmlns.jcp.org/jsf/composite/peasant">
 
     <ui:composition>
         <p:dialog id="RoomspotEditDlg" widgetVar="RoomspotEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
@@ -54,34 +55,37 @@
                                 <p:inputTextarea rows="4" cols="30" id="commont" value="#{item.commont}" title="#{basic_i18n.EditRoomspotTitle_commont}" />
 
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_status}" for="status" />
-                                <p:selectOneMenu id="status" value="#{item.status}"  disabled="false"  >
-                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
-                                    <f:selectItems  value="#{roomspotController.statusCVs.children}"
-                                                    var="child"
-                                                    itemValue="#{child.value}" itemLabel="#{child.value}" >
+                                <h:panelGroup >
+                                    <p:selectOneMenu id="status" value="#{item.status}"  disabled="false"  >
+                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                        <f:selectItems  value="#{roomspotController.statusCVs.children}"
+                                                        var="child"
+                                                        itemValue="#{child.value}" itemLabel="#{child.value}" >
 
-                                    </f:selectItems>
-                                </p:selectOneMenu>
-                            </p:panelGrid>
-                        </p:panel>
-                    </ui:repeat>
-                    <p:commandButton actionListener="#{roomspotController.update}" value="#{basic_i18n.Save}" update="display,@form:@parent:RoomspotListForm:datalist,:growl" oncomplete="handleSubmit(args,'RoomspotEditDialog');"/>
-                    <p:commandButton type="button" value="#{basic_i18n.Cancel}" onclick="PF('RoomspotEditDialog').hide()"/>
-                </h:panelGroup>
-            </h:form>
-        </p:dialog>
+                                        </f:selectItems>
+                                        <ps:candidateValue rootId="${roomspotController.statusCVs.id}" update="status" />
+                                    </p:selectOneMenu>
+                                </h:panelGroup>
+                        </p:panelGrid>
+                    </p:panel>
+                </ui:repeat>
+                <p:commandButton actionListener="#{roomspotController.update}" value="#{basic_i18n.Save}" update="display,@form:@parent:RoomspotListForm:datalist,:growl" oncomplete="handleSubmit(args,'RoomspotEditDialog');"/>
+                <p:commandButton type="button" value="#{basic_i18n.Cancel}" onclick="PF('RoomspotEditDialog').hide()"/>
+            </h:panelGroup>
+        </h:form>
+    </p:dialog>
 
-    </ui:composition>
-    <script type="text/javascript">
+</ui:composition>
+<script type="text/javascript">
 
-        function fitViewport() {
-            var source = $('#RoomspotEditDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
+    function fitViewport() {
+        var source = $('#RoomspotEditDlg');
+        var content = source.children('.ui-dialog-content');
+        source.height(Math.min($(window).height(), content.height() + 50));
+        content.height(Math.min($(window).height() - 50, content.height()));
 
-        }
+    }
 
 
-    </script>
+</script>
 </html>

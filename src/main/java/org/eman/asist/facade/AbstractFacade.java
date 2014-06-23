@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.eman.assit.facade;
+package org.eman.asist.facade;
 
 import java.util.List;
 import javax.persistence.EntityManager;

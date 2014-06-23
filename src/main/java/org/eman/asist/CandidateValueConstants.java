@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.eman.assit;
+package org.eman.asist;
 
 /**
  *
@@ -17,4 +17,8 @@ public class CandidateValueConstants {
     public static final String CompanyValue = "company";
     public static final String RoomspotStatusKey = "Roomspot";
     public static final String RoomspotStatusValue = "status";
+    public static final String ProvinceKey = "common";
+    public static final String ProvinceValue = "province";
+    public static final String GridKey  = "common";
+    public static final String GridValue= "gridname";
 }

@@ -1,9 +1,9 @@
-package org.eman.assit.view;
+package org.eman.asist.view;
 
-import org.eman.assit.model.AsistCandidateValue;
-import org.eman.assit.view.util.JsfUtil;
-import org.eman.assit.view.util.JsfUtil.PersistAction;
-import org.eman.assit.facade.AsistCandidateValueFacade;
+import org.eman.asist.model.AsistCandidateValue;
+import org.eman.asist.view.util.JsfUtil;
+import org.eman.asist.view.util.JsfUtil.PersistAction;
+import org.eman.asist.facade.AsistCandidateValueFacade;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -31,7 +31,7 @@ import javax.inject.Inject;
 public class AsistCandidateValueController implements Serializable {
 
     @EJB
-    protected org.eman.assit.facade.AsistCandidateValueFacade ejbFacade;
+    protected org.eman.asist.facade.AsistCandidateValueFacade ejbFacade;
     private List<AsistCandidateValue> items = null;
     private AsistCandidateValue created;
     private List<AsistCandidateValue> selectedItems;
