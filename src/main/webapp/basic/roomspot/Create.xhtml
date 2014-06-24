@@ -2,9 +2,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:pt="http://xmlns.jcp.org/jsf"
-      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
@@ -17,26 +14,59 @@
             <h:form id="RoomspotCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{not empty roomspotController.created}">
-                        <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_id}" for="id" />
+                        <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_id}" for="id"  />
                         <p:inputText id="id" value="#{roomspotController.created.id}" title="#{basic_i18n.EditRoomspotTitle_id}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_id}"/>
+
                         <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_roomCode}" for="roomCode" />
                         <p:inputText id="roomCode" value="#{roomspotController.created.roomCode}" title="#{basic_i18n.EditRoomspotTitle_roomCode}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_roomCode}"/>
+
                         <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_roomName}" for="roomName" />
                         <p:inputText id="roomName" value="#{roomspotController.created.roomName}" title="#{basic_i18n.EditRoomspotTitle_roomName}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_roomName}"/>
+
                         <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_province}" for="province" />
-                        <p:inputText id="province" value="#{roomspotController.created.province}" title="#{basic_i18n.EditRoomspotTitle_province}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_province}"/>
-                        <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_city}" for="city" />
-                        <p:inputText id="city" value="#{roomspotController.created.city}" title="#{basic_i18n.EditRoomspotTitle_city}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_city}"/>
+
+                        <p:selectOneMenu id="province" value="#{roomspotController.created.province}"  style="vertical-align: middle ">   disabled="false"  filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforCreate.handleProvinceChange}"  >
+                            <f:selectItem itemLabel="${bundle.SelectOneMessage}"  />
+                            <f:selectItems  value="#{roomspotController.areaforCreate.provinces}"
+                                            var="item"
+                                            itemValue="#{item}" itemLabel="#{item}" >
+                            </f:selectItems>
+                            <p:ajax update="city" />
+                        </p:selectOneMenu>
+
+
+
+                        <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_city}" for="city" />                        
+                        <p:selectOneMenu id="city" value="#{roomspotController.created.city}"    disabled="false"  filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforCreate.handleCityChange}" >
+                            <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                            <f:selectItems  value="#{roomspotController.areaforCreate.citys}"
+                                            var="item"
+                                            itemValue="#{item}" itemLabel="#{item}" >
+                            </f:selectItems>
+                            <p:ajax update="county"/>
+                        </p:selectOneMenu>  
+
                         <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_county}" for="county" />
-                        <p:inputText id="county" value="#{roomspotController.created.county}" title="#{basic_i18n.EditRoomspotTitle_county}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_county}"/>
+                        <p:selectOneMenu id="county" value="#{roomspotController.created.county}"    disabled="false"  filter="true" filterMatchMode="contains"  >
+                            <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                            <f:selectItems  value="#{roomspotController.areaforCreate.countys}"
+                                            var="item"
+                                            itemValue="#{item}" itemLabel="#{item}" >
+                            </f:selectItems>
+                        </p:selectOneMenu> 
+
                         <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_grid}" for="grid" />
                         <p:inputText id="grid" value="#{roomspotController.created.grid}" title="#{basic_i18n.EditRoomspotTitle_grid}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_grid}"/>
+
                         <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_propertyOwner}" for="propertyOwner" />
                         <p:inputText id="propertyOwner" value="#{roomspotController.created.propertyOwner}" title="#{basic_i18n.EditRoomspotTitle_propertyOwner}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_propertyOwner}"/>
+
                         <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_address}" for="address" />
                         <p:inputText id="address" value="#{roomspotController.created.address}" title="#{basic_i18n.EditRoomspotTitle_address}"  disabled="false"       />
+
                         <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_commont}" for="commont" />
                         <p:inputTextarea rows="4" cols="30" id="commont" value="#{roomspotController.created.commont}" title="#{basic_i18n.EditRoomspotTitle_commont}" />
+
                         <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_status}" for="status" />
                         <p:inputText id="status" value="#{roomspotController.created.status}" title="#{basic_i18n.EditRoomspotTitle_status}"  disabled="false"       />
                     </p:panelGrid>

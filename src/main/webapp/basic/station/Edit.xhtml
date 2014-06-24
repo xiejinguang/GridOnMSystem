@@ -7,7 +7,8 @@
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ps = "http://xmlns.jcp.org/jsf/composite/peasant">
 
     <ui:composition>
         <p:dialog id="StationEditDlg" widgetVar="StationEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
@@ -25,22 +26,65 @@
                             <p:panelGrid columns="4" >
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_id}" for="id" />
                                 <p:inputText id="id" value="#{item.id}" title="#{basic_i18n.EditStationTitle_id}" disabled="true"   required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_id}"/>
+
+
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_statCode}" for="statCode" />
                                 <p:inputText id="statCode" value="#{item.statCode}" title="#{basic_i18n.EditStationTitle_statCode}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_statCode}"/>
+
+
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_name}" for="name" />
                                 <p:inputText id="name" value="#{item.name}" title="#{basic_i18n.EditStationTitle_name}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_name}"/>
+
+
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_address}" for="address" />
                                 <p:inputText id="address" value="#{item.address}" title="#{basic_i18n.EditStationTitle_address}" disabled="false"   />
+
+
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_owner}" for="owner" />
                                 <p:inputText id="owner" value="#{item.owner}" title="#{basic_i18n.EditStationTitle_owner}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_owner}"/>
+
+
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_type}" for="type" />
-                                <p:inputText id="type" value="#{item.type}" title="#{basic_i18n.EditStationTitle_type}" disabled="false"   />
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="type" value="#{item.type}"   disabled="false"  filter="true" filterMatchMode="contains" >
+                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                        <f:selectItems  value="#{stationController.types.children}"
+                                                        var="item"
+                                                        itemValue="#{item.value}" itemLabel="#{item.value}" >
+                                        </f:selectItems>                                        
+                                    </p:selectOneMenu>
+                                    <ps:candidateValue rootId="#{stationController.types.id}"  update="type" />
+                                </h:panelGroup>
+
+
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_accomMaintainer}" for="accomMaintainer" />
-                                <p:inputText id="accomMaintainer" value="#{item.accomMaintainer}" title="#{basic_i18n.EditStationTitle_accomMaintainer}" disabled="false"   />
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="accomMaintainer" value="#{item.accomMaintainer}"    disabled="false"  filter="true" filterMatchMode="contains" >
+                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                        <f:selectItems  value="#{stationController.companys.children}"
+                                                        var="item"
+                                                        itemValue="#{item.value}" itemLabel="#{item.value}" >
+                                        </f:selectItems>                                        
+                                    </p:selectOneMenu>
+                                    <ps:candidateValue rootId="#{stationController.companys.id}"  update="accomMaintainer" />
+                                </h:panelGroup>
+
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_status}" for="status" />
-                                <p:inputText id="status" value="#{item.status}" title="#{basic_i18n.EditStationTitle_status}" disabled="false"   />
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="status" value="#{item.status}"  disabled="false"  filter="true" filterMatchMode="contains" >
+                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                        <f:selectItems  value="#{stationController.stationStatus.children}"
+                                                        var="item"
+                                                        itemValue="#{item.value}" itemLabel="#{item.value}" >
+                                        </f:selectItems>                                        
+                                    </p:selectOneMenu>
+                                    <ps:candidateValue rootId="#{stationController.stationStatus.id}"  update="status" />
+                                </h:panelGroup>
+
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_commont}" for="commont" />
                                 <p:inputTextarea rows="4" cols="30" id="commont" value="#{item.commont}" title="#{basic_i18n.EditStationTitle_commont}" />
+
+
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_roomspotId}" for="roomspotId" />
                                 <p:selectOneMenu id="roomspotId" value="#{item.roomspotId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_roomspotId}">
                                     <f:selectItem itemLabel="Select One" />

@@ -2,9 +2,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:pt="http://xmlns.jcp.org/jsf"
-      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
@@ -34,13 +31,34 @@
                                 <p:inputText id="roomName" value="#{item.roomName}" title="#{basic_i18n.EditRoomspotTitle_roomName}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_roomName}"/>
 
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_province}" for="province" />
-                                <p:inputText id="province" value="#{item.province}" title="#{basic_i18n.EditRoomspotTitle_province}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_province}"/>
+                                <p:selectOneMenu id="province" value="#{item.province}"    disabled="false"  filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforEdit.handleProvinceChange}" >
+                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                    <f:selectItems  value="#{roomspotController.areaforEdit.provinces}"
+                                                    var="item"
+                                                    itemValue="#{item}" itemLabel="#{item}" >
+                                    </f:selectItems>
+                                    <p:ajax update="city" />
+                                </p:selectOneMenu>
 
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_city}" for="city" />
-                                <p:inputText id="city" value="#{item.city}" title="#{basic_i18n.EditRoomspotTitle_city}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_city}"/>
+                                <p:selectOneMenu id="city" value="#{item.city}"    disabled="false"  filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforEdit.handleCityChange}" >
+                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                    <f:selectItems  value="#{roomspotController.areaforEdit.citys}"
+                                                    var="item"
+                                                    itemValue="#{item}" itemLabel="#{item}" >
+                                    </f:selectItems>
+                                    <p:ajax update="county"/>
+                                </p:selectOneMenu>  
 
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_county}" for="county" />
-                                <p:inputText id="county" value="#{item.county}" title="#{basic_i18n.EditRoomspotTitle_county}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_county}"/>
+                                <p:selectOneMenu id="county" value="#{item.county}"    disabled="false"  filter="true" filterMatchMode="contains"  >
+                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                    <f:selectItems  value="#{roomspotController.areaforEdit.countys}"
+                                                    var="item"
+                                                    itemValue="#{item}" itemLabel="#{item}" >
+                                    </f:selectItems>
+                                </p:selectOneMenu> 
+
 
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_grid}" for="grid" />
                                 <p:inputText id="grid" value="#{item.grid}" title="#{basic_i18n.EditRoomspotTitle_grid}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_grid}"/>
@@ -66,26 +84,26 @@
                                         <ps:candidateValue rootId="${roomspotController.statusCVs.id}" update="status" />
                                     </p:selectOneMenu>
                                 </h:panelGroup>
-                        </p:panelGrid>
-                    </p:panel>
-                </ui:repeat>
-                <p:commandButton actionListener="#{roomspotController.update}" value="#{basic_i18n.Save}" update="display,@form:@parent:RoomspotListForm:datalist,:growl" oncomplete="handleSubmit(args,'RoomspotEditDialog');"/>
-                <p:commandButton type="button" value="#{basic_i18n.Cancel}" onclick="PF('RoomspotEditDialog').hide()"/>
-            </h:panelGroup>
-        </h:form>
-    </p:dialog>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton actionListener="#{roomspotController.update}" value="#{basic_i18n.Save}" update="display,@form:@parent:RoomspotListForm:datalist,:growl" oncomplete="handleSubmit(args,'RoomspotEditDialog');"/>
+                    <p:commandButton type="button" value="#{basic_i18n.Cancel}" onclick="PF('RoomspotEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
 
-</ui:composition>
-<script type="text/javascript">
+    </ui:composition>
+    <script type="text/javascript">
 
-    function fitViewport() {
-        var source = $('#RoomspotEditDlg');
-        var content = source.children('.ui-dialog-content');
-        source.height(Math.min($(window).height(), content.height() + 50));
-        content.height(Math.min($(window).height() - 50, content.height()));
+        function fitViewport() {
+            var source = $('#RoomspotEditDlg');
+            var content = source.children('.ui-dialog-content');
+            source.height(Math.min($(window).height(), content.height() + 50));
+            content.height(Math.min($(window).height() - 50, content.height()));
 
-    }
+        }
 
 
-</script>
+    </script>
 </html>

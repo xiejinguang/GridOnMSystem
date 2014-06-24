@@ -42,7 +42,7 @@ form.jsfcrud_list_form th, td th {
 }
 
 td {
-    vertical-align: top;
+    vertical-align: middle;
     padding-bottom: 8px;
     font-size: small;
 }

@@ -68,6 +68,14 @@
             <from-outcome>selectEquipmentModel</from-outcome>
             <to-view-id>/basic/equipmentModel/select</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>selectRoomspot</from-outcome>
+            <to-view-id>/basic/roomspot/select</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>selectStation</from-outcome>
+            <to-view-id>/basic/station/select</to-view-id>
+        </navigation-case>
     </navigation-rule>
     
     

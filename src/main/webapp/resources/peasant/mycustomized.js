@@ -15,6 +15,12 @@ function autoFitDocSize1(iframe) {
     });
 }
 
+function fitViewport(source) {
+    var content = source.children('.ui-dialog-content');
+    source.height(Math.min($(window).height(), content.height() + 50));
+    content.height(Math.min($(window).height() - 50, content.height()));
+
+}
 
 //Override the default Primefaces.dialog.DialogHandler
 PrimeFaces.dialog.DialogHandler = {openDialog: function(e) {
@@ -30,17 +36,17 @@ PrimeFaces.dialog.DialogHandler = {openDialog: function(e) {
         f.appendTo(document.body);
         var c = f.find("iframe"), g = e.url.indexOf("?") === -1 ? "?" : "&", b = e.url + g + "pfdlgcid=" + e.pfdlgcid, a = e.options.contentWidth || 640;
         //c.width(a);
-        var contentCSS ={};
-        if(e.options.contentMinWidth ){
-           contentCSS.minWidth = e.options.contentMinWidth ;
+        var contentCSS = {};
+        if (e.options.contentMinWidth) {
+            contentCSS.minWidth = e.options.contentMinWidth;
         }
-        if(e.options.contentMinHeight ){
-            contentCSS.minHeight = e.options.contentMinHeight ;
+        if (e.options.contentMinHeight) {
+            contentCSS.minHeight = e.options.contentMinHeight;
         }
 //       // contentCSS.width = "100%";
         c.css(contentCSS);
-        
-        
+
+
         c.on("load", function() {
             var j = $(this), k = j.contents().find("title");
             if (!j.data("initialized")) {
@@ -55,7 +61,7 @@ PrimeFaces.dialog.DialogHandler = {openDialog: function(e) {
                             }
                         }, 10);
                         PF[h] = undefined
-                    }, modal: e.options.modal, resizable: e.options.resizable, draggable: e.options.draggable, width: e.options.width||450, height: e.options.height||300})
+                    }, modal: e.options.modal, resizable: e.options.resizable, draggable: e.options.draggable, width: e.options.width || 450, height: e.options.height || 300})
             }
             if (k.length > 0) {
                 PF(h).titlebar.children("span.ui-dialog-title").html(k.text())

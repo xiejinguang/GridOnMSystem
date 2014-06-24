@@ -19,6 +19,7 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.eman.asist.AreaService;
 import org.eman.asist.CandidateValueConstants;
 import org.eman.asist.facade.AsistCandidateValueFacade;
 import org.eman.asist.model.CandidateValue;
@@ -44,10 +45,14 @@ public class RoomspotController implements Serializable {
 
     private CandidateValue statusCVs;
     private CandidateValue companyCVs;
-    private CandidateValue provinceCVs;
-    private CandidateValue cityCVs;
-    private CandidateValue countyCVs;
     private CandidateValue gridCVs;
+    
+    @Inject
+    private AreaService areaforSeachCons;
+    @Inject
+    private AreaService areaforEdit;
+    @Inject
+    private AreaService areaforCreate;
 
     public RoomspotController() {
     }
@@ -59,7 +64,6 @@ public class RoomspotController implements Serializable {
         this.statusCVs = candidateValueFacade.findBy(CandidateValueConstants.RoomspotStatusKey, CandidateValueConstants.RoomspotStatusValue, true).get(0);
         this.companyCVs = candidateValueFacade.findBy(CandidateValueConstants.CompanyKey, CandidateValueConstants.CompanyValue, true).get(0);
         this.gridCVs = candidateValueFacade.findBy(CandidateValueConstants.GridKey, CandidateValueConstants.GridValue, true).get(0);
-        this.provinceCVs = candidateValueFacade.findBy(CandidateValueConstants.ProvinceKey, CandidateValueConstants.ProvinceValue, true).get(0);
     }
 
     public Roomspot getCreated() {
@@ -262,46 +266,8 @@ public class RoomspotController implements Serializable {
         this.statusCVs = statusCVs;
     }
 
-    public CandidateValue getProvinceCVs() {
-        return provinceCVs;
-    }
 
-    public void setProvinceCVs(CandidateValue provinceCVs) {
-        this.provinceCVs = provinceCVs;
-    }
-
-    public CandidateValue getCityCVs() {
-        return cityCVs;
-    }
-
-    public void setCityCVs(CandidateValue cityCVs) {
-        this.cityCVs = cityCVs;
-    }
-
-    public CandidateValue getCountyCVs() {
-        return countyCVs;
-    }
-
-    public void setCountyCVs(CandidateValue countyCVs) {
-        this.countyCVs = countyCVs;
-    }
-
-    public void handleProvinceChange(ValueChangeEvent event) {
-        this.cityCVs = getChildCandidateValueByValue(provinceCVs, (String) event.getNewValue());
-    }
-
-    public CandidateValue getChildCandidateValueByValue(CandidateValue parent, String value) {
-        for (CandidateValue v : parent.getChildren()) {
-            if (value.equals(v.getValue())) {
-                return v;
-            }
-        }
-        return null;
-    }
-
-    public void handleCityChange(ValueChangeEvent event) {
-        this.countyCVs = getChildCandidateValueByValue(cityCVs, (String) event.getNewValue());
-    }
+   
     
     public void handleDialogReturn(SelectEvent e){
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.toString()));
@@ -313,6 +279,30 @@ public class RoomspotController implements Serializable {
 
     public void setGridCVs(CandidateValue gridCVs) {
         this.gridCVs = gridCVs;
+    }
+
+    public AreaService getAreaforSeachCons() {
+        return areaforSeachCons;
+    }
+
+    public void setAreaforSeachCons(AreaService areaforSeachCons) {
+        this.areaforSeachCons = areaforSeachCons;
+    }
+
+    public AreaService getAreaforEdit() {
+        return areaforEdit;
+    }
+
+    public void setAreaforEdit(AreaService areaforEdit) {
+        this.areaforEdit = areaforEdit;
+    }
+
+    public AreaService getAreaforCreate() {
+        return areaforCreate;
+    }
+
+    public void setAreaforCreate(AreaService areaforCreate) {
+        this.areaforCreate = areaforCreate;
     }
 
     @FacesConverter(forClass = Roomspot.class, value = "org.eman.Roomspot")

@@ -9,14 +9,19 @@
             <p:accordionPanel    cache="true"  >
                 <p:ajax event="tabChange" update=":SysMenuForm" />
                 <p:tab title="基础信息系统">
-                    <h:link target="_blank" outcome="/basic/roomspot/List.xhtml" ><p:graphicImage value="/images/stack/music.png"  width="50px" style="vertical-align: middle"/>机房安装点信息</h:link>
-                    <br/>
-                    <h:link target="_blank"  outcome="/basic/station/List.xhtml"  ><p:graphicImage value="/images/stack/home.png"  width="50px" style="vertical-align: middle"/>站址信息</h:link>
-                    <br/>
-                    <h:link target="_blank"  outcome="/basic/netnode/List.xhtml" ><p:graphicImage value="/images/stack/video.png"  width="50px" style="vertical-align: middle"/>网元信息</h:link>
-                    <br/>
-                    <h:link target="_blank"  outcome="/basic/equipmentModel/List.xhtml" ><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>设备模型信息</h:link>
-                    <br/>
+                    <ul class="vmenu">
+                        <li>
+                            <h:link target="_blank" outcome="/basic/roomspot/List.xhtml" ><p:graphicImage value="/images/stack/music.png"  width="50px" style="vertical-align: middle"/>机房安装点信息</h:link>
+                        </li>
+                        <li>
+                            <h:link target="_blank"  outcome="/basic/station/List.xhtml"  ><p:graphicImage value="/images/stack/home.png"  width="50px" style="vertical-align: middle"/>站址信息</h:link>
+                        </li>
+                        <li>
+                            <h:link target="_blank"  outcome="/basic/netnode/List.xhtml" ><p:graphicImage value="/images/stack/video.png"  width="50px" style="vertical-align: middle"/>网元信息</h:link>
+                        </li>
+                        <li>
+                            <h:link target="_blank"  outcome="/basic/equipmentModel/List.xhtml" ><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>设备模型信息</h:link>
+                        </li></ul>
 
 
                 </p:tab>
@@ -31,18 +36,25 @@
                     <h:link target="_blank"  outcome="/asist/asistCandidateValue/List.xhtml" ><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>候选值库</h:link>
                 </p:tab>
                 <p:tab title="测试">
-                    <h:link target="_blank" ><p:graphicImage value="/images/stack/music.png"  width="50px" style="vertical-align: middle"/>Music</h:link>
-                    <br/>
-                    <h:link target="_blank" ><p:graphicImage value="/images/stack/video.png"  width="50px" style="vertical-align: middle"/>Video</h:link>
-                    <br/>
-                    <h:link target="_blank" ><p:graphicImage value="/images/stack/home.png"  width="50px" style="vertical-align: middle"/>Home</h:link>
-                    <br/>
-                    <h:link target="_blank" ><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>Link</h:link>
-                    <br/>
-                    <h:link target="_blank" ><p:graphicImage value="/images/stack/rss.png"  width="50px" style="vertical-align: middle"/>RSS</h:link>
-                    <br/>
-                    <h:link target="_blank" ><p:graphicImage value="/images/stack/history.png"  width="50px" style="vertical-align: middle"/>History</h:link>                    
-
+                    <ul class="vmenu">
+                        <li>
+                            <h:link target="_blank" ><p:graphicImage value="/images/stack/music.png"  width="50px" style="vertical-align: middle"/>Music</h:link>
+                        </li>
+                        <li>
+                            <h:link target="_blank" ><p:graphicImage value="/images/stack/video.png"  width="50px" style="vertical-align: middle"/>Video</h:link>
+                        </li>
+                        <li>
+                            <h:link target="_blank" ><p:graphicImage value="/images/stack/home.png"  width="50px" style="vertical-align: middle"/>Home</h:link>
+                        </li>
+                        <li>
+                            <h:link target="_blank" ><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>Link</h:link>
+                        </li>
+                        <li>
+                            <h:link target="_blank" ><p:graphicImage value="/images/stack/rss.png"  width="50px" style="vertical-align: middle"/>RSS</h:link>
+                        </li>
+                        <li>
+                            <h:link target="_blank" ><p:graphicImage value="/images/stack/history.png"  width="50px" style="vertical-align: middle"/>History</h:link>                    
+                        </li></ul>
                 </p:tab>
 
             </p:accordionPanel>

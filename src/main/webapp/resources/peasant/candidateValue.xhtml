@@ -16,8 +16,8 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        <ps:dialog id="dialogButton" params="#{{'id':[cc.attrs.rootId]}}"  outcome="setcandidatevalues" >
+        <ps:dialogButton id="dialogButton" params="#{{'id':[cc.attrs.rootId]}}"  outcome="setcandidatevalues" value="设置" >
             <p:ajax event="dialogReturn"   update="@composite:@composite:@parent:#{cc.attrs.update}" listener="#{cc.attrs.onReturn}"/>
-        </ps:dialog>
+        </ps:dialogButton>
     </cc:implementation>
 </html>

@@ -46,7 +46,7 @@
 <#assign managedBeanProperty = managedBean + ".created">
         <p:dialog id="${entityName}CreateDlg" widgetVar="${entityName}CreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                     header="${r"#{"}${bundle}.Create${entityName}Title${r"}"}">
             <h:form id="${entityName}CreateForm">
                 <h:panelGroup id="display">
@@ -87,16 +87,5 @@
         </p:dialog>
 
     </ui:composition>
-           <script type="text/javascript">
-                
-                function fitViewport() {
-                    var source=$('#${entityName}CreateDlg');                    
-                    var content = source.children('.ui-dialog-content');
-                    source.height(Math.min($(window).height(),content.height()+50));
-                    content.height(Math.min($(window).height()-50,content.height()));
-                    
-                }
-                    
-                   
-            </script>
+
 </html>

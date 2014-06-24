@@ -46,7 +46,7 @@
 <#assign managedBeanProperty=managedBean+".selectedItems">
         <p:dialog id="${entityName}EditDlg" widgetVar="${entityName}EditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                     header="${r"#{"}${bundle}.Edit${entityName}Title${r"}"}">
             <h:form id="${entityName}EditForm">
                 <h:panelGroup id="display" rendered="${r"#{"}not empty ${managedBeanProperty}${r"}"}">
@@ -60,6 +60,7 @@
 
 <#list entityDescriptors as entityDescriptor>
 <#assign field = "item."+ entityDescriptor.id>
+
                         <!-- for ${field} -->
                         <p:outputLabel value="${r"#{"}${bundle}.Edit${entityName}Label_${entityDescriptor.id?replace(".","_")}${r"}"}" for="${entityDescriptor.id?replace(".","_")}" />
     <#if entityDescriptor.dateTimeFormat?? && entityDescriptor.dateTimeFormat != "">
@@ -95,16 +96,5 @@
         </p:dialog>
 
     </ui:composition>
-            <script type="text/javascript">
-                
-                function fitViewport() {
-                    var source=$('#${entityName}EditDlg');                    
-                    var content = source.children('.ui-dialog-content');
-                    source.height(Math.min($(window).height(),content.height()+50));
-                    content.height(Math.min($(window).height()-50,content.height()));
-                    
-                }
-                    
-                   
-            </script>
+
 </html>
