@@ -44,6 +44,10 @@
                 <p:graphicImage value="${attachmentController.getResourcePath(image)}"  title="${image.name}"  width="700"  />
             </p:galleria>
         </p:dialog>
+        <h:form>
+            <p:inputText id="value" value="#{testBean.value}" binding="#{testBean2.com}"/>
+            <p:commandButton  value="test" actionListener="#{testBean2.action}" update="value" />
+        </h:form>
 
 
 
