@@ -7,12 +7,13 @@
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ps="http://xmlns.jcp.org/jsf/composite/peasant">
 
     <ui:composition>
         <p:dialog id="NetnodeEditDlg" widgetVar="NetnodeEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                   header="#{basic_i18n.EditNetnodeTitle}">
             <h:form id="NetnodeEditForm">
                 <h:panelGroup id="display" rendered="#{not empty netnodeController.selectedItems}">
@@ -35,20 +36,29 @@
                                 <p:inputTextarea rows="4" cols="30" id="commont" value="#{item.commont}" title="#{basic_i18n.EditNetnodeTitle_commont}" />
                                 <p:outputLabel value="#{basic_i18n.EditNetnodeLabel_status}" for="status" />
                                 <p:inputText id="status" value="#{item.status}" title="#{basic_i18n.EditNetnodeTitle_status}" disabled="false"   />
+
+
                                 <p:outputLabel value="#{basic_i18n.EditNetnodeLabel_equipModelId}" for="equipModelId" />
-                                <p:selectOneMenu id="equipModelId" value="#{item.equipModelId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditNetnodeRequiredMessage_equipModelId}">
-                                    <f:selectItem itemLabel="Select One" />
-                                    <f:selectItems value="#{equipmentModelController.itemsAvailableSelectOne}"
-                                                   var="equipModelIdItem"
-                                                   itemValue="#{equipModelIdItem}"/>
-                                </p:selectOneMenu>
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="equipModelId" value="#{item.equipModelId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditNetnodeRequiredMessage_equipModelId}">
+                                        <f:selectItem itemLabel="Select One" />
+                                        <f:selectItems value="#{equipmentModelController.itemsAvailableSelectOne}"
+                                                       var="equipModelIdItem"
+                                                       itemValue="#{equipModelIdItem}"/>
+                                    </p:selectOneMenu>
+                                    <ps:selectDialog outcome="selectEquipmentModel" value="${bundle.Choose}" styleClass="vcenter" target="#{item.equipModelId}" update="equipModelId" />
+                                </h:panelGroup>
+
                                 <p:outputLabel value="#{basic_i18n.EditNetnodeLabel_statID}" for="statID" />
-                                <p:selectOneMenu id="statID" value="#{item.statID}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditNetnodeRequiredMessage_statID}">
-                                    <f:selectItem itemLabel="Select One" />
-                                    <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
-                                                   var="statIDItem"
-                                                   itemValue="#{statIDItem}"/>
-                                </p:selectOneMenu>
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="statID" value="#{item.statID}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditNetnodeRequiredMessage_statID}">
+                                        <f:selectItem itemLabel="Select One" />
+                                        <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
+                                                       var="statIDItem"
+                                                       itemValue="#{statIDItem}"/>
+                                    </p:selectOneMenu>
+                                    <ps:selectDialog outcome="selectStation" value="${bundle.Choose}" styleClass="vcenter" target="#{item.statID}" update="statID"/>
+                                </h:panelGroup>
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>
@@ -59,16 +69,5 @@
         </p:dialog>
 
     </ui:composition>
-    <script type="text/javascript">
-
-        function fitViewport() {
-            var source = $('#NetnodeEditDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
-
-        }
-
-
-    </script>
+   
 </html>

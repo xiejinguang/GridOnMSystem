@@ -13,7 +13,7 @@
     <ui:composition>
         <p:dialog id="StationEditDlg" widgetVar="StationEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                   header="#{basic_i18n.EditStationTitle}">
             <h:form id="StationEditForm">
                 <h:panelGroup id="display" rendered="#{not empty stationController.selectedItems}">
@@ -86,12 +86,15 @@
 
 
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_roomspotId}" for="roomspotId" />
-                                <p:selectOneMenu id="roomspotId" value="#{item.roomspotId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_roomspotId}">
+                                <h:panelGroup>
+                                <p:selectOneMenu id="roomspotId" value="#{item.roomspotId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_roomspotId}" styleClass="vcenter">
                                     <f:selectItem itemLabel="Select One" />
                                     <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
                                                    var="roomspotIdItem"
                                                    itemValue="#{roomspotIdItem}"/>
                                 </p:selectOneMenu>
+                                    <ps:selectDialog outcome="selectRoomspot" value="${bundle.Choose}" update="roomspotId" target="#{item.roomspotId}" styleClass="vcenter" />
+                            </h:panelGroup>
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>
@@ -102,16 +105,5 @@
         </p:dialog>
 
     </ui:composition>
-    <script type="text/javascript">
-
-        function fitViewport() {
-            var source = $('#StationEditDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
-
-        }
-
-
-    </script>
+  
 </html>

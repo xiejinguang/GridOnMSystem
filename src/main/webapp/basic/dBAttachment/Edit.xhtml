@@ -12,7 +12,7 @@
     <ui:composition>
         <p:dialog id="DBAttachmentEditDlg" widgetVar="DBAttachmentEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                   header="#{bundle.EditDBAttachmentTitle}">
             <h:form id="DBAttachmentEditForm">
                 <h:panelGroup id="display" rendered="#{empty dBAttachmentController.selectedItems != null}">
@@ -49,16 +49,5 @@
         </p:dialog>
 
     </ui:composition>
-    <script type="text/javascript">
 
-        function fitViewport() {
-            var source = $('#DBAttachmentEditDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
-
-        }
-
-
-    </script>
 </html>

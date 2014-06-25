@@ -46,6 +46,7 @@ public class RoomspotController implements Serializable {
     private CandidateValue statusCVs;
     private CandidateValue companyCVs;
     private CandidateValue gridCVs;
+    private CandidateValue areaCVs;
     
     @Inject
     private AreaService areaforSeachCons;
@@ -64,6 +65,7 @@ public class RoomspotController implements Serializable {
         this.statusCVs = candidateValueFacade.findBy(CandidateValueConstants.RoomspotStatusKey, CandidateValueConstants.RoomspotStatusValue, true).get(0);
         this.companyCVs = candidateValueFacade.findBy(CandidateValueConstants.CompanyKey, CandidateValueConstants.CompanyValue, true).get(0);
         this.gridCVs = candidateValueFacade.findBy(CandidateValueConstants.GridKey, CandidateValueConstants.GridValue, true).get(0);
+        this.areaCVs = candidateValueFacade.findBy(CandidateValueConstants.ProvinceKey,CandidateValueConstants.ProvinceValue,true).get(0);
     }
 
     public Roomspot getCreated() {
@@ -303,6 +305,14 @@ public class RoomspotController implements Serializable {
 
     public void setAreaforCreate(AreaService areaforCreate) {
         this.areaforCreate = areaforCreate;
+    }
+
+    public CandidateValue getAreaCVs() {
+        return areaCVs;
+    }
+
+    public void setAreaCVs(CandidateValue areaCVs) {
+        this.areaCVs = areaCVs;
     }
 
     @FacesConverter(forClass = Roomspot.class, value = "org.eman.Roomspot")

@@ -50,6 +50,7 @@ public class DialogBean implements Serializable {
     public void selectData(Object data) {
         RequestContext.getCurrentInstance().closeDialog(data);
     }
+    
 
     public void showDialog(String outcome,Map<String,List<String>> params) {
         Map<String, Object> options = new HashMap<String, Object>();
@@ -62,6 +63,10 @@ public class DialogBean implements Serializable {
         options.put("contentMinWidth ", 600);
         options.put("contentMinHeight", 400);
 
+        showDialogWithOptions(outcome, options,params);
+    }
+    
+     public   void showDialogWithOptions(String outcome,Map<String, Object> options,Map<String,List<String>> params) {
         RequestContext.getCurrentInstance().openDialog(outcome, options,params);
     }
 

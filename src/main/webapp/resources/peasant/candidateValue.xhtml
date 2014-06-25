@@ -12,11 +12,12 @@
         <cc:attribute name="rootId"  type="java.lang.String"  required="true" />
         <cc:attribute name="onReturn"    method-signature="java.lang.Object handleDialogReturn(org.primefaces.event.SelectEvent)" default="null"/>
         <cc:attribute name="update" type="java.lang.String" default="@this" />
+       
     </cc:interface>
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        <ps:dialogButton id="dialogButton" params="#{{'id':[cc.attrs.rootId]}}"  outcome="setcandidatevalues" value="设置" >
+        <ps:dialogButton id="dialogButton" params="#{{'id':[cc.attrs.rootId]}}"  outcome="setcandidatevalues" value="设置"  style="vertical-align: middle">
             <p:ajax event="dialogReturn"   update="@composite:@composite:@parent:#{cc.attrs.update}" listener="#{cc.attrs.onReturn}"/>
         </ps:dialogButton>
     </cc:implementation>

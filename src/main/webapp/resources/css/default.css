@@ -18,6 +18,9 @@ body {
 .center{
     text-align:  center;
 }
+.vcenter{
+    vertical-align: middle;
+}
 
 .nobreak{
     white-space: nowrap;

@@ -10,7 +10,7 @@
     <ui:composition>
         <p:dialog id="RoomspotEditDlg" widgetVar="RoomspotEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                   header="#{basic_i18n.EditRoomspotTitle}">
             <h:form id="RoomspotEditForm">
                 <h:panelGroup id="display" rendered="#{not empty roomspotController.selectedItems}">
@@ -31,11 +31,11 @@
                                 <p:inputText id="roomName" value="#{item.roomName}" title="#{basic_i18n.EditRoomspotTitle_roomName}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_roomName}"/>
 
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_province}" for="province" />
-                                <p:selectOneMenu id="province" value="#{item.province}"    disabled="false"  filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforEdit.handleProvinceChange}" >
+                                <p:selectOneMenu id="province" value="#{item.province}"    editable="false"  disabled="false"   filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforEdit.handleProvinceChange}" >
                                     <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
                                     <f:selectItems  value="#{roomspotController.areaforEdit.provinces}"
-                                                    var="item"
-                                                    itemValue="#{item}" itemLabel="#{item}" >
+                                                    var="value"
+                                                    itemValue="#{value}" itemLabel="#{value}" >
                                     </f:selectItems>
                                     <p:ajax update="city" />
                                 </p:selectOneMenu>
@@ -44,8 +44,8 @@
                                 <p:selectOneMenu id="city" value="#{item.city}"    disabled="false"  filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforEdit.handleCityChange}" >
                                     <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
                                     <f:selectItems  value="#{roomspotController.areaforEdit.citys}"
-                                                    var="item"
-                                                    itemValue="#{item}" itemLabel="#{item}" >
+                                                    var="value"
+                                                    itemValue="#{value}" itemLabel="#{value}" >
                                     </f:selectItems>
                                     <p:ajax update="county"/>
                                 </p:selectOneMenu>  
@@ -54,17 +54,40 @@
                                 <p:selectOneMenu id="county" value="#{item.county}"    disabled="false"  filter="true" filterMatchMode="contains"  >
                                     <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
                                     <f:selectItems  value="#{roomspotController.areaforEdit.countys}"
-                                                    var="item"
-                                                    itemValue="#{item}" itemLabel="#{item}" >
+                                                    var="value"
+                                                    itemValue="#{value}" itemLabel="#{value}" >
                                     </f:selectItems>
                                 </p:selectOneMenu> 
 
 
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_grid}" for="grid" />
-                                <p:inputText id="grid" value="#{item.grid}" title="#{basic_i18n.EditRoomspotTitle_grid}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_grid}"/>
+                                <p:selectOneMenu id="grid" value="#{item.grid}"  disabled="false"  filter="true" filterMatchMode="contains"  required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_grid}" styleClass="vcenter" >
+                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                    <f:selectItems  value="#{roomspotController.gridCVs.children}"
+                                                    var="child"
+                                                    itemValue="#{child.value}" itemLabel="#{child.value}" >
+                                    </f:selectItems>
+                                </p:selectOneMenu>  
 
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_propertyOwner}" for="propertyOwner" />
-                                <p:inputText id="propertyOwner" value="#{item.propertyOwner}" title="#{basic_i18n.EditRoomspotTitle_propertyOwner}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_propertyOwner}"/>
+                                <p:selectOneMenu id="propertyOwner"  value="#{item.propertyOwner}"    disabled="false"  filter="true" filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_propertyOwner}" >
+                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                    <f:selectItems  value="#{roomspotController.companyCVs.children}"
+                                                    var="child"
+                                                    itemValue="#{child.value}" itemLabel="#{child.value}" >
+                                    </f:selectItems>
+                                </p:selectOneMenu>
+
+
+                                <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_status}" for="status" />
+                                <p:selectOneMenu id="status" value="#{item.status}"  disabled="false"  >
+                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                    <f:selectItems  value="#{roomspotController.statusCVs.children}"
+                                                    var="child"
+                                                    itemValue="#{child.value}" itemLabel="#{child.value}" >
+
+                                    </f:selectItems>
+                                </p:selectOneMenu>
 
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_address}" for="address" />
                                 <p:inputText id="address" value="#{item.address}" title="#{basic_i18n.EditRoomspotTitle_address}" disabled="false"   />
@@ -72,18 +95,8 @@
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_commont}" for="commont" />
                                 <p:inputTextarea rows="4" cols="30" id="commont" value="#{item.commont}" title="#{basic_i18n.EditRoomspotTitle_commont}" />
 
-                                <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_status}" for="status" />
-                                <h:panelGroup >
-                                    <p:selectOneMenu id="status" value="#{item.status}"  disabled="false"  >
-                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
-                                        <f:selectItems  value="#{roomspotController.statusCVs.children}"
-                                                        var="child"
-                                                        itemValue="#{child.value}" itemLabel="#{child.value}" >
 
-                                        </f:selectItems>
-                                        <ps:candidateValue rootId="${roomspotController.statusCVs.id}" update="status" />
-                                    </p:selectOneMenu>
-                                </h:panelGroup>
+
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>
@@ -94,16 +107,5 @@
         </p:dialog>
 
     </ui:composition>
-    <script type="text/javascript">
 
-        function fitViewport() {
-            var source = $('#RoomspotEditDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
-
-        }
-
-
-    </script>
 </html>

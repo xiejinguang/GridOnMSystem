@@ -9,6 +9,7 @@
 
     <h:head>
         <title>Facelet Title</title>
+        <h:outputScript library="peasant" name="mycustomized.js" target="head"/>
         <p:growl id="growl" autoUpdate="true" showDetail="true"/>
         <p:messages id="mesgs" autoUpdate="true" showSummary="true" showDetail="true" />
     </h:head>
@@ -45,8 +46,9 @@
             </p:galleria>
         </p:dialog>
         <h:form>
-            <p:inputText id="value" value="#{testBean.value}" binding="#{testBean2.com}"/>
+            <p:inputText id="value" value="#{testBean.value}" binding="#{testBean2.com}" />
             <p:commandButton  value="test" actionListener="#{testBean2.action}" update="value" />
+            <ps:selectDialog value="选择" outcome="/testDialog" update="value" target="#{testBean.value}"  width="400" height="300" />
         </h:form>
 
 
