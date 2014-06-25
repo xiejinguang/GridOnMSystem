@@ -50,8 +50,9 @@
         </ui:define>
 
         <ui:define name="body">
-                <h:form id="${entityName}ListForm">
-                    <p:panel header="${r"#{"}${bundle}.List${entityName}Title${r"}"}">
+                
+                <h:form id="SearchConsForm">
+                    
                         <p:fieldset id="searchField" legend="${r"${"}${bundle}.SearchConsTitle${r"}"}" toggleable="true" toggleSpeed="500" >
                             <p:panelGrid   style="width:100%"  >
                                 <p:row>
@@ -86,14 +87,16 @@
                                         </p:panelGrid>
                                     </p:column>
                                     <p:column>
-                                        <p:commandButton id="searchButton" icon="ui-icon-search"   value="${r"${"}${bundle}.Search${r"}"}" actionListener="${r"#{"}${managedBean}.searchItems${r"}"}" update=":growl,datalist"/>
+                                        <p:commandButton id="searchButton" icon="ui-icon-search"   value="${r"${"}${bundle}.Search${r"}"}" actionListener="${r"#{"}${managedBean}.searchItems${r"}"}" update=":growl,:${entityName}ListFormd:datalist"/>
                                         <br/>
-                                        <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${r"${"}${bundle}.GetAll${r"}"}" actionListener="${r"#{"}${managedBean}.allItems${r"}"}" update=":growl,datalist"/>
+                                        <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${r"${"}${bundle}.GetAll${r"}"}" actionListener="${r"#{"}${managedBean}.allItems${r"}"}" update=":growl,:${entityName}ListFormd:datalist"/>
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>                   
                         </p:fieldset>
+        </h:form>
 
+<   <h:form id="${entityName}ListForm">
                         <p:dataTable id="datalist" value="${r"#{"}${managedBeanProperty}${r"}"}" var="${item}"
                             selection="${r"#{"}${managedBean}${r".selectedItems}"}"
                             rowKey="${r"#{"}${item}.${entityIdField}${r"}"}"
@@ -109,6 +112,8 @@
 
                             <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
                             <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+
+                            <f:facet name="header"><p:outputLabel value="${r"#{"}${bundle}.List${entityName}Title${r"}"}" /></f:facet>
 
                             <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
 
@@ -129,15 +134,15 @@
                             </p:column>
 </#list>
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="${r"#{"}${bundle}.Create${r"}"}" actionListener="${r"#{"}${managedBean}.prepareCreate${r"}"}" update="@form:@parent:${entityName}CreateForm" oncomplete="PF('${entityName}CreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="${r"#{"}${bundle}.View${r"}"}" update="@form:@parent:${entityName}ViewForm" oncomplete="PF('${entityName}ViewDialog').show()" disabled="${r"#{"}empty ${managedBean}.selectedItems${r"}"}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="${r"#{"}${bundle}.Edit${r"}"}" update="@form:@parent:${entityName}EditForm" oncomplete="PF('${entityName}EditDialog').show()" disabled="${r"#{"}empty ${managedBean}.selectedItems${r"}"}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="${r"#{"}${bundle}.Delete${r"}"}" actionListener="${r"#{"}${managedBean}${r".destroy}"}" update=":growl,datalist" disabled="${r"#{"}empty ${managedBean}.selectedItems${r"}"}"/>
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="${r"#{"}${bundle}.Create${r"}"}" actionListener="${r"#{"}${managedBean}.prepareCreate${r"}"}" process="@this" update="@form:@parent:${entityName}CreateForm" oncomplete="PF('${entityName}CreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="${r"#{"}${bundle}.View${r"}"}" process="@this" update="@form:@parent:${entityName}ViewForm" oncomplete="PF('${entityName}ViewDialog').show()" disabled="${r"#{"}empty ${managedBean}.selectedItems${r"}"}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="${r"#{"}${bundle}.Edit${r"}"}" process="@this" update="@form:@parent:${entityName}EditForm" oncomplete="PF('${entityName}EditDialog').show()" disabled="${r"#{"}empty ${managedBean}.selectedItems${r"}"}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="${r"#{"}${bundle}.Delete${r"}"}" actionListener="${r"#{"}${managedBean}${r".destroy}"}" process="@this" update=":growl,datalist" disabled="${r"#{"}empty ${managedBean}.selectedItems${r"}"}"/>
                                 <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
                                 <p:columnToggler datasource="datalist" trigger="toggler" />
                             </f:facet>
                         </p:dataTable>
-                    </p:panel>
+                
                 </h:form>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>

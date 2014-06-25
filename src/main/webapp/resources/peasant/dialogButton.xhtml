@@ -2,23 +2,40 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <cc:interface>
-        <cc:attribute name="params"  type="java.util.Map"  required="false" />
+    <!-- INTERFACE -->
+    <cc:interface >
+
+
+
+        <cc:attribute name="value" type="java.lang.String" required="false" targets="dialogButton" default="选择…" />
+        <cc:attribute name="target"  />
         <cc:attribute name="outcome" type="java.lang.String" rendered="true"/>
-        <cc:attribute name="value" type="java.lang.String" required="true" />
-        <cc:attribute name="width" type="java.lang.Integer" default="600"  />
-        <cc:attribute name="height" type="java.lang.Integer" default="400"/>
-        <cc:attribute name="style" type="java.lang.String" />
-        <cc:attribute name="styleClass" type="java.lang.String" />
-        <cc:attribute name="type" type="java.lang.String" default="submit" />
-        <cc:clientBehavior name="dialogReturn" event="dialogReturn" targets="dialogButton" />
+        <cc:attribute name="params"  type="java.util.Map"  required="false" />
+        <cc:attribute name="update" type="java.lang.String"  targets="dialogButton" default="@this" />
+        <cc:attribute name="width" type="java.lang.Integer" default="1000"  />
+        <cc:attribute name="height" type="java.lang.Integer" default="500" />
+        <cc:attribute name="contentMinWidth"  type="java.lang.Integer" />
+        <cc:attribute name="contentMinHeight" type="java.lang.Integer" />
+        <cc:attribute name="resizable" type="java.lang.Boolean" default="true" />
+        <cc:attribute name="draggable" type="java.lang.Boolean" default="true"/>
+        <cc:attribute name="modal" type="java.lang.Boolean" default="true"/>
+        <cc:attribute name="style" type="java.lang.String" targets="dialogButton" /> 
+        <cc:attribute name="styleClass" type="java.lang.String" targets="dialogButton"/>
+        <cc:clientBehavior name ="dialogReturn" event="dialogReturn" targets="dialogButton" />
+
+
     </cc:interface>
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        <p:commandButton id="dialogButton" value="${cc.attrs.value}"   actionListener="#{dialogBean.showDialog(cc.attrs.outcome,cc.attrs.params)}" style="${cc.attrs.style}" styleClass="ui-dialogbutton,${cc.attrs.styleClass}"  process="@this" >            
-        </p:commandButton>
+
+        <c:set var="options" value="#{{'width':cc.attrs.width,'height':cc.attrs.height,'contentMinWidth':cc.attrs.contentMinWidth,'contentMinHeight':cc.attrs.contentMinHeight ,'modal':cc.attrs.modal,'resizable':cc.attrs.resizable,'draggable':cc.attrs.draggable}}" scope="request"/>
+
+        <p:commandButton id="dialogButton" value="${cc.attrs.value}"  actionListener="#{dialogBean.showDialogWithOptions(cc.attrs.outcome,options,cc.attrs.params)}" style="vertical-align: middle;${cc.attrs.style}"  styleClass="ui-dialogbutton,${cc.attrs.styleClass}" process="@this"   /> 
+
+
     </cc:implementation>
 </html>

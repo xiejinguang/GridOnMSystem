@@ -16,8 +16,9 @@ function autoFitDocSize1(iframe) {
 }
 
 function fitViewport(source) {
-    var content = source.children('.ui-dialog-content');
-    source.height(Math.min($(window).height(), content.height() + 50));
+    var dialog = $(source);
+    var content = dialog.children('.ui-dialog-content');
+    dialog.height(Math.min($(window).height(), content.height() + 50));
     content.height(Math.min($(window).height() - 50, content.height()));
 
 }

@@ -36,6 +36,8 @@ public class SelectDialogBean implements Serializable {
         }
         ELContext elc = FacesContext.getCurrentInstance().getELContext();
         ValueExpression ve = se.getComponent().getNamingContainer().getValueExpression("target");
+        if(ve == null)
+            return;
         Class et = ve.getType(elc);
         Object selected = se.getObject();
         Object r = wrapOrUnWrapDataDepents(et, selected);
