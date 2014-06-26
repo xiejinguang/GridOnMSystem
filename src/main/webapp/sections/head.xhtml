@@ -7,10 +7,14 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <ui:component >
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>       
-        <h:outputStylesheet library="css" name="default.css" />
-        <h:outputStylesheet library="css" name="customForPrimefaces.css"/>
+        
         <h:outputScript library="js" name="jsfcrud.js" target="head"/>
         <h:outputScript library="peasant" name="mycustomized.js" target="head"/>
+        
+        
+        <h:outputStylesheet library="css" name="default.css" />
+        <h:outputStylesheet library="css" name="customForPrimefaces.css"/>
+        
         <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel" >
             <f:facet name="start">
                 <h:graphicImage name="ajaxloading.gif"   style="position: fixed; bottom: 50px; right: 50px ; z-index: 7"/>
@@ -24,7 +28,7 @@
         </p:dialog>
 
         <p:growl  id="growl" autoUpdate="true" widgetVar="growl" showDetail="true" sticky="false" life="3000"/>
-        <p:messages autoUpdate="true" showDetail="true" closable="true" id="messages"   />
+        <p:messages autoUpdate="true" showDetail="true" closable="true" id="messages"    />
     </ui:component>
 </html>
 

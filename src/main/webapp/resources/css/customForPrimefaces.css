@@ -58,3 +58,22 @@ and open the template in the editor.
     height: 16px;
     width: 16px;
 }
+.my-datatable-footer{
+      text-align: left;
+}
+
+
+
+/*for DataTable*/
+
+
+
+.ui-datatable-even{
+
+    //color:   #33cc00;
+}
+
+.ui-datatable-odd{
+ 
+  //  color:  #0066cc;
+}

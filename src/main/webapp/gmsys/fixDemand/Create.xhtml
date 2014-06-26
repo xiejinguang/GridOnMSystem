@@ -4,7 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:pt="http://xmlns.jcp.org/jsf"
-      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:ps="http://xmlns.jcp.org/jsf/composite/peasant"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
@@ -12,42 +12,106 @@
     <ui:composition>
         <p:dialog id="FixDemandCreateDlg" widgetVar="FixDemandCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                   header="#{gmsys_i18n.CreateFixDemandTitle}">
             <h:form id="FixDemandCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="6" rendered="#{not empty fixDemandController.created}">
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_id}" for="id" />
                         <p:inputText id="id" value="#{fixDemandController.created.id}" title="#{gmsys_i18n.EditFixDemandTitle_id}"  disabled="true"       required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_id}"/>
+
+
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_demandCode}" for="demandCode" />
                         <p:inputText id="demandCode" value="#{fixDemandController.created.demandCode}" title="#{gmsys_i18n.EditFixDemandTitle_demandCode}"  disabled="false"       required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_demandCode}"/>
+
+
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_problemKind}" for="problemKind" />
-                        <p:inputText id="problemKind" value="#{fixDemandController.created.problemKind}" title="#{gmsys_i18n.EditFixDemandTitle_problemKind}"  disabled="false"       required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_problemKind}"/>
+                        <h:panelGroup>
+                            <p:selectOneMenu id="problemKind" value="#{fixDemandController.created.problemKind}"    disabled="false"  filter="true" filterMatchMode="contains"  required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_problemKind}"  style="vertical-align: middle">
+                                <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                <f:selectItems  value="#{fixDemandController.problemKind.values}" actionListener="#{fixDemandController.problemSubKind.populateValues}"
+                                                var="entry"
+                                                itemValue="#{entry.value}" itemLabel="#{entry.value}">
+                                </f:selectItems>
+                            </p:selectOneMenu> 
+                            <ps:candidateValue rootId="${fixDemandController.problemKind.cv.id}" />
+                        </h:panelGroup>
+
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_problemSubKind}" for="problemSubKind" />
-                        <p:inputText id="problemSubKind" value="#{fixDemandController.created.problemSubKind}" title="#{gmsys_i18n.EditFixDemandTitle_problemSubKind}"  disabled="false"       required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_problemSubKind}"/>
+                        <p:selectOneMenu id="problemSubKind" value="#{fixDemandController.created.problemSubKind}" filter="true" filterMatchMode="contains" disabled="false"   required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_problemSubKind}">
+                            <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                            <f:selectItems  value="#{fixDemandController.problemSubKind.values}"
+                                            var="entry"
+                                            itemValue="#{entry.value}" itemLabel="#{entry.value}" >
+                            </f:selectItems>
+                        </p:selectOneMenu> 
+
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_problemDetails}" for="problemDetails" />
                         <p:inputText id="problemDetails" value="#{fixDemandController.created.problemDetails}" title="#{gmsys_i18n.EditFixDemandTitle_problemDetails}"  disabled="false"       required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_problemDetails}"/>
+
+
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_solution}" for="solution" />
                         <p:inputText id="solution" value="#{fixDemandController.created.solution}" title="#{gmsys_i18n.EditFixDemandTitle_solution}"  disabled="false"       required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_solution}"/>
+
+
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_fixKind}" for="fixKind" />
-                        <p:inputText id="fixKind" value="#{fixDemandController.created.fixKind}" title="#{gmsys_i18n.EditFixDemandTitle_fixKind}"  disabled="false"       />
-                        <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_budgetList}" for="budgetList" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="fixKind" value="#{fixDemandController.created.fixKind}" filter="true" filterMatchMode="contains" disabled="false"   style="vertical-align: middle">
+                                <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                <f:selectItems  value="#{fixDemandController.fixkindCV.children}"
+                                                var="entry"
+                                                itemValue="#{entry.value}" itemLabel="#{entry.value}" >
+                                </f:selectItems>
+                            </p:selectOneMenu> 
+                            <ps:candidateValue rootId="${fixDemandController.fixkindCV.id}" />
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_budgetList}" for="budgetList" />      
                         <p:inputText id="budgetList" value="#{fixDemandController.created.budgetList}" title="#{gmsys_i18n.EditFixDemandTitle_budgetList}"  disabled="false"       />
+
+
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_budget}" for="budget" />
                         <p:inputText id="budget" value="#{fixDemandController.created.budget}" title="#{gmsys_i18n.EditFixDemandTitle_budget}"  disabled="false"       />
+
+
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_discoverDate}" for="discoverDate" />
-                        <p:calendar id="discoverDate" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{fixDemandController.created.discoverDate}" title="#{gmsys_i18n.EditFixDemandTitle_discoverDate}" required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_discoverDate}" showOn="button"/>
+                        <p:calendar id="discoverDate" pattern="yyyy-MM-dd"  navigator="true" showButtonPanel="true" value="#{fixDemandController.created.discoverDate}" title="#{gmsys_i18n.EditFixDemandTitle_discoverDate}" required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_discoverDate}" showOn="button"/>
+
+
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_source}" for="source" />
-                        <p:inputText id="source" value="#{fixDemandController.created.source}" title="#{gmsys_i18n.EditFixDemandTitle_source}"  disabled="false"       />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="source" value="#{fixDemandController.created.source}" filter="true" filterMatchMode="contains" disabled="false"  style="vertical-align: middle" >
+                                <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                <f:selectItems  value="#{fixDemandController.sourceCV.children}"
+                                                var="entry"
+                                                itemValue="#{entry.value}" itemLabel="#{entry.value}" >
+                                </f:selectItems>
+                            </p:selectOneMenu> 
+                            <ps:candidateValue rootId="${fixDemandController.sourceCV.id}" />
+                        </h:panelGroup>
+
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_status}" for="status" />
-                        <p:inputText id="status" value="#{fixDemandController.created.status}" title="#{gmsys_i18n.EditFixDemandTitle_status}"  disabled="false"       />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="status" value="#{fixDemandController.created.status}" filter="true" filterMatchMode="contains" disabled="false"  style="vertical-align: middle"  >
+                                <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                <f:selectItems  value="#{fixDemandController.statusCV.children}"
+                                                var="entry"
+                                                itemValue="#{entry.value}" itemLabel="#{entry.value}" >
+                                </f:selectItems>
+                            </p:selectOneMenu> 
+                            <ps:candidateValue rootId="${fixDemandController.statusCV.id}" />
+                        </h:panelGroup>
+
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_stationId}" for="stationId" />
-                        <p:selectOneMenu id="stationId" value="#{fixDemandController.created.stationId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_stationId}">
-                            <f:selectItem itemLabel="Select One" />
-                            <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
-                                           var="stationIdItem"
-                                           itemValue="#{stationIdItem}"/>
-                        </p:selectOneMenu>
+                        <h:panelGroup>
+                            <p:selectOneMenu id="stationId" value="#{fixDemandController.created.stationId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_stationId}" style="vertical-align: middle">
+                                <f:selectItem itemLabel="Select One" />
+                                <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
+                                               var="stationIdItem"
+                                               itemValue="#{stationIdItem}"/>
+                            </p:selectOneMenu>
+                            <ps:selectDialog outcome="selectStation" value="${bundle.Choose}" update="stationId" target="#{fixDemandController.created.stationId}"  style="vertical-align: middle" />
+                        </h:panelGroup>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{fixDemandController.create}" value="#{gmsys_i18n.Save}" update="display,@form:@parent:FixDemandListForm:datalist,:growl" oncomplete="handleSubmit(args,'FixDemandCreateDialog');"/>
                     <p:commandButton type="button" value="#{gmsys_i18n.Cancel}" onclick="PF('FixDemandCreateDialog').hide()"/>
@@ -56,16 +120,5 @@
         </p:dialog>
 
     </ui:composition>
-    <script type="text/javascript">
 
-        function fitViewport() {
-            var source = $('#FixDemandCreateDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
-
-        }
-
-
-    </script>
 </html>

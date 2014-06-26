@@ -6,16 +6,22 @@
 package org.eman.asist.facade;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import org.eman.Asist;
 import org.eman.Module;
 import org.eman.asist.model.AsistCandidateValue;
 import org.eman.asist.model.CandidateValue;
+import org.slf4j.Logger;
 
 /**
  *

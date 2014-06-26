@@ -41,6 +41,8 @@ public class AttachmentController implements Serializable {
     Repository attachRepo;
     
     String owner ;
+    private String allowTypes =null;
+    private Integer sizeLimit =-1;
     List<Attachment> selecteds;
 
     public List<Attachment>  getSelecteds() {
@@ -103,6 +105,22 @@ public class AttachmentController implements Serializable {
         for(Attachment a :this.selecteds){
             attachRepo.delete(a);
         }
+    }
+
+    public String getAllowTypes() {
+        return allowTypes;
+    }
+
+    public void setAllowTypes(String allowTypes) {
+        this.allowTypes = allowTypes;
+    }
+
+    public Integer getSizeLimit() {
+        return sizeLimit;
+    }
+
+    public void setSizeLimit(Integer sizeLimit) {
+        this.sizeLimit = sizeLimit;
     }
     
 }

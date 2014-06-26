@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -21,10 +22,11 @@ import org.primefaces.event.SelectEvent;
  * @author 谢金光
  */
 @Named("dialogBean")
-@SessionScoped
+@RequestScoped
 public class DialogBean implements Serializable {
 
     Map<Class, String> viewMap;
+    private Map<String,Object> options;
 
     /**
      * Creates a new instance of DialogBean
@@ -76,5 +78,13 @@ public class DialogBean implements Serializable {
 
     private <T> String getOutcomeFor(T entityClass) {
         return this.viewMap.get(this);
+    }
+
+    public Map<String,Object> getOptions() {
+        return options;
+    }
+
+    public void setOptions(Map<String,Object> options) {
+        this.options = options;
     }
 }

@@ -8,14 +8,17 @@
     <h:head>
         <title>${i18nBundle.Title}</title>
 
-        #{attachmentController.setOwner(param['owner'])}
 
+        <ui:include src="/sections/head.xhtml"/>
+        #{attachmentController.setOwner(param['owner'])}
+        #{attachmentController.setSizeLimit(param['sizeLimit'])}
+        #{attachmentController.setAllowTypes(param['allowTypes'])}
     </h:head>
     <h:body>
-        <p:growl id="growl" autoUpdate="true" showDetail="true" />
-
-        <h:form prependId="false">
-            <p:fileUpload multiple="true" mode="advanced" fileUploadListener="#{attachmentController.handleFileUpload}" update=":AttachsForm" />
+        <h:form>
+            <p:fileUpload multiple="true" mode="advanced" fileUploadListener="#{attachmentController.handleFileUpload}" update=":AttachsForm" 
+                          cancelLabel="${i18nBundle.Cancel}" label="${i18nBundle.Browse}" uploadLabel="${i18nBundle.Upload}" allowTypes="${(empty param['allowTypes'])?'null':param['allowTypes']}" sizeLimit="${param['sizeLimit']}"
+                          invalidSizeMessage="${i18nBundle.invalidSizeMessage}" invalidFileMessage="${i18nBundle.invalidFileMessage}"/>
         </h:form>
         <h:form id="AttachsForm">            
             <p:dataTable id="datalist" value="${attachmentController.getAttachments()}" var="item"
@@ -27,11 +30,16 @@
                          draggableColumns="true" resizableColumns="true" 
                          scrollable="true"   liveResize="true" liveScroll="true"
                          sortMode="multiple"
-                         editable="true"                               
+                         editable="true"                                
                          >
 
+                <p:ajax event="rowSelect"   update="deleteButton" />
+                <p:ajax event="rowUnselect" update="deleteButton"/>
 
-                <f:facet name="header">#{i18nBundle.ListAttachmentTitle} </f:facet>
+                <f:facet name="header">#{i18nBundle.ListAttachmentTitle}
+
+                </f:facet>
+                <p:column selectionMode="multiple" style="width: 15px; text-align: center" />
 
                 <p:column headerText="#{i18nBundle.ListAttachmentTitle_Id}">
                     <h:outputText value="#{item.ID}"/>
@@ -52,16 +60,24 @@
                     <h:outputText value="#{item.attacher}"/>
                 </p:column>
                 <p:column headerText="#{i18nBundle.ListAttachmentTitle_UploadTime}">
-                    <h:outputText value="#{item.uploadTime}"/>
+                    <h:outputText value="#{item.uploadTime}" />
                 </p:column>
                 <p:column headerText="#{i18nBundle.ListAttachmentTitle_Download}">
                     <p:commandButton value="Download" ajax="false"  icon="ui-icon-arrowthick-1-s">
                         <p:fileDownload value="#{attachmentController.getStreamContent(item)}" />
                     </p:commandButton>
-                </p:column>                
+                </p:column> 
+                <f:facet name="footer"  >
+                    <div  class="my-datatable-footer">
+                        <p:commandButton id="deleteButton"  value="${i18nBundle.Delete}" process="@this" update="datalist" actionListener="#{attachmentController.destory}" disabled="${empty attachmentController.selecteds}"/> 
+                    </div>
+
+                </f:facet>
+
             </p:dataTable>
 
         </h:form>
+
 
     </h:body>
 </html>

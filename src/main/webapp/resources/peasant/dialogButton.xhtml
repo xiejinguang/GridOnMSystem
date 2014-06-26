@@ -6,7 +6,7 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <!-- INTERFACE -->
-    <cc:interface >
+    <cc:interface  >
 
 
 
@@ -15,7 +15,7 @@
         <cc:attribute name="outcome" type="java.lang.String" rendered="true"/>
         <cc:attribute name="params"  type="java.util.Map"  required="false" />
         <cc:attribute name="update" type="java.lang.String"  targets="dialogButton" default="@this" />
-        <cc:attribute name="width" type="java.lang.Integer" default="1000"  />
+        <cc:attribute name="width" type="java.lang.Integer" default="800"  />
         <cc:attribute name="height" type="java.lang.Integer" default="500" />
         <cc:attribute name="contentMinWidth"  type="java.lang.Integer" />
         <cc:attribute name="contentMinHeight" type="java.lang.Integer" />
@@ -30,11 +30,11 @@
     </cc:interface>
 
     <!-- IMPLEMENTATION -->
-    <cc:implementation>
+    <cc:implementation  >
+        
 
-        <c:set var="options" value="#{{'width':cc.attrs.width,'height':cc.attrs.height,'contentMinWidth':cc.attrs.contentMinWidth,'contentMinHeight':cc.attrs.contentMinHeight ,'modal':cc.attrs.modal,'resizable':cc.attrs.resizable,'draggable':cc.attrs.draggable}}" scope="request"/>
 
-        <p:commandButton id="dialogButton" value="${cc.attrs.value}"  actionListener="#{dialogBean.showDialogWithOptions(cc.attrs.outcome,options,cc.attrs.params)}" style="vertical-align: middle;${cc.attrs.style}"  styleClass="ui-dialogbutton,${cc.attrs.styleClass}" process="@this"   /> 
+        <p:commandButton id="dialogButton" value="${cc.attrs.value}"  actionListener="#{dialogBean.showDialogWithOptions(cc.attrs.outcome,{'width':cc.attrs.width,'height':cc.attrs.height,'contentMinWidth':cc.attrs.contentMinWidth,'contentMinHeight':cc.attrs.contentMinHeight ,'modal':cc.attrs.modal,'resizable':cc.attrs.resizable,'draggable':cc.attrs.draggable},cc.attrs.params)}" style="vertical-align: middle;${cc.attrs.style}"  styleClass="ui-dialogbutton,${cc.attrs.styleClass}" process="@this"    /> 
 
 
     </cc:implementation>

@@ -9,15 +9,12 @@
 
     <h:head>
         <title>Facelet Title</title>
-        <h:outputScript library="peasant" name="mycustomized.js" target="head"/>
-        <p:growl id="growl" autoUpdate="true" showDetail="true"/>
-        <p:messages id="mesgs" autoUpdate="true" showSummary="true" showDetail="true" />
+        <ui:include src="/sections/head.xhtml"/>
     </h:head>
     <h:body>
         <h:form>
             <p:fileUpload fileUploadListener="#{fileUploadController.handleFileUpload}" mode="advanced" multiple="true"/>
         </h:form>
-        <h:form>  
 
 
         <h:form>
@@ -40,12 +37,18 @@
                 <p:graphicImage value="${attachmentController.getResourcePath(image)}"  title="${image.name}"  width="700"  />
             </p:galleria>
         </p:dialog>
-        <h:form>
-            <p:inputText id="value" value="#{testBean.value}" binding="#{testBean2.com}" />
-            <p:commandButton  value="test" actionListener="#{testBean2.action}" update="value" />
-            <ps:selectDialog value="选择" outcome="/testDialog" update="value" target="#{testBean.value}"  width="400" height="300" />
+        <h:form prependId="true">
+            <p:inputText id="value1" value="#{testBean.value}" binding="#{testBean2.com}" />
+            <p:commandButton  value="test" actionListener="#{testBean2.action}" />
+            <ps:dialogButton value="选择" outcome="/testDialog" update="value" target="#{testBean.value}"  width="1000" height="300" contentMinWidth="600" contentMinHeight="400" />
+            <ps:dialogButton value="选择" outcome="/testDialog" update="value" target="#{testBean.value}"  width="400" height="300" contentMinWidth="600" contentMinHeight="400" />
         </h:form>
-
+        <h:form prependId="true">
+            <p:inputText id="value" value="#{testBean.value}" binding="#{testBean2.com}" />
+            <p:commandButton  value="test" actionListener="#{testBean2.action}"  />
+            <ps:dialogButton value="选择" outcome="/testDialog" update="value" target="#{testBean.value}"  width="1000" height="300" contentMinWidth="600" contentMinHeight="400" />
+            <ps:dialogButton value="选择" outcome="/testDialog" update="value" target="#{testBean.value}"  width="400" height="300" contentMinWidth="600" contentMinHeight="400" />
+        </h:form>
 
 
 

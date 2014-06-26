@@ -1,9 +1,5 @@
 package org.eman.gmsys;
 
-import org.eman.gmsys.model.FixDemand;
-import org.eman.gmsys.util.JsfUtil;
-import org.eman.gmsys.util.JsfUtil.PersistAction;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -14,12 +10,19 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
-import javax.faces.view.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import org.eman.asist.CandidateValueConstants;
+import org.eman.asist.CandidateValuesPopulator;
+import org.eman.asist.facade.AsistCandidateValueFacade;
+import org.eman.asist.model.CandidateValue;
+import org.eman.gmsys.model.FixDemand;
+import org.eman.gmsys.util.JsfUtil;
+import org.eman.gmsys.util.JsfUtil.PersistAction;
 
 @Named("fixDemandController")
 @ViewScoped
@@ -33,6 +36,15 @@ public class FixDemandController implements Serializable {
     private Map<String, Object> searchCons;
     protected ResourceBundle bundle;
 
+    @EJB
+    AsistCandidateValueFacade candidateValueFacade;
+
+    private CandidateValue statusCV;
+    private CandidateValue sourceCV;
+    private CandidateValuesPopulator problemKind;
+    private CandidateValuesPopulator problemSubKind;
+    private CandidateValue fixkindCV;
+
     public FixDemandController() {
     }
 
@@ -40,6 +52,16 @@ public class FixDemandController implements Serializable {
     public void init() {
         this.searchCons = new HashMap();
         this.bundle = ResourceBundle.getBundle("/org/eman/gmsys_i18n");
+
+        statusCV = candidateValueFacade.findBy(CandidateValueConstants.GMSYS_FixDemandStatusKey, CandidateValueConstants.GMSYS_FixDemandStatusValue, true).get(0);
+        sourceCV = candidateValueFacade.findBy(CandidateValueConstants.GMSYS_FixDemandSourceKey, CandidateValueConstants.GMSYS_FixDemandSourceValue, true).get(0);
+        fixkindCV = candidateValueFacade.findBy(CandidateValueConstants.GMSYS_FixDemandFixKindKey, CandidateValueConstants.GMSYS_FixDemandFixKindValue, true).get(0);
+        CandidateValue problemKindCV = candidateValueFacade.findBy(CandidateValueConstants.GMSYS_FixDemandProblemKindKey, CandidateValueConstants.GMSYS_FixDemandProblemKindValue, true).get(0);
+        problemKind = new CandidateValuesPopulator(problemKindCV);
+        problemSubKind = new CandidateValuesPopulator();
+        if (problemKind.getValues() != null && problemKind.getValues().size()>0) {
+            problemSubKind.setCv(problemKind.getValues().iterator().next());
+        }
     }
 
     public FixDemand getCreated() {
@@ -202,6 +224,26 @@ public class FixDemandController implements Serializable {
 
     public List<FixDemand> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public CandidateValuesPopulator getProblemKind() {
+        return problemKind;
+    }
+
+    public CandidateValuesPopulator getProblemSubKind() {
+        return problemSubKind;
+    }
+
+    public CandidateValue getStatusCV() {
+        return statusCV;
+    }
+
+    public CandidateValue getSourceCV() {
+        return sourceCV;
+    }
+
+    public CandidateValue getFixkindCV() {
+        return fixkindCV;
     }
 
     @FacesConverter(forClass = FixDemand.class)

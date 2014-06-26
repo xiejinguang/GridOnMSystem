@@ -9,7 +9,11 @@
     <h:body>
         <h:form>
         <p:commandButton value="确定" actionListener="#{dialogBean.selectData([5,'you know what i want!',4])}"/>
+        <p:commandButton value="显示对话框" type="button" onclick="PF('dialog').show()"/>
         </h:form>
+        <p:dialog  widgetVar="dialog" header="对话框" >
+            
+        </p:dialog>
     </h:body>
 </html>
 

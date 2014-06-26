@@ -3,11 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ps ="http://xmlns.jcp.org/jsf/composite/peasant">
 
     <h:head>
         <title>#{gmsys_i18n.AppName}->#{gmsys_i18n.ModuleName}-<ui:insert name="title">主页</ui:insert></title>
-        <ui:include src="/sections/head.xhtml" />
+        <ui:include src="/sections/head.xhtml"/>
     </h:head>
 
     <h:body>
@@ -24,10 +25,11 @@
 
 
             <p:layoutUnit position="center" >
-                <div id="content" style="width:100% ">
+
+                <div id="content" >
                     <ui:insert name="body"/>
                 </div>
-                <div  style="width:100% ">
+                <div >
                     <ui:insert name="footer"/>
                 </div>
             </p:layoutUnit>

@@ -3,32 +3,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ps="http://xmlns.jcp.org/jsf/composite/peasant">
     
 
     <!-- INTERFACE -->
     <cc:interface name="attachment" class="">       
-        <cc:attribute name="fileUploadListener" />
-        <cc:attribute name="value" type="java.util.List"  />
-        <cc:attribute name="sizeLimit" type="java.lang.Integer"/>
+        <cc:attribute name="owner" type="java.lang.String" required="true"/>
+        <cc:attribute name="sizeLimit" type="java.lang.Integer" default="-1"/>
+        <cc:attribute name="allowTypes" type="java.lang.String" default="**"/>
         <cc:attribute name="update"/>
         
     </cc:interface>
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        <div id="#{cc.id}">
-            <p:outputLabel value="数量:#{cc.attrs.value.size()}个"/>       
-            
-            <p:commandButton value="附件"   onclick="uploadfileDlg.show()"/>
-            <p:dialog  minHeight="450" minWidth="600" appendTo="@(body)" id="uploadfileDlg" widgetVar="uploadfileDlg" header="上传附件" dynamic="true">
-                 <p:fileUpload sizeLimit="#{cc.attrs.sizeLimit}" fileUploadListener="#{cc.attrs.fileUploadListener}" multiple="true" update="attachments,#{cc.attrs.update}"/>
-                <p:dataList id="attachments" var="attach" value="#{cc.attrs.value}"  rows="10" rowsPerPageTemplate="10,15,20,30" lazy="true" paginator="true" paginatorPosition="top">
-                    <p:outputLabel>${attach.fileName},${attach.relPath},${attach.uploadTime}"</p:outputLabel>
-                    <p:commandButton><p:fileDownload value="#{getStreamedContent(attach.id)}"/></p:commandButton>
-                </p:dataList>
-               
-            </p:dialog>
-        </div>        
+        <ps:dialogButton  value="附件" outcome="/peasant/util/Attachment" width="600" height="400" params="#{{'owner':cc.attrs.owner,'sizeLimit':cc.attrs.sizeLimit,'allowTypes':cc.attrs.allowTypes}}" >            
+            <p:ajax event="dialogReturn"  update="@form:${cc.attrs.update.replaceAll(',', ',@form:')}" />
+        </ps:dialogButton>
+
     </cc:implementation>
 </html>

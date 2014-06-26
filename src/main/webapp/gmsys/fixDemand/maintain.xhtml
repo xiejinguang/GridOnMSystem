@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ps ="http://xmlns.jcp.org/jsf/composite/peasant">
+    <ui:composition>
+        <h:form id="FixDemandListForm">
+            <p:panel header="#{gmsys_i18n.ListFixDemandTitle}">
+                <p:fieldset id="searchField" legend="${gmsys_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+                    <p:panelGrid   style="width:100%"  >
+                        <p:row>
+                            <p:column >
+                                <p:panelGrid id="searchConsGrid" columns="8">
+
+
+                                    <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_id}" for="id" />
+                                    <p:inputText id="id" value="#{fixDemandController.searchCons['id']}" title="#{gmsys_i18n.FixDemandTitle_id}"  />
+
+
+                                    <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_demandCode}" for="demandCode" />
+                                    <p:inputText id="demandCode" value="#{fixDemandController.searchCons['demandCode']}" title="#{gmsys_i18n.FixDemandTitle_demandCode}"  />
+
+
+                                    <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_problemKind}" for="problemKind" />
+                                    <p:inputText id="problemKind" value="#{fixDemandController.searchCons['problemKind']}" title="#{gmsys_i18n.FixDemandTitle_problemKind}"  />
+
+
+                                    <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_problemSubKind}" for="problemSubKind" />
+                                    <p:inputText id="problemSubKind" value="#{fixDemandController.searchCons['problemSubKind']}" title="#{gmsys_i18n.FixDemandTitle_problemSubKind}"  />
+
+
+                                    <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_problemDetails}" for="problemDetails" />
+                                    <p:inputText id="problemDetails" value="#{fixDemandController.searchCons['problemDetails']}" title="#{gmsys_i18n.FixDemandTitle_problemDetails}"  />
+
+
+                                    <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_solution}" for="solution" />
+                                    <p:inputText id="solution" value="#{fixDemandController.searchCons['solution']}" title="#{gmsys_i18n.FixDemandTitle_solution}"  />
+
+
+                                    <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_fixKind}" for="fixKind" />
+                                    <p:inputText id="fixKind" value="#{fixDemandController.searchCons['fixKind']}" title="#{gmsys_i18n.FixDemandTitle_fixKind}"  />
+
+
+                                    <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_budgetList}" for="budgetList" />
+                                    <p:inputText id="budgetList" value="#{fixDemandController.searchCons['budgetList']}" title="#{gmsys_i18n.FixDemandTitle_budgetList}"  />
+
+
+                                    <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_budget}" for="budget" />
+                                    <p:inputText id="budget" value="#{fixDemandController.searchCons['budget']}" title="#{gmsys_i18n.FixDemandTitle_budget}"  converter="javax.faces.Long"  />
+
+
+                                    <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_discoverDate}" for="discoverDate" />
+                                    <p:calendar id="discoverDate" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{fixDemandController.searchCons['discoverDate']}" title="#{gmsys_i18n.FixDemandTitle_discoverDate}" showOn="button"/>
+
+
+                                    <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_source}" for="source" />
+                                    <p:inputText id="source" value="#{fixDemandController.searchCons['source']}" title="#{gmsys_i18n.FixDemandTitle_source}"  />
+
+
+                                    <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_status}" for="status" />
+                                    <p:inputText id="status" value="#{fixDemandController.searchCons['status']}" title="#{gmsys_i18n.FixDemandTitle_status}"  />
+
+
+                                    <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_stationId}" for="stationId" />
+                                    <p:selectOneMenu id="stationId" value="#{fixDemandController.searchCons['stationId']}" filter="true"  filterMatchMode="contains"  converter="org.eman.Station"  >
+                                        <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
+                                                       var="stationIdItem"
+                                                       itemValue="#{stationIdItem}"/>
+                                    </p:selectOneMenu>
+                                    <ps:dialogButton value="选择" outcome="/testDialog" update="value" target="#{testBean.value}"  width="400" height="300" contentMinWidth="600" contentMinHeight="400" />
+
+                                </p:panelGrid>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton id="searchButton" icon="ui-icon-search"   value="${gmsys_i18n.Search}" actionListener="#{fixDemandController.searchItems}" update=":growl,datalist"/>
+                                <br/>
+                                <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${gmsys_i18n.GetAll}" actionListener="#{fixDemandController.allItems}" update=":growl,datalist"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>                   
+                </p:fieldset>
+
+                <p:dataTable id="datalist" value="#{fixDemandController.items}" var="item"
+                             selection="#{fixDemandController.selectedItems}"
+                             rowKey="#{item.id}"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             paginator="true" paginatorPosition="bottom"
+                             rows="10" 
+                             draggableColumns="true" resizableColumns="true" 
+                             scrollable="true"   liveResize="true" liveScroll="true"
+                             sortMode="multiple"
+                             editable="true" 
+                             stickyHeader="false" 
+                             >
+
+                    <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                    <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+
+                    <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
+
+                    <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                        <f:facet name="header">
+                            <h:outputText value="#{gmsys_i18n.FixDemandTitle_id}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.demandCode}" filterBy="#{item.demandCode}">
+                        <f:facet name="header">
+                            <h:outputText value="#{gmsys_i18n.FixDemandTitle_demandCode}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.demandCode}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.problemKind}" filterBy="#{item.problemKind}">
+                        <f:facet name="header">
+                            <h:outputText value="#{gmsys_i18n.FixDemandTitle_problemKind}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.problemKind}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.problemSubKind}" filterBy="#{item.problemSubKind}">
+                        <f:facet name="header">
+                            <h:outputText value="#{gmsys_i18n.FixDemandTitle_problemSubKind}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.problemSubKind}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.problemDetails}" filterBy="#{item.problemDetails}">
+                        <f:facet name="header">
+                            <h:outputText value="#{gmsys_i18n.FixDemandTitle_problemDetails}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.problemDetails}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.solution}" filterBy="#{item.solution}">
+                        <f:facet name="header">
+                            <h:outputText value="#{gmsys_i18n.FixDemandTitle_solution}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.solution}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.fixKind}" filterBy="#{item.fixKind}">
+                        <f:facet name="header">
+                            <h:outputText value="#{gmsys_i18n.FixDemandTitle_fixKind}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fixKind}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.budgetList}" filterBy="#{item.budgetList}">
+                        <f:facet name="header">
+                            <h:outputText value="#{gmsys_i18n.FixDemandTitle_budgetList}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.budgetList}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.budget}" filterBy="#{item.budget}">
+                        <f:facet name="header">
+                            <h:outputText value="#{gmsys_i18n.FixDemandTitle_budget}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.budget}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.discoverDate}" filterBy="#{item.discoverDate}">
+                        <f:facet name="header">
+                            <h:outputText value="#{gmsys_i18n.FixDemandTitle_discoverDate}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.discoverDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column sortBy="#{item.source}" filterBy="#{item.source}">
+                        <f:facet name="header">
+                            <h:outputText value="#{gmsys_i18n.FixDemandTitle_source}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.source}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.status}" filterBy="#{item.status}">
+                        <f:facet name="header">
+                            <h:outputText value="#{gmsys_i18n.FixDemandTitle_status}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.status}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.stationId}" filterBy="#{item.stationId}">
+                        <f:facet name="header">
+                            <h:outputText value="#{gmsys_i18n.FixDemandTitle_stationId}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.stationId}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{gmsys_i18n.Create}" actionListener="#{fixDemandController.prepareCreate}" process="@this" update="@form:@parent:FixDemandCreateForm" oncomplete="PF('FixDemandCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{gmsys_i18n.View}" process="@this" update="@form:@parent:FixDemandViewForm" oncomplete="PF('FixDemandViewDialog').show()" disabled="#{empty fixDemandController.selectedItems}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{gmsys_i18n.Edit}" process="@this" update="@form:@parent:FixDemandEditForm" oncomplete="PF('FixDemandEditDialog').show()" disabled="#{empty fixDemandController.selectedItems}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{gmsys_i18n.Delete}"  actionListener="#{fixDemandController.destroy}" process="@this" update=":growl,datalist" disabled="#{empty fixDemandController.selectedItems}"/>
+                        <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                        <p:columnToggler datasource="datalist" trigger="toggler" />
+                    </f:facet>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+
+        <ui:include src="Create.xhtml"/>
+        <ui:include src="Edit.xhtml"/>
+        <ui:include src="View.xhtml"/>
+    </ui:composition>
+</html>
+

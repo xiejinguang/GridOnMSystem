@@ -5,6 +5,7 @@ function autoFitDocSize(iframe) {
         $(iframe).height(doc.height());
         //alert("you see it");
     });
+    //alert("you see it");
 }
 
 function autoFitDocSize1(iframe) {
@@ -36,15 +37,15 @@ PrimeFaces.dialog.DialogHandler = {openDialog: function(e) {
         f.append('<div class="ui-dialog-content ui-widget-content"><iframe frameborder="0" scrolling="no"  width="100%"  onload="autoFitDocSize(this)" /></div>');
         f.appendTo(document.body);
         var c = f.find("iframe"), g = e.url.indexOf("?") === -1 ? "?" : "&", b = e.url + g + "pfdlgcid=" + e.pfdlgcid, a = e.options.contentWidth || 640;
-        var dialogCSS={};
-                if (e.options.minWidth) {
+        var dialogCSS = {};
+        if (e.options.minWidth) {
             dialogCSS.minWidth = e.options.minWidth;
         }
         if (e.options.minHeight) {
             dialogCSS.minHeight = e.options.minHeight;
         }
         f.css(dialogCSS);
-        
+
         //c.width(a);
         var contentCSS = {};
         if (e.options.contentMinWidth) {

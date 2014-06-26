@@ -55,7 +55,7 @@
     
     <navigation-rule>
         <navigation-case>
-            <from-outcome>setcandidatevalues</from-outcome>
+            <from-outcome>setCandidatevalues</from-outcome>
             <to-view-id>/asist/asistCandidateValueTree/customize</to-view-id>
         </navigation-case>    
     </navigation-rule>
