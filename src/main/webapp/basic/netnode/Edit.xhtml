@@ -32,33 +32,35 @@
                                 <p:inputText id="name" value="#{item.name}" title="#{basic_i18n.EditNetnodeTitle_name}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditNetnodeRequiredMessage_name}"/>
                                 <p:outputLabel value="#{basic_i18n.EditNetnodeLabel_investTime}" for="investTime" />
                                 <p:calendar id="investTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{item.investTime}" title="#{basic_i18n.EditNetnodeTitle_investTime}"  showOn="button"/>
-                                <p:outputLabel value="#{basic_i18n.EditNetnodeLabel_commont}" for="commont" />
-                                <p:inputTextarea rows="4" cols="30" id="commont" value="#{item.commont}" title="#{basic_i18n.EditNetnodeTitle_commont}" />
+
                                 <p:outputLabel value="#{basic_i18n.EditNetnodeLabel_status}" for="status" />
                                 <p:inputText id="status" value="#{item.status}" title="#{basic_i18n.EditNetnodeTitle_status}" disabled="false"   />
 
 
                                 <p:outputLabel value="#{basic_i18n.EditNetnodeLabel_equipModelId}" for="equipModelId" />
                                 <h:panelGroup>
-                                    <p:selectOneMenu id="equipModelId" value="#{item.equipModelId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditNetnodeRequiredMessage_equipModelId}">
-                                        <f:selectItem itemLabel="Select One" />
+                                    <p:selectOneMenu id="equipModelId" value="#{item.equipModelId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditNetnodeRequiredMessage_equipModelId}" style="vertical-align: middle">
+                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}" />
                                         <f:selectItems value="#{equipmentModelController.itemsAvailableSelectOne}"
                                                        var="equipModelIdItem"
                                                        itemValue="#{equipModelIdItem}"/>
                                     </p:selectOneMenu>
-                                    <ps:selectDialog outcome="selectEquipmentModel" value="${bundle.Choose}" styleClass="vcenter" target="#{item.equipModelId}" update="equipModelId" />
+                                    <ps:selectDialog outcome="selectEquipmentModel" value="${bundle.Choose}" style="vertical-align: middle" target="#{item.equipModelId}" update="equipModelId" />
                                 </h:panelGroup>
 
                                 <p:outputLabel value="#{basic_i18n.EditNetnodeLabel_statID}" for="statID" />
                                 <h:panelGroup>
-                                    <p:selectOneMenu id="statID" value="#{item.statID}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditNetnodeRequiredMessage_statID}">
-                                        <f:selectItem itemLabel="Select One" />
+                                    <p:selectOneMenu id="statID" value="#{item.statID}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditNetnodeRequiredMessage_statID}" style="vertical-align: middle">
+                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}" />
                                         <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
                                                        var="statIDItem"
                                                        itemValue="#{statIDItem}"/>
                                     </p:selectOneMenu>
-                                    <ps:selectDialog outcome="selectStation" value="${bundle.Choose}" styleClass="vcenter" target="#{item.statID}" update="statID"/>
+                                    <ps:selectDialog outcome="selectStation" value="${bundle.Choose}" style="vertical-align: middle" target="#{item.statID}" update="statID"/>
                                 </h:panelGroup>
+
+                                <p:outputLabel value="#{basic_i18n.EditNetnodeLabel_commont}" for="commont" />
+                                <p:inputTextarea rows="4" cols="30" id="commont" value="#{item.commont}" title="#{basic_i18n.EditNetnodeTitle_commont}" />
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>
@@ -69,5 +71,5 @@
         </p:dialog>
 
     </ui:composition>
-   
+
 </html>

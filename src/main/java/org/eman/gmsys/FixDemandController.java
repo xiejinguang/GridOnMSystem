@@ -17,7 +17,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.eman.asist.CandidateValueConstants;
-import org.eman.asist.CandidateValuesPopulator;
+import org.eman.asist.HierarchicalValuesPopulater;
 import org.eman.asist.facade.AsistCandidateValueFacade;
 import org.eman.asist.model.CandidateValue;
 import org.eman.gmsys.model.FixDemand;
@@ -41,8 +41,8 @@ public class FixDemandController implements Serializable {
 
     private CandidateValue statusCV;
     private CandidateValue sourceCV;
-    private CandidateValuesPopulator problemKind;
-    private CandidateValuesPopulator problemSubKind;
+    private HierarchicalValuesPopulater problemKind;
+    private HierarchicalValuesPopulater problemSubKind;
     private CandidateValue fixkindCV;
 
     public FixDemandController() {
@@ -57,8 +57,8 @@ public class FixDemandController implements Serializable {
         sourceCV = candidateValueFacade.findBy(CandidateValueConstants.GMSYS_FixDemandSourceKey, CandidateValueConstants.GMSYS_FixDemandSourceValue, true).get(0);
         fixkindCV = candidateValueFacade.findBy(CandidateValueConstants.GMSYS_FixDemandFixKindKey, CandidateValueConstants.GMSYS_FixDemandFixKindValue, true).get(0);
         CandidateValue problemKindCV = candidateValueFacade.findBy(CandidateValueConstants.GMSYS_FixDemandProblemKindKey, CandidateValueConstants.GMSYS_FixDemandProblemKindValue, true).get(0);
-        problemKind = new CandidateValuesPopulator(problemKindCV);
-        problemSubKind = new CandidateValuesPopulator();
+        problemKind = new HierarchicalValuesPopulater(problemKindCV);
+        problemSubKind = new HierarchicalValuesPopulater();
         if (problemKind.getValues() != null && problemKind.getValues().size()>0) {
             problemSubKind.setCv(problemKind.getValues().iterator().next());
         }
@@ -226,11 +226,11 @@ public class FixDemandController implements Serializable {
         return getFacade().findAll();
     }
 
-    public CandidateValuesPopulator getProblemKind() {
+    public HierarchicalValuesPopulater getProblemKind() {
         return problemKind;
     }
 
-    public CandidateValuesPopulator getProblemSubKind() {
+    public HierarchicalValuesPopulater getProblemSubKind() {
         return problemSubKind;
     }
 

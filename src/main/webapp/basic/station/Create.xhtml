@@ -41,7 +41,7 @@
 
                         <p:outputLabel value="#{basic_i18n.EditStationLabel_type}" for="type" />
                         <h:panelGroup>
-                            <p:selectOneMenu id="type" value="#{stationController.created.type}"   disabled="false"  filter="true" filterMatchMode="contains" >
+                            <p:selectOneMenu id="type" value="#{stationController.created.type}"   disabled="false"  filter="true" filterMatchMode="contains" style="vertical-align: middle" >
                                 <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
                                 <f:selectItems  value="#{stationController.types.children}"
                                                 var="item"
@@ -53,7 +53,7 @@
 
                         <p:outputLabel value="#{basic_i18n.EditStationLabel_accomMaintainer}" for="accomMaintainer" />
                         <h:panelGroup>
-                            <p:selectOneMenu id="accomMaintainer" value="#{stationController.created.accomMaintainer}"    disabled="false"  filter="true" filterMatchMode="contains" >
+                            <p:selectOneMenu id="accomMaintainer" value="#{stationController.created.accomMaintainer}"    disabled="false"  filter="true" filterMatchMode="contains" style="vertical-align: middle" >
                                 <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
                                 <f:selectItems  value="#{stationController.companys.children}"
                                                 var="item"
@@ -65,7 +65,7 @@
 
                         <p:outputLabel value="#{basic_i18n.EditStationLabel_status}" for="status" />
                         <h:panelGroup>
-                            <p:selectOneMenu id="status" value="#{stationController.created.status}"  disabled="false"  filter="true" filterMatchMode="contains" >
+                            <p:selectOneMenu id="status" value="#{stationController.created.status}"  disabled="false"  filter="true" filterMatchMode="contains" style="vertical-align: middle" >
                                 <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
                                 <f:selectItems  value="#{stationController.stationStatus.children}"
                                                 var="item"
@@ -81,11 +81,15 @@
 
                         <p:outputLabel value="#{basic_i18n.EditStationLabel_roomspotId}" for="roomspotId" />
                         <h:panelGroup>
-                            <p:selectOneMenu id="roomspotId" value="#{stationController.created.roomspotId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_roomspotId}" styleClass="vcenter" >
-                                <f:selectItem itemLabel="Select One" />
+                            <p:selectOneMenu id="roomspotId" value="#{stationController.created.roomspotId}" 
+                                             var="soitem" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_roomspotId}" style="vertical-align: middle"  >
+                                <f:selectItem itemLabel="${bundle.SelectOneMessage}" />
                                 <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
                                                var="roomspotIdItem"
-                                               itemValue="#{roomspotIdItem}"/>
+                                               itemValue="#{roomspotIdItem}" itemLabel="#{roomspotIdItem.roomCode += ':' += roomspotIdItem.roomName}"/>
+                                <p:column><h:outputText value="#{soitem.grid}"/></p:column>
+                                <p:column><h:outputText value="#{soitem.roomCode}"/></p:column>
+                                <p:column><h:outputText value="#{soitem.roomName}"/></p:column>
                             </p:selectOneMenu>
                             <ps:selectDialog outcome="selectRoomspot" value="${bundle.Choose}" update="roomspotId" target="#{stationController.created.roomspotId}" styleClass="vcenter" />
                         </h:panelGroup>

@@ -30,10 +30,11 @@
                             <p:selectOneMenu id="problemKind" value="#{fixDemandController.created.problemKind}"    disabled="false"  filter="true" filterMatchMode="contains"  required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_problemKind}"  style="vertical-align: middle">
                                 <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
                                 <f:selectItems  value="#{fixDemandController.problemKind.values}" actionListener="#{fixDemandController.problemSubKind.populateValues}"
-                                                var="entry"
-                                                itemValue="#{entry.value}" itemLabel="#{entry.value}">
+                                                var="entry"  itemValue="#{entry.value}" itemLabel="#{entry.value}" >                                      
                                 </f:selectItems>
+                                <p:ajax/>
                             </p:selectOneMenu> 
+                            
                             <ps:candidateValue rootId="${fixDemandController.problemKind.cv.id}" />
                         </h:panelGroup>
 

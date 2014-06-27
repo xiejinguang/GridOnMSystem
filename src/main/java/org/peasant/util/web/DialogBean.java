@@ -13,11 +13,14 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 /**
+ * 
  *
  * @author 谢金光
  */
@@ -69,7 +72,9 @@ public class DialogBean implements Serializable {
     }
     
      public   void showDialogWithOptions(String outcome,Map<String, Object> options,Map<String,List<String>> params) {
+         
         RequestContext.getCurrentInstance().openDialog(outcome, options,params);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("show dialog with options!","options:"+options.toString()));
     }
 
     public void onChosen(SelectEvent selectEvent) {

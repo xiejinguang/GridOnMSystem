@@ -15,9 +15,10 @@
         </view-handler>
                 
         <resource-bundle>
-            <base-name>/org/gmsys/bundle</base-name>
+            <base-name>/org/eman/bundle</base-name>
             <var>bundle</var>
-        </resource-bundle>
+        </resource-bundle>     
+
         <resource-bundle>
             <base-name>/org/peasant/util/i18n</base-name>
             <var>i18nBundle</var>

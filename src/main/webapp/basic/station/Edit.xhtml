@@ -45,41 +45,35 @@
 
 
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_type}" for="type" />
-                                <h:panelGroup>
-                                    <p:selectOneMenu id="type" value="#{item.type}"   disabled="false"  filter="true" filterMatchMode="contains" >
-                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
-                                        <f:selectItems  value="#{stationController.types.children}"
-                                                        var="item"
-                                                        itemValue="#{item.value}" itemLabel="#{item.value}" >
-                                        </f:selectItems>                                        
-                                    </p:selectOneMenu>
-                                    <ps:candidateValue rootId="#{stationController.types.id}"  update="type" />
-                                </h:panelGroup>
+
+                                <p:selectOneMenu id="type" value="#{item.type}"   disabled="false"  filter="true" filterMatchMode="contains" >
+                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                    <f:selectItems  value="#{stationController.types.children}"
+                                                    var="item"
+                                                    itemValue="#{item.value}" itemLabel="#{item.value}" >
+                                    </f:selectItems>                                        
+                                </p:selectOneMenu>
 
 
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_accomMaintainer}" for="accomMaintainer" />
-                                <h:panelGroup>
-                                    <p:selectOneMenu id="accomMaintainer" value="#{item.accomMaintainer}"    disabled="false"  filter="true" filterMatchMode="contains" >
-                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
-                                        <f:selectItems  value="#{stationController.companys.children}"
-                                                        var="item"
-                                                        itemValue="#{item.value}" itemLabel="#{item.value}" >
-                                        </f:selectItems>                                        
-                                    </p:selectOneMenu>
-                                    <ps:candidateValue rootId="#{stationController.companys.id}"  update="accomMaintainer" />
-                                </h:panelGroup>
+                                <p:selectOneMenu id="accomMaintainer" value="#{item.accomMaintainer}"    disabled="false"  filter="true" filterMatchMode="contains" >
+                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                    <f:selectItems  value="#{stationController.companys.children}"
+                                                    var="item"
+                                                    itemValue="#{item.value}" itemLabel="#{item.value}" >
+                                    </f:selectItems>                                        
+                                </p:selectOneMenu>
+
 
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_status}" for="status" />
-                                <h:panelGroup>
-                                    <p:selectOneMenu id="status" value="#{item.status}"  disabled="false"  filter="true" filterMatchMode="contains" >
-                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
-                                        <f:selectItems  value="#{stationController.stationStatus.children}"
-                                                        var="item"
-                                                        itemValue="#{item.value}" itemLabel="#{item.value}" >
-                                        </f:selectItems>                                        
-                                    </p:selectOneMenu>
-                                    <ps:candidateValue rootId="#{stationController.stationStatus.id}"  update="status" />
-                                </h:panelGroup>
+                                <p:selectOneMenu id="status" value="#{item.status}"  disabled="false"  filter="true" filterMatchMode="contains" >
+                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                    <f:selectItems  value="#{stationController.stationStatus.children}"
+                                                    var="item"
+                                                    itemValue="#{item.value}" itemLabel="#{item.value}" >
+                                    </f:selectItems>                                        
+                                </p:selectOneMenu>
+
 
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_commont}" for="commont" />
                                 <p:inputTextarea rows="4" cols="30" id="commont" value="#{item.commont}" title="#{basic_i18n.EditStationTitle_commont}" />
@@ -87,14 +81,17 @@
 
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_roomspotId}" for="roomspotId" />
                                 <h:panelGroup>
-                                <p:selectOneMenu id="roomspotId" value="#{item.roomspotId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_roomspotId}" styleClass="vcenter">
-                                    <f:selectItem itemLabel="Select One" />
-                                    <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
-                                                   var="roomspotIdItem"
-                                                   itemValue="#{roomspotIdItem}"/>
-                                </p:selectOneMenu>
+                                    <p:selectOneMenu id="roomspotId" value="#{item.roomspotId}" var="soitem" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_roomspotId}" styleClass="vcenter">
+                                        <f:selectItem itemLabel="Select One" />
+                                        <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
+                                                       var="roomspotIdItem"
+                                                       itemValue="#{roomspotIdItem}"/>
+                                    </p:selectOneMenu>
+                                    <p:column><h:outputText value="#{soitem.grid}"/></p:column>
+                                    <p:column><h:outputText value="#{soitem.roomCode}"/></p:column>
+                                    <p:column><h:outputText value="#{soitem.roomName}"/></p:column>
                                     <ps:selectDialog outcome="selectRoomspot" value="${bundle.Choose}" update="roomspotId" target="#{item.roomspotId}" styleClass="vcenter" />
-                            </h:panelGroup>
+                                </h:panelGroup>
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>
@@ -105,5 +102,5 @@
         </p:dialog>
 
     </ui:composition>
-  
+
 </html>

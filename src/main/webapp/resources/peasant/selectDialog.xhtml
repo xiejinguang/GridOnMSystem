@@ -30,10 +30,8 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-
-        <c:set var="options" value="#{{'width':cc.attrs.width,'height':cc.attrs.height,'contentMinWidth':cc.attrs.contentMinWidth,'contentMinHeight':cc.attrs.contentMinHeight ,'modal':cc.attrs.modal,'resizable':cc.attrs.resizable,'draggable':cc.attrs.draggable}}" scope="request"/>
-
-        <p:commandButton id="dialogButton" value="${cc.attrs.value}"  actionListener="#{dialogBean.showDialogWithOptions(cc.attrs.outcome,options,cc.attrs.params)}" style="vertical-align: middle;${cc.attrs.style}"  styleClass="ui-dialogbutton,${cc.attrs.styleClass}" process="@this"   > 
+   
+        <p:commandButton id="dialogButton" value="${cc.attrs.value}"  actionListener="#{dialogBean.showDialogWithOptions(cc.attrs.outcome,{'width':cc.attrs.width,'height':cc.attrs.height,'contentMinWidth':cc.attrs.contentMinWidth,'contentMinHeight':cc.attrs.contentMinHeight ,'modal':cc.attrs.modal,'resizable':cc.attrs.resizable,'draggable':cc.attrs.draggable},cc.attrs.params)}" style="vertical-align: middle;${cc.attrs.style}"  styleClass="ui-dialogbutton,${cc.attrs.styleClass}" process="@composite"   > 
             <p:ajax event="dialogReturn"  listener="#{selectDialogBean.onDataChosen}" update="@form:${cc.attrs.update.replaceAll(',', ',@form:')}" />
         </p:commandButton>
     </cc:implementation>

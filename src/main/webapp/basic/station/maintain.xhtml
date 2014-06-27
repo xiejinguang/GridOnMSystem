@@ -67,10 +67,14 @@
 
                             <p:outputLabel value="#{basic_i18n.StationLabel_roomspotId}" for="roomspotId" />
                             <h:panelGroup>
-                                <p:selectOneMenu id="roomspotId" value="#{stationController.searchCons['roomspotId']}" filter="true"  filterMatchMode="contains"  converter="org.eman.Roomspot" styleClass="vcenter" >
+                                <p:selectOneMenu id="roomspotId" var="soitem" value="#{stationController.searchCons['roomspotId']}" filter="true"  filterMatchMode="contains"  converter="org.eman.Roomspot" styleClass="vcenter" >
+                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}" />
                                     <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
                                                    var="roomspotIdItem"
                                                    itemValue="#{roomspotIdItem}"/>
+                                    <p:column><h:outputText value="#{soitem.grid}"/></p:column>
+                                    <p:column><h:outputText value="#{soitem.roomCode}"/></p:column>
+                                    <p:column><h:outputText value="#{soitem.roomName}"/></p:column>
                                 </p:selectOneMenu>
                                 <ps:selectDialog outcome="selectRoomspot" value="${bundle.Choose}" update="roomspotId" target="#{stationController.searchCons['roomspotId']}" styleClass="vcenter" />
                             </h:panelGroup>

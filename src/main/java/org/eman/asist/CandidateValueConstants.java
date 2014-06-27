@@ -26,6 +26,9 @@ public class CandidateValueConstants {
     public static final String StationTypekey = "station_type";
     public static final String StationTypeValue = "root";
 
+    public static final String NetnodeStatusKey = "netnode_status";
+    public static final String NetnodeStatusValue = "root";
+
     public static final String GMSYS_FixDemandKey = "gmsys_fixdemand";
     public static final String GMSYS_FixDemandValue = "root";
     public static final String GMSYS_FixDemandSourceKey = GMSYS_FixDemandKey + "_source";
