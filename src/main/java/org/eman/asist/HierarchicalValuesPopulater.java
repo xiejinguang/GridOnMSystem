@@ -20,8 +20,6 @@ import org.eman.asist.model.CandidateValue;
  *
  * @author 谢金光
  */
-@Named
-@Dependent
 public class HierarchicalValuesPopulater {
 
     private HierarchicalValuesPopulater superior;
@@ -33,6 +31,16 @@ public class HierarchicalValuesPopulater {
         this.superior = superior;
         this.subordinate = subordinate;
         this.cv = cv;
+        if (superior != null) {
+            superior.setSubordinate(this);
+            if (superior.getValues() != null && superior.getValues().size() > 0) {
+                this.setCv(superior.getValues().iterator().next());
+            }
+        }
+        if (subordinate != null) {
+            subordinate.setSuperior(this);
+        }
+
     }
 
     public HierarchicalValuesPopulater() {

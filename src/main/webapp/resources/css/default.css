@@ -103,6 +103,12 @@ img.right {
 #menu li {
     display: inline;
 }
+a.menu{
+    height: 50px;
+}
+a.menu:hover{
+    text-decoration: none;
+}
 
 ul.vmenu {
     margin:0;
@@ -117,6 +123,10 @@ ul.hmenu {
 }
 ul.hmenu li{
     display: inline;
+}
+ul.vmenu li:hover{
+    background-color: #ece3a5;
+    color: #ffaf0f;
 }
 
 

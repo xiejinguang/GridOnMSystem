@@ -57,11 +57,9 @@ public class FixDemandController implements Serializable {
         sourceCV = candidateValueFacade.findBy(CandidateValueConstants.GMSYS_FixDemandSourceKey, CandidateValueConstants.GMSYS_FixDemandSourceValue, true).get(0);
         fixkindCV = candidateValueFacade.findBy(CandidateValueConstants.GMSYS_FixDemandFixKindKey, CandidateValueConstants.GMSYS_FixDemandFixKindValue, true).get(0);
         CandidateValue problemKindCV = candidateValueFacade.findBy(CandidateValueConstants.GMSYS_FixDemandProblemKindKey, CandidateValueConstants.GMSYS_FixDemandProblemKindValue, true).get(0);
-        problemKind = new HierarchicalValuesPopulater(problemKindCV);
-        problemSubKind = new HierarchicalValuesPopulater();
-        if (problemKind.getValues() != null && problemKind.getValues().size()>0) {
-            problemSubKind.setCv(problemKind.getValues().iterator().next());
-        }
+        problemKind = new HierarchicalValuesPopulater(null,null,problemKindCV);
+        problemSubKind = new HierarchicalValuesPopulater(problemKind,null,null);
+
     }
 
     public FixDemand getCreated() {

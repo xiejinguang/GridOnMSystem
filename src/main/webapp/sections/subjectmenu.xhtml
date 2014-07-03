@@ -9,16 +9,10 @@
         <p:outputLabel id="subject" value="${request.remoteUser}" style="font-weight:  bold ; font-size: large " /><span style="font-size:  medium"> ,欢迎享受快乐工作之旅！</span>
         <p:overlayPanel id="SubjectMenu" for="subject" showEvent="mouseover" hideEvent="mousedown" dismissable="true" appendToBody="true" style="margin: 0;" >
             <h:form id="SubjectMenuForm" prependId="false" >
-                <p:tieredMenu>
-                    <p:menuitem icon="/images/search/seek.jpg" ><p:inputText /></p:menuitem>
-
-                    <p:menuitem  icon="/images/stack/music.png"  value="Music" />
-                    <p:menuitem  icon="/images/stack/video.png"  value="Video" />
-                    <p:menuitem  icon="/images/stack/home.png"  value="Home" />
-                    <p:menuitem  icon="/images/stack/link.png"  value="Link" />
-                    <p:menuitem  icon="/images/stack/rss.png"  value="RSS" />
-                    <p:menuitem  icon="/images/stack/history.png"  value="History" />
-                    <p:menuitem  value="Logout" url="/security/logout" />
+                <p:tieredMenu>           
+                    <p:menuitem  value="修改密码" />
+                    <p:menuitem  value="修改个人信息" />
+                    <p:menuitem  value="退出" url="/security/logout" />
                 </p:tieredMenu>
             </h:form>
         </p:overlayPanel>
