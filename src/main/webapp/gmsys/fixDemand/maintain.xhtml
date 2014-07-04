@@ -66,6 +66,7 @@
 
                                     <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_stationId}" for="stationId" />
                                     <p:selectOneMenu id="stationId" value="#{fixDemandController.searchCons['stationId']}" filter="true"  filterMatchMode="contains"  converter="org.eman.Station"  >
+                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}" />
                                         <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
                                                        var="stationIdItem"
                                                        itemValue="#{stationIdItem}"/>
@@ -179,6 +180,12 @@
                             <h:outputText value="#{gmsys_i18n.FixDemandTitle_stationId}"/>
                         </f:facet>
                         <h:outputText value="#{item.stationId}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{gmsys_i18n.AttachmentTitle}"/>
+                        </f:facet>
+                        <ps:attachment owner="#{item.id}" />
                     </p:column>
                     <f:facet name="footer">
                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{gmsys_i18n.Create}" actionListener="#{fixDemandController.prepareCreate}" process="@this" update="@form:@parent:FixDemandCreateForm" oncomplete="PF('FixDemandCreateDialog').show()"/>

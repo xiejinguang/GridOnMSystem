@@ -41,9 +41,9 @@ public class StationController implements Serializable {
    
     
     
-    @Inject @Values(key = CandidateValueConstants.CompanyKey)
+    @Inject @Values(key = CandidateValueConstants.StationStatusKey)
     private CandidateValue stationStatus;
-    @Inject @Values(key = CandidateValueConstants.GridKey)
+    @Inject @Values(key = CandidateValueConstants.CompanyKey)
     private CandidateValue companys;
      @Inject @Values(key = CandidateValueConstants.StationTypekey)
     private CandidateValue types;

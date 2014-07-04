@@ -36,8 +36,16 @@
 
 
                         <p:outputLabel value="#{basic_i18n.EditStationLabel_owner}" for="owner" />
-                        <p:inputText id="owner" value="#{stationController.created.owner}" title="#{basic_i18n.EditStationTitle_owner}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_owner}"/>
-
+                        <h:panelGroup>
+                            <p:selectOneMenu id="owner" value="#{stationController.created.owner}"    disabled="false"  filter="true" filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_owner}" style="vertical-align: middle" >
+                                <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                <f:selectItems  value="#{stationController.companys.children}"
+                                                var="item"
+                                                itemValue="#{item.value}" itemLabel="#{item.value}" >
+                                </f:selectItems>                                        
+                            </p:selectOneMenu>
+                            <ps:candidateValue rootId="#{stationController.companys.id}"  update="accomMaintainer" />
+                        </h:panelGroup>
 
                         <p:outputLabel value="#{basic_i18n.EditStationLabel_type}" for="type" />
                         <h:panelGroup>
@@ -81,7 +89,7 @@
 
                         <p:outputLabel value="#{basic_i18n.EditStationLabel_roomspotId}" for="roomspotId" />
                         <h:panelGroup>
-                            <p:selectOneMenu id="roomspotId" value="#{stationController.created.roomspotId}" 
+                            <p:selectOneMenu id="roomspotId" value="#{stationController.created.roomspotId}"  converter="org.eman.Roomspot"
                                              var="soitem" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_roomspotId}" style="vertical-align: middle"  >
                                 <f:selectItem itemLabel="${bundle.SelectOneMessage}" />
                                 <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"

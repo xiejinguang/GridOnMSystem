@@ -74,7 +74,7 @@ public class DialogBean implements Serializable {
      public   void showDialogWithOptions(String outcome,Map<String, Object> options,Map<String,List<String>> params) {
          
         RequestContext.getCurrentInstance().openDialog(outcome, options,params);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("show dialog with options!","options:"+options.toString()));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("show dialog with options!","options:"+options+"\n params:"+params));
     }
 
     public void onChosen(SelectEvent selectEvent) {

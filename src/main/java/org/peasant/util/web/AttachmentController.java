@@ -39,28 +39,12 @@ public class AttachmentController implements Serializable {
 
     @Inject
     Repository attachRepo;
-    
-    String owner ;
-    private String allowTypes =null;
-    private Integer sizeLimit =-1;
+
+    String owner;
+    private String allowTypes = null;
+    private Integer sizeLimit = -1;
     List<Attachment> selecteds;
 
-    public List<Attachment>  getSelecteds() {
-        return selecteds;
-    }
-
-    public void setSelecteds(List<Attachment> selecteds) {
-        this.selecteds = selecteds;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-    
     /**
      * Creates a new instance of AttachmentBean
      */
@@ -74,19 +58,29 @@ public class AttachmentController implements Serializable {
     public List<Attachment> getAttachmentsByOwner(String owner) {
         return attachRepo.getAttachmentsByOwner(owner);
     }
-    public List<Attachment> getAttachments(){
+
+    public int getCountByOwner(String owner) {
+        List l = getAttachmentsByOwner(owner);
+        if (l != null) {
+            return l.size();
+        }
+        return 0;
+    }
+
+    public List<Attachment> getAttachments() {
         return this.getAttachmentsByOwner(this.owner);
     }
 
     public StreamedContent getStreamContent(Attachment a) throws IOException {
-        ExternalContext ec =  FacesContext.getCurrentInstance().getExternalContext();
-        
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+
         //当使用HTTP进行下载时，必须使用URLEncoder对文件名进行编号（若是firefox则必须使用new String(filename.getBytes("UTF-8"),"ISO-8859-1")，否则在下载保存对话框中的中文文件名将是乱码，请参见HTTP Header： Content-Disposition
-        return new DefaultStreamedContent(a.getInputStream(), a.getContentType(),HttpUtils.encodeFilename((HttpServletRequest)ec.getRequest(), (HttpServletResponse)ec.getResponse(), a.getName()));
+        return new DefaultStreamedContent(a.getInputStream(), a.getContentType(), HttpUtils.encodeFilename((HttpServletRequest) ec.getRequest(), (HttpServletResponse) ec.getResponse(), a.getName()));
     }
-    public String getResourcePath(Attachment a){
-        ExternalContext ec =  FacesContext.getCurrentInstance().getExternalContext();
-        return AttachmentFilter.getAttachmentURLPartPath((HttpServletRequest)ec.getRequest(), (HttpServletResponse)ec.getResponse(), a, AttachmentFilter.MOETHOD_RESOURCE);
+
+    public String getResourcePath(Attachment a) {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        return AttachmentFilter.getAttachmentURLPartPath((HttpServletRequest) ec.getRequest(), (HttpServletResponse) ec.getResponse(), a, AttachmentFilter.MOETHOD_RESOURCE);
     }
 
     public void handleFileUpload(FileUploadEvent fue) {
@@ -101,8 +95,9 @@ public class AttachmentController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed", "The file:" + filename + " is failed for uploading! Exception: " + ex.toString()));
         }
     }
-    public void destory(){
-        for(Attachment a :this.selecteds){
+
+    public void destory() {
+        for (Attachment a : this.selecteds) {
             attachRepo.delete(a);
         }
     }
@@ -122,5 +117,20 @@ public class AttachmentController implements Serializable {
     public void setSizeLimit(Integer sizeLimit) {
         this.sizeLimit = sizeLimit;
     }
-    
+
+    public List<Attachment> getSelecteds() {
+        return selecteds;
+    }
+
+    public void setSelecteds(List<Attachment> selecteds) {
+        this.selecteds = selecteds;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
 }

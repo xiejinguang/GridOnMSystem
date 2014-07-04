@@ -18,7 +18,7 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        <ps:dialogButton  value="附件" outcome="/peasant/util/Attachment" width="600" height="400" params="#{{'owner':cc.attrs.owner,'sizeLimit':cc.attrs.sizeLimit,'allowTypes':cc.attrs.allowTypes}}" >            
+        <ps:dialogButton  value="附件:#{attachmentController.getCountByOwner(cc.attrs.owner)}个" outcome="/peasant/util/Attachment" width="600" height="400" params="#{{'owner':cc.attrs.owner,'sizeLimit':cc.attrs.sizeLimit,'allowTypes':cc.attrs.allowTypes}}" >            
             <p:ajax event="dialogReturn"  update="@form:${cc.attrs.update.replaceAll(',', ',@form:')}" />
         </ps:dialogButton>
 
