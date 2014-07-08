@@ -30,12 +30,14 @@
                                 <p:inputText id="demandCode" value="#{item.demandCode}" title="#{gmsys_i18n.EditFixDemandTitle_demandCode}" disabled="false"   required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_demandCode}"/>
 
                                 <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_problemKind}" for="problemKind" />
-                                <p:selectOneMenu id="problemKind" value="#{item.problemKind}"    disabled="false"  filter="true" filterMatchMode="contains"  required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_problemKind}">
+                                <p:selectOneMenu id="problemKind" value="#{item.problemKind}"    disabled="false"  filter="true" filterMatchMode="contains"  valueChangeListener="#{fixDemandController.problemKind.popValues}"
+                                                 required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_problemKind}">
                                     <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
-                                    <f:selectItems  value="#{fixDemandController.problemKind.values}" actionListener="#{fixDemandController.problemSubKind.populateValues}"
+                                    <f:selectItems  value="#{fixDemandController.problemKind.values}"
                                                     var="entry"
                                                     itemValue="#{entry.value}" itemLabel="#{entry.value}">
                                     </f:selectItems>
+                                    <p:ajax update="problemSubKind"/>
                                 </p:selectOneMenu> 
 
                                 <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_problemSubKind}" for="problemSubKind" />
@@ -91,8 +93,8 @@
 
                                 <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_stationId}" for="stationId" />
                                 <h:panelGroup>
-                                    <p:selectOneMenu id="stationId" value="#{item.stationId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_stationId}" style="vertical-align: middle">
-                                        <f:selectItem itemLabel="Select One" />
+                                    <p:selectOneMenu id="stationId" value="#{item.stationId}" filter="true"  converter="org.eman.Station" filterMatchMode="contains" required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_stationId}" style="vertical-align: middle">
+                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}" />
                                         <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
                                                        var="stationIdItem"
                                                        itemValue="#{stationIdItem}"/>

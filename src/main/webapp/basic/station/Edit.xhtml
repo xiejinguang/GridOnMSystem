@@ -49,8 +49,8 @@
                                 <p:selectOneMenu id="type" value="#{item.type}"   disabled="false"  filter="true" filterMatchMode="contains" >
                                     <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
                                     <f:selectItems  value="#{stationController.types.children}"
-                                                    var="item"
-                                                    itemValue="#{item.value}" itemLabel="#{item.value}" >
+                                                    var="soitem"
+                                                    itemValue="#{soitem.value}" itemLabel="#{soitem.value}" >
                                     </f:selectItems>                                        
                                 </p:selectOneMenu>
 
@@ -59,8 +59,8 @@
                                 <p:selectOneMenu id="accomMaintainer" value="#{item.accomMaintainer}"    disabled="false"  filter="true" filterMatchMode="contains" >
                                     <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
                                     <f:selectItems  value="#{stationController.companys.children}"
-                                                    var="item"
-                                                    itemValue="#{item.value}" itemLabel="#{item.value}" >
+                                                    var="soitem"
+                                                    itemValue="#{soitem.value}" itemLabel="#{soitem.value}" >
                                     </f:selectItems>                                        
                                 </p:selectOneMenu>
 
@@ -69,8 +69,8 @@
                                 <p:selectOneMenu id="status" value="#{item.status}"  disabled="false"  filter="true" filterMatchMode="contains" >
                                     <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
                                     <f:selectItems  value="#{stationController.stationStatus.children}"
-                                                    var="item"
-                                                    itemValue="#{item.value}" itemLabel="#{item.value}" >
+                                                    var="soitem"
+                                                    itemValue="#{soitem.value}" itemLabel="#{soitem.value}" >
                                     </f:selectItems>                                        
                                 </p:selectOneMenu>
 

@@ -10,15 +10,15 @@
     <!-- INTERFACE -->
     <cc:interface name="attachment" class="">       
         <cc:attribute name="owner" type="java.lang.String" required="true"/>
-        <cc:attribute name="sizeLimit" type="java.lang.Integer" default="-1"/>
-        <cc:attribute name="allowTypes" type="java.lang.String" default="**"/>
+        <cc:attribute name="sizeLimit" type="java.lang.Integer" default="0"/>
+        <cc:attribute name="allowTypes" type="java.lang.String"/>
         <cc:attribute name="update"/>
         
     </cc:interface>
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        <ps:dialogButton  value="附件:#{attachmentController.getCountByOwner(cc.attrs.owner)}个" outcome="/peasant/util/Attachment" width="600" height="400" params="#{{'owner':cc.attrs.owner,'sizeLimit':cc.attrs.sizeLimit,'allowTypes':cc.attrs.allowTypes}}" >            
+        <ps:dialogButton id="attachmentDlg" params="#{{'owner':[cc.attrs.owner],'sizeLimit':[cc.attrs.sizeLimit],'allowTypes':[cc.attrs.allowTypes]}}" value="附件:#{attachmentController.getCountByOwner(cc.attrs.owner)}个" outcome="/peasant/util/Attachment" width="600" height="400"  >            
             <p:ajax event="dialogReturn"  update="@form:${cc.attrs.update.replaceAll(',', ',@form:')}" />
         </ps:dialogButton>
 

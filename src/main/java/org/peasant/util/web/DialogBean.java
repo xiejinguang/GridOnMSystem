@@ -7,8 +7,10 @@ package org.peasant.util.web;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
@@ -20,7 +22,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 /**
- * 
+ *
  *
  * @author 谢金光
  */
@@ -29,7 +31,7 @@ import org.primefaces.event.SelectEvent;
 public class DialogBean implements Serializable {
 
     Map<Class, String> viewMap;
-    private Map<String,Object> options;
+    private Map<String, Object> options;
 
     /**
      * Creates a new instance of DialogBean
@@ -55,9 +57,8 @@ public class DialogBean implements Serializable {
     public void selectData(Object data) {
         RequestContext.getCurrentInstance().closeDialog(data);
     }
-    
 
-    public void showDialog(String outcome,Map<String,List<String>> params) {
+    public void showDialog(String outcome, Map<String, List<Object>> params) {
         Map<String, Object> options = new HashMap<String, Object>();
         //  RequestContext.getCurrentInstance().openDialog(outcome);
         options.put("modal", true);
@@ -68,13 +69,30 @@ public class DialogBean implements Serializable {
         options.put("contentMinWidth ", 600);
         options.put("contentMinHeight", 400);
 
-        showDialogWithOptions(outcome, options,params);
+        showDialogWithOptions(outcome, options, params);
     }
-    
-     public   void showDialogWithOptions(String outcome,Map<String, Object> options,Map<String,List<String>> params) {
-         
-        RequestContext.getCurrentInstance().openDialog(outcome, options,params);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("show dialog with options!","options:"+options+"\n params:"+params));
+
+    protected void showDialogWithOptions1(String outcome, Map<String, Object> options, Map<String, List<String>> params) {
+
+        RequestContext.getCurrentInstance().openDialog(outcome, options, params);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("show dialog with options!", "options:" + options + "\n params:" + params));
+    }
+
+    public void showDialogWithOptions(String outcome, Map<String, Object> options, Map<String, List<Object>> params) {
+        Map<String, List<String>> p = new HashMap<>();
+        for (Entry<String, List<Object>> e : params.entrySet()) {
+            List vl = e.getValue();
+            List<String> sl = null;
+            if (vl != null) {
+                sl = new LinkedList<>();
+                for (Object o : vl) {
+                    sl.add(null == o ? null : o.toString());
+                }
+            }
+            p.put(e.getKey(), sl);
+        }
+        showDialogWithOptions1(outcome, options, p);
+
     }
 
     public void onChosen(SelectEvent selectEvent) {
@@ -85,11 +103,11 @@ public class DialogBean implements Serializable {
         return this.viewMap.get(this);
     }
 
-    public Map<String,Object> getOptions() {
+    public Map<String, Object> getOptions() {
         return options;
     }
 
-    public void setOptions(Map<String,Object> options) {
+    public void setOptions(Map<String, Object> options) {
         this.options = options;
     }
 }

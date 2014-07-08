@@ -96,8 +96,8 @@
                              stickyHeader="false" 
                              >
 
-                    <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                    <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+                    <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton,previewButton"/>
+                    <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton,previewButton"/>
 
                     <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
 
@@ -185,19 +185,25 @@
                         <f:facet name="header">
                             <h:outputText value="#{gmsys_i18n.AttachmentTitle}"/>
                         </f:facet>
-                        <ps:attachment owner="#{item.id}" />
+                        <ps:attachment owner="${item.id}" />
                     </p:column>
                     <f:facet name="footer">
                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{gmsys_i18n.Create}" actionListener="#{fixDemandController.prepareCreate}" process="@this" update="@form:@parent:FixDemandCreateForm" oncomplete="PF('FixDemandCreateDialog').show()"/>
                         <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{gmsys_i18n.View}" process="@this" update="@form:@parent:FixDemandViewForm" oncomplete="PF('FixDemandViewDialog').show()" disabled="#{empty fixDemandController.selectedItems}"/>
                         <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{gmsys_i18n.Edit}" process="@this" update="@form:@parent:FixDemandEditForm" oncomplete="PF('FixDemandEditDialog').show()" disabled="#{empty fixDemandController.selectedItems}"/>
                         <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{gmsys_i18n.Delete}"  actionListener="#{fixDemandController.destroy}" process="@this" update=":growl,datalist" disabled="#{empty fixDemandController.selectedItems}"/>
+                        <p:commandButton id="previewButton" icon="ui-icon-search"  value="预览"   process="@this" update=":growl,:imagePreview" oncomplete="PF('imagePreview').show()" disabled="#{empty fixDemandController.selectedItems}"/>
                         <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
                         <p:columnToggler datasource="datalist" trigger="toggler" />
                     </f:facet>
                 </p:dataTable>
             </p:panel>
         </h:form>
+        <p:dialog id="imagePreview" showHeader="false" closeOnEscape="true" appendTo="@(body)"  widgetVar="imagePreview" modal="true" resizable="false" >
+            <p:galleria value="#{attachmentController.getAttachmentsByOwner(fixDemandController.selectedItems[0].id)}"  var="image"  showCaption="true" panelHeight="500" panelWidth="700" transitionInterval="5000" >            
+                <p:graphicImage value="#{attachmentController.getResourcePath(image)}"  title="#{image.name}"  width="700"  />
+            </p:galleria>
+        </p:dialog>
 
         <ui:include src="Create.xhtml"/>
         <ui:include src="Edit.xhtml"/>
