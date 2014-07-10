@@ -7,8 +7,8 @@
 package org.peasant.security.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -59,9 +59,9 @@ public class Role implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId")
-    private Collection<UserRole> userRoleCollection;
+    private List<UserRole> userRoleList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleroleId")
-    private Collection<RolePermission> rolePermissionCollection;
+    private List<RolePermission> rolePermissionList;
 
     public Role() {
     }
@@ -108,21 +108,21 @@ public class Role implements Serializable {
     }
 
     @XmlTransient
-    public Collection<UserRole> getUserRoleCollection() {
-        return userRoleCollection;
+    public List<UserRole> getUserRoleList() {
+        return userRoleList;
     }
 
-    public void setUserRoleCollection(Collection<UserRole> userRoleCollection) {
-        this.userRoleCollection = userRoleCollection;
+    public void setUserRoleList(List<UserRole> userRoleList) {
+        this.userRoleList = userRoleList;
     }
 
     @XmlTransient
-    public Collection<RolePermission> getRolePermissionCollection() {
-        return rolePermissionCollection;
+    public List<RolePermission> getRolePermissionList() {
+        return rolePermissionList;
     }
 
-    public void setRolePermissionCollection(Collection<RolePermission> rolePermissionCollection) {
-        this.rolePermissionCollection = rolePermissionCollection;
+    public void setRolePermissionList(List<RolePermission> rolePermissionList) {
+        this.rolePermissionList = rolePermissionList;
     }
 
     @Override

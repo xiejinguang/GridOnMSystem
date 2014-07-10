@@ -7,8 +7,8 @@
 package org.peasant.security.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,6 +18,7 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -69,7 +70,9 @@ public class User implements Serializable {
     @Column(length = 45)
     private String saltPassword;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "username")
-    private Collection<UserRole> userRoleCollection;
+    private List<UserRole> userRoleList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private UserDetail userDetail;
 
     public User() {
     }
@@ -140,12 +143,20 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<UserRole> getUserRoleCollection() {
-        return userRoleCollection;
+    public List<UserRole> getUserRoleList() {
+        return userRoleList;
     }
 
-    public void setUserRoleCollection(Collection<UserRole> userRoleCollection) {
-        this.userRoleCollection = userRoleCollection;
+    public void setUserRoleList(List<UserRole> userRoleList) {
+        this.userRoleList = userRoleList;
+    }
+
+    public UserDetail getUserDetail() {
+        return userDetail;
+    }
+
+    public void setUserDetail(UserDetail userDetail) {
+        this.userDetail = userDetail;
     }
 
     @Override

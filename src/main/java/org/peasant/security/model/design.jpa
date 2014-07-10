@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings status="GENERATED" id="_1404887618712289" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <jpa:entity class="Permission" compositePrimaryKeyType="NONE" minimized="false" id="_1404887618751292">
+        <annotation>@javax.xml.bind.annotation.XmlRootElement</annotation>
+        <jpa:table name="sec_permission"/>
+        <jpa:attributes>
+            <jpa:id name="permissionId" attribute-type="java.lang.String" id="_1404887618751293">
+                <annotation>@javax.validation.constraints.NotNull</annotation>
+                <annotation>@javax.validation.constraints.Size(min=1, max=36)</annotation>
+                <jpa:column nullable="false" length="36"/>
+                <jpa:sequence-generator/>
+            </jpa:id>
+            <jpa:basic name="permName" attribute-type="java.lang.String" id="_1404887618751294">
+                <annotation>@javax.validation.constraints.Size(max=45)</annotation>
+                <jpa:column length="45"/>
+            </jpa:basic>
+            <jpa:basic name="code" attribute-type="java.lang.String" id="_1404887618751295">
+                <annotation>@javax.validation.constraints.Size(max=45)</annotation>
+                <jpa:column length="45"/>
+            </jpa:basic>
+            <jpa:basic name="domain" attribute-type="java.lang.String" id="_1404887618751296">
+                <annotation>@javax.validation.constraints.Size(max=45)</annotation>
+                <jpa:column length="45"/>
+            </jpa:basic>
+            <jpa:basic name="action" attribute-type="java.lang.String" id="_1404887618751297">
+                <annotation>@javax.validation.constraints.Size(max=45)</annotation>
+                <jpa:column length="45"/>
+            </jpa:basic>
+            <jpa:basic name="target" attribute-type="java.lang.String" id="_1404887618751298">
+                <annotation>@javax.validation.constraints.Size(max=45)</annotation>
+                <jpa:column length="45"/>
+            </jpa:basic>
+            <jpa:basic name="description" attribute-type="java.lang.String" id="_1404887618751299">
+                <annotation>@javax.validation.constraints.Size(max=45)</annotation>
+                <jpa:column length="45"/>
+            </jpa:basic>
+            <jpa:one-to-many name="rolePermissionCollection" target-entity="RolePermission" mapped-by="permissionpermissionId" collection-type="java.util.Collection" connected-entity-id="_1404887618839313" connected-attribute-id="_1404887618839315" id="_1404887618751300">
+                <jpa:cascade>
+                    <jpa:cascade-all/>
+                </jpa:cascade>
+            </jpa:one-to-many>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Resource" compositePrimaryKeyType="NONE" minimized="false" id="_1404887618781301">
+        <annotation>@javax.xml.bind.annotation.XmlRootElement</annotation>
+        <jpa:table name="sec_resource"/>
+        <jpa:attributes>
+            <jpa:id name="resourceId" attribute-type="java.lang.String" id="_1404887618781302">
+                <annotation>@javax.validation.constraints.NotNull</annotation>
+                <annotation>@javax.validation.constraints.Size(min=1, max=36)</annotation>
+                <jpa:column nullable="false" length="36"/>
+                <jpa:sequence-generator/>
+            </jpa:id>
+            <jpa:basic name="resCode" attribute-type="java.lang.String" id="_1404887618781303">
+                <annotation>@javax.validation.constraints.Size(max=45)</annotation>
+                <jpa:column length="45"/>
+            </jpa:basic>
+            <jpa:basic name="resLabel" attribute-type="java.lang.String" id="_1404887618781304">
+                <annotation>@javax.validation.constraints.Size(max=45)</annotation>
+                <jpa:column length="45"/>
+            </jpa:basic>
+            <jpa:basic name="permCode" attribute-type="java.lang.String" id="_1404887618781305">
+                <annotation>@javax.validation.constraints.Size(max=45)</annotation>
+                <jpa:column length="45"/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Role" compositePrimaryKeyType="NONE" minimized="false" id="_1404887618810306">
+        <annotation>@javax.xml.bind.annotation.XmlRootElement</annotation>
+        <jpa:table name="sec_role">
+            <jpa:unique-constraint>
+                <jpa:column-name>"roleName"</jpa:column-name>
+            </jpa:unique-constraint>
+        </jpa:table>
+        <jpa:attributes>
+            <jpa:id name="roleId" attribute-type="java.lang.String" id="_1404887618811307">
+                <annotation>@javax.validation.constraints.NotNull</annotation>
+                <annotation>@javax.validation.constraints.Size(min=1, max=36)</annotation>
+                <jpa:column nullable="false" length="36"/>
+                <jpa:sequence-generator/>
+            </jpa:id>
+            <jpa:basic name="roleName" optional="false" attribute-type="java.lang.String" id="_1404887618811308">
+                <annotation>@javax.validation.constraints.NotNull</annotation>
+                <annotation>@javax.validation.constraints.Size(min=1, max=45)</annotation>
+                <jpa:column nullable="false" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="description" attribute-type="java.lang.String" id="_1404887618811309">
+                <annotation>@javax.validation.constraints.Size(max=45)</annotation>
+                <jpa:column length="45"/>
+            </jpa:basic>
+            <jpa:basic name="createTime" attribute-type="java.util.Date" id="_1404887618811310">
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:one-to-many name="userRoleCollection" target-entity="UserRole" mapped-by="roleId" collection-type="java.util.Collection" connected-entity-id="_1404887618926333" connected-attribute-id="_1404887618926335" id="_1404887618811311">
+                <jpa:cascade>
+                    <jpa:cascade-all/>
+                </jpa:cascade>
+            </jpa:one-to-many>
+            <jpa:one-to-many name="rolePermissionCollection" target-entity="RolePermission" mapped-by="roleroleId" collection-type="java.util.Collection" connected-entity-id="_1404887618839313" connected-attribute-id="_1404887618839316" id="_1404887618811312">
+                <jpa:cascade>
+                    <jpa:cascade-all/>
+                </jpa:cascade>
+            </jpa:one-to-many>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="RolePermission" compositePrimaryKeyType="NONE" minimized="false" id="_1404887618839313">
+        <annotation>@javax.xml.bind.annotation.XmlRootElement</annotation>
+        <jpa:table name="sec_role_permission"/>
+        <jpa:attributes>
+            <jpa:id name="idrolePerm" attribute-type="java.lang.String" id="_1404887618839314">
+                <annotation>@javax.validation.constraints.NotNull</annotation>
+                <annotation>@javax.validation.constraints.Size(min=1, max=36)</annotation>
+                <jpa:column name="idrole_perm" nullable="false" length="36"/>
+                <jpa:sequence-generator name="idrole_perm"/>
+            </jpa:id>
+            <jpa:many-to-one name="permissionpermissionId" target-entity="Permission" optional="false" primaryKey="false" connected-entity-id="_1404887618751292" connected-attribute-id="_1404887618751300" id="_1404887618839315"/>
+            <jpa:many-to-one name="roleroleId" target-entity="Role" optional="false" primaryKey="false" connected-entity-id="_1404887618810306" connected-attribute-id="_1404887618811312" id="_1404887618839316"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="User" compositePrimaryKeyType="NONE" minimized="false" id="_1404887618868317">
+        <annotation>@javax.xml.bind.annotation.XmlRootElement</annotation>
+        <jpa:table name="sec_user"/>
+        <jpa:attributes>
+            <jpa:id name="username" attribute-type="java.lang.String" id="_1404887618868318">
+                <annotation>@javax.validation.constraints.NotNull</annotation>
+                <annotation>@javax.validation.constraints.Size(min=1, max=25)</annotation>
+                <jpa:column nullable="false" length="25"/>
+                <jpa:sequence-generator/>
+            </jpa:id>
+            <jpa:basic name="password" optional="false" attribute-type="java.lang.String" id="_1404887618868319">
+                <annotation>@javax.validation.constraints.NotNull</annotation>
+                <annotation>@javax.validation.constraints.Size(min=1, max=32)</annotation>
+                <jpa:column nullable="false" length="32"/>
+            </jpa:basic>
+            <jpa:basic name="email" attribute-type="java.lang.String" id="_1404887618868320">
+                <annotation>@javax.validation.constraints.Size(max=255)</annotation>
+                <jpa:column length="255"/>
+            </jpa:basic>
+            <jpa:basic name="createTime" attribute-type="java.util.Date" id="_1404887618868321">
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="salt" attribute-type="byte[]" id="_1404887618868322">
+                <jpa:lob/>
+            </jpa:basic>
+            <jpa:basic name="saltMod" attribute-type="java.lang.String" id="_1404887618868323">
+                <annotation>@javax.validation.constraints.Size(max=45)</annotation>
+                <jpa:column length="45"/>
+            </jpa:basic>
+            <jpa:basic name="saltPassword" attribute-type="java.lang.String" id="_1404887618868324">
+                <annotation>@javax.validation.constraints.Size(max=45)</annotation>
+                <jpa:column length="45"/>
+            </jpa:basic>
+            <jpa:basic name="userDetail" attribute-type="org.peasant.security.model.UserDetail" id="_1404887618868325"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="UserDetail" compositePrimaryKeyType="NONE" minimized="false" id="_1404887618897326">
+        <annotation>@javax.xml.bind.annotation.XmlRootElement</annotation>
+        <jpa:table name="sec_user_detail"/>
+        <jpa:attributes>
+            <jpa:id name="username" attribute-type="java.lang.String" id="_1404887618897327">
+                <annotation>@javax.validation.constraints.NotNull</annotation>
+                <annotation>@javax.validation.constraints.Size(min=1, max=25)</annotation>
+                <jpa:column nullable="false" length="25"/>
+                <jpa:sequence-generator/>
+            </jpa:id>
+            <jpa:basic name="sex" attribute-type="java.lang.String" id="_1404887618897328">
+                <annotation>@javax.validation.constraints.Size(max=45)</annotation>
+                <jpa:column length="45"/>
+            </jpa:basic>
+            <jpa:basic name="birthday" attribute-type="java.util.Date" id="_1404887618897329">
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="firstName" attribute-type="java.lang.String" id="_1404887618897330">
+                <annotation>@javax.validation.constraints.Size(max=45)</annotation>
+                <jpa:column length="45"/>
+            </jpa:basic>
+            <jpa:basic name="lastName" attribute-type="java.lang.String" id="_1404887618897331">
+                <annotation>@javax.validation.constraints.Size(max=45)</annotation>
+                <jpa:column length="45"/>
+            </jpa:basic>
+            <jpa:one-to-one name="user" target-entity="User" optional="false" connected-entity-id="_1404887618868317" id="_1404887618897332"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="UserRole" compositePrimaryKeyType="NONE" minimized="false" id="_1404887618926333">
+        <annotation>@javax.xml.bind.annotation.XmlRootElement</annotation>
+        <jpa:table name="sec_user_role"/>
+        <jpa:attributes>
+            <jpa:id name="iduserRole" attribute-type="java.lang.String" id="_1404887618926334">
+                <annotation>@javax.validation.constraints.NotNull</annotation>
+                <annotation>@javax.validation.constraints.Size(min=1, max=36)</annotation>
+                <jpa:column name="iduser_role" nullable="false" length="36"/>
+                <jpa:sequence-generator name="iduser_role"/>
+            </jpa:id>
+            <jpa:many-to-one name="roleId" target-entity="Role" optional="false" primaryKey="false" connected-entity-id="_1404887618810306" connected-attribute-id="_1404887618811311" id="_1404887618926335"/>
+            <jpa:many-to-one name="username" target-entity="User" optional="false" primaryKey="false" connected-entity-id="_1404887618868317" id="_1404887618926336"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:diagram id="_1404887618712290">
+        <plane elementRef="_1404887618712289" id="_1404887618712291_p"/>
+    </jpa:diagram>
+</jpa:entity-mappings>

@@ -7,7 +7,7 @@
 package org.peasant.security.model;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -65,7 +65,7 @@ public class Permission implements Serializable {
     @Column(length = 45)
     private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "permissionpermissionId")
-    private Collection<RolePermission> rolePermissionCollection;
+    private List<RolePermission> rolePermissionList;
 
     public Permission() {
     }
@@ -131,12 +131,12 @@ public class Permission implements Serializable {
     }
 
     @XmlTransient
-    public Collection<RolePermission> getRolePermissionCollection() {
-        return rolePermissionCollection;
+    public List<RolePermission> getRolePermissionList() {
+        return rolePermissionList;
     }
 
-    public void setRolePermissionCollection(Collection<RolePermission> rolePermissionCollection) {
-        this.rolePermissionCollection = rolePermissionCollection;
+    public void setRolePermissionList(List<RolePermission> rolePermissionList) {
+        this.rolePermissionList = rolePermissionList;
     }
 
     @Override
