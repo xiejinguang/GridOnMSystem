@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="StationPropertyViewDlg" widgetVar="StationPropertyViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport(this)" 
+                header="#{gmsys_i18n.ViewStationPropertyTitle}">
+            <h:form id="StationPropertyViewForm">
+                <h:panelGroup id="display" rendered="#{not empty stationPropertyController.selectedItems}">
+                    <ui:repeat  value="#{stationPropertyController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{gmsys_i18n.StationPropertyEntityLabel}"/>
+                                <h:outputText value="#{item.id}" title="#{gmsys_i18n.StationPropertyEntityTitle}"/>
+                            </f:facet>
+                    <p:panelGrid columns="4" >
+                        <h:outputText value="#{gmsys_i18n.StationPropertyLabel_id}"/>
+                        <h:outputText value="#{item.id}" title="#{gmsys_i18n.StationPropertyTitle_id}"/>
+                        
+                        <h:outputText value="#{gmsys_i18n.StationPropertyLabel_number}"/>
+                        <h:outputText value="#{item.number}" title="#{gmsys_i18n.StationPropertyTitle_number}"/>
+
+                        
+                        <h:outputText value="#{gmsys_i18n.StationPropertyLabel_name}"/>
+                        <h:outputText value="#{item.name}" title="#{gmsys_i18n.StationPropertyTitle_name}"/>
+
+                        
+                        <h:outputText value="#{gmsys_i18n.StationPropertyLabel_quantity}"/>
+                        <h:outputText value="#{item.quantity}" title="#{gmsys_i18n.StationPropertyTitle_quantity}"/>
+
+                        
+                        <h:outputText value="#{gmsys_i18n.StationPropertyLabel_model}"/>
+                        <h:outputText value="#{item.model}" title="#{gmsys_i18n.StationPropertyTitle_model}"/>
+
+                        
+                        <h:outputText value="#{gmsys_i18n.StationPropertyLabel_manufacturer}"/>
+                        <h:outputText value="#{item.manufacturer}" title="#{gmsys_i18n.StationPropertyTitle_manufacturer}"/>
+
+                        
+                        <h:outputText value="#{gmsys_i18n.StationPropertyLabel_abnormity}"/>
+                        <h:outputText value="#{item.abnormity}" title="#{gmsys_i18n.StationPropertyTitle_abnormity}"/>
+
+                        
+                        <h:outputText value="#{gmsys_i18n.StationPropertyLabel_roomspotId}"/>
+                        <h:outputText value="#{item.roomspotId}" title="#{gmsys_i18n.StationPropertyTitle_roomspotId}"/>
+
+                        
+                        <h:outputText value="#{gmsys_i18n.StationPropertyLabel_taged}"/>
+                        <p:selectBooleanCheckbox value="#{item.taged}" disabled="true"/>
+
+                        
+
+                    </p:panelGrid>
+                    </p:panel>
+                    </ui:repeat>
+                    <p:commandButton type="button" value="#{gmsys_i18n.Close}" onclick="PF('StationPropertyViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+  
+</html>

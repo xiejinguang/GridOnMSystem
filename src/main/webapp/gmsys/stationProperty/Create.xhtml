@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="StationPropertyCreateDlg" widgetVar="StationPropertyCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport(this)" 
+                    header="#{gmsys_i18n.CreateStationPropertyTitle}">
+            <h:form id="StationPropertyCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{not empty stationPropertyController.created}">
+                        <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{stationPropertyController.created.id}" title="#{gmsys_i18n.EditStationPropertyTitle_id}"  disabled="true"       required="true" requiredMessage="#{gmsys_i18n.EditStationPropertyRequiredMessage_id}"/>
+
+                        <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_roomspotId}" for="roomspotId" />
+                        <p:selectOneMenu id="roomspotId" value="#{stationPropertyController.created.roomspotId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{gmsys_i18n.EditStationPropertyRequiredMessage_roomspotId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
+                            <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
+                                           var="roomspotIdItem"
+                                           itemValue="#{roomspotIdItem}"/>
+                        </p:selectOneMenu>
+                     
+                        <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_number}" for="number" />
+                        <p:inputText id="number" value="#{stationPropertyController.created.number}" title="#{gmsys_i18n.EditStationPropertyTitle_number}"  disabled="false"       />
+
+                     
+                        <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{stationPropertyController.created.name}" title="#{gmsys_i18n.EditStationPropertyTitle_name}"  disabled="false"       />
+
+                     
+                        <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_quantity}" for="quantity" />
+                        <p:inputText id="quantity" value="#{stationPropertyController.created.quantity}" title="#{gmsys_i18n.EditStationPropertyTitle_quantity}"  disabled="false"       />
+
+                     
+                        <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_model}" for="model" />
+                        <p:inputText id="model" value="#{stationPropertyController.created.model}" title="#{gmsys_i18n.EditStationPropertyTitle_model}"  disabled="false"       />
+
+                     
+                        <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_manufacturer}" for="manufacturer" />
+                        <p:inputText id="manufacturer" value="#{stationPropertyController.created.manufacturer}" title="#{gmsys_i18n.EditStationPropertyTitle_manufacturer}"  disabled="false"       />
+ 
+                     
+                        <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_taged}" for="taged" />
+                        <p:selectBooleanCheckbox id="taged" value="#{stationPropertyController.created.taged}" />
+           
+         
+                        <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_abnormity}" for="abnormity" />
+                        <p:inputTextarea rows="4" cols="30" id="abnormity" value="#{stationPropertyController.created.abnormity}" title="#{gmsys_i18n.EditStationPropertyTitle_abnormity}" />
+
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{stationPropertyController.create}" value="#{gmsys_i18n.Save}" update="display,@form:@parent:StationPropertyListForm:datalist,:growl" oncomplete="handleSubmit(args,'StationPropertyCreateDialog');"/>
+                    <p:commandButton type="button" value="#{gmsys_i18n.Cancel}" onclick="PF('StationPropertyCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

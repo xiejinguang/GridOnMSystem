@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package org.eman.basic.model;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,6 +23,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.eman.gmsys.model.StationProperty;
 
 /**
  *
@@ -41,10 +43,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Roomspot.findByCounty", query = "SELECT r FROM Roomspot r WHERE r.county = :county"),
     @NamedQuery(name = "Roomspot.findByGrid", query = "SELECT r FROM Roomspot r WHERE r.grid = :grid"),
     @NamedQuery(name = "Roomspot.findByPropertyOwner", query = "SELECT r FROM Roomspot r WHERE r.propertyOwner = :propertyOwner"),
-    @NamedQuery(name = "Roomspot.findByAddress", query = "SELECT r FROM Roomspot r WHERE r.address = :address"),
-    @NamedQuery(name = "Roomspot.findByStatus", query = "SELECT r FROM Roomspot r WHERE r.status = :status")})
+    @NamedQuery(name = "Roomspot.findByStatus", query = "SELECT r FROM Roomspot r WHERE r.status = :status"),
+    @NamedQuery(name = "Roomspot.findByAddress", query = "SELECT r FROM Roomspot r WHERE r.address = :address")})
 public class Roomspot implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -84,9 +85,12 @@ public class Roomspot implements Serializable {
     private String grid;
     @Basic(optional = false)
     @NotNull
-    @Size(max = 45)
+    @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
     private String propertyOwner;
+    @Size(max = 45)
+    @Column(length = 45)
+    private String status;
     @Size(max = 255)
     @Column(length = 255)
     private String address;
@@ -94,11 +98,12 @@ public class Roomspot implements Serializable {
     @Size(max = 65535)
     @Column(length = 65535)
     private String commont;
-    @Size(max = 45)
-    @Column(length = 45)
-    private String status;
+    
+     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomspotId")
+    private List<Station> stationList;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomspotId")
-    private Collection<Station> stationCollection;
+    private List<StationProperty> stationPropertyList;
 
     public Roomspot() {
     }
@@ -107,7 +112,7 @@ public class Roomspot implements Serializable {
         this.id = id;
     }
 
-    public Roomspot(String id, String roomCode, String roomName, String province, String city, String county, String grid) {
+    public Roomspot(String id, String roomCode, String roomName, String province, String city, String county, String grid, String propertyOwner) {
         this.id = id;
         this.roomCode = roomCode;
         this.roomName = roomName;
@@ -115,6 +120,7 @@ public class Roomspot implements Serializable {
         this.city = city;
         this.county = county;
         this.grid = grid;
+        this.propertyOwner = propertyOwner;
     }
 
     public String getId() {
@@ -181,6 +187,14 @@ public class Roomspot implements Serializable {
         this.propertyOwner = propertyOwner;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -197,21 +211,13 @@ public class Roomspot implements Serializable {
         this.commont = commont;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     @XmlTransient
-    public Collection<Station> getStationCollection() {
-        return stationCollection;
+    public List<StationProperty> getStationPropertyList() {
+        return stationPropertyList;
     }
 
-    public void setStationCollection(Collection<Station> stationCollection) {
-        this.stationCollection = stationCollection;
+    public void setStationPropertyList(List<StationProperty> stationPropertyList) {
+        this.stationPropertyList = stationPropertyList;
     }
 
     @Override
@@ -236,7 +242,15 @@ public class Roomspot implements Serializable {
 
     @Override
     public String toString() {
-        return "org.eman.basic.model.Roomspot[ id=" + id + " ]";
+        return "org.eman.gmsys.model.Roomspot[ id=" + id + " ]";
     }
 
+    public List<Station> getStationList() {
+        return stationList;
+    }
+
+    public void setStationList(List<Station> stationList) {
+        this.stationList = stationList;
+    }
+    
 }

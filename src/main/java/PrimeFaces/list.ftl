@@ -70,14 +70,14 @@
                                                  <p:inputTextarea rows="4" cols="30" id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" />
     <#elseif entityDescriptor.relationshipOne>
                                                  <p:selectOneMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" filter="true"  filterMatchMode="contains" <#if !(entityDescriptor.returnType?matches(".*[Ss]+tring"))> converter="javax.faces.${entityDescriptor.returnType?substring((entityDescriptor.returnType?last_index_of('.'))+1)}" </#if> >
-                                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}" />
+                                                    <f:selectItem itemLabel="${r"#{"}bundle.SelectOneMessage${r"}"}" />
                                                     <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
                                                              var="${entityDescriptor.id?replace(".","_")}Item"
                                                             itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
                                                 </p:selectOneMenu>
     <#elseif entityDescriptor.relationshipMany>
                                                 <p:selectManyMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" filter="true"  filterMatchMode="contains" showCheckbox="true" >
-                                                    <f:selectItem itemLabel="${bundle.SelectManyMessage}" />
+                                                    <f:selectItem itemLabel="${r"#{"}bundle.SelectManyMessage${r"}"}" />
                                                     <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
                                                         var="${entityDescriptor.id?replace(".","_")}Item"
                                                         itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
@@ -89,16 +89,16 @@
                                         </p:panelGrid>
                                     </p:column>
                                     <p:column>
-                                        <p:commandButton id="searchButton" icon="ui-icon-search"   value="${r"${"}${bundle}.Search${r"}"}" actionListener="${r"#{"}${managedBean}.searchItems${r"}"}" update=":growl,:${entityName}ListFormd:datalist"/>
+                                        <p:commandButton id="searchButton" icon="ui-icon-search"   value="${r"${"}${bundle}.Search${r"}"}" actionListener="${r"#{"}${managedBean}.searchItems${r"}"}" update=":growl,:${entityName}ListForm:datalist"/>
                                         <br/>
-                                        <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${r"${"}${bundle}.GetAll${r"}"}" actionListener="${r"#{"}${managedBean}.allItems${r"}"}" update=":growl,:${entityName}ListFormd:datalist"/>
+                                        <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${r"${"}${bundle}.GetAll${r"}"}" actionListener="${r"#{"}${managedBean}.allItems${r"}"}" update=":growl,:${entityName}ListForm:datalist"/>
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>                   
                         </p:fieldset>
         </h:form>
 
-<   <h:form id="${entityName}ListForm">
+   <h:form id="${entityName}ListForm">
                         <p:dataTable id="datalist" value="${r"#{"}${managedBeanProperty}${r"}"}" var="${item}"
                             selection="${r"#{"}${managedBean}${r".selectedItems}"}"
                             rowKey="${r"#{"}${item}.${entityIdField}${r"}"}"
@@ -120,6 +120,7 @@
                             <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
 
 <#list entityDescriptors as entityDescriptor>
+
                             <p:column sortBy="${r"#{"}${entityDescriptor.name}${r"}"}" filterBy="${r"#{"}${entityDescriptor.name}${r"}"}">
                                 <f:facet name="header">
                                     <h:outputText value="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}"/>

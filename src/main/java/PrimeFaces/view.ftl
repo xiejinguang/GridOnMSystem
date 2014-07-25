@@ -56,7 +56,7 @@
 <#list entityDescriptors as entityDescriptor>
 <#assign field = "item."+ entityDescriptor.id>
 
-                        <!-- for ${field} -->
+                        
                         <h:outputText value="${r"#{"}${bundle}.${entityName}Label_${entityDescriptor.id?replace(".","_")}${r"}"}"/>
     <#if entityDescriptor.dateTimeFormat?? && entityDescriptor.dateTimeFormat != "">
                         <h:outputText value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}">

@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -13,6 +17,9 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "cm_conference_record")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "dType")
+@DiscriminatorValue(value = "通用会议记录")
 public class ConferenceRecord extends UUIDIdentity implements Serializable {
 
     @Basic(optional = false)
@@ -29,7 +36,7 @@ public class ConferenceRecord extends UUIDIdentity implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1,max = 255)    
+    @Size(min = 1, max = 255)
     @Column(nullable = false, length = 255)
     private String title;
 
@@ -37,6 +44,16 @@ public class ConferenceRecord extends UUIDIdentity implements Serializable {
     @NotNull
     @Column(nullable = false)
     private String content;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(nullable = false)
+    private String department;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(nullable = false)
+    private String emcee;
 
     public Date getCdate() {
         return cdate;
@@ -68,6 +85,22 @@ public class ConferenceRecord extends UUIDIdentity implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getEmcee() {
+        return emcee;
+    }
+
+    public void setEmcee(String emcee) {
+        this.emcee = emcee;
     }
 
 }

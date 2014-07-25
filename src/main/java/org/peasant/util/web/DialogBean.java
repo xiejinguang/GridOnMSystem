@@ -12,12 +12,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.inject.Singleton;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -27,7 +26,7 @@ import org.primefaces.event.SelectEvent;
  * @author 谢金光
  */
 @Named("dialogBean")
-@RequestScoped
+@Singleton
 public class DialogBean implements Serializable {
 
     Map<Class, String> viewMap;
@@ -80,16 +79,18 @@ public class DialogBean implements Serializable {
 
     public void showDialogWithOptions(String outcome, Map<String, Object> options, Map<String, List<Object>> params) {
         Map<String, List<String>> p = new HashMap<>();
-        for (Entry<String, List<Object>> e : params.entrySet()) {
-            List vl = e.getValue();
-            List<String> sl = null;
-            if (vl != null) {
-                sl = new LinkedList<>();
-                for (Object o : vl) {
-                    sl.add(null == o ? null : o.toString());
+        if (params != null) {
+            for (Entry<String, List<Object>> e : params.entrySet()) {
+                List vl = e.getValue();
+                List<String> sl = null;
+                if (vl != null) {
+                    sl = new LinkedList<>();
+                    for (Object o : vl) {
+                        sl.add(null == o ? null : o.toString());
+                    }
                 }
+                p.put(e.getKey(), sl);
             }
-            p.put(e.getKey(), sl);
         }
         showDialogWithOptions1(outcome, options, p);
 

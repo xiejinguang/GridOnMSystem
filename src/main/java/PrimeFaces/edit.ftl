@@ -61,7 +61,7 @@
 <#list entityDescriptors as entityDescriptor>
 <#assign field = "item."+ entityDescriptor.id>
 
-                        <!-- for ${field} -->
+                        
                         <p:outputLabel value="${r"#{"}${bundle}.Edit${entityName}Label_${entityDescriptor.id?replace(".","_")}${r"}"}" for="${entityDescriptor.id?replace(".","_")}" />
     <#if entityDescriptor.dateTimeFormat?? && entityDescriptor.dateTimeFormat != "">
                         <p:calendar id="${entityDescriptor.id?replace(".","_")}" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.Edit${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if> showOn="button"/>
@@ -71,14 +71,14 @@
                         <p:inputTextarea rows="4" cols="30" id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" title="${r"#{"}${bundle}.Edit${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>/>
     <#elseif entityDescriptor.relationshipOne>
                         <p:selectOneMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" filter="true"  filterMatchMode="contains" <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>>
-                            <f:selectItem itemLabel="${bundle.SelectOneMessage}" />
+                            <f:selectItem itemLabel="${r"#{"}bundle.SelectOneMessage${r"}"}" />
                             <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
                                            var="${entityDescriptor.id?replace(".","_")}Item"
                                            itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
                         </p:selectOneMenu>
     <#elseif entityDescriptor.relationshipMany>
                         <p:selectManyMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${field}${r"}"}" filter="true"  filterMatchMode="contains" showCheckbox="true"  <#if entityDescriptor.required>required="true" requiredMessage="${r"#{"}${bundle}.Edit${entityName}RequiredMessage_${entityDescriptor.id?replace(".","_")}${r"}"}"</#if>>
-                            <f:selectItem itemLabel="${bundle.SelectManyMessage}" />
+                            <f:selectItem itemLabel="${r"#{"}bundle.SelectManyMessage${r"}"}" />
                             <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
                                            var="${entityDescriptor.id?replace(".","_")}Item"
                                            itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
