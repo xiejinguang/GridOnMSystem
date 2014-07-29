@@ -89,9 +89,9 @@
                                         </p:panelGrid>
                                     </p:column>
                                     <p:column>
-                                        <p:commandButton id="searchButton" icon="ui-icon-search"   value="${r"${"}${bundle}.Search${r"}"}" actionListener="${r"#{"}${managedBean}.searchItems${r"}"}" update=":growl,:${entityName}ListForm:datalist"/>
+                                        <p:commandButton id="searchButton" icon="ui-icon-search"   value="${r"${"}${bundle}.Search${r"}"}" actionListener="${r"#{"}${managedBean}.searchItems${r"}"}" update=":growl,@form:@parent:${entityName}ListForm:datalist"/>
                                         <br/>
-                                        <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${r"${"}${bundle}.GetAll${r"}"}" actionListener="${r"#{"}${managedBean}.allItems${r"}"}" update=":growl,:${entityName}ListForm:datalist"/>
+                                        <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${r"${"}${bundle}.GetAll${r"}"}" actionListener="${r"#{"}${managedBean}.allItems${r"}"}" update=":growl,@form:@parent:${entityName}ListForm:datalist"/>
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>                   

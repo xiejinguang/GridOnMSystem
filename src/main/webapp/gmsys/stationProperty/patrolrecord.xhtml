@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:eman="http://xmlns.jcp.org/jsf/composite/eman"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <p:layout style="min-width:1000px;min-height:700px;">
+            <p:layoutUnit position="west" resizable="true" size="200" minSize="100" maxSize="200"  header="机房安装点"  collapsible="true">
+
+                <eman:roomspotTree  selection="#{stationPropertyPatrolView.selectedNodes}" style="border: none">
+                    <p:ajax  event="select" update="@composite:@parent:propertiesForm" listener="#{stationPropertyPatrolView.onNodeSelect}" />
+                </eman:roomspotTree>
+
+            </p:layoutUnit>
+            <p:layoutUnit position="center">
+                <h:form> 
+                    <p:commandButton value="打印一站一表" >
+                        <p:printer target="@form:@parent:propertiesForm" />
+                    </p:commandButton>
+                </h:form>
+                <h:form id="propertiesForm" style="border: none;padding: 0;margin: 0">  
+
+
+                    <ui:repeat id="properties" value="#{stationPropertyPatrolView.selectedRoomspots}" var="roomspot"  >
+                        <p:panel style="width: 276mm;height: 189mm;border: none;padding: 0;margin:0">
+
+                            <h1>资产管理网格化巡检表</h1>
+                            <h:outputText value="#{basic_i18n.RoomspotLabel_grid}"/> #{roomspot.grid}
+                            <p:spacer width="50px"/>
+                            <h:outputText value="#{basic_i18n.RoomspotEntityLabel}"/>#{roomspot.roomCode}- #{roomspot.roomName}
+                            <br/>
+                            <p:dataTable id="datalist" value="#{stationPropertyPatrolView.getStationPropertys(roomspot)}" var="item"
+                                         rows="1000"
+                                         rowKey="#{item.id}"
+                                         draggableColumns="true" resizableColumns="true" 
+                                         scrollable="false"   liveResize="true" liveScroll="true"
+                                         sortMode="multiple"
+                                         editable="true" 
+                                         stickyHeader="false" 
+                                         rowIndexVar="index"
+                                         >
+                                <p:columnGroup type="header">
+                                    <p:row>
+                                        <p:column rowspan="2" width="5%" headerText="序号" />
+                                        <p:column rowspan="2" width="10%" headerText="#{gmsys_i18n.StationPropertyTitle_number}"/>
+                                        <p:column rowspan="2" width="20%" headerText="#{gmsys_i18n.StationPropertyTitle_name}"/>
+                                        <p:column rowspan="2" width="5%" headerText="#{gmsys_i18n.StationPropertyTitle_quantity}"/>  
+                                        <p:column colspan="3" width="40%" headerText="巡检记录"/>
+                                        <p:column  rowspan="2" width="20%" headerText="#{gmsys_i18n.StationPropertyTitle_abnormity}"/>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column width="200px" headerText="#{gmsys_i18n.StationPropertyTitle_model}"/>
+                                        <p:column  headerText="#{gmsys_i18n.StationPropertyTitle_manufacturer}"/>
+                                        <p:column  headerText="#{gmsys_i18n.StationPropertyTitle_taged}"/>
+
+                                    </p:row>
+                                </p:columnGroup>
+                                <p:column>
+                                    <h:outputText value="#{index+1}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{item.number}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <h:outputText value="#{item.name}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <h:outputText value="#{item.quantity}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <h:outputText value="#{item.model}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <h:outputText value="#{item.manufacturer}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <p:selectBooleanCheckbox value="#{item.taged}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <h:outputText value="#{item.abnormity}"/>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputLabel value="说明：1、核对资产标签与设备的一致性，如果无误，在“是否贴标签”打“√”；如该设备没有资产标签或者设备与资产卡片的名称不符，则打“×”，并在最后一列写明无标签或者标签与设备名称不符。2、在原表上修改规格型号和生产厂家。3、清册有资产而现场无资产的设备，在最后一列写上“无此资产”。4、清册无资产而现场有资产的设备，在空白行填上名称、数量、厂家和型号。"/>
+                        </p:panel>
+                    </ui:repeat>
+                </h:form>
+
+
+            </p:layoutUnit>
+        </p:layout>
+
+
+    </ui:composition>
+</html>
+

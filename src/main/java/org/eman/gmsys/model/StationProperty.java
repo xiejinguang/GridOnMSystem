@@ -52,7 +52,7 @@ public class StationProperty extends UUIDIdentity implements Serializable {
     private String model;
     @Size(max = 45)
     @Column(length = 45)
-    private String manufacturer;
+    private String manufacturer;    
     
     @Column
     private Boolean taged;
