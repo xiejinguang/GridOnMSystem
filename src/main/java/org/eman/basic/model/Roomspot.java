@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.eman.basic.model;
 
 import java.io.Serializable;
@@ -24,6 +23,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.eman.gmsys.model.StationProperty;
+import org.peasant.model.Labeled;
 
 /**
  *
@@ -31,13 +31,14 @@ import org.eman.gmsys.model.StationProperty;
  */
 @Entity
 @Table(name = "basic_roomspot", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"roomCode"})})
+    @UniqueConstraint(columnNames = {"roomCode"}),@UniqueConstraint(columnNames = {"secondName"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Roomspot.findAll", query = "SELECT r FROM Roomspot r"),
     @NamedQuery(name = "Roomspot.findById", query = "SELECT r FROM Roomspot r WHERE r.id = :id"),
     @NamedQuery(name = "Roomspot.findByRoomCode", query = "SELECT r FROM Roomspot r WHERE r.roomCode = :roomCode"),
     @NamedQuery(name = "Roomspot.findByRoomName", query = "SELECT r FROM Roomspot r WHERE r.roomName = :roomName"),
+    @NamedQuery(name = "Roomspot.findBySecondName", query = "SELECT r FROM Roomspot r WHERE r.secondName = :secondName"),
     @NamedQuery(name = "Roomspot.findByProvince", query = "SELECT r FROM Roomspot r WHERE r.province = :province"),
     @NamedQuery(name = "Roomspot.findByCity", query = "SELECT r FROM Roomspot r WHERE r.city = :city"),
     @NamedQuery(name = "Roomspot.findByCounty", query = "SELECT r FROM Roomspot r WHERE r.county = :county"),
@@ -45,7 +46,8 @@ import org.eman.gmsys.model.StationProperty;
     @NamedQuery(name = "Roomspot.findByPropertyOwner", query = "SELECT r FROM Roomspot r WHERE r.propertyOwner = :propertyOwner"),
     @NamedQuery(name = "Roomspot.findByStatus", query = "SELECT r FROM Roomspot r WHERE r.status = :status"),
     @NamedQuery(name = "Roomspot.findByAddress", query = "SELECT r FROM Roomspot r WHERE r.address = :address")})
-public class Roomspot implements Serializable {
+public class Roomspot implements Serializable,Labeled {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -53,55 +55,71 @@ public class Roomspot implements Serializable {
     @Size(min = 1, max = 36)
     @Column(nullable = false, length = 36)
     private String id;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
     private String roomCode;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
     private String roomName;
+
+    @Basic
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(nullable = true, length = 45)
+    private String secondName;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
     private String province;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
     private String city;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
     private String county;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
     private String grid;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
     private String propertyOwner;
+    
     @Size(max = 45)
     @Column(length = 45)
     private String status;
+    
     @Size(max = 255)
     @Column(length = 255)
     private String address;
+    
     @Lob
     @Size(max = 65535)
     @Column(length = 65535)
     private String commont;
-    
-     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomspotId")
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomspotId")
     private List<Station> stationList;
-    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomspotId")
     private List<StationProperty> stationPropertyList;
 
@@ -145,6 +163,15 @@ public class Roomspot implements Serializable {
 
     public void setRoomName(String roomName) {
         this.roomName = roomName;
+    }
+    
+    
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public void setSecondName(String SecondName) {
+        this.secondName = SecondName;
     }
 
     public String getProvince() {
@@ -219,6 +246,15 @@ public class Roomspot implements Serializable {
     public void setStationPropertyList(List<StationProperty> stationPropertyList) {
         this.stationPropertyList = stationPropertyList;
     }
+        @XmlTransient
+      public List<Station> getStationList() {
+        return stationList;
+    }
+
+    public void setStationList(List<Station> stationList) {
+        this.stationList = stationList;
+    }
+
 
     @Override
     public int hashCode() {
@@ -245,12 +281,11 @@ public class Roomspot implements Serializable {
         return "org.eman.gmsys.model.Roomspot[ id=" + id + " ]";
     }
 
-    public List<Station> getStationList() {
-        return stationList;
+    @Override
+    public String getLabel() {
+        return roomCode+"|" + roomName;
     }
 
-    public void setStationList(List<Station> stationList) {
-        this.stationList = stationList;
-    }
-    
+  
+
 }

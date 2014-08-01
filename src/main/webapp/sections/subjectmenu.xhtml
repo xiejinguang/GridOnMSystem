@@ -3,20 +3,82 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition>
 
         <p:outputLabel id="subject" value="${request.remoteUser}" style="font-weight:  bold ; font-size: large " /><span style="font-size:  medium"> ,欢迎享受快乐工作之旅！</span>
         <p:overlayPanel id="SubjectMenu" for="subject" showEvent="mouseover" hideEvent="mousedown" dismissable="true" appendToBody="true" style="margin: 0;" >
+            <div style="font-size: medium;color:  blue"><p:outputLabel value="当前用户：" /><p:outputLabel value="#{subjectView.curUser.username}"/></div> 
+
             <h:form id="SubjectMenuForm" prependId="false" >
-                <p:tieredMenu>           
-                    <p:menuitem  value="修改密码" />
-                    <p:menuitem  value="修改个人信息" />
+                <p:tieredMenu style="width: 200px" >           
+                    <p:menuitem  value="修改密码" actionListener="#{subjectView.prepareModifyPasswd}" update=":passwdForm" oncomplete="PF('passwdDlg').show()"/>
+                    <p:menuitem  value="修改个人信息" update=":detailForm" oncomplete="PF('subjectInfoDlg').show()"  />
                     <p:menuitem  value="退出" url="/security/logout" />
                 </p:tieredMenu>
             </h:form>
         </p:overlayPanel>
 
+        <p:dialog id="passwdDlg" widgetVar="passwdDlg" showHeader="true" header="修改密码" width="400" height="250" appendTo="@(body)" dynamic="true" >
+
+            <h:form id="passwdForm">
+                <div style="font-size: medium"><p:outputLabel value="当前用户：" /><p:outputLabel value="#{subjectView.curUser.username}"/></div> 
+                <p:separator />
+                <p:panelGrid columns="2" style="width:100%">
+                    <p:outputLabel for="oldPasswd" value="旧密码："   />                    
+                    <p:password id="oldPasswd" value="#{subjectView.oldPasswd}"  redisplay="true"  placeholder="输入旧密码"  validator="#{subjectView.validatePasswd}" />
+
+                    <p:outputLabel for="newPasswd" value="新密码："   />
+                    <p:password id="newPasswd" value ="#{subjectView.newPasswd}" match="comfirmPasswd" redisplay="true" feedback="true" strongLabel="强" goodLabel="中" weakLabel="弱" placeholder="输入新密码" validatorMessage="两次输入的新密码不一致"/>
+                    <p:outputLabel for="comfirmPasswd" value="确认新密码："   />
+                    <p:password id ="comfirmPasswd" value ="#{subjectView.newPasswd}"  redisplay="true"   feedback="true" strongLabel="强" goodLabel="中" weakLabel="弱" placeholder="确认新密码" />    
+                </p:panelGrid>
+                <p:messages autoUpdate="true" closable="true" id="pmsg"/>
+                <p:separator />
+                <p:spacer height="10" />
+                <div align="center">
+                    <p:commandButton actionListener="#{subjectView.modifyPasswd}" value="#{security_i18n.Save}" update="@form,:growl" oncomplete="handleSubmit(args,'passwdDlg');"/>
+                    <p:commandButton type="button" value="#{security_i18n.Cancel}"  onclick="PF('passwdDlg').hide()"/>
+                </div>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog id ="subjectInfoDlg" widgetVar="subjectInfoDlg" showHeader="false" appendTo="@(body)" dynamic="true"  width="400">
+            <h:form id="detailForm">
+                <p:panel >
+                    <f:facet name="header">
+                        <h:outputText value="#{security_i18n.UserDetailEntityLabel}"/>
+                        <h:outputText value="#{subjectView.curUserDetail.username}" title="#{security_i18n.UserDetailEntityTitle}"/>
+                    </f:facet>
+                    <p:separator />
+                    <h:panelGrid columns="2" >
+                        <p:outputLabel value="#{security_i18n.EditUserDetailLabel_username}" for="username" />
+                        <p:inputText id="username" value="#{subjectView.curUserDetail.username}" title="#{security_i18n.EditUserDetailTitle_username}" disabled="true"   required="true" requiredMessage="#{security_i18n.EditUserDetailRequiredMessage_username}"/>
+                        <h:outputLabel/>
+                        <h:outputLabel/>
+                        <p:outputLabel value="#{security_i18n.EditUserDetailLabel_lastName}" for="lastName" />
+                        <p:inputText id="lastName" value="#{subjectView.curUserDetail.lastName}" title="#{security_i18n.EditUserDetailTitle_lastName}" disabled="false"   />
+
+                        <p:outputLabel value="#{security_i18n.EditUserDetailLabel_firstName}" for="firstName" />
+                        <p:inputText id="firstName" value="#{subjectView.curUserDetail.firstName}" title="#{security_i18n.EditUserDetailTitle_firstName}" disabled="false"   />
+
+
+
+                        <p:outputLabel value="#{security_i18n.EditUserDetailLabel_sex}" for="sex" />
+                        <p:inputText id="sex" value="#{subjectView.curUserDetail.sex}" title="#{security_i18n.EditUserDetailTitle_sex}" disabled="false"   />
+
+                        <p:outputLabel value="#{security_i18n.EditUserDetailLabel_birthday}" for="birthday" />
+                        <p:calendar id="birthday" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{subjectView.curUserDetail.birthday}" title="#{security_i18n.EditUserDetailTitle_birthday}"  showOn="button"  />
+
+                    </h:panelGrid>
+                    <p:messages autoUpdate="true" showDetail="true" closable="true" id="dmsg"     />
+                    <p:separator />
+                    <p:commandButton actionListener="#{subjectView.modifyDetails()}" value="#{security_i18n.Save}" update="@form,:growl" oncomplete="handleSubmit(args,'subjectInfoDlg');"/>
+                    <p:commandButton type="button" value="#{security_i18n.Cancel}" onclick="PF('subjectInfoDlg').hide()"/>
+                </p:panel>
+            </h:form>
+        </p:dialog>
 
 
 

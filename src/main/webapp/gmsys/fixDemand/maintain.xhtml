@@ -5,7 +5,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ps ="http://xmlns.jcp.org/jsf/composite/peasant">
+      xmlns:ps ="http://xmlns.jcp.org/jsf/composite/peasant"
+      xmlns:eman="http://xmlns.jcp.org/jsf/composite/eman">
     <ui:composition>
         <h:form id="FixDemandListForm">
             <p:panel header="#{gmsys_i18n.ListFixDemandTitle}">
@@ -16,8 +17,8 @@
                                 <p:panelGrid id="searchConsGrid" columns="8">
 
 
-                                    <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_id}" for="id" />
-                                    <p:inputText id="id" value="#{fixDemandController.searchCons['id']}" title="#{gmsys_i18n.FixDemandTitle_id}"  />
+                                    <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_id}" for="id" rendered="false" />
+                                    <p:inputText id="id" value="#{fixDemandController.searchCons['id']}" title="#{gmsys_i18n.FixDemandTitle_id}" rendered="false" />
 
 
                                     <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_demandCode}" for="demandCode" />
@@ -25,12 +26,23 @@
 
 
                                     <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_problemKind}" for="problemKind" />
-                                    <p:inputText id="problemKind" value="#{fixDemandController.searchCons['problemKind']}" title="#{gmsys_i18n.FixDemandTitle_problemKind}"  />
-
+                                    <p:selectOneMenu id="problemKind" value="#{fixDemandController.searchCons['problemKind']}"    disabled="false"  filter="true" filterMatchMode="contains"  valueChangeListener="#{fixDemandController.problemKind.popValues}">
+                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                        <f:selectItems  value="#{fixDemandController.problemKind.values}"
+                                                        var="entry"
+                                                        itemValue="#{entry.value}" itemLabel="#{entry.value}">
+                                        </f:selectItems>
+                                        <p:ajax update="problemSubKind"/>
+                                    </p:selectOneMenu> 
 
                                     <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_problemSubKind}" for="problemSubKind" />
-                                    <p:inputText id="problemSubKind" value="#{fixDemandController.searchCons['problemSubKind']}" title="#{gmsys_i18n.FixDemandTitle_problemSubKind}"  />
-
+                                    <p:selectOneMenu id="problemSubKind" value="#{fixDemandController.searchCons['problemSubKind']}" filter="true" filterMatchMode="contains" disabled="false">
+                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                        <f:selectItems  value="#{fixDemandController.problemSubKind.values}"
+                                                        var="entry"
+                                                        itemValue="#{entry.value}" itemLabel="#{entry.value}" >
+                                        </f:selectItems>
+                                    </p:selectOneMenu>
 
                                     <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_problemDetails}" for="problemDetails" />
                                     <p:inputText id="problemDetails" value="#{fixDemandController.searchCons['problemDetails']}" title="#{gmsys_i18n.FixDemandTitle_problemDetails}"  />
@@ -41,8 +53,13 @@
 
 
                                     <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_fixKind}" for="fixKind" />
-                                    <p:inputText id="fixKind" value="#{fixDemandController.searchCons['fixKind']}" title="#{gmsys_i18n.FixDemandTitle_fixKind}"  />
-
+                                    <p:selectOneMenu id="fixKind" value="#{fixDemandController.searchCons['fixKind']}" filter="true" filterMatchMode="contains" disabled="false"  >
+                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                        <f:selectItems  value="#{fixDemandController.fixkindCV.children}"
+                                                        var="entry"
+                                                        itemValue="#{entry.value}" itemLabel="#{entry.value}" >
+                                        </f:selectItems>
+                                    </p:selectOneMenu> 
 
                                     <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_budgetList}" for="budgetList" />
                                     <p:inputText id="budgetList" value="#{fixDemandController.searchCons['budgetList']}" title="#{gmsys_i18n.FixDemandTitle_budgetList}"  />
@@ -57,20 +74,25 @@
 
 
                                     <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_source}" for="source" />
-                                    <p:inputText id="source" value="#{fixDemandController.searchCons['source']}" title="#{gmsys_i18n.FixDemandTitle_source}"  />
-
+                                    <p:selectOneMenu id="source" value="#{fixDemandController.searchCons['source']}"  filter="true" filterMatchMode="contains" disabled="false"  >
+                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                        <f:selectItems  value="#{fixDemandController.sourceCV.children}"
+                                                        var="entry"
+                                                        itemValue="#{entry.value}" itemLabel="#{entry.value}" >
+                                        </f:selectItems>
+                                    </p:selectOneMenu> 
 
                                     <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_status}" for="status" />
-                                    <p:inputText id="status" value="#{fixDemandController.searchCons['status']}" title="#{gmsys_i18n.FixDemandTitle_status}"  />
-
+                                    <p:selectOneMenu id="status" value="#{fixDemandController.searchCons['status']}" filter="true" filterMatchMode="contains" disabled="false"   >
+                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                                        <f:selectItems  value="#{fixDemandController.statusCV.children}"
+                                                        var="entry"
+                                                        itemValue="#{entry.value}" itemLabel="#{entry.value}" >
+                                        </f:selectItems>
+                                    </p:selectOneMenu> 
 
                                     <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_stationId}" for="stationId" />
-                                    <p:selectOneMenu id="stationId" value="#{fixDemandController.searchCons['stationId']}" filter="true"  filterMatchMode="contains"  converter="org.eman.Station"  >
-                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}" />
-                                        <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
-                                                       var="stationIdItem"
-                                                       itemValue="#{stationIdItem}"/>
-                                    </p:selectOneMenu>
+                                    <eman:selectStation id="stationId" value="#{fixDemandController.searchCons['stationId']}" />
 
                                 </p:panelGrid>
                             </p:column>
@@ -112,6 +134,12 @@
                             <h:outputText value="#{gmsys_i18n.FixDemandTitle_demandCode}"/>
                         </f:facet>
                         <h:outputText value="#{item.demandCode}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.stationId}" filterBy="#{item.stationId}">
+                        <f:facet name="header">
+                            <h:outputText value="#{gmsys_i18n.FixDemandTitle_stationId}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.stationId.label}"/>
                     </p:column>
                     <p:column sortBy="#{item.problemKind}" filterBy="#{item.problemKind}">
                         <f:facet name="header">
@@ -175,17 +203,12 @@
                         </f:facet>
                         <h:outputText value="#{item.status}"/>
                     </p:column>
-                    <p:column sortBy="#{item.stationId}" filterBy="#{item.stationId}">
-                        <f:facet name="header">
-                            <h:outputText value="#{gmsys_i18n.FixDemandTitle_stationId}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.stationId}"/>
-                    </p:column>
+
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="#{gmsys_i18n.AttachmentTitle}"/>
                         </f:facet>
-                        <ps:attachment owner="${item.id}" />
+                        <ps:attachment owner="#{item.id}" />
                     </p:column>
                     <f:facet name="footer">
                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{gmsys_i18n.Create}" actionListener="#{fixDemandController.prepareCreate}" process="@this" update="@form:@parent:FixDemandCreateForm" oncomplete="PF('FixDemandCreateDialog').show()"/>
@@ -199,7 +222,7 @@
                 </p:dataTable>
             </p:panel>
         </h:form>
-        <p:dialog id="imagePreview" showHeader="false" closeOnEscape="true" appendTo="@(body)"  widgetVar="imagePreview" modal="true" resizable="false" >
+        <p:dialog id="imagePreview" showHeader="false" closeOnEscape="true" appendTo="@(body)"  widgetVar="imagePreview" modal="true" dynamic="false" resizable="false" >
             <p:galleria value="#{attachmentController.getAttachmentsByOwner(fixDemandController.selectedItems[0].id)}"  var="image"  showCaption="true" panelHeight="500" panelWidth="700" transitionInterval="5000" >            
                 <p:graphicImage value="#{attachmentController.getResourcePath(image)}"  title="#{image.name}"  width="700"  />
             </p:galleria>

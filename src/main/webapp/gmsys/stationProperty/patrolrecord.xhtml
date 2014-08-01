@@ -28,11 +28,14 @@
                     <ui:repeat id="properties" value="#{stationPropertyPatrolView.selectedRoomspots}" var="roomspot"  >
                         <p:panel style="width: 276mm;height: 189mm;border: none;padding: 0;margin:0">
 
-                            <h1>资产管理网格化巡检表</h1>
-                            <h:outputText value="#{basic_i18n.RoomspotLabel_grid}"/> #{roomspot.grid}
-                            <p:spacer width="50px"/>
-                            <h:outputText value="#{basic_i18n.RoomspotEntityLabel}"/>#{roomspot.roomCode}- #{roomspot.roomName}
-                            <br/>
+                            <div style="text-align: center;font-size: x-large;line"><h:outputText value="资产管理网格化巡检表"/></div>
+                             <p:spacer  height="20px"/>
+                             <div style="font-size: medium"><p:spacer width="50px" height="10"/><h:outputText value="#{basic_i18n.RoomspotLabel_grid}"/> #{roomspot.grid}
+                                <p:spacer width="50px" height="10"/><h:outputText value="#{basic_i18n.RoomspotEntityLabel}"/>#{roomspot.roomCode}- #{roomspot.roomName}
+                                <p:spacer width="50px" height="10"/><h:outputText value="#{basic_i18n.RoomspotLabel_secondName}"/>#{roomspot.secondName}
+                            </div>
+                            <p:spacer  height="5px"/>
+
                             <p:dataTable id="datalist" value="#{stationPropertyPatrolView.getStationPropertys(roomspot)}" var="item"
                                          rows="1000"
                                          rowKey="#{item.id}"
@@ -47,15 +50,15 @@
                                     <p:row>
                                         <p:column rowspan="2" width="5%" headerText="序号" />
                                         <p:column rowspan="2" width="10%" headerText="#{gmsys_i18n.StationPropertyTitle_number}"/>
-                                        <p:column rowspan="2" width="20%" headerText="#{gmsys_i18n.StationPropertyTitle_name}"/>
-                                        <p:column rowspan="2" width="5%" headerText="#{gmsys_i18n.StationPropertyTitle_quantity}"/>  
-                                        <p:column colspan="3" width="40%" headerText="巡检记录"/>
+                                        <p:column rowspan="2" width="25%" headerText="#{gmsys_i18n.StationPropertyTitle_name}"/>
+                                        <p:column rowspan="2" width="4%" headerText="#{gmsys_i18n.StationPropertyTitle_quantity}"/>  
+                                        <p:column colspan="3" width="35%" headerText="巡检记录"/>
                                         <p:column  rowspan="2" width="20%" headerText="#{gmsys_i18n.StationPropertyTitle_abnormity}"/>
                                     </p:row>
                                     <p:row>
-                                        <p:column width="200px" headerText="#{gmsys_i18n.StationPropertyTitle_model}"/>
-                                        <p:column  headerText="#{gmsys_i18n.StationPropertyTitle_manufacturer}"/>
-                                        <p:column  headerText="#{gmsys_i18n.StationPropertyTitle_taged}"/>
+                                        <p:column width="15%" headerText="#{gmsys_i18n.StationPropertyTitle_model}"/>
+                                        <p:column width="15%" headerText="#{gmsys_i18n.StationPropertyTitle_manufacturer}"/>
+                                        <p:column width="5%" headerText="#{gmsys_i18n.StationPropertyTitle_taged}"/>
 
                                     </p:row>
                                 </p:columnGroup>

@@ -12,21 +12,29 @@
     <ui:composition>
         <p:dialog id="RolePermissionCreateDlg" widgetVar="RolePermissionCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                   header="#{security_i18n.CreateRolePermissionTitle}">
             <h:form id="RolePermissionCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{rolePermissionController.created != null}">
-                        <p:outputLabel value="#{security_i18n.CreateRolePermissionLabel_idrolePerm}" for="idrolePerm" />
-                        <p:inputText id="idrolePerm" value="#{rolePermissionController.created.idrolePerm}" title="#{security_i18n.CreateRolePermissionTitle_idrolePerm}" required="true" requiredMessage="#{security_i18n.CreateRolePermissionRequiredMessage_idrolePerm}"/>
-                        <p:outputLabel value="#{security_i18n.CreateRolePermissionLabel_permissionpermissionId}" for="permissionpermissionId" />
-                        <p:selectOneMenu id="permissionpermissionId" value="#{rolePermissionController.created.permissionpermissionId}" required="true" requiredMessage="#{security_i18n.EditRolePermissionRequiredMessage_permissionpermissionId}">
+                    <p:panelGrid columns="2" rendered="#{not empty rolePermissionController.created}">
+
+
+                        <p:outputLabel value="#{security_i18n.EditRolePermissionLabel_idrolePerm}" for="idrolePerm" />
+                        <p:inputText id="idrolePerm" value="#{rolePermissionController.created.idrolePerm}" title="#{security_i18n.EditRolePermissionTitle_idrolePerm}"  disabled="true"       required="true" requiredMessage="#{security_i18n.EditRolePermissionRequiredMessage_idrolePerm}"/>
+
+
+                        <p:outputLabel value="#{security_i18n.EditRolePermissionLabel_permissionpermissionId}" for="permissionpermissionId" />
+                        <p:selectOneMenu id="permissionpermissionId" value="#{rolePermissionController.created.permissionpermissionId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{security_i18n.EditRolePermissionRequiredMessage_permissionpermissionId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
                             <f:selectItems value="#{permissionController.itemsAvailableSelectOne}"
                                            var="permissionpermissionIdItem"
                                            itemValue="#{permissionpermissionIdItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{security_i18n.CreateRolePermissionLabel_roleroleId}" for="roleroleId" />
-                        <p:selectOneMenu id="roleroleId" value="#{rolePermissionController.created.roleroleId}" required="true" requiredMessage="#{security_i18n.EditRolePermissionRequiredMessage_roleroleId}">
+
+
+                        <p:outputLabel value="#{security_i18n.EditRolePermissionLabel_roleroleId}" for="roleroleId" />
+                        <p:selectOneMenu id="roleroleId" value="#{rolePermissionController.created.roleroleId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{security_i18n.EditRolePermissionRequiredMessage_roleroleId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
                             <f:selectItems value="#{roleController.itemsAvailableSelectOne}"
                                            var="roleroleIdItem"
                                            itemValue="#{roleroleIdItem}"/>
@@ -39,16 +47,5 @@
         </p:dialog>
 
     </ui:composition>
-    <script type="text/javascript">
 
-        function fitViewport() {
-            var source = $('#RolePermissionCreateDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
-
-        }
-
-
-    </script>
 </html>

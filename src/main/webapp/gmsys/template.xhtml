@@ -7,7 +7,7 @@
       xmlns:ps ="http://xmlns.jcp.org/jsf/composite/peasant">
 
     <h:head>
-        <title>#{gmsys_i18n.AppName}->#{gmsys_i18n.ModuleNameTitle}-<ui:insert name="title">主页</ui:insert></title>
+        <title>#{gmsys_i18n.ModuleNameTitle}-<ui:insert name="title">首页</ui:insert></title>
         <ui:include src="/sections/head.xhtml"/>
     </h:head>
 
@@ -16,10 +16,10 @@
         <p:layout fullPage="true"  >
             <p:layoutUnit position="west" size="200" resizable="true"  >
                 <h:form id="menuForm">
-                    <p:tieredMenu>
+                    <p:tieredMenu style="border: none">
                         <p:menuitem value="#{gmsys_i18n.Home}" outcome="/index" icon="ui-icon-home"/>
-                        <p:menuitem value="FixDemand" outcome="/gmsys/fixDemand/List.xhtml" />
-                        <p:menuitem value="StationProperty" outcome="/gmsys/stationProperty/List.xhtml"/>
+                        <p:menuitem value="#{gmsys_i18n.FixDemandMenuLabel}" outcome="/gmsys/fixDemand/index.xhtml" />
+                        <p:menuitem value="#{gmsys_i18n.StationPropertyMenuLabel}" outcome="/gmsys/stationProperty/index.xhtml"/>
                     </p:tieredMenu>
                 </h:form>
             </p:layoutUnit>

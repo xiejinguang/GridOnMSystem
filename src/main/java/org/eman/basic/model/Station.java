@@ -26,6 +26,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.peasant.model.Labeled;
 
 /**
  *
@@ -46,7 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Station.findByType", query = "SELECT s FROM Station s WHERE s.type = :type"),
     @NamedQuery(name = "Station.findByAccomMaintainer", query = "SELECT s FROM Station s WHERE s.accomMaintainer = :accomMaintainer"),
     @NamedQuery(name = "Station.findByStatus", query = "SELECT s FROM Station s WHERE s.status = :status")})
-public class Station implements Serializable {
+public class Station implements Serializable,Labeled {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -228,6 +229,11 @@ public class Station implements Serializable {
     @Override
     public String toString() {
         return "org.eman.basic.model.Station[ id=" + id + " ]";
+    }
+
+    @Override
+    public String getLabel() {
+        return statCode+"|"+name;
     }
     
 }

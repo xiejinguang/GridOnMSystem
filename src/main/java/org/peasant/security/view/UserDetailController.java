@@ -27,12 +27,12 @@ import javax.faces.convert.FacesConverter;
 public class UserDetailController implements Serializable {
 
     @EJB
-    private org.peasant.security.facade.UserDetailFacade ejbFacade;
+    protected org.peasant.security.facade.UserDetailFacade ejbFacade;
     private List<UserDetail> items = null;
     private UserDetail created;
     private List<UserDetail> selectedItems;
     private Map<String, Object> searchCons;
-    private ResourceBundle bundle;
+    protected ResourceBundle bundle;
 
     public UserDetailController() {
     }
@@ -70,7 +70,8 @@ public class UserDetailController implements Serializable {
     protected void setEmbeddableKeys() {
     }
 
-    protected void initializeEmbeddableKey() {
+    protected void initializeKey() {
+        created.setUsername(org.eman.util.Utils.generateUniqueKey());
     }
 
     private UserDetailFacade getFacade() {
@@ -78,8 +79,9 @@ public class UserDetailController implements Serializable {
     }
 
     public UserDetail prepareCreate() {
+
         created = new UserDetail();
-        initializeEmbeddableKey();
+        initializeKey();
         return created;
     }
 
@@ -103,10 +105,13 @@ public class UserDetailController implements Serializable {
     }
 
     public List<UserDetail> searchItems() {
-        construtSearchParams(this.searchCons);
 
-        items = getFacade().findByConditions(construtSearchParams(this.searchCons));
+        items = findItemsByConditions(construtSearchParams(this.searchCons));
         return items;
+    }
+
+    protected List<UserDetail> findItemsByConditions(Map<String, Object> params) {
+        return getFacade().findByConditions(params);
     }
 
     protected Map<String, Object> construtSearchParams(Map<String, Object> params) {
@@ -142,7 +147,7 @@ public class UserDetailController implements Serializable {
         return items;
     }
 
-    private void persist(PersistAction persistAction, String successMessage) {
+    protected void persist(PersistAction persistAction, String successMessage) {
 
         try {
 
@@ -200,8 +205,8 @@ public class UserDetailController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = UserDetail.class)
-    public static class UserDetailControllerConverter implements Converter {
+    @FacesConverter(forClass = UserDetail.class, value = "UserDetail")
+    public static class UserDetailFacesConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {

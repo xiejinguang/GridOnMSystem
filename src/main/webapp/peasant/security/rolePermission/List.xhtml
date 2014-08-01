@@ -17,91 +17,100 @@
         </ui:define>
 
         <ui:define name="body">
+
+            <h:form id="SearchConsForm">
+
+                <p:fieldset id="searchField" legend="${security_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+                    <p:panelGrid   style="width:100%"  >
+                        <p:row>
+                            <p:column >
+                                <p:panelGrid id="searchConsGrid" columns="8">
+
+
+                                    <p:outputLabel value="#{security_i18n.RolePermissionLabel_idrolePerm}" for="idrolePerm" />
+                                    <p:inputText id="idrolePerm" value="#{rolePermissionController.searchCons['idrolePerm']}" title="#{security_i18n.RolePermissionTitle_idrolePerm}"  />
+
+
+                                    <p:outputLabel value="#{security_i18n.RolePermissionLabel_permissionpermissionId}" for="permissionpermissionId" />
+                                    <p:selectOneMenu id="permissionpermissionId" value="#{rolePermissionController.searchCons['permissionpermissionId']}" filter="true"  filterMatchMode="contains"  converter="javax.faces.Permission"  >
+                                        <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
+                                        <f:selectItems value="#{permissionController.itemsAvailableSelectOne}"
+                                                       var="permissionpermissionIdItem"
+                                                       itemValue="#{permissionpermissionIdItem}"/>
+                                    </p:selectOneMenu>
+
+
+                                    <p:outputLabel value="#{security_i18n.RolePermissionLabel_roleroleId}" for="roleroleId" />
+                                    <p:selectOneMenu id="roleroleId" value="#{rolePermissionController.searchCons['roleroleId']}" filter="true"  filterMatchMode="contains"  converter="javax.faces.Role"  >
+                                        <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
+                                        <f:selectItems value="#{roleController.itemsAvailableSelectOne}"
+                                                       var="roleroleIdItem"
+                                                       itemValue="#{roleroleIdItem}"/>
+                                    </p:selectOneMenu>
+
+                                </p:panelGrid>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton id="searchButton" icon="ui-icon-search"   value="${security_i18n.Search}" actionListener="#{rolePermissionController.searchItems}" update=":growl,:RolePermissionListForm:datalist"/>
+                                <br/>
+                                <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${security_i18n.GetAll}" actionListener="#{rolePermissionController.allItems}" update=":growl,:RolePermissionListForm:datalist"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>                   
+                </p:fieldset>
+            </h:form>
+
             <h:form id="RolePermissionListForm">
-                <p:panel header="#{security_i18n.ListRolePermissionTitle}">
-                    <p:fieldset id="searchField" legend="${security_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
-                        <p:panelGrid   style="width:100%"  >
-                            <p:row>
-                                <p:column >
-                                    <p:panelGrid id="searchConsGrid" columns="8">
+                <p:dataTable id="datalist" value="#{rolePermissionController.items}" var="item"
+                             selection="#{rolePermissionController.selectedItems}"
+                             rowKey="#{item.idrolePerm}"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             paginator="true" paginatorPosition="bottom"
+                             rows="10" 
+                             draggableColumns="true" resizableColumns="true" 
+                             scrollable="true"   liveResize="true" liveScroll="true"
+                             sortMode="multiple"
+                             editable="true" 
+                             stickyHeader="false" 
+                             >
 
+                    <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                    <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
 
-                                        <p:outputLabel value="#{security_i18n.RolePermissionLabel_idrolePerm}" for="idrolePerm" />
-                                        <p:inputText id="idrolePerm" value="#{rolePermissionController.searchCons['idrolePerm']}" title="#{security_i18n.RolePermissionTitle_idrolePerm}"  />
+                    <f:facet name="header"><p:outputLabel value="#{security_i18n.ListRolePermissionTitle}" /></f:facet>
 
+                    <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
 
-                                        <p:outputLabel value="#{security_i18n.RolePermissionLabel_permissionpermissionId}" for="permissionpermissionId" />
-                                        <p:selectOneMenu id="permissionpermissionId" value="#{rolePermissionController.searchCons['permissionpermissionId']}" >
-                                            <f:selectItems value="#{permissionController.itemsAvailableSelectOne}"
-                                                           var="permissionpermissionIdItem"
-                                                           itemValue="#{permissionpermissionIdItem}"/>
-                                        </p:selectOneMenu>
-
-
-                                        <p:outputLabel value="#{security_i18n.RolePermissionLabel_roleroleId}" for="roleroleId" />
-                                        <p:selectOneMenu id="roleroleId" value="#{rolePermissionController.searchCons['roleroleId']}" >
-                                            <f:selectItems value="#{roleController.itemsAvailableSelectOne}"
-                                                           var="roleroleIdItem"
-                                                           itemValue="#{roleroleIdItem}"/>
-                                        </p:selectOneMenu>
-
-                                    </p:panelGrid>
-                                </p:column>
-                                <p:column>
-                                    <p:commandButton id="searchButton" icon="ui-icon-search"   value="${security_i18n.Search}" actionListener="#{rolePermissionController.searchItems}" update=":growl,datalist"/>
-                                    <br/>
-                                    <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${security_i18n.GetAll}" actionListener="#{rolePermissionController.allItems}" update=":growl,datalist"/>
-                                </p:column>
-                            </p:row>
-                        </p:panelGrid>                   
-                    </p:fieldset>
-
-                    <p:dataTable id="datalist" value="#{rolePermissionController.items}" var="item"
-                                 selection="#{rolePermissionController.selectedItems}"
-                                 rowKey="#{item.idrolePerm}"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 paginator="true" paginatorPosition="bottom"
-                                 rows="10" 
-                                 draggableColumns="true" resizableColumns="true" 
-                                 scrollable="true"   liveResize="true" liveScroll="true"
-                                 sortMode="multiple"
-                                 editable="true" 
-                                 stickyHeader="false" 
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
-
-                        <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
-
-                        <p:column sortBy="#{item.idrolePerm}" filterBy="#{item.idrolePerm}">
-                            <f:facet name="header">
-                                <h:outputText value="#{security_i18n.RolePermissionTitle_idrolePerm}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idrolePerm}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.permissionpermissionId}" filterBy="#{item.permissionpermissionId}">
-                            <f:facet name="header">
-                                <h:outputText value="#{security_i18n.RolePermissionTitle_permissionpermissionId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.permissionpermissionId}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.roleroleId}" filterBy="#{item.roleroleId}">
-                            <f:facet name="header">
-                                <h:outputText value="#{security_i18n.RolePermissionTitle_roleroleId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.roleroleId}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{security_i18n.Create}" actionListener="#{rolePermissionController.prepareCreate}" update="@form:@parent:RolePermissionCreateForm" oncomplete="PF('RolePermissionCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{security_i18n.View}" update="@form:@parent:RolePermissionViewForm" oncomplete="PF('RolePermissionViewDialog').show()" disabled="#{empty rolePermissionController.selectedItems}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{security_i18n.Edit}" update="@form:@parent:RolePermissionEditForm" oncomplete="PF('RolePermissionEditDialog').show()" disabled="#{empty rolePermissionController.selectedItems}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{security_i18n.Delete}" actionListener="#{rolePermissionController.destroy}" update=":growl,datalist" disabled="#{empty rolePermissionController.selectedItems}"/>
+                    <p:column sortBy="#{item.idrolePerm}" filterBy="#{item.idrolePerm}">
+                        <f:facet name="header">
+                            <h:outputText value="#{security_i18n.RolePermissionTitle_idrolePerm}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idrolePerm}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.permissionpermissionId}" filterBy="#{item.permissionpermissionId}">
+                        <f:facet name="header">
+                            <h:outputText value="#{security_i18n.RolePermissionTitle_permissionpermissionId}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.permissionpermissionId}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.roleroleId}" filterBy="#{item.roleroleId}">
+                        <f:facet name="header">
+                            <h:outputText value="#{security_i18n.RolePermissionTitle_roleroleId}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.roleroleId}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <div  class="my-datatable-footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{security_i18n.Create}" actionListener="#{rolePermissionController.prepareCreate}" process="@this" update="@form:@parent:RolePermissionCreateForm" oncomplete="PF('RolePermissionCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{security_i18n.View}" process="@this" update="@form:@parent:RolePermissionViewForm" oncomplete="PF('RolePermissionViewDialog').show()" disabled="#{empty rolePermissionController.selectedItems}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{security_i18n.Edit}" process="@this" update="@form:@parent:RolePermissionEditForm" oncomplete="PF('RolePermissionEditDialog').show()" disabled="#{empty rolePermissionController.selectedItems}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{security_i18n.Delete}" actionListener="#{rolePermissionController.destroy}" process="@this" update=":growl,datalist" disabled="#{empty rolePermissionController.selectedItems}"/>
                             <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
                             <p:columnToggler datasource="datalist" trigger="toggler" />
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                        </div>
+                    </f:facet>
+                </p:dataTable>
+
             </h:form>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>

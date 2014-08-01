@@ -9,10 +9,10 @@
     <ui:composition>
         <p:dialog id="UserDetailViewDlg" widgetVar="UserDetailViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                   header="#{security_i18n.ViewUserDetailTitle}">
             <h:form id="UserDetailViewForm">
-                <h:panelGroup id="display" rendered="#{empty userDetailController.selectedItems != null}">
+                <h:panelGroup id="display" rendered="#{not empty userDetailController.selectedItems}">
                     <ui:repeat  value="#{userDetailController.selectedItems}" var="item">
                         <p:panel toggleable="true" >
                             <f:facet name="header">
@@ -20,18 +20,32 @@
                                 <h:outputText value="#{item.username}" title="#{security_i18n.UserDetailEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="2" >
+
+
                                 <h:outputText value="#{security_i18n.UserDetailLabel_username}"/>
                                 <h:outputText value="#{item.username}" title="#{security_i18n.UserDetailTitle_username}"/>
+
+
                                 <h:outputText value="#{security_i18n.UserDetailLabel_sex}"/>
                                 <h:outputText value="#{item.sex}" title="#{security_i18n.UserDetailTitle_sex}"/>
+
+
                                 <h:outputText value="#{security_i18n.UserDetailLabel_birthday}"/>
                                 <h:outputText value="#{item.birthday}" title="#{security_i18n.UserDetailTitle_birthday}">
                                     <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
                                 </h:outputText>
+
+
                                 <h:outputText value="#{security_i18n.UserDetailLabel_firstName}"/>
                                 <h:outputText value="#{item.firstName}" title="#{security_i18n.UserDetailTitle_firstName}"/>
+
+
                                 <h:outputText value="#{security_i18n.UserDetailLabel_lastName}"/>
                                 <h:outputText value="#{item.lastName}" title="#{security_i18n.UserDetailTitle_lastName}"/>
+
+
+                                <h:outputText value="#{security_i18n.UserDetailLabel_user}"/>
+                                <h:outputText value="#{item.user}" title="#{security_i18n.UserDetailTitle_user}"/>
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>
@@ -40,16 +54,5 @@
             </h:form>
         </p:dialog>
     </ui:composition>
-    <script type="text/javascript">
 
-        function fitViewport() {
-            var source = $('#UserDetailViewDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
-
-        }
-
-
-    </script>
 </html>

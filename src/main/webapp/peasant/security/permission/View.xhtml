@@ -9,10 +9,10 @@
     <ui:composition>
         <p:dialog id="PermissionViewDlg" widgetVar="PermissionViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                   header="#{security_i18n.ViewPermissionTitle}">
             <h:form id="PermissionViewForm">
-                <h:panelGroup id="display" rendered="#{empty permissionController.selectedItems != null}">
+                <h:panelGroup id="display" rendered="#{not empty permissionController.selectedItems}">
                     <ui:repeat  value="#{permissionController.selectedItems}" var="item">
                         <p:panel toggleable="true" >
                             <f:facet name="header">
@@ -20,18 +20,32 @@
                                 <h:outputText value="#{item.permissionId}" title="#{security_i18n.PermissionEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="4" >
+
+
                                 <h:outputText value="#{security_i18n.PermissionLabel_permissionId}"/>
                                 <h:outputText value="#{item.permissionId}" title="#{security_i18n.PermissionTitle_permissionId}"/>
+
+
                                 <h:outputText value="#{security_i18n.PermissionLabel_permName}"/>
                                 <h:outputText value="#{item.permName}" title="#{security_i18n.PermissionTitle_permName}"/>
+
+
                                 <h:outputText value="#{security_i18n.PermissionLabel_code}"/>
                                 <h:outputText value="#{item.code}" title="#{security_i18n.PermissionTitle_code}"/>
+
+
                                 <h:outputText value="#{security_i18n.PermissionLabel_domain}"/>
                                 <h:outputText value="#{item.domain}" title="#{security_i18n.PermissionTitle_domain}"/>
+
+
                                 <h:outputText value="#{security_i18n.PermissionLabel_action}"/>
                                 <h:outputText value="#{item.action}" title="#{security_i18n.PermissionTitle_action}"/>
+
+
                                 <h:outputText value="#{security_i18n.PermissionLabel_target}"/>
                                 <h:outputText value="#{item.target}" title="#{security_i18n.PermissionTitle_target}"/>
+
+
                                 <h:outputText value="#{security_i18n.PermissionLabel_description}"/>
                                 <h:outputText value="#{item.description}" title="#{security_i18n.PermissionTitle_description}"/>
                             </p:panelGrid>
@@ -42,16 +56,5 @@
             </h:form>
         </p:dialog>
     </ui:composition>
-    <script type="text/javascript">
 
-        function fitViewport() {
-            var source = $('#PermissionViewDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
-
-        }
-
-
-    </script>
 </html>

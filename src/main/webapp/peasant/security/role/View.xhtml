@@ -9,10 +9,10 @@
     <ui:composition>
         <p:dialog id="RoleViewDlg" widgetVar="RoleViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                   header="#{security_i18n.ViewRoleTitle}">
             <h:form id="RoleViewForm">
-                <h:panelGroup id="display" rendered="#{empty roleController.selectedItems != null}">
+                <h:panelGroup id="display" rendered="#{not empty roleController.selectedItems}">
                     <ui:repeat  value="#{roleController.selectedItems}" var="item">
                         <p:panel toggleable="true" >
                             <f:facet name="header">
@@ -20,12 +20,20 @@
                                 <h:outputText value="#{item.roleId}" title="#{security_i18n.RoleEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="2" >
+
+
                                 <h:outputText value="#{security_i18n.RoleLabel_roleId}"/>
                                 <h:outputText value="#{item.roleId}" title="#{security_i18n.RoleTitle_roleId}"/>
+
+
                                 <h:outputText value="#{security_i18n.RoleLabel_roleName}"/>
                                 <h:outputText value="#{item.roleName}" title="#{security_i18n.RoleTitle_roleName}"/>
+
+
                                 <h:outputText value="#{security_i18n.RoleLabel_description}"/>
                                 <h:outputText value="#{item.description}" title="#{security_i18n.RoleTitle_description}"/>
+
+
                                 <h:outputText value="#{security_i18n.RoleLabel_createTime}"/>
                                 <h:outputText value="#{item.createTime}" title="#{security_i18n.RoleTitle_createTime}">
                                     <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -38,16 +46,5 @@
             </h:form>
         </p:dialog>
     </ui:composition>
-    <script type="text/javascript">
 
-        function fitViewport() {
-            var source = $('#RoleViewDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
-
-        }
-
-
-    </script>
 </html>

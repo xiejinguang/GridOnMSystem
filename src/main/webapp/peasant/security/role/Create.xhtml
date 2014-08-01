@@ -12,18 +12,26 @@
     <ui:composition>
         <p:dialog id="RoleCreateDlg" widgetVar="RoleCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                   header="#{security_i18n.CreateRoleTitle}">
             <h:form id="RoleCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{roleController.created != null}">
-                        <p:outputLabel value="#{security_i18n.CreateRoleLabel_roleId}" for="roleId" />
-                        <p:inputText id="roleId" value="#{roleController.created.roleId}" title="#{security_i18n.CreateRoleTitle_roleId}" required="true" requiredMessage="#{security_i18n.CreateRoleRequiredMessage_roleId}"/>
-                        <p:outputLabel value="#{security_i18n.CreateRoleLabel_roleName}" for="roleName" />
-                        <p:inputText id="roleName" value="#{roleController.created.roleName}" title="#{security_i18n.CreateRoleTitle_roleName}" required="true" requiredMessage="#{security_i18n.CreateRoleRequiredMessage_roleName}"/>
-                        <p:outputLabel value="#{security_i18n.CreateRoleLabel_description}" for="description" />
-                        <p:inputText id="description" value="#{roleController.created.description}" title="#{security_i18n.CreateRoleTitle_description}" />
-                        <p:outputLabel value="#{security_i18n.CreateRoleLabel_createTime}" for="createTime" />
+                    <p:panelGrid columns="2" rendered="#{not empty roleController.created}">
+
+
+                        <p:outputLabel value="#{security_i18n.EditRoleLabel_roleId}" for="roleId" />
+                        <p:inputText id="roleId" value="#{roleController.created.roleId}" title="#{security_i18n.EditRoleTitle_roleId}"  disabled="true"       required="true" requiredMessage="#{security_i18n.EditRoleRequiredMessage_roleId}"/>
+
+
+                        <p:outputLabel value="#{security_i18n.EditRoleLabel_roleName}" for="roleName" />
+                        <p:inputText id="roleName" value="#{roleController.created.roleName}" title="#{security_i18n.EditRoleTitle_roleName}"  disabled="false"       required="true" requiredMessage="#{security_i18n.EditRoleRequiredMessage_roleName}"/>
+
+
+                        <p:outputLabel value="#{security_i18n.EditRoleLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{roleController.created.description}" title="#{security_i18n.EditRoleTitle_description}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{security_i18n.EditRoleLabel_createTime}" for="createTime" />
                         <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{roleController.created.createTime}" title="#{security_i18n.EditRoleTitle_createTime}"  showOn="button"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{roleController.create}" value="#{security_i18n.Save}" update="display,@form:@parent:RoleListForm:datalist,:growl" oncomplete="handleSubmit(args,'RoleCreateDialog');"/>
@@ -33,16 +41,5 @@
         </p:dialog>
 
     </ui:composition>
-    <script type="text/javascript">
 
-        function fitViewport() {
-            var source = $('#RoleCreateDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
-
-        }
-
-
-    </script>
 </html>

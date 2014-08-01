@@ -5,7 +5,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ps = "http://xmlns.jcp.org/jsf/composite/peasant">
+      xmlns:ps = "http://xmlns.jcp.org/jsf/composite/peasant"
+      xmlns:eman="http://xmlns.jcp.org/jsf/composite/eman">
     <h:form id="StationListForm">
 
         <p:fieldset id="searchField" legend="${basic_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
@@ -66,18 +67,7 @@
                             </p:selectOneMenu>
 
                             <p:outputLabel value="#{basic_i18n.StationLabel_roomspotId}" for="roomspotId" />
-                            <h:panelGroup>
-                                <p:selectOneMenu id="roomspotId" var="soitem" value="#{stationController.searchCons['roomspotId']}" filter="true"  filterMatchMode="contains"  converter="org.eman.Roomspot" styleClass="vcenter" >
-                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}" />
-                                    <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
-                                                   var="roomspotIdItem"
-                                                   itemValue="#{roomspotIdItem}"/>
-                                    <p:column><h:outputText value="#{soitem.grid}"/></p:column>
-                                    <p:column><h:outputText value="#{soitem.roomCode}"/></p:column>
-                                    <p:column><h:outputText value="#{soitem.roomName}"/></p:column>
-                                </p:selectOneMenu>
-                                <ps:selectDialog outcome="selectRoomspot" value="${bundle.Choose}" update="roomspotId" target="#{stationController.searchCons['roomspotId']}" styleClass="vcenter" />
-                            </h:panelGroup>
+                            <eman:selectRoomspot id="roomspotId" value="#{stationController.searchCons['roomspotId']}" />
 
                         </p:panelGrid>
                     </p:column>
@@ -114,6 +104,12 @@
                 </f:facet>
                 <h:outputText value="#{item.id}"/>
             </p:column>
+            <p:column sortBy="#{item.roomspotId}" filterBy="#{item.roomspotId}">
+                <f:facet name="header">
+                    <h:outputText value="#{basic_i18n.StationTitle_roomspotId}"/>
+                </f:facet>
+                <h:outputText value="#{item.roomspotId.label}"/>
+            </p:column>
             <p:column sortBy="#{item.statCode}" filterBy="#{item.statCode}">
                 <f:facet name="header">
                     <h:outputText value="#{basic_i18n.StationTitle_statCode}"/>
@@ -126,6 +122,7 @@
                 </f:facet>
                 <h:outputText value="#{item.name}"/>
             </p:column>
+
             <p:column sortBy="#{item.address}" filterBy="#{item.address}">
                 <f:facet name="header">
                     <h:outputText value="#{basic_i18n.StationTitle_address}"/>
@@ -162,12 +159,7 @@
                 </f:facet>
                 <h:outputText value="#{item.commont}"/>
             </p:column>
-            <p:column sortBy="#{item.roomspotId}" filterBy="#{item.roomspotId}">
-                <f:facet name="header">
-                    <h:outputText value="#{basic_i18n.StationTitle_roomspotId}"/>
-                </f:facet>
-                <h:outputText value="#{item.roomspotId}"/>
-            </p:column>
+
             <f:facet name="footer">
                 <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{basic_i18n.Create}" actionListener="#{stationController.prepareCreate}" update="@form:@parent:StationCreateForm" oncomplete="PF('StationCreateDialog').show()"/>
                 <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{basic_i18n.View}" update="@form:@parent:StationViewForm" oncomplete="PF('StationViewDialog').show()" disabled="#{empty stationController.selectedItems}"/>

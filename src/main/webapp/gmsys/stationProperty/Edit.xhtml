@@ -7,7 +7,8 @@
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:eman="http://xmlns.jcp.org/jsf/composite/eman">
 
     <ui:composition>
         <p:dialog id="StationPropertyEditDlg" widgetVar="StationPropertyEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
@@ -23,10 +24,11 @@
                                 <h:outputText value="#{item.id}" title="#{gmsys_i18n.StationPropertyEntityTitle}"/>
                             </f:facet>
                     <p:panelGrid columns="4" >
-                        <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_id}" for="id" />
+                        <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_id}" for="id"  />
                         <p:inputText id="id" value="#{item.id}" title="#{gmsys_i18n.EditStationPropertyTitle_id}" disabled="true"   required="true" requiredMessage="#{gmsys_i18n.EditStationPropertyRequiredMessage_id}"/>
 
-
+                        <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_roomspotId}" for="roomspotId" />
+                        <eman:selectRoomspot id="roomspotId" value="#{item.roomspotId}" />
                         
                         <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_number}" for="number" />
                         <p:inputText id="number" value="#{item.number}" title="#{gmsys_i18n.EditStationPropertyTitle_number}" disabled="false"    />
@@ -50,16 +52,6 @@
                         
                         <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_abnormity}" for="abnormity" />
                         <p:inputTextarea rows="4" cols="30" id="abnormity" value="#{item.abnormity}" title="#{gmsys_i18n.EditStationPropertyTitle_abnormity}" />
-
-                        
-                        <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_roomspotId}" for="roomspotId" />
-                        <p:selectOneMenu id="roomspotId" value="#{item.roomspotId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{gmsys_i18n.EditStationPropertyRequiredMessage_roomspotId}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
-                            <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
-                                           var="roomspotIdItem"
-                                           itemValue="#{roomspotIdItem}"/>
-                        </p:selectOneMenu>
-
                         
                         <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_taged}" for="taged" />
                         <p:selectBooleanCheckbox id="taged" value="#{item.taged}" />

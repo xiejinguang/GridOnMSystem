@@ -7,14 +7,14 @@
     <h:head>
         <ui:include src="/sections/head.xhtml" />
         <title> ${bundle.ChooseDialog}:${basic_i18n.StationEntityTitle}</title>
-        
+
     </h:head>
     <h:body>
         <ui:include src="maintain.xhtml"/>
         <h:form  styleClass="center">
             <p:commandButton value="${bundle.Confirm}" actionListener="#{dialogBean.selectData(stationController.selectedItems)}" />
             <p:spacer width="20px"/>
-            <p:commandButton value="${bundle.Close}" actionListener="#{dialogBean.closeDialog}" />
+            <p:commandButton value="${bundle.Close}" actionListener="#{dialogBean.closeDialog}" process="@this" />
         </h:form>
     </h:body>
 </html>

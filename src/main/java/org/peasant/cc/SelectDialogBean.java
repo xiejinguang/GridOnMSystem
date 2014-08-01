@@ -13,6 +13,8 @@ import java.util.List;
 import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -36,9 +38,19 @@ public class SelectDialogBean implements Serializable {
         }
         ELContext elc = FacesContext.getCurrentInstance().getELContext();
         ValueExpression ve = se.getComponent().getNamingContainer().getValueExpression("target");
-        if(ve == null)
+        if(ve==null){
+            UIComponent uc =  se.getComponent().getNamingContainer().getParent().getParent();
+            if(uc != null){
+                ve = uc.getValueExpression("value");
+            }
+        }
+        if (ve == null) {
             return;
-        Class et = ve.getType(elc);
+        }
+
+
+        Class et = ve.getExpectedType();
+        Class t = ve.getType(elc);
         Object selected = se.getObject();
         Object r = wrapOrUnWrapDataDepents(et, selected);
         ve.setValue(elc, r);
@@ -51,7 +63,13 @@ public class SelectDialogBean implements Serializable {
         }
         Class nt = data.getClass();
         if (expectedType.isAssignableFrom(nt)) {
-            return data;
+            if (!Iterable.class.isAssignableFrom(expectedType) && Iterable.class.isAssignableFrom(nt)) {
+                return toList((Iterable) data).get(0);
+
+            }
+            if (expectedType.isInstance(data)) {
+                return data;
+            }
         }
         if (expectedType.isArray()) {
 
@@ -99,4 +117,5 @@ public class SelectDialogBean implements Serializable {
         }
         return l;
     }
+
 }

@@ -10,12 +10,12 @@
     </h:head>
     <h:body>
         <p:layout fullPage="true" stateful="true"  >
-            <p:layoutUnit id="top" position="north" size="100"  style=" overflow: hidden" >
+            <p:layoutUnit id="top" position="north" size="110"  style=" overflow: hidden" >
             
 
               <!-- <ui:include src="/sections/TopMenu.xhtml"/>-->
 
-                <h:panelGroup style=" position: absolute;top: 10px;left:30px; overflow-style: move" >
+                <h:panelGroup style=" position: absolute;top: 10px;left:30px; overflow-style: move; margin: 0; padding: 0; border:none" >
                     <p:graphicImage   height="80px" library="design" name="logo.jpg" style="vertical-align: middle;"/> 
 
                     <h:outputLabel  style="font-weight: bolder; font-size:xx-large ; position:  relative; left: 30px "  value="${bundle.AppNameLabel}"/>
@@ -46,8 +46,6 @@
                         <p:graphicImage   width="750px"  value="#{image}"/> 
                     </p:tab>
                 </p:carousel>
-                
-
             </p:layoutUnit>
         </p:layout>
         <script>

@@ -27,12 +27,12 @@ import javax.faces.convert.FacesConverter;
 public class UserRoleController implements Serializable {
 
     @EJB
-    private org.peasant.security.facade.UserRoleFacade ejbFacade;
+    protected org.peasant.security.facade.UserRoleFacade ejbFacade;
     private List<UserRole> items = null;
     private UserRole created;
     private List<UserRole> selectedItems;
     private Map<String, Object> searchCons;
-    private ResourceBundle bundle;
+    protected ResourceBundle bundle;
 
     public UserRoleController() {
     }
@@ -70,7 +70,8 @@ public class UserRoleController implements Serializable {
     protected void setEmbeddableKeys() {
     }
 
-    protected void initializeEmbeddableKey() {
+    protected void initializeKey() {
+        created.setIduserRole(org.eman.util.Utils.generateUniqueKey());
     }
 
     private UserRoleFacade getFacade() {
@@ -78,8 +79,9 @@ public class UserRoleController implements Serializable {
     }
 
     public UserRole prepareCreate() {
+
         created = new UserRole();
-        initializeEmbeddableKey();
+        initializeKey();
         return created;
     }
 
@@ -103,10 +105,13 @@ public class UserRoleController implements Serializable {
     }
 
     public List<UserRole> searchItems() {
-        construtSearchParams(this.searchCons);
 
-        items = getFacade().findByConditions(construtSearchParams(this.searchCons));
+        items = findItemsByConditions(construtSearchParams(this.searchCons));
         return items;
+    }
+
+    protected List<UserRole> findItemsByConditions(Map<String, Object> params) {
+        return getFacade().findByConditions(params);
     }
 
     protected Map<String, Object> construtSearchParams(Map<String, Object> params) {
@@ -142,7 +147,7 @@ public class UserRoleController implements Serializable {
         return items;
     }
 
-    private void persist(PersistAction persistAction, String successMessage) {
+    protected void persist(PersistAction persistAction, String successMessage) {
 
         try {
 
@@ -200,8 +205,8 @@ public class UserRoleController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = UserRole.class)
-    public static class UserRoleControllerConverter implements Converter {
+    @FacesConverter(forClass = UserRole.class, value = "UserRole")
+    public static class UserRoleFacesConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {

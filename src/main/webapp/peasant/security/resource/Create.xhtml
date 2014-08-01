@@ -12,19 +12,27 @@
     <ui:composition>
         <p:dialog id="ResourceCreateDlg" widgetVar="ResourceCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                   header="#{security_i18n.CreateResourceTitle}">
             <h:form id="ResourceCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{resourceController.created != null}">
-                        <p:outputLabel value="#{security_i18n.CreateResourceLabel_resourceId}" for="resourceId" />
-                        <p:inputText id="resourceId" value="#{resourceController.created.resourceId}" title="#{security_i18n.CreateResourceTitle_resourceId}" required="true" requiredMessage="#{security_i18n.CreateResourceRequiredMessage_resourceId}"/>
-                        <p:outputLabel value="#{security_i18n.CreateResourceLabel_resCode}" for="resCode" />
-                        <p:inputText id="resCode" value="#{resourceController.created.resCode}" title="#{security_i18n.CreateResourceTitle_resCode}" />
-                        <p:outputLabel value="#{security_i18n.CreateResourceLabel_resLabel}" for="resLabel" />
-                        <p:inputText id="resLabel" value="#{resourceController.created.resLabel}" title="#{security_i18n.CreateResourceTitle_resLabel}" />
-                        <p:outputLabel value="#{security_i18n.CreateResourceLabel_permCode}" for="permCode" />
-                        <p:inputText id="permCode" value="#{resourceController.created.permCode}" title="#{security_i18n.CreateResourceTitle_permCode}" />
+                    <p:panelGrid columns="2" rendered="#{not empty resourceController.created}">
+
+
+                        <p:outputLabel value="#{security_i18n.EditResourceLabel_resourceId}" for="resourceId" />
+                        <p:inputText id="resourceId" value="#{resourceController.created.resourceId}" title="#{security_i18n.EditResourceTitle_resourceId}"  disabled="true"       required="true" requiredMessage="#{security_i18n.EditResourceRequiredMessage_resourceId}"/>
+
+
+                        <p:outputLabel value="#{security_i18n.EditResourceLabel_resCode}" for="resCode" />
+                        <p:inputText id="resCode" value="#{resourceController.created.resCode}" title="#{security_i18n.EditResourceTitle_resCode}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{security_i18n.EditResourceLabel_resLabel}" for="resLabel" />
+                        <p:inputText id="resLabel" value="#{resourceController.created.resLabel}" title="#{security_i18n.EditResourceTitle_resLabel}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{security_i18n.EditResourceLabel_permCode}" for="permCode" />
+                        <p:inputText id="permCode" value="#{resourceController.created.permCode}" title="#{security_i18n.EditResourceTitle_permCode}"  disabled="false"       />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{resourceController.create}" value="#{security_i18n.Save}" update="display,@form:@parent:ResourceListForm:datalist,:growl" oncomplete="handleSubmit(args,'ResourceCreateDialog');"/>
                     <p:commandButton type="button" value="#{security_i18n.Cancel}" onclick="PF('ResourceCreateDialog').hide()"/>
@@ -33,16 +41,5 @@
         </p:dialog>
 
     </ui:composition>
-    <script type="text/javascript">
 
-        function fitViewport() {
-            var source = $('#ResourceCreateDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
-
-        }
-
-
-    </script>
 </html>

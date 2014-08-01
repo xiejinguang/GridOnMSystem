@@ -7,7 +7,8 @@
       xmlns:ps="http://xmlns.jcp.org/jsf/composite/peasant"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:eman="http://xmlns.jcp.org/jsf/composite/eman">
 
     <ui:composition>
         <p:dialog id="FixDemandEditDlg" widgetVar="FixDemandEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
@@ -26,6 +27,9 @@
                                 <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_id}" for="id" />
                                 <p:inputText id="id" value="#{item.id}" title="#{gmsys_i18n.EditFixDemandTitle_id}" disabled="true"   required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_id}"/>
 
+                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_stationId}*" for="stationId" />
+                                <eman:selectStation id="stationId" value="#{item.stationId}"  required="true"  />
+                                
                                 <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_demandCode}" for="demandCode" />
                                 <p:inputText id="demandCode" value="#{item.demandCode}" title="#{gmsys_i18n.EditFixDemandTitle_demandCode}" disabled="false"   required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_demandCode}"/>
 
@@ -91,16 +95,6 @@
                                     </f:selectItems>
                                 </p:selectOneMenu> 
 
-                                <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_stationId}" for="stationId" />
-                                <h:panelGroup>
-                                    <p:selectOneMenu id="stationId" value="#{item.stationId}" filter="true"  converter="org.eman.Station" filterMatchMode="contains" required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_stationId}" style="vertical-align: middle">
-                                        <f:selectItem itemLabel="${bundle.SelectOneMessage}" />
-                                        <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
-                                                       var="stationIdItem"
-                                                       itemValue="#{stationIdItem}"/>
-                                    </p:selectOneMenu>
-                                    <ps:selectDialog outcome="selectStation" value="${bundle.Choose}" update="stationId" target="#{item.stationId}"  style="vertical-align: middle" />
-                                </h:panelGroup>
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>

@@ -4,7 +4,11 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:eman="http://xmlns.jcp.org/jsf/composite/eman"
+      xmlns:ps="http://xmlns.jcp.org/jsf/composite/peasant"
+          
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition>
 
         <h:form id="SearchConsForm">
@@ -14,8 +18,12 @@
                     <p:row>
                         <p:column >
                             <p:panelGrid id="searchConsGrid" columns="8">
-                                <p:outputLabel value="#{gmsys_i18n.StationPropertyLabel_id}" for="id" />
-                                <p:inputText id="id" value="#{stationPropertyController.searchCons['id']}" title="#{gmsys_i18n.StationPropertyTitle_id}"  />
+                                <p:outputLabel value="#{gmsys_i18n.StationPropertyLabel_id}" for="id"  rendered="false"/>
+                                <p:inputText id="id" value="#{stationPropertyController.searchCons['id']}" title="#{gmsys_i18n.StationPropertyTitle_id}" rendered="false"  />
+
+                                <p:outputLabel value="#{gmsys_i18n.StationPropertyLabel_roomspotId}" for="roomspotId" />
+                                <eman:selectRoomspot id="roomspotId" value="#{stationPropertyController.searchCons['roomspotId']}"/>
+
 
                                 <p:outputLabel value="#{gmsys_i18n.StationPropertyLabel_number}" for="number" />
                                 <p:inputText id="number" value="#{stationPropertyController.searchCons['number']}" title="#{gmsys_i18n.StationPropertyTitle_number}"  />
@@ -36,16 +44,6 @@
                                 <p:outputLabel value="#{gmsys_i18n.StationPropertyLabel_manufacturer}" for="manufacturer" />
                                 <p:inputText id="manufacturer" value="#{stationPropertyController.searchCons['manufacturer']}" title="#{gmsys_i18n.StationPropertyTitle_manufacturer}"  />
 
-
-
-
-                                <p:outputLabel value="#{gmsys_i18n.StationPropertyLabel_roomspotId}" for="roomspotId" />
-                                <p:selectOneMenu id="roomspotId" value="#{stationPropertyController.searchCons['roomspotId']}" filter="true"  filterMatchMode="contains"  converter="org.eman.Roomspot"  >
-                                    <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
-                                    <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
-                                                   var="roomspotIdItem"
-                                                   itemValue="#{roomspotIdItem}"/>
-                                </p:selectOneMenu>
 
 
                                 <p:outputLabel value="#{gmsys_i18n.StationPropertyLabel_taged}" for="taged" />
@@ -93,6 +91,13 @@
                     <h:outputText value="#{item.id}"/>
                 </p:column>
 
+                <p:column sortBy="#{item.roomspotId}" filterBy="#{item.roomspotId}">
+                    <f:facet name="header">
+                        <h:outputText value="#{gmsys_i18n.StationPropertyTitle_roomspotId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.roomspotId.label}"/>
+                </p:column>
+
                 <p:column sortBy="#{item.number}" filterBy="#{item.number}">
                     <f:facet name="header">
                         <h:outputText value="#{gmsys_i18n.StationPropertyTitle_number}"/>
@@ -128,13 +133,6 @@
                     <h:outputText value="#{item.manufacturer}"/>
                 </p:column>
 
-
-                <p:column sortBy="#{item.roomspotId}" filterBy="#{item.roomspotId}">
-                    <f:facet name="header">
-                        <h:outputText value="#{gmsys_i18n.StationPropertyTitle_roomspotId}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.roomspotId}"/>
-                </p:column>
 
                 <p:column sortBy="#{item.taged}" filterBy="#{item.taged}">
                     <f:facet name="header">

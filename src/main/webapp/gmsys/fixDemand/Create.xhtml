@@ -7,7 +7,8 @@
       xmlns:ps="http://xmlns.jcp.org/jsf/composite/peasant"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:eman="http://xmlns.jcp.org/jsf/composite/eman">
 
     <ui:composition>
         <p:dialog id="FixDemandCreateDlg" widgetVar="FixDemandCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
@@ -20,6 +21,9 @@
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_id}" for="id" />
                         <p:inputText id="id" value="#{fixDemandController.created.id}" title="#{gmsys_i18n.EditFixDemandTitle_id}"  disabled="true"       required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_id}"/>
 
+                        
+                        <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_stationId}*" for="stationId" />
+                        <eman:selectStation id="stationId" value="#{fixDemandController.created.stationId}" required="true" />
 
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_demandCode}" for="demandCode" />
                         <p:inputText id="demandCode" value="#{fixDemandController.created.demandCode}" title="#{gmsys_i18n.EditFixDemandTitle_demandCode}"  disabled="false"       required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_demandCode}"/>
@@ -104,16 +108,6 @@
                             <ps:candidateValue rootId="${fixDemandController.statusCV.id}" />
                         </h:panelGroup>
 
-                        <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_stationId}" for="stationId" />
-                        <h:panelGroup>
-                            <p:selectOneMenu id="stationId" value="#{fixDemandController.created.stationId}" filter="true"  converter="org.eman.Station" filterMatchMode="contains" required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_stationId}" style="vertical-align: middle">
-                                <f:selectItem itemLabel="${bundle.SelectOneMessage}" />
-                                <f:selectItems value="#{stationController.itemsAvailableSelectOne}"
-                                               var="stationIdItem"
-                                               itemValue="#{stationIdItem}"/>
-                            </p:selectOneMenu>
-                            <ps:selectDialog outcome="selectStation" value="${bundle.Choose}" update="stationId" target="#{fixDemandController.created.stationId}"  style="vertical-align: middle" />
-                        </h:panelGroup>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{fixDemandController.create}" value="#{gmsys_i18n.Save}" update="display,@form:@parent:FixDemandListForm:datalist,:growl" oncomplete="handleSubmit(args,'FixDemandCreateDialog');"/>
                     <p:commandButton type="button" value="#{gmsys_i18n.Cancel}" onclick="PF('FixDemandCreateDialog').hide()"/>

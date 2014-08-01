@@ -27,12 +27,12 @@ import javax.faces.convert.FacesConverter;
 public class ResourceController implements Serializable {
 
     @EJB
-    private org.peasant.security.facade.ResourceFacade ejbFacade;
+    protected org.peasant.security.facade.ResourceFacade ejbFacade;
     private List<Resource> items = null;
     private Resource created;
     private List<Resource> selectedItems;
     private Map<String, Object> searchCons;
-    private ResourceBundle bundle;
+    protected ResourceBundle bundle;
 
     public ResourceController() {
     }
@@ -70,7 +70,8 @@ public class ResourceController implements Serializable {
     protected void setEmbeddableKeys() {
     }
 
-    protected void initializeEmbeddableKey() {
+    protected void initializeKey() {
+        created.setResourceId(org.eman.util.Utils.generateUniqueKey());
     }
 
     private ResourceFacade getFacade() {
@@ -78,8 +79,9 @@ public class ResourceController implements Serializable {
     }
 
     public Resource prepareCreate() {
+
         created = new Resource();
-        initializeEmbeddableKey();
+        initializeKey();
         return created;
     }
 
@@ -103,10 +105,13 @@ public class ResourceController implements Serializable {
     }
 
     public List<Resource> searchItems() {
-        construtSearchParams(this.searchCons);
 
-        items = getFacade().findByConditions(construtSearchParams(this.searchCons));
+        items = findItemsByConditions(construtSearchParams(this.searchCons));
         return items;
+    }
+
+    protected List<Resource> findItemsByConditions(Map<String, Object> params) {
+        return getFacade().findByConditions(params);
     }
 
     protected Map<String, Object> construtSearchParams(Map<String, Object> params) {
@@ -142,7 +147,7 @@ public class ResourceController implements Serializable {
         return items;
     }
 
-    private void persist(PersistAction persistAction, String successMessage) {
+    protected void persist(PersistAction persistAction, String successMessage) {
 
         try {
 
@@ -200,8 +205,8 @@ public class ResourceController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Resource.class)
-    public static class ResourceControllerConverter implements Converter {
+    @FacesConverter(forClass = Resource.class, value = "Resource")
+    public static class ResourceFacesConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {

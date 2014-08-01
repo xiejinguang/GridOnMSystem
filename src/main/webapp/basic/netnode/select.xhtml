@@ -14,7 +14,7 @@
         <h:form  styleClass="center">
             <p:commandButton value="${bundle.Confirm}" actionListener="#{dialogBean.selectData(netnodeController.selectedItems)}" />
             <p:spacer width="20px"/>
-            <p:commandButton value="${bundle.Close}" actionListener="#{dialogBean.closeDialog}" />
+            <p:commandButton value="${bundle.Close}" actionListener="#{dialogBean.closeDialog}" process="@this" />
         </h:form>
     </h:body>
 </html>

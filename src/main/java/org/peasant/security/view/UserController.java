@@ -27,12 +27,12 @@ import javax.faces.convert.FacesConverter;
 public class UserController implements Serializable {
 
     @EJB
-    private org.peasant.security.facade.UserFacade ejbFacade;
+    protected org.peasant.security.facade.UserFacade ejbFacade;
     private List<User> items = null;
     private User created;
     private List<User> selectedItems;
     private Map<String, Object> searchCons;
-    private ResourceBundle bundle;
+    protected ResourceBundle bundle;
 
     public UserController() {
     }
@@ -70,7 +70,8 @@ public class UserController implements Serializable {
     protected void setEmbeddableKeys() {
     }
 
-    protected void initializeEmbeddableKey() {
+    protected void initializeKey() {
+        created.setUsername(org.eman.util.Utils.generateUniqueKey());
     }
 
     private UserFacade getFacade() {
@@ -78,8 +79,9 @@ public class UserController implements Serializable {
     }
 
     public User prepareCreate() {
+
         created = new User();
-        initializeEmbeddableKey();
+        initializeKey();
         return created;
     }
 
@@ -103,10 +105,13 @@ public class UserController implements Serializable {
     }
 
     public List<User> searchItems() {
-        construtSearchParams(this.searchCons);
 
-        items = getFacade().findByConditions(construtSearchParams(this.searchCons));
+        items = findItemsByConditions(construtSearchParams(this.searchCons));
         return items;
+    }
+
+    protected List<User> findItemsByConditions(Map<String, Object> params) {
+        return getFacade().findByConditions(params);
     }
 
     protected Map<String, Object> construtSearchParams(Map<String, Object> params) {
@@ -142,7 +147,7 @@ public class UserController implements Serializable {
         return items;
     }
 
-    private void persist(PersistAction persistAction, String successMessage) {
+    protected void persist(PersistAction persistAction, String successMessage) {
 
         try {
 
@@ -200,8 +205,8 @@ public class UserController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = User.class)
-    public static class UserControllerConverter implements Converter {
+    @FacesConverter(forClass = User.class, value = "User")
+    public static class UserFacesConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {

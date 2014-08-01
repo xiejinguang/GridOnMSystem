@@ -17,125 +17,147 @@
         </ui:define>
 
         <ui:define name="body">
+
+            <h:form id="SearchConsForm">
+
+                <p:fieldset id="searchField" legend="${security_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+                    <p:panelGrid   style="width:100%"  >
+                        <p:row>
+                            <p:column >
+                                <p:panelGrid id="searchConsGrid" columns="8">
+
+
+                                    <p:outputLabel value="#{security_i18n.UserLabel_username}" for="username" />
+                                    <p:inputText id="username" value="#{userController.searchCons['username']}" title="#{security_i18n.UserTitle_username}"  />
+
+
+                                    <p:outputLabel value="#{security_i18n.UserLabel_password}" for="password" />
+                                    <p:inputText id="password" value="#{userController.searchCons['password']}" title="#{security_i18n.UserTitle_password}"  />
+
+
+                                    <p:outputLabel value="#{security_i18n.UserLabel_email}" for="email" />
+                                    <p:inputText id="email" value="#{userController.searchCons['email']}" title="#{security_i18n.UserTitle_email}"  />
+
+
+                                    <p:outputLabel value="#{security_i18n.UserLabel_createTime}" for="createTime" />
+                                    <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{userController.searchCons['createTime']}" title="#{security_i18n.UserTitle_createTime}" showOn="button"/>
+
+
+                                    <p:outputLabel value="#{security_i18n.UserLabel_salt}" for="salt" />
+                                    <p:inputTextarea rows="4" cols="30" id="salt" value="#{userController.searchCons['salt']}" title="#{security_i18n.UserTitle_salt}" />
+
+
+                                    <p:outputLabel value="#{security_i18n.UserLabel_saltMod}" for="saltMod" />
+                                    <p:inputText id="saltMod" value="#{userController.searchCons['saltMod']}" title="#{security_i18n.UserTitle_saltMod}"  />
+
+
+                                    <p:outputLabel value="#{security_i18n.UserLabel_saltPassword}" for="saltPassword" />
+                                    <p:inputText id="saltPassword" value="#{userController.searchCons['saltPassword']}" title="#{security_i18n.UserTitle_saltPassword}"  />
+
+
+                                    <p:outputLabel value="#{security_i18n.UserLabel_userDetail}" for="userDetail" />
+                                    <p:selectOneMenu id="userDetail" value="#{userController.searchCons['userDetail']}" filter="true"  filterMatchMode="contains"  converter="javax.faces.UserDetail"  >
+                                        <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
+                                        <f:selectItems value="#{userDetailController.itemsAvailableSelectOne}"
+                                                       var="userDetailItem"
+                                                       itemValue="#{userDetailItem}"/>
+                                    </p:selectOneMenu>
+
+                                </p:panelGrid>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton id="searchButton" icon="ui-icon-search"   value="${security_i18n.Search}" actionListener="#{userController.searchItems}" update=":growl,:UserListForm:datalist"/>
+                                <br/>
+                                <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${security_i18n.GetAll}" actionListener="#{userController.allItems}" update=":growl,:UserListForm:datalist"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>                   
+                </p:fieldset>
+            </h:form>
+
             <h:form id="UserListForm">
-                <p:panel header="#{security_i18n.ListUserTitle}">
-                    <p:fieldset id="searchField" legend="${security_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
-                        <p:panelGrid   style="width:100%"  >
-                            <p:row>
-                                <p:column >
-                                    <p:panelGrid id="searchConsGrid" columns="8">
+                <p:dataTable id="datalist" value="#{userController.items}" var="item"
+                             selection="#{userController.selectedItems}"
+                             rowKey="#{item.username}"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             paginator="true" paginatorPosition="bottom"
+                             rows="10" 
+                             draggableColumns="true" resizableColumns="true" 
+                             scrollable="true"   liveResize="true" liveScroll="true"
+                             sortMode="multiple"
+                             editable="true" 
+                             stickyHeader="false" 
+                             >
 
+                    <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                    <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
 
-                                        <p:outputLabel value="#{security_i18n.UserLabel_username}" for="username" />
-                                        <p:inputText id="username" value="#{userController.searchCons['username']}" title="#{security_i18n.UserTitle_username}"  />
+                    <f:facet name="header"><p:outputLabel value="#{security_i18n.ListUserTitle}" /></f:facet>
 
+                    <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
 
-                                        <p:outputLabel value="#{security_i18n.UserLabel_password}" for="password" />
-                                        <p:inputText id="password" value="#{userController.searchCons['password']}" title="#{security_i18n.UserTitle_password}"  />
-
-
-                                        <p:outputLabel value="#{security_i18n.UserLabel_email}" for="email" />
-                                        <p:inputText id="email" value="#{userController.searchCons['email']}" title="#{security_i18n.UserTitle_email}"  />
-
-
-                                        <p:outputLabel value="#{security_i18n.UserLabel_createTime}" for="createTime" />
-                                        <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{userController.searchCons['createTime']}" title="#{security_i18n.UserTitle_createTime}" showOn="button"/>
-
-
-                                        <p:outputLabel value="#{security_i18n.UserLabel_salt}" for="salt" />
-                                        <p:inputTextarea rows="4" cols="30" id="salt" value="#{userController.searchCons['salt']}" title="#{security_i18n.UserTitle_salt}" />
-
-
-                                        <p:outputLabel value="#{security_i18n.UserLabel_saltMod}" for="saltMod" />
-                                        <p:inputText id="saltMod" value="#{userController.searchCons['saltMod']}" title="#{security_i18n.UserTitle_saltMod}"  />
-
-
-                                        <p:outputLabel value="#{security_i18n.UserLabel_saltPassword}" for="saltPassword" />
-                                        <p:inputText id="saltPassword" value="#{userController.searchCons['saltPassword']}" title="#{security_i18n.UserTitle_saltPassword}"  />
-
-                                    </p:panelGrid>
-                                </p:column>
-                                <p:column>
-                                    <p:commandButton id="searchButton" icon="ui-icon-search"   value="${security_i18n.Search}" actionListener="#{userController.searchItems}" update=":growl,datalist"/>
-                                    <br/>
-                                    <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${security_i18n.GetAll}" actionListener="#{userController.allItems}" update=":growl,datalist"/>
-                                </p:column>
-                            </p:row>
-                        </p:panelGrid>                   
-                    </p:fieldset>
-
-                    <p:dataTable id="datalist" value="#{userController.items}" var="item"
-                                 selection="#{userController.selectedItems}"
-                                 rowKey="#{item.username}"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 paginator="true" paginatorPosition="bottom"
-                                 rows="10" 
-                                 draggableColumns="true" resizableColumns="true" 
-                                 scrollable="true"   liveResize="true" liveScroll="true"
-                                 sortMode="multiple"
-                                 editable="true" 
-                                 stickyHeader="false" 
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
-
-                        <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
-
-                        <p:column sortBy="#{item.username}" filterBy="#{item.username}">
-                            <f:facet name="header">
-                                <h:outputText value="#{security_i18n.UserTitle_username}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.username}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.password}" filterBy="#{item.password}">
-                            <f:facet name="header">
-                                <h:outputText value="#{security_i18n.UserTitle_password}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.password}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.email}" filterBy="#{item.email}">
-                            <f:facet name="header">
-                                <h:outputText value="#{security_i18n.UserTitle_email}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.email}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.createTime}" filterBy="#{item.createTime}">
-                            <f:facet name="header">
-                                <h:outputText value="#{security_i18n.UserTitle_createTime}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.createTime}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column sortBy="#{item.salt}" filterBy="#{item.salt}">
-                            <f:facet name="header">
-                                <h:outputText value="#{security_i18n.UserTitle_salt}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.salt}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.saltMod}" filterBy="#{item.saltMod}">
-                            <f:facet name="header">
-                                <h:outputText value="#{security_i18n.UserTitle_saltMod}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.saltMod}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.saltPassword}" filterBy="#{item.saltPassword}">
-                            <f:facet name="header">
-                                <h:outputText value="#{security_i18n.UserTitle_saltPassword}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.saltPassword}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{security_i18n.Create}" actionListener="#{userController.prepareCreate}" update="@form:@parent:UserCreateForm" oncomplete="PF('UserCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{security_i18n.View}" update="@form:@parent:UserViewForm" oncomplete="PF('UserViewDialog').show()" disabled="#{empty userController.selectedItems}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{security_i18n.Edit}" update="@form:@parent:UserEditForm" oncomplete="PF('UserEditDialog').show()" disabled="#{empty userController.selectedItems}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{security_i18n.Delete}" actionListener="#{userController.destroy}" update=":growl,datalist" disabled="#{empty userController.selectedItems}"/>
+                    <p:column sortBy="#{item.username}" filterBy="#{item.username}">
+                        <f:facet name="header">
+                            <h:outputText value="#{security_i18n.UserTitle_username}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.username}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.password}" filterBy="#{item.password}">
+                        <f:facet name="header">
+                            <h:outputText value="#{security_i18n.UserTitle_password}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.password}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.email}" filterBy="#{item.email}">
+                        <f:facet name="header">
+                            <h:outputText value="#{security_i18n.UserTitle_email}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.email}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.createTime}" filterBy="#{item.createTime}">
+                        <f:facet name="header">
+                            <h:outputText value="#{security_i18n.UserTitle_createTime}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.createTime}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column sortBy="#{item.salt}" filterBy="#{item.salt}">
+                        <f:facet name="header">
+                            <h:outputText value="#{security_i18n.UserTitle_salt}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.salt}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.saltMod}" filterBy="#{item.saltMod}">
+                        <f:facet name="header">
+                            <h:outputText value="#{security_i18n.UserTitle_saltMod}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.saltMod}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.saltPassword}" filterBy="#{item.saltPassword}">
+                        <f:facet name="header">
+                            <h:outputText value="#{security_i18n.UserTitle_saltPassword}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.saltPassword}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.userDetail}" filterBy="#{item.userDetail}">
+                        <f:facet name="header">
+                            <h:outputText value="#{security_i18n.UserTitle_userDetail}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.userDetail}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <div  class="my-datatable-footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{security_i18n.Create}" actionListener="#{userController.prepareCreate}" process="@this" update="@form:@parent:UserCreateForm" oncomplete="PF('UserCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{security_i18n.View}" process="@this" update="@form:@parent:UserViewForm" oncomplete="PF('UserViewDialog').show()" disabled="#{empty userController.selectedItems}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{security_i18n.Edit}" process="@this" update="@form:@parent:UserEditForm" oncomplete="PF('UserEditDialog').show()" disabled="#{empty userController.selectedItems}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{security_i18n.Delete}" actionListener="#{userController.destroy}" process="@this" update=":growl,datalist" disabled="#{empty userController.selectedItems}"/>
                             <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
                             <p:columnToggler datasource="datalist" trigger="toggler" />
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                        </div>
+                    </f:facet>
+                </p:dataTable>
+
             </h:form>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>

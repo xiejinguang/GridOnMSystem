@@ -12,10 +12,10 @@
     <ui:composition>
         <p:dialog id="PermissionEditDlg" widgetVar="PermissionEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                   header="#{security_i18n.EditPermissionTitle}">
             <h:form id="PermissionEditForm">
-                <h:panelGroup id="display" rendered="#{empty permissionController.selectedItems != null}">
+                <h:panelGroup id="display" rendered="#{not empty permissionController.selectedItems}">
                     <ui:repeat  value="#{permissionController.selectedItems}" var="item">
                         <p:panel toggleable="true" >
                             <f:facet name="header">
@@ -23,20 +23,35 @@
                                 <h:outputText value="#{item.permissionId}" title="#{security_i18n.PermissionEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="4" >
+
+
+
                                 <p:outputLabel value="#{security_i18n.EditPermissionLabel_permissionId}" for="permissionId" />
-                                <p:inputText id="permissionId" value="#{item.permissionId}" title="#{security_i18n.EditPermissionTitle_permissionId}" required="true" requiredMessage="#{security_i18n.EditPermissionRequiredMessage_permissionId}"/>
+                                <p:inputText id="permissionId" value="#{item.permissionId}" title="#{security_i18n.EditPermissionTitle_permissionId}" disabled="true"   required="true" requiredMessage="#{security_i18n.EditPermissionRequiredMessage_permissionId}"/>
+
+
                                 <p:outputLabel value="#{security_i18n.EditPermissionLabel_permName}" for="permName" />
-                                <p:inputText id="permName" value="#{item.permName}" title="#{security_i18n.EditPermissionTitle_permName}" />
+                                <p:inputText id="permName" value="#{item.permName}" title="#{security_i18n.EditPermissionTitle_permName}" disabled="false"   />
+
+
                                 <p:outputLabel value="#{security_i18n.EditPermissionLabel_code}" for="code" />
-                                <p:inputText id="code" value="#{item.code}" title="#{security_i18n.EditPermissionTitle_code}" />
+                                <p:inputText id="code" value="#{item.code}" title="#{security_i18n.EditPermissionTitle_code}" disabled="false"   />
+
+
                                 <p:outputLabel value="#{security_i18n.EditPermissionLabel_domain}" for="domain" />
-                                <p:inputText id="domain" value="#{item.domain}" title="#{security_i18n.EditPermissionTitle_domain}" />
+                                <p:inputText id="domain" value="#{item.domain}" title="#{security_i18n.EditPermissionTitle_domain}" disabled="false"   />
+
+
                                 <p:outputLabel value="#{security_i18n.EditPermissionLabel_action}" for="action" />
-                                <p:inputText id="action" value="#{item.action}" title="#{security_i18n.EditPermissionTitle_action}" />
+                                <p:inputText id="action" value="#{item.action}" title="#{security_i18n.EditPermissionTitle_action}" disabled="false"   />
+
+
                                 <p:outputLabel value="#{security_i18n.EditPermissionLabel_target}" for="target" />
-                                <p:inputText id="target" value="#{item.target}" title="#{security_i18n.EditPermissionTitle_target}" />
+                                <p:inputText id="target" value="#{item.target}" title="#{security_i18n.EditPermissionTitle_target}" disabled="false"   />
+
+
                                 <p:outputLabel value="#{security_i18n.EditPermissionLabel_description}" for="description" />
-                                <p:inputText id="description" value="#{item.description}" title="#{security_i18n.EditPermissionTitle_description}" />
+                                <p:inputText id="description" value="#{item.description}" title="#{security_i18n.EditPermissionTitle_description}" disabled="false"   />
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>
@@ -47,16 +62,5 @@
         </p:dialog>
 
     </ui:composition>
-    <script type="text/javascript">
 
-        function fitViewport() {
-            var source = $('#PermissionEditDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
-
-        }
-
-
-    </script>
 </html>

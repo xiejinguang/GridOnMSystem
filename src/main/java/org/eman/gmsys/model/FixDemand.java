@@ -24,6 +24,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.eman.basic.model.Station;
+import org.peasant.model.Labeled;
 
 /**
  *
@@ -47,7 +48,7 @@ import org.eman.basic.model.Station;
     @NamedQuery(name = "FixDemand.findByDiscoverDate", query = "SELECT f FROM FixDemand f WHERE f.discoverDate = :discoverDate"),
     @NamedQuery(name = "FixDemand.findBySource", query = "SELECT f FROM FixDemand f WHERE f.source = :source"),
     @NamedQuery(name = "FixDemand.findByStatus", query = "SELECT f FROM FixDemand f WHERE f.status = :status")})
-public class FixDemand implements Serializable {
+public class FixDemand implements Serializable,Labeled {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -246,6 +247,11 @@ public class FixDemand implements Serializable {
     @Override
     public String toString() {
         return "org.eman.basic.model.FixDemand[ id=" + id + " ]";
+    }
+
+    @Override
+    public String getLabel() {
+        return demandCode;
     }
     
 }

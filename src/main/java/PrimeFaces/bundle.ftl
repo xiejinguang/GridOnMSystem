@@ -103,7 +103,7 @@ Edit${entity.entityClassName}Title = 编辑 ${entity.entityClassName}
 
     <#list entity.entityDescriptors as entityDescriptor>
 Edit${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")} = ${entityDescriptor.label}:
-<#if entityDescriptor.required>Edit${entity.entityClassName}RequiredMessage_${entityDescriptor.id?replace(".","_")} = 字段“${entityDescriptor.label} ”不能为空！
+<#if entityDescriptor.required>Edit${entity.entityClassName}RequiredMessage_${entityDescriptor.id?replace(".","_")} = 字段“${entityDescriptor.label}”不能为空！
 </#if>Edit${entity.entityClassName}Title_${entityDescriptor.id?replace(".","_")} = ${entityDescriptor.label}
     </#list>
 #

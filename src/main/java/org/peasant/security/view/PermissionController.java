@@ -27,12 +27,12 @@ import javax.faces.convert.FacesConverter;
 public class PermissionController implements Serializable {
 
     @EJB
-    private org.peasant.security.facade.PermissionFacade ejbFacade;
+    protected org.peasant.security.facade.PermissionFacade ejbFacade;
     private List<Permission> items = null;
     private Permission created;
     private List<Permission> selectedItems;
     private Map<String, Object> searchCons;
-    private ResourceBundle bundle;
+    protected ResourceBundle bundle;
 
     public PermissionController() {
     }
@@ -70,7 +70,8 @@ public class PermissionController implements Serializable {
     protected void setEmbeddableKeys() {
     }
 
-    protected void initializeEmbeddableKey() {
+    protected void initializeKey() {
+        created.setPermissionId(org.eman.util.Utils.generateUniqueKey());
     }
 
     private PermissionFacade getFacade() {
@@ -78,8 +79,9 @@ public class PermissionController implements Serializable {
     }
 
     public Permission prepareCreate() {
+
         created = new Permission();
-        initializeEmbeddableKey();
+        initializeKey();
         return created;
     }
 
@@ -103,10 +105,13 @@ public class PermissionController implements Serializable {
     }
 
     public List<Permission> searchItems() {
-        construtSearchParams(this.searchCons);
 
-        items = getFacade().findByConditions(construtSearchParams(this.searchCons));
+        items = findItemsByConditions(construtSearchParams(this.searchCons));
         return items;
+    }
+
+    protected List<Permission> findItemsByConditions(Map<String, Object> params) {
+        return getFacade().findByConditions(params);
     }
 
     protected Map<String, Object> construtSearchParams(Map<String, Object> params) {
@@ -142,7 +147,7 @@ public class PermissionController implements Serializable {
         return items;
     }
 
-    private void persist(PersistAction persistAction, String successMessage) {
+    protected void persist(PersistAction persistAction, String successMessage) {
 
         try {
 
@@ -200,8 +205,8 @@ public class PermissionController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Permission.class)
-    public static class PermissionControllerConverter implements Converter {
+    @FacesConverter(forClass = Permission.class, value = "Permission")
+    public static class PermissionFacesConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {

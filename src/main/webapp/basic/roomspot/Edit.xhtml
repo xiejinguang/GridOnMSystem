@@ -29,6 +29,9 @@
 
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_roomName}" for="roomName" />
                                 <p:inputText id="roomName" value="#{item.roomName}" title="#{basic_i18n.EditRoomspotTitle_roomName}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_roomName}"/>
+ 
+                                <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_secondName}" for="secondName" />
+                                <p:inputText id="secondName" value="#{item.secondName}" title="#{basic_i18n.EditRoomspotTitle_secondName}" disabled="false"/>
 
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_province}" for="province" />
                                 <p:selectOneMenu id="province" value="#{item.province}"    editable="false"  disabled="false"   filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforEdit.handleProvinceChange}" >

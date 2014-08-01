@@ -12,10 +12,10 @@
     <ui:composition>
         <p:dialog id="UserDetailEditDlg" widgetVar="UserDetailEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                   header="#{security_i18n.EditUserDetailTitle}">
             <h:form id="UserDetailEditForm">
-                <h:panelGroup id="display" rendered="#{empty userDetailController.selectedItems != null}">
+                <h:panelGroup id="display" rendered="#{not empty userDetailController.selectedItems}">
                     <ui:repeat  value="#{userDetailController.selectedItems}" var="item">
                         <p:panel toggleable="true" >
                             <f:facet name="header">
@@ -23,16 +23,36 @@
                                 <h:outputText value="#{item.username}" title="#{security_i18n.UserDetailEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="2" >
+
+
+
                                 <p:outputLabel value="#{security_i18n.EditUserDetailLabel_username}" for="username" />
-                                <p:inputText id="username" value="#{item.username}" title="#{security_i18n.EditUserDetailTitle_username}" required="true" requiredMessage="#{security_i18n.EditUserDetailRequiredMessage_username}"/>
+                                <p:inputText id="username" value="#{item.username}" title="#{security_i18n.EditUserDetailTitle_username}" disabled="true"   required="true" requiredMessage="#{security_i18n.EditUserDetailRequiredMessage_username}"/>
+
+
                                 <p:outputLabel value="#{security_i18n.EditUserDetailLabel_sex}" for="sex" />
-                                <p:inputText id="sex" value="#{item.sex}" title="#{security_i18n.EditUserDetailTitle_sex}" />
+                                <p:inputText id="sex" value="#{item.sex}" title="#{security_i18n.EditUserDetailTitle_sex}" disabled="false"   />
+
+
                                 <p:outputLabel value="#{security_i18n.EditUserDetailLabel_birthday}" for="birthday" />
                                 <p:calendar id="birthday" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{item.birthday}" title="#{security_i18n.EditUserDetailTitle_birthday}"  showOn="button"/>
+
+
                                 <p:outputLabel value="#{security_i18n.EditUserDetailLabel_firstName}" for="firstName" />
-                                <p:inputText id="firstName" value="#{item.firstName}" title="#{security_i18n.EditUserDetailTitle_firstName}" />
+                                <p:inputText id="firstName" value="#{item.firstName}" title="#{security_i18n.EditUserDetailTitle_firstName}" disabled="false"   />
+
+
                                 <p:outputLabel value="#{security_i18n.EditUserDetailLabel_lastName}" for="lastName" />
-                                <p:inputText id="lastName" value="#{item.lastName}" title="#{security_i18n.EditUserDetailTitle_lastName}" />
+                                <p:inputText id="lastName" value="#{item.lastName}" title="#{security_i18n.EditUserDetailTitle_lastName}" disabled="false"   />
+
+
+                                <p:outputLabel value="#{security_i18n.EditUserDetailLabel_user}" for="user" />
+                                <p:selectOneMenu id="user" value="#{item.user}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{security_i18n.EditUserDetailRequiredMessage_user}">
+                                    <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
+                                    <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                                   var="userItem"
+                                                   itemValue="#{userItem}"/>
+                                </p:selectOneMenu>
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>
@@ -43,16 +63,5 @@
         </p:dialog>
 
     </ui:composition>
-    <script type="text/javascript">
 
-        function fitViewport() {
-            var source = $('#UserDetailEditDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
-
-        }
-
-
-    </script>
 </html>

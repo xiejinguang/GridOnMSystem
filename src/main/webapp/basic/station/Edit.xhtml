@@ -8,7 +8,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ps = "http://xmlns.jcp.org/jsf/composite/peasant">
+      xmlns:ps = "http://xmlns.jcp.org/jsf/composite/peasant"
+      xmlns:eman="http://xmlns.jcp.org/jsf/composite/eman">
 
     <ui:composition>
         <p:dialog id="StationEditDlg" widgetVar="StationEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
@@ -27,6 +28,8 @@
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_id}" for="id" />
                                 <p:inputText id="id" value="#{item.id}" title="#{basic_i18n.EditStationTitle_id}" disabled="true"   required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_id}"/>
 
+                                <p:outputLabel value="#{basic_i18n.EditStationLabel_roomspotId}*" for="roomspotId" />
+                                <eman:selectRoomspot id="roomspotId" value="#{item.roomspotId}" required="true"  />
 
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_statCode}" for="statCode" />
                                 <p:inputText id="statCode" value="#{item.statCode}" title="#{basic_i18n.EditStationTitle_statCode}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_statCode}"/>
@@ -78,20 +81,6 @@
                                 <p:outputLabel value="#{basic_i18n.EditStationLabel_commont}" for="commont" />
                                 <p:inputTextarea rows="4" cols="30" id="commont" value="#{item.commont}" title="#{basic_i18n.EditStationTitle_commont}" />
 
-
-                                <p:outputLabel value="#{basic_i18n.EditStationLabel_roomspotId}" for="roomspotId" />
-                                <h:panelGroup>
-                                    <p:selectOneMenu id="roomspotId" value="#{item.roomspotId}" var="soitem" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_roomspotId}" styleClass="vcenter">
-                                        <f:selectItem itemLabel="Select One" />
-                                        <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
-                                                       var="roomspotIdItem"
-                                                       itemValue="#{roomspotIdItem}"/>
-                                    </p:selectOneMenu>
-                                    <p:column><h:outputText value="#{soitem.grid}"/></p:column>
-                                    <p:column><h:outputText value="#{soitem.roomCode}"/></p:column>
-                                    <p:column><h:outputText value="#{soitem.roomName}"/></p:column>
-                                    <ps:selectDialog outcome="selectRoomspot" value="${bundle.Choose}" update="roomspotId" target="#{item.roomspotId}" styleClass="vcenter" />
-                                </h:panelGroup>
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>

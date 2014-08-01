@@ -12,10 +12,10 @@
     <ui:composition>
         <p:dialog id="ResourceEditDlg" widgetVar="ResourceEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                   header="#{security_i18n.EditResourceTitle}">
             <h:form id="ResourceEditForm">
-                <h:panelGroup id="display" rendered="#{empty resourceController.selectedItems != null}">
+                <h:panelGroup id="display" rendered="#{not empty resourceController.selectedItems}">
                     <ui:repeat  value="#{resourceController.selectedItems}" var="item">
                         <p:panel toggleable="true" >
                             <f:facet name="header">
@@ -23,14 +23,23 @@
                                 <h:outputText value="#{item.resourceId}" title="#{security_i18n.ResourceEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="2" >
+
+
+
                                 <p:outputLabel value="#{security_i18n.EditResourceLabel_resourceId}" for="resourceId" />
-                                <p:inputText id="resourceId" value="#{item.resourceId}" title="#{security_i18n.EditResourceTitle_resourceId}" required="true" requiredMessage="#{security_i18n.EditResourceRequiredMessage_resourceId}"/>
+                                <p:inputText id="resourceId" value="#{item.resourceId}" title="#{security_i18n.EditResourceTitle_resourceId}" disabled="true"   required="true" requiredMessage="#{security_i18n.EditResourceRequiredMessage_resourceId}"/>
+
+
                                 <p:outputLabel value="#{security_i18n.EditResourceLabel_resCode}" for="resCode" />
-                                <p:inputText id="resCode" value="#{item.resCode}" title="#{security_i18n.EditResourceTitle_resCode}" />
+                                <p:inputText id="resCode" value="#{item.resCode}" title="#{security_i18n.EditResourceTitle_resCode}" disabled="false"   />
+
+
                                 <p:outputLabel value="#{security_i18n.EditResourceLabel_resLabel}" for="resLabel" />
-                                <p:inputText id="resLabel" value="#{item.resLabel}" title="#{security_i18n.EditResourceTitle_resLabel}" />
+                                <p:inputText id="resLabel" value="#{item.resLabel}" title="#{security_i18n.EditResourceTitle_resLabel}" disabled="false"   />
+
+
                                 <p:outputLabel value="#{security_i18n.EditResourceLabel_permCode}" for="permCode" />
-                                <p:inputText id="permCode" value="#{item.permCode}" title="#{security_i18n.EditResourceTitle_permCode}" />
+                                <p:inputText id="permCode" value="#{item.permCode}" title="#{security_i18n.EditResourceTitle_permCode}" disabled="false"   />
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>
@@ -41,16 +50,5 @@
         </p:dialog>
 
     </ui:composition>
-    <script type="text/javascript">
 
-        function fitViewport() {
-            var source = $('#ResourceEditDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
-
-        }
-
-
-    </script>
 </html>

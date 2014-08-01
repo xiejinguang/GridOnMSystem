@@ -24,6 +24,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.peasant.model.Labeled;
 
 /**
  *
@@ -40,7 +41,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Netnode.findByName", query = "SELECT n FROM Netnode n WHERE n.name = :name"),
     @NamedQuery(name = "Netnode.findByInvestTime", query = "SELECT n FROM Netnode n WHERE n.investTime = :investTime"),
     @NamedQuery(name = "Netnode.findByStatus", query = "SELECT n FROM Netnode n WHERE n.status = :status")})
-public class Netnode implements Serializable {
+public class Netnode implements Serializable,Labeled {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -172,6 +173,11 @@ public class Netnode implements Serializable {
     @Override
     public String toString() {
         return "org.eman.basic.model.Netnode[ id=" + id + " ]";
+    }
+
+    @Override
+    public String getLabel() {
+        return ossCode+"|"+name;
     }
     
 }

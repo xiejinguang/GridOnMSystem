@@ -12,21 +12,40 @@
     <ui:composition>
         <p:dialog id="UserDetailCreateDlg" widgetVar="UserDetailCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                   header="#{security_i18n.CreateUserDetailTitle}">
             <h:form id="UserDetailCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{userDetailController.created != null}">
-                        <p:outputLabel value="#{security_i18n.CreateUserDetailLabel_username}" for="username" />
-                        <p:inputText id="username" value="#{userDetailController.created.username}" title="#{security_i18n.CreateUserDetailTitle_username}" required="true" requiredMessage="#{security_i18n.CreateUserDetailRequiredMessage_username}"/>
-                        <p:outputLabel value="#{security_i18n.CreateUserDetailLabel_sex}" for="sex" />
-                        <p:inputText id="sex" value="#{userDetailController.created.sex}" title="#{security_i18n.CreateUserDetailTitle_sex}" />
-                        <p:outputLabel value="#{security_i18n.CreateUserDetailLabel_birthday}" for="birthday" />
+                    <p:panelGrid columns="2" rendered="#{not empty userDetailController.created}">
+
+
+                        <p:outputLabel value="#{security_i18n.EditUserDetailLabel_username}" for="username" />
+                        <p:inputText id="username" value="#{userDetailController.created.username}" title="#{security_i18n.EditUserDetailTitle_username}"  disabled="true"       required="true" requiredMessage="#{security_i18n.EditUserDetailRequiredMessage_username}"/>
+
+
+                        <p:outputLabel value="#{security_i18n.EditUserDetailLabel_sex}" for="sex" />
+                        <p:inputText id="sex" value="#{userDetailController.created.sex}" title="#{security_i18n.EditUserDetailTitle_sex}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{security_i18n.EditUserDetailLabel_birthday}" for="birthday" />
                         <p:calendar id="birthday" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{userDetailController.created.birthday}" title="#{security_i18n.EditUserDetailTitle_birthday}"  showOn="button"/>
-                        <p:outputLabel value="#{security_i18n.CreateUserDetailLabel_firstName}" for="firstName" />
-                        <p:inputText id="firstName" value="#{userDetailController.created.firstName}" title="#{security_i18n.CreateUserDetailTitle_firstName}" />
-                        <p:outputLabel value="#{security_i18n.CreateUserDetailLabel_lastName}" for="lastName" />
-                        <p:inputText id="lastName" value="#{userDetailController.created.lastName}" title="#{security_i18n.CreateUserDetailTitle_lastName}" />
+
+
+                        <p:outputLabel value="#{security_i18n.EditUserDetailLabel_firstName}" for="firstName" />
+                        <p:inputText id="firstName" value="#{userDetailController.created.firstName}" title="#{security_i18n.EditUserDetailTitle_firstName}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{security_i18n.EditUserDetailLabel_lastName}" for="lastName" />
+                        <p:inputText id="lastName" value="#{userDetailController.created.lastName}" title="#{security_i18n.EditUserDetailTitle_lastName}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{security_i18n.EditUserDetailLabel_user}" for="user" />
+                        <p:selectOneMenu id="user" value="#{userDetailController.created.user}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{security_i18n.EditUserDetailRequiredMessage_user}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="userItem"
+                                           itemValue="#{userItem}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{userDetailController.create}" value="#{security_i18n.Save}" update="display,@form:@parent:UserDetailListForm:datalist,:growl" oncomplete="handleSubmit(args,'UserDetailCreateDialog');"/>
                     <p:commandButton type="button" value="#{security_i18n.Cancel}" onclick="PF('UserDetailCreateDialog').hide()"/>
@@ -35,16 +54,5 @@
         </p:dialog>
 
     </ui:composition>
-    <script type="text/javascript">
 
-        function fitViewport() {
-            var source = $('#UserDetailCreateDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
-
-        }
-
-
-    </script>
 </html>

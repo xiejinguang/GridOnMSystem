@@ -27,12 +27,12 @@ import javax.faces.convert.FacesConverter;
 public class RoleController implements Serializable {
 
     @EJB
-    private org.peasant.security.facade.RoleFacade ejbFacade;
+    protected org.peasant.security.facade.RoleFacade ejbFacade;
     private List<Role> items = null;
     private Role created;
     private List<Role> selectedItems;
     private Map<String, Object> searchCons;
-    private ResourceBundle bundle;
+    protected ResourceBundle bundle;
 
     public RoleController() {
     }
@@ -70,7 +70,8 @@ public class RoleController implements Serializable {
     protected void setEmbeddableKeys() {
     }
 
-    protected void initializeEmbeddableKey() {
+    protected void initializeKey() {
+        created.setRoleId(org.eman.util.Utils.generateUniqueKey());
     }
 
     private RoleFacade getFacade() {
@@ -78,8 +79,9 @@ public class RoleController implements Serializable {
     }
 
     public Role prepareCreate() {
+
         created = new Role();
-        initializeEmbeddableKey();
+        initializeKey();
         return created;
     }
 
@@ -103,10 +105,13 @@ public class RoleController implements Serializable {
     }
 
     public List<Role> searchItems() {
-        construtSearchParams(this.searchCons);
 
-        items = getFacade().findByConditions(construtSearchParams(this.searchCons));
+        items = findItemsByConditions(construtSearchParams(this.searchCons));
         return items;
+    }
+
+    protected List<Role> findItemsByConditions(Map<String, Object> params) {
+        return getFacade().findByConditions(params);
     }
 
     protected Map<String, Object> construtSearchParams(Map<String, Object> params) {
@@ -142,7 +147,7 @@ public class RoleController implements Serializable {
         return items;
     }
 
-    private void persist(PersistAction persistAction, String successMessage) {
+    protected void persist(PersistAction persistAction, String successMessage) {
 
         try {
 
@@ -200,8 +205,8 @@ public class RoleController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Role.class)
-    public static class RoleControllerConverter implements Converter {
+    @FacesConverter(forClass = Role.class, value = "Role")
+    public static class RoleFacesConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {

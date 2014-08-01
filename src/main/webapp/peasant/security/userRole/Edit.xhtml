@@ -12,10 +12,10 @@
     <ui:composition>
         <p:dialog id="UserRoleEditDlg" widgetVar="UserRoleEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                   header="#{security_i18n.EditUserRoleTitle}">
             <h:form id="UserRoleEditForm">
-                <h:panelGroup id="display" rendered="#{empty userRoleController.selectedItems != null}">
+                <h:panelGroup id="display" rendered="#{not empty userRoleController.selectedItems}">
                     <ui:repeat  value="#{userRoleController.selectedItems}" var="item">
                         <p:panel toggleable="true" >
                             <f:facet name="header">
@@ -23,16 +23,25 @@
                                 <h:outputText value="#{item.iduserRole}" title="#{security_i18n.UserRoleEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="2" >
+
+
+
                                 <p:outputLabel value="#{security_i18n.EditUserRoleLabel_iduserRole}" for="iduserRole" />
-                                <p:inputText id="iduserRole" value="#{item.iduserRole}" title="#{security_i18n.EditUserRoleTitle_iduserRole}" required="true" requiredMessage="#{security_i18n.EditUserRoleRequiredMessage_iduserRole}"/>
+                                <p:inputText id="iduserRole" value="#{item.iduserRole}" title="#{security_i18n.EditUserRoleTitle_iduserRole}" disabled="true"   required="true" requiredMessage="#{security_i18n.EditUserRoleRequiredMessage_iduserRole}"/>
+
+
                                 <p:outputLabel value="#{security_i18n.EditUserRoleLabel_roleId}" for="roleId" />
-                                <p:selectOneMenu id="roleId" value="#{item.roleId}" required="true" requiredMessage="#{security_i18n.EditUserRoleRequiredMessage_roleId}">
+                                <p:selectOneMenu id="roleId" value="#{item.roleId}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{security_i18n.EditUserRoleRequiredMessage_roleId}">
+                                    <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
                                     <f:selectItems value="#{roleController.itemsAvailableSelectOne}"
                                                    var="roleIdItem"
                                                    itemValue="#{roleIdItem}"/>
                                 </p:selectOneMenu>
+
+
                                 <p:outputLabel value="#{security_i18n.EditUserRoleLabel_username}" for="username" />
-                                <p:selectOneMenu id="username" value="#{item.username}" required="true" requiredMessage="#{security_i18n.EditUserRoleRequiredMessage_username}">
+                                <p:selectOneMenu id="username" value="#{item.username}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{security_i18n.EditUserRoleRequiredMessage_username}">
+                                    <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
                                     <f:selectItems value="#{userController.itemsAvailableSelectOne}"
                                                    var="usernameItem"
                                                    itemValue="#{usernameItem}"/>
@@ -47,16 +56,5 @@
         </p:dialog>
 
     </ui:composition>
-    <script type="text/javascript">
 
-        function fitViewport() {
-            var source = $('#UserRoleEditDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
-
-        }
-
-
-    </script>
 </html>

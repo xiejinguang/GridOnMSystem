@@ -26,6 +26,9 @@
                                 <p:outputLabel value="#{basic_i18n.RoomspotLabel_roomName}" for="roomName" />
                                 <p:inputText id="roomName" value="#{roomspotController.searchCons['roomName']}" title="#{basic_i18n.RoomspotTitle_roomName}"  />
 
+                                <p:outputLabel value="#{basic_i18n.RoomspotLabel_secondName}" for="secondName" />
+                                <p:inputText id="secondName" value="#{roomspotController.searchCons['secondName']}" title="#{basic_i18n.RoomspotTitle_secondName}"  />
+
 
                                 <p:outputLabel value="#{basic_i18n.RoomspotLabel_province}" for="province" />
                                 <p:selectOneMenu id="province" value="#{roomspotController.searchCons['province']}"    disabled="false"  filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforSeachCons.handleProvinceChange}" >
@@ -136,6 +139,12 @@
                         <h:outputText value="#{basic_i18n.RoomspotTitle_roomName}"/>
                     </f:facet>
                     <h:outputText value="#{item.roomName}"/>
+                </p:column>
+                                <p:column sortBy="#{item.secondName}" filterBy="#{item.secondName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{basic_i18n.RoomspotTitle_secondName}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.secondName}"/>
                 </p:column>
                 <p:column sortBy="#{item.province}" filterBy="#{item.province}">
                     <f:facet name="header">

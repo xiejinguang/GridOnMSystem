@@ -27,12 +27,12 @@ import javax.faces.convert.FacesConverter;
 public class RolePermissionController implements Serializable {
 
     @EJB
-    private org.peasant.security.facade.RolePermissionFacade ejbFacade;
+    protected org.peasant.security.facade.RolePermissionFacade ejbFacade;
     private List<RolePermission> items = null;
     private RolePermission created;
     private List<RolePermission> selectedItems;
     private Map<String, Object> searchCons;
-    private ResourceBundle bundle;
+    protected ResourceBundle bundle;
 
     public RolePermissionController() {
     }
@@ -70,7 +70,8 @@ public class RolePermissionController implements Serializable {
     protected void setEmbeddableKeys() {
     }
 
-    protected void initializeEmbeddableKey() {
+    protected void initializeKey() {
+        created.setIdrolePerm(org.eman.util.Utils.generateUniqueKey());
     }
 
     private RolePermissionFacade getFacade() {
@@ -78,8 +79,9 @@ public class RolePermissionController implements Serializable {
     }
 
     public RolePermission prepareCreate() {
+
         created = new RolePermission();
-        initializeEmbeddableKey();
+        initializeKey();
         return created;
     }
 
@@ -103,10 +105,13 @@ public class RolePermissionController implements Serializable {
     }
 
     public List<RolePermission> searchItems() {
-        construtSearchParams(this.searchCons);
 
-        items = getFacade().findByConditions(construtSearchParams(this.searchCons));
+        items = findItemsByConditions(construtSearchParams(this.searchCons));
         return items;
+    }
+
+    protected List<RolePermission> findItemsByConditions(Map<String, Object> params) {
+        return getFacade().findByConditions(params);
     }
 
     protected Map<String, Object> construtSearchParams(Map<String, Object> params) {
@@ -142,7 +147,7 @@ public class RolePermissionController implements Serializable {
         return items;
     }
 
-    private void persist(PersistAction persistAction, String successMessage) {
+    protected void persist(PersistAction persistAction, String successMessage) {
 
         try {
 
@@ -200,8 +205,8 @@ public class RolePermissionController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = RolePermission.class)
-    public static class RolePermissionControllerConverter implements Converter {
+    @FacesConverter(forClass = RolePermission.class, value = "RolePermission")
+    public static class RolePermissionFacesConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {

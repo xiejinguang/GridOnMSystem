@@ -23,7 +23,7 @@ import org.peasant.util.Utils;
  *
  * @author 谢金光
  */
-@WebServlet(name = "AttachmentServlet", urlPatterns = {"/attachment,/resource,/download"})
+//@WebServlet(name = "AttachmentServlet", urlPatterns = {"/attachment,/resource,/download"})
 public class AttachmentServlet extends HttpServlet {
     
     @Inject

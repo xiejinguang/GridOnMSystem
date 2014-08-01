@@ -10,11 +10,11 @@
 
 
 
-        <cc:attribute name="value" type="java.lang.String" required="false" targets="dialogButton" default="选择…" />
-        <cc:attribute name="target"  />
+        <cc:attribute name="value" type="java.lang.String" required="false" default="选择…" />
+        <cc:attribute name="target"     />
         <cc:attribute name="outcome" type="java.lang.String" rendered="true"/>
         <cc:attribute name="params"  type="java.util.Map"  required="false" />
-        <cc:attribute name="update" type="java.lang.String"  targets="dialogButton" default="@this" />
+        <cc:attribute name="update" type="java.lang.String" default="@this" />
         <cc:attribute name="width" type="java.lang.Integer" default="1000"  />
         <cc:attribute name="height" type="java.lang.Integer" default="500" />
         <cc:attribute name="contentMinWidth"  type="java.lang.Integer" />
@@ -22,17 +22,18 @@
         <cc:attribute name="resizable" type="java.lang.Boolean" default="true" />
         <cc:attribute name="draggable" type="java.lang.Boolean" default="true"/>
         <cc:attribute name="modal" type="java.lang.Boolean" default="true"/>
-        <cc:attribute name="style" type="java.lang.String" targets="dialogButton" /> 
-        <cc:attribute name="styleClass" type="java.lang.String" targets="dialogButton"/>
+        <cc:attribute name="style" type="java.lang.String"  /> 
+        <cc:attribute name="styleClass" type="java.lang.String"/>
+
 
 
     </cc:interface>
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-   
+
         <p:commandButton id="dialogButton" value="#{cc.attrs.value}"  actionListener="#{dialogBean.showDialogWithOptions(cc.attrs.outcome,{'width':cc.attrs.width,'height':cc.attrs.height,'contentMinWidth':cc.attrs.contentMinWidth,'contentMinHeight':cc.attrs.contentMinHeight ,'modal':cc.attrs.modal,'resizable':cc.attrs.resizable,'draggable':cc.attrs.draggable},cc.attrs.params)}" style="vertical-align: middle;${cc.attrs.style}"  styleClass="ui-dialogbutton,${cc.attrs.styleClass}" process="@composite"   > 
-            <p:ajax event="dialogReturn"  listener="#{selectDialogBean.onDataChosen}" update="@composite:@parent:${cc.attrs.update.replaceAll(',', ',@composite:@parent:')}" />
+            <p:ajax event="dialogReturn"  listener="#{selectDialogBean.onDataChosen}" update="@composite:@parent:${cc.attrs.update.replaceAll(',', ',@composite:@parent:')}" process="@composite" />
         </p:commandButton>
     </cc:implementation>
 </html>

@@ -22,24 +22,34 @@
                             <p:panelGrid columns="4" >
                                 <h:outputText value="#{basic_i18n.StationLabel_id}"/>
                                 <h:outputText value="#{item.id}" title="#{basic_i18n.StationTitle_id}"/>
+
                                 <h:outputText value="#{basic_i18n.StationLabel_statCode}"/>
                                 <h:outputText value="#{item.statCode}" title="#{basic_i18n.StationTitle_statCode}"/>
+
                                 <h:outputText value="#{basic_i18n.StationLabel_name}"/>
                                 <h:outputText value="#{item.name}" title="#{basic_i18n.StationTitle_name}"/>
+
+                                <h:outputText value="#{basic_i18n.StationLabel_roomspotId}"/>
+                                <h:outputText value="#{item.roomspotId.label}" title="#{basic_i18n.StationTitle_roomspotId}"/>
+
                                 <h:outputText value="#{basic_i18n.StationLabel_address}"/>
                                 <h:outputText value="#{item.address}" title="#{basic_i18n.StationTitle_address}"/>
+
                                 <h:outputText value="#{basic_i18n.StationLabel_owner}"/>
                                 <h:outputText value="#{item.owner}" title="#{basic_i18n.StationTitle_owner}"/>
+
                                 <h:outputText value="#{basic_i18n.StationLabel_type}"/>
                                 <h:outputText value="#{item.type}" title="#{basic_i18n.StationTitle_type}"/>
+
                                 <h:outputText value="#{basic_i18n.StationLabel_accomMaintainer}"/>
                                 <h:outputText value="#{item.accomMaintainer}" title="#{basic_i18n.StationTitle_accomMaintainer}"/>
+
                                 <h:outputText value="#{basic_i18n.StationLabel_status}"/>
                                 <h:outputText value="#{item.status}" title="#{basic_i18n.StationTitle_status}"/>
+
                                 <h:outputText value="#{basic_i18n.StationLabel_commont}"/>
                                 <h:outputText value="#{item.commont}" title="#{basic_i18n.StationTitle_commont}"/>
-                                <h:outputText value="#{basic_i18n.StationLabel_roomspotId}"/>
-                                <h:outputText value="#{item.roomspotId}" title="#{basic_i18n.StationTitle_roomspotId}"/>
+
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>
@@ -48,5 +58,5 @@
             </h:form>
         </p:dialog>
     </ui:composition>
-  
+
 </html>

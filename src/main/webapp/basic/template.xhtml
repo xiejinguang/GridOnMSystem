@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title>#{basic_i18n.AppName}-<ui:insert name="title">Default Title</ui:insert></title>
+        <title>#{basic_i18n.ModuleNameLabel}-<ui:insert name="title">Default Title</ui:insert></title>
         <ui:include src="/sections/head.xhtml"/>
     </h:head>
 
@@ -15,12 +15,12 @@
         <p:layout fullPage="true"  >
             <p:layoutUnit position="west" size="200" resizable="true"  >
                 <h:form id="menuForm">
-                    <p:tieredMenu>
+                    <p:tieredMenu style="border: none">
                         <p:menuitem value="#{basic_i18n.Home}" outcome="/index" icon="ui-icon-home"  />
-                        <p:menuitem value="#{basic_i18n.EquipmentModelMenuLabel}" outcome="/basic/equipmentModel/index.xhtml" />
-                        <p:menuitem value="#{basic_i18n.NetnodeMenuLabel}" outcome="/basic/netnode/List.xhtml" />
                         <p:menuitem value="#{basic_i18n.RoomspotMenuLabel}" outcome="/basic/roomspot/List.xhtml" />
                         <p:menuitem value="#{basic_i18n.StationMenuLabel}" outcome="/basic/station/List.xhtml" />
+                        <p:menuitem value="#{basic_i18n.EquipmentModelMenuLabel}" outcome="/basic/equipmentModel/index.xhtml" />
+                        <p:menuitem value="#{basic_i18n.NetnodeMenuLabel}" outcome="/basic/netnode/List.xhtml" />
                     </p:tieredMenu>
                 </h:form>
             </p:layoutUnit>

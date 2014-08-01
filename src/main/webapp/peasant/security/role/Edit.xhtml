@@ -12,10 +12,10 @@
     <ui:composition>
         <p:dialog id="RoleEditDlg" widgetVar="RoleEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
-                  onShow="fitViewport()" 
+                  onShow="fitViewport(this)" 
                   header="#{security_i18n.EditRoleTitle}">
             <h:form id="RoleEditForm">
-                <h:panelGroup id="display" rendered="#{empty roleController.selectedItems != null}">
+                <h:panelGroup id="display" rendered="#{not empty roleController.selectedItems}">
                     <ui:repeat  value="#{roleController.selectedItems}" var="item">
                         <p:panel toggleable="true" >
                             <f:facet name="header">
@@ -23,12 +23,21 @@
                                 <h:outputText value="#{item.roleId}" title="#{security_i18n.RoleEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="2" >
+
+
+
                                 <p:outputLabel value="#{security_i18n.EditRoleLabel_roleId}" for="roleId" />
-                                <p:inputText id="roleId" value="#{item.roleId}" title="#{security_i18n.EditRoleTitle_roleId}" required="true" requiredMessage="#{security_i18n.EditRoleRequiredMessage_roleId}"/>
+                                <p:inputText id="roleId" value="#{item.roleId}" title="#{security_i18n.EditRoleTitle_roleId}" disabled="true"   required="true" requiredMessage="#{security_i18n.EditRoleRequiredMessage_roleId}"/>
+
+
                                 <p:outputLabel value="#{security_i18n.EditRoleLabel_roleName}" for="roleName" />
-                                <p:inputText id="roleName" value="#{item.roleName}" title="#{security_i18n.EditRoleTitle_roleName}" required="true" requiredMessage="#{security_i18n.EditRoleRequiredMessage_roleName}"/>
+                                <p:inputText id="roleName" value="#{item.roleName}" title="#{security_i18n.EditRoleTitle_roleName}" disabled="false"   required="true" requiredMessage="#{security_i18n.EditRoleRequiredMessage_roleName}"/>
+
+
                                 <p:outputLabel value="#{security_i18n.EditRoleLabel_description}" for="description" />
-                                <p:inputText id="description" value="#{item.description}" title="#{security_i18n.EditRoleTitle_description}" />
+                                <p:inputText id="description" value="#{item.description}" title="#{security_i18n.EditRoleTitle_description}" disabled="false"   />
+
+
                                 <p:outputLabel value="#{security_i18n.EditRoleLabel_createTime}" for="createTime" />
                                 <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{item.createTime}" title="#{security_i18n.EditRoleTitle_createTime}"  showOn="button"/>
                             </p:panelGrid>
@@ -41,16 +50,5 @@
         </p:dialog>
 
     </ui:composition>
-    <script type="text/javascript">
 
-        function fitViewport() {
-            var source = $('#RoleEditDlg');
-            var content = source.children('.ui-dialog-content');
-            source.height(Math.min($(window).height(), content.height() + 50));
-            content.height(Math.min($(window).height() - 50, content.height()));
-
-        }
-
-
-    </script>
 </html>

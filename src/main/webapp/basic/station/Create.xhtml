@@ -8,7 +8,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ps = "http://xmlns.jcp.org/jsf/composite/peasant">
+      xmlns:ps = "http://xmlns.jcp.org/jsf/composite/peasant"
+      xmlns:eman="http://xmlns.jcp.org/jsf/composite/eman">
 
     <ui:composition>
         <p:dialog id="StationCreateDlg" widgetVar="StationCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
@@ -22,6 +23,8 @@
                         <p:outputLabel value="#{basic_i18n.EditStationLabel_id}" for="id" />
                         <p:inputText id="id" value="#{stationController.created.id}" title="#{basic_i18n.EditStationTitle_id}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_id}"/>
 
+                        <p:outputLabel value="#{basic_i18n.EditStationLabel_roomspotId}*" for="roomspotId" />
+                        <eman:selectRoomspot id="roomspotId" value="#{stationController.created.roomspotId}" required="true"  />
 
                         <p:outputLabel value="#{basic_i18n.EditStationLabel_statCode}" for="statCode" />
                         <p:inputText id="statCode" value="#{stationController.created.statCode}" title="#{basic_i18n.EditStationTitle_statCode}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_statCode}"/>
@@ -86,21 +89,6 @@
                         <p:outputLabel value="#{basic_i18n.EditStationLabel_commont}" for="commont" />
                         <p:inputTextarea rows="4" cols="30" id="commont" value="#{stationController.created.commont}" title="#{basic_i18n.EditStationTitle_commont}" />
 
-
-                        <p:outputLabel value="#{basic_i18n.EditStationLabel_roomspotId}" for="roomspotId" />
-                        <h:panelGroup>
-                            <p:selectOneMenu id="roomspotId" value="#{stationController.created.roomspotId}"  converter="org.eman.Roomspot"
-                                             var="soitem" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_roomspotId}" style="vertical-align: middle"  >
-                                <f:selectItem itemLabel="${bundle.SelectOneMessage}" />
-                                <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
-                                               var="roomspotIdItem"
-                                               itemValue="#{roomspotIdItem}" itemLabel="#{roomspotIdItem.roomCode += ':' += roomspotIdItem.roomName}"/>
-                                <p:column><h:outputText value="#{soitem.grid}"/></p:column>
-                                <p:column><h:outputText value="#{soitem.roomCode}"/></p:column>
-                                <p:column><h:outputText value="#{soitem.roomName}"/></p:column>
-                            </p:selectOneMenu>
-                            <ps:selectDialog outcome="selectRoomspot" value="${bundle.Choose}" update="roomspotId" target="#{stationController.created.roomspotId}" styleClass="vcenter" />
-                        </h:panelGroup>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{stationController.create}" value="#{basic_i18n.Save}" update="display,@form:@parent:StationListForm:datalist,:growl" oncomplete="handleSubmit(args,'StationCreateDialog');"/>
                     <p:commandButton type="button" value="#{basic_i18n.Cancel}" onclick="PF('StationCreateDialog').hide()"/>
@@ -109,5 +97,5 @@
         </p:dialog>
 
     </ui:composition>
-    
+
 </html>
