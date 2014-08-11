@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{asist_i18n.ListKeyGeneratorTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+
+            <h:form id="SearchConsForm">
+
+                <p:fieldset id="searchField" legend="${asist_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+                    <p:panelGrid   style="width:100%"  >
+                        <p:row>
+                            <p:column >
+                                <p:panelGrid id="searchConsGrid" columns="8">
+
+
+                                    <p:outputLabel value="#{asist_i18n.KeyGeneratorLabel_discriminator}" for="discriminator" />
+                                    <p:inputText id="discriminator" value="#{keyGeneratorController.searchCons['discriminator']}" title="#{asist_i18n.KeyGeneratorTitle_discriminator}"  />
+
+
+                                    <p:outputLabel value="#{asist_i18n.KeyGeneratorLabel_number}" for="number" />
+                                    <p:inputText id="number" value="#{keyGeneratorController.searchCons['number']}" title="#{asist_i18n.KeyGeneratorTitle_number}"  converter="javax.faces.int"  />
+
+                                </p:panelGrid>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton id="searchButton" icon="ui-icon-search"   value="${asist_i18n.Search}" actionListener="#{keyGeneratorController.searchItems}" update=":growl,:KeyGeneratorListForm:datalist"/>
+                                <br/>
+                                <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${asist_i18n.GetAll}" actionListener="#{keyGeneratorController.allItems}" update=":growl,:KeyGeneratorListForm:datalist"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>                   
+                </p:fieldset>
+            </h:form>
+
+            <h:form id="KeyGeneratorListForm">
+                <p:dataTable id="datalist" value="#{keyGeneratorController.items}" var="item"
+                             selection="#{keyGeneratorController.selectedItems}"
+                             rowKey="#{item.discriminator}"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             paginator="true" paginatorPosition="bottom"
+                             rows="10" 
+                             draggableColumns="true" resizableColumns="true" 
+                             scrollable="true"   liveResize="true" liveScroll="true"
+                             sortMode="multiple"
+                             editable="true" 
+                             stickyHeader="false" 
+                             >
+
+                    <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                    <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+
+                    <f:facet name="header"><p:outputLabel value="#{asist_i18n.ListKeyGeneratorTitle}" /></f:facet>
+
+                    <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
+
+                    <p:column sortBy="#{item.discriminator}" filterBy="#{item.discriminator}">
+                        <f:facet name="header">
+                            <h:outputText value="#{asist_i18n.KeyGeneratorTitle_discriminator}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.discriminator}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.number}" filterBy="#{item.number}">
+                        <f:facet name="header">
+                            <h:outputText value="#{asist_i18n.KeyGeneratorTitle_number}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.number}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <div  class="my-datatable-footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{asist_i18n.Create}" actionListener="#{keyGeneratorController.prepareCreate}" process="@this" update="@form:@parent:KeyGeneratorCreateForm" oncomplete="PF('KeyGeneratorCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{asist_i18n.View}" process="@this" update="@form:@parent:KeyGeneratorViewForm" oncomplete="PF('KeyGeneratorViewDialog').show()" disabled="#{empty keyGeneratorController.selectedItems}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{asist_i18n.Edit}" process="@this" update="@form:@parent:KeyGeneratorEditForm" oncomplete="PF('KeyGeneratorEditDialog').show()" disabled="#{empty keyGeneratorController.selectedItems}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{asist_i18n.Delete}" actionListener="#{keyGeneratorController.destroy}" process="@this" update=":growl,datalist" disabled="#{empty keyGeneratorController.selectedItems}"/>
+                            <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                            <p:columnToggler datasource="datalist" trigger="toggler" />
+                        </div>
+                    </f:facet>
+                </p:dataTable>
+
+            </h:form>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>

@@ -29,13 +29,15 @@
                         <p:panel style="width: 276mm;height: 189mm;border: none;padding: 0;margin:0">
 
                             <div style="text-align: center;font-size: x-large;line"><h:outputText value="资产管理网格化巡检表"/></div>
-                             <p:spacer  height="20px"/>
-                             <div style="font-size: medium"><p:spacer width="50px" height="10"/><h:outputText value="#{basic_i18n.RoomspotLabel_grid}"/> #{roomspot.grid}
+                            <p:spacer  height="20px"/>
+                            <div style="font-size: medium"><p:spacer width="50px" height="10"/><h:outputText value="#{basic_i18n.RoomspotLabel_grid}"/> #{roomspot.grid}
                                 <p:spacer width="50px" height="10"/><h:outputText value="#{basic_i18n.RoomspotEntityLabel}"/>#{roomspot.roomCode}- #{roomspot.roomName}
                                 <p:spacer width="50px" height="10"/><h:outputText value="#{basic_i18n.RoomspotLabel_secondName}"/>#{roomspot.secondName}
                             </div>
                             <p:spacer  height="5px"/>
-
+                            <div style="font-size: medium">
+                                <p:spacer width="50px" height="10"/><h:outputText value="#{basic_i18n.RoomspotLabel_address}"/><h:outputText value="#{roomspot.address}"/>
+                            </div>
                             <p:dataTable id="datalist" value="#{stationPropertyPatrolView.getStationPropertys(roomspot)}" var="item"
                                          rows="1000"
                                          rowKey="#{item.id}"

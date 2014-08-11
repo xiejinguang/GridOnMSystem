@@ -51,6 +51,7 @@ Maintenance =  维 护
 AppName = ${projectName}
 AppNameLabel  =  ${projectName}
 ModuleName  =  Module
+ModuleNameTitle  =  Module
 ModuleNameLabel  =  Module
 
 <#list entities as entity>

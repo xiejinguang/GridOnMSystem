@@ -51,7 +51,7 @@ public class FixDemandController implements Serializable {
     @PostConstruct
     public void init() {
         this.searchCons = new HashMap();
-        this.bundle = ResourceBundle.getBundle("/org/eman/gmsys_i18n");
+        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(),"gmsys_i18n");
 
         statusCV = candidateValueFacade.findBy(CandidateValueConstants.GMSYS_FixDemandStatusKey, CandidateValueConstants.GMSYS_FixDemandStatusValue, true).get(0);
         sourceCV = candidateValueFacade.findBy(CandidateValueConstants.GMSYS_FixDemandSourceKey, CandidateValueConstants.GMSYS_FixDemandSourceValue, true).get(0);

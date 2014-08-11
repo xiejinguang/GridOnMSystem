@@ -46,7 +46,8 @@ public class NetnodeController implements Serializable {
     @PostConstruct
     public void init() {
         this.searchCons = new HashMap();
-        this.bundle = ResourceBundle.getBundle("/org/eman/basic_i18n");
+        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "basic_i18n");
+
         this.statusCV = candidateValueFacade.findBy(CandidateValueConstants.NetnodeStatusKey, CandidateValueConstants.NetnodeStatusValue, true).get(0);
     }
 

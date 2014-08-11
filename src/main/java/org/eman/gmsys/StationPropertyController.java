@@ -39,7 +39,8 @@ public class StationPropertyController implements Serializable {
     @PostConstruct
     public void init() {
         this.searchCons = new HashMap();
-        this.bundle = ResourceBundle.getBundle("/org/eman/gmsys_i18n");
+        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "gmsys_i18n");
+
     }
 
     public StationProperty getCreated() {

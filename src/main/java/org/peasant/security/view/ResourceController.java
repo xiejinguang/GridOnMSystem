@@ -205,7 +205,7 @@ public class ResourceController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Resource.class, value = "Resource")
+    @FacesConverter(forClass = Resource.class, value = "org.peasant.security.Resource")
     public static class ResourceFacesConverter implements Converter {
 
         @Override

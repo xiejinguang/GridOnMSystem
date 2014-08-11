@@ -205,7 +205,7 @@ public class UserDetailController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = UserDetail.class, value = "UserDetail")
+    @FacesConverter(forClass = UserDetail.class, value = "org.peasant.security.UserDetail")
     public static class UserDetailFacesConverter implements Converter {
 
         @Override

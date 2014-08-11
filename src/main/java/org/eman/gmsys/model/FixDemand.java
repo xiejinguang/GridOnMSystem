@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.eman.gmsys.model;
 
 import java.io.Serializable;
@@ -48,7 +47,8 @@ import org.peasant.model.Labeled;
     @NamedQuery(name = "FixDemand.findByDiscoverDate", query = "SELECT f FROM FixDemand f WHERE f.discoverDate = :discoverDate"),
     @NamedQuery(name = "FixDemand.findBySource", query = "SELECT f FROM FixDemand f WHERE f.source = :source"),
     @NamedQuery(name = "FixDemand.findByStatus", query = "SELECT f FROM FixDemand f WHERE f.status = :status")})
-public class FixDemand implements Serializable,Labeled {
+public class FixDemand implements Serializable, Labeled {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -61,6 +61,11 @@ public class FixDemand implements Serializable,Labeled {
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
     private String demandCode;
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(nullable = false, length = 255)
+    private String demandName;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -74,18 +79,18 @@ public class FixDemand implements Serializable,Labeled {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = 1024)
     private String problemDetails;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = 1024)
     private String solution;
     @Size(max = 25)
     @Column(length = 25)
     private String fixKind;
     @Size(max = 45)
-    @Column(length = 45)
+    @Column(length = 1024)
     private String budgetList;
     private Long budget;
     @Basic(optional = false)
@@ -93,6 +98,13 @@ public class FixDemand implements Serializable,Labeled {
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date discoverDate;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date createDate;
+
     @Size(max = 45)
     @Column(length = 45)
     private String source;
@@ -253,5 +265,21 @@ public class FixDemand implements Serializable,Labeled {
     public String getLabel() {
         return demandCode;
     }
-    
+
+    public String getDemandName() {
+        return demandName;
+    }
+
+    public void setDemandName(String demandName) {
+        this.demandName = demandName;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
 }

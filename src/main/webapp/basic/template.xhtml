@@ -13,7 +13,7 @@
     <h:body>
 
         <p:layout fullPage="true"  >
-            <p:layoutUnit position="west" size="200" resizable="true"  >
+            <p:layoutUnit position="west" size="170" resizable="true"  >
                 <h:form id="menuForm">
                     <p:tieredMenu style="border: none">
                         <p:menuitem value="#{basic_i18n.Home}" outcome="/index" icon="ui-icon-home"  />
@@ -25,7 +25,7 @@
                 </h:form>
             </p:layoutUnit>
             <p:layoutUnit position="center" >
-                <div id="content" style="width:100% ">
+                <div id="content" style="width:100%;min-width: 1100px ">
                     <ui:insert name="body"/>
                 </div>
                 <div  style="width:100% ">

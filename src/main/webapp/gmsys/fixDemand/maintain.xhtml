@@ -23,7 +23,9 @@
 
                                     <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_demandCode}" for="demandCode" />
                                     <p:inputText id="demandCode" value="#{fixDemandController.searchCons['demandCode']}" title="#{gmsys_i18n.FixDemandTitle_demandCode}"  />
-
+                                    
+                                    <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_demandName}" for="demandName" />
+                                    <p:inputText id="demandName" value="#{fixDemandController.searchCons['demandName']}" title="#{gmsys_i18n.FixDemandTitle_demandName}"  />
 
                                     <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_problemKind}" for="problemKind" />
                                     <p:selectOneMenu id="problemKind" value="#{fixDemandController.searchCons['problemKind']}"    disabled="false"  filter="true" filterMatchMode="contains"  valueChangeListener="#{fixDemandController.problemKind.popValues}">
@@ -93,6 +95,10 @@
 
                                     <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_stationId}" for="stationId" />
                                     <eman:selectStation id="stationId" value="#{fixDemandController.searchCons['stationId']}" />
+                                    
+                                    <p:outputLabel value="#{gmsys_i18n.FixDemandLabel_createDate}" for="createDate" />
+                                    <p:calendar id="createDate" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{fixDemandController.searchCons['createDate']}" title="#{gmsys_i18n.FixDemandTitle_createDate}" showOn="button"/>
+
 
                                 </p:panelGrid>
                             </p:column>
@@ -134,6 +140,12 @@
                             <h:outputText value="#{gmsys_i18n.FixDemandTitle_demandCode}"/>
                         </f:facet>
                         <h:outputText value="#{item.demandCode}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.demandName}" filterBy="#{item.demandName}">
+                        <f:facet name="header">
+                            <h:outputText value="#{gmsys_i18n.FixDemandTitle_demandName}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.demandName}"/>
                     </p:column>
                     <p:column sortBy="#{item.stationId}" filterBy="#{item.stationId}">
                         <f:facet name="header">

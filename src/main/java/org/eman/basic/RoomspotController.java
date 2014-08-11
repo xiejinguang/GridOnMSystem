@@ -61,7 +61,8 @@ public class RoomspotController implements Serializable {
     @PostConstruct
     public void init() {
         this.searchCons = new HashMap();
-        this.bundle = ResourceBundle.getBundle("/org/eman/basic_i18n");
+
+        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(),"basic_i18n");
         this.statusCVs = candidateValueFacade.findBy(CandidateValueConstants.RoomspotStatusKey, CandidateValueConstants.RoomspotStatusValue, true).get(0);
         this.companyCVs = candidateValueFacade.findBy(CandidateValueConstants.CompanyKey, CandidateValueConstants.CompanyValue, true).get(0);
         this.gridCVs = candidateValueFacade.findBy(CandidateValueConstants.GridKey, CandidateValueConstants.GridValue, true).get(0);

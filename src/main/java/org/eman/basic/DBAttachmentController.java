@@ -40,7 +40,8 @@ public class DBAttachmentController implements Serializable {
     @PostConstruct
     public void init() {
         this.searchCons = new HashMap();
-        this.bundle = ResourceBundle.getBundle( "/Bundle");        
+        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "bundle");
+
     }
 
     public DBAttachment getCreated() {

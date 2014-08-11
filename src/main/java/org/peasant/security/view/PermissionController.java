@@ -205,7 +205,7 @@ public class PermissionController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Permission.class, value = "Permission")
+    @FacesConverter(forClass = Permission.class, value = "org.peasant.security.Permission")
     public static class PermissionFacesConverter implements Converter {
 
         @Override

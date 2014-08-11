@@ -38,14 +38,14 @@ public class StationController implements Serializable {
     private Map<String, Object> searchCons;
     protected ResourceBundle bundle;
 
-   
-    
-    
-    @Inject @Values(key = CandidateValueConstants.StationStatusKey)
+    @Inject
+    @Values(key = CandidateValueConstants.StationStatusKey)
     private CandidateValue stationStatus;
-    @Inject @Values(key = CandidateValueConstants.CompanyKey)
+    @Inject
+    @Values(key = CandidateValueConstants.CompanyKey)
     private CandidateValue companys;
-     @Inject @Values(key = CandidateValueConstants.StationTypekey)
+    @Inject
+    @Values(key = CandidateValueConstants.StationTypekey)
     private CandidateValue types;
 
     public StationController() {
@@ -54,7 +54,8 @@ public class StationController implements Serializable {
     @PostConstruct
     public void init() {
         this.searchCons = new HashMap();
-        this.bundle = ResourceBundle.getBundle("/org/eman/basic_i18n");
+        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "basic_i18n");
+
     }
 
     public Station getCreated() {

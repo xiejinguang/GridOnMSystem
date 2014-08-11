@@ -117,7 +117,8 @@ public class ${controllerClassName} implements Serializable {
     @PostConstruct
     public void init(){
         this.searchCons = new HashMap();
-        this.bundle = ResourceBundle.getBundle("${bundle}");
+        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "${bundle}");
+
     }
 
 

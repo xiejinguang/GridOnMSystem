@@ -53,16 +53,6 @@
 
                                     <p:outputLabel value="#{security_i18n.UserLabel_saltPassword}" for="saltPassword" />
                                     <p:inputText id="saltPassword" value="#{userController.searchCons['saltPassword']}" title="#{security_i18n.UserTitle_saltPassword}"  />
-
-
-                                    <p:outputLabel value="#{security_i18n.UserLabel_userDetail}" for="userDetail" />
-                                    <p:selectOneMenu id="userDetail" value="#{userController.searchCons['userDetail']}" filter="true"  filterMatchMode="contains"  converter="javax.faces.UserDetail"  >
-                                        <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
-                                        <f:selectItems value="#{userDetailController.itemsAvailableSelectOne}"
-                                                       var="userDetailItem"
-                                                       itemValue="#{userDetailItem}"/>
-                                    </p:selectOneMenu>
-
                                 </p:panelGrid>
                             </p:column>
                             <p:column>

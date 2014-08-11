@@ -4,6 +4,9 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <application>
+        <locale-config>
+            <default-locale >zh</default-locale>
+        </locale-config>
         <action-listener>
             org.primefaces.application.DialogActionListener
         </action-listener>
@@ -47,6 +50,10 @@
             <base-name>/org/peasant/security_i18n</base-name>
             <var>security_i18n</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/eman/asist_i18n</base-name>
+            <var>asist_i18n</var>
+        </resource-bundle>
     </application>
     
     <navigation-rule>
@@ -80,8 +87,7 @@
             <to-view-id>/basic/station/select</to-view-id>
         </navigation-case>
     </navigation-rule>
-    
-      
+          
     
     
     

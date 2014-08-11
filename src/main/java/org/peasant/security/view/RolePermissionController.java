@@ -205,7 +205,7 @@ public class RolePermissionController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = RolePermission.class, value = "RolePermission")
+    @FacesConverter(forClass = RolePermission.class, value = "org.peasant.security.RolePermission")
     public static class RolePermissionFacesConverter implements Converter {
 
         @Override

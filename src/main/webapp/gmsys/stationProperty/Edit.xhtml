@@ -48,13 +48,13 @@
                         
                         <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_manufacturer}" for="manufacturer" />
                         <p:inputText id="manufacturer" value="#{item.manufacturer}" title="#{gmsys_i18n.EditStationPropertyTitle_manufacturer}" disabled="false"   />
+                        
+                        <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_taged}" for="taged" />
+                        <p:selectBooleanCheckbox id="taged" value="#{item.taged}" />
 
                         
                         <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_abnormity}" for="abnormity" />
                         <p:inputTextarea rows="4" cols="30" id="abnormity" value="#{item.abnormity}" title="#{gmsys_i18n.EditStationPropertyTitle_abnormity}" />
-                        
-                        <p:outputLabel value="#{gmsys_i18n.EditStationPropertyLabel_taged}" for="taged" />
-                        <p:selectBooleanCheckbox id="taged" value="#{item.taged}" />
 
                         
                     </p:panelGrid>

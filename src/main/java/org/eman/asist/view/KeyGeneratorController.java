@@ -1,8 +1,9 @@
-package org.eman.gmsys;
+package org.eman.asist.view;
 
-import org.eman.gmsys.model.ConferenceRecord;
-import org.eman.gmsys.util.JsfUtil;
-import org.eman.gmsys.util.JsfUtil.PersistAction;
+import org.eman.asist.model.KeyGenerator;
+import org.eman.asist.view.util.JsfUtil;
+import org.eman.asist.view.util.JsfUtil.PersistAction;
+import org.eman.asist.facade.KeyGeneratorFacade;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -21,41 +22,40 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("conferenceRecordController")
+@Named("keyGeneratorController")
 @ViewScoped
-public class ConferenceRecordController implements Serializable {
+public class KeyGeneratorController implements Serializable {
 
     @EJB
-    protected org.eman.gmsys.ConferenceRecordFacade ejbFacade;
-    private List<ConferenceRecord> items = null;
-    private ConferenceRecord created;
-    private List<ConferenceRecord> selectedItems;
+    protected org.eman.asist.facade.KeyGeneratorFacade ejbFacade;
+    private List<KeyGenerator> items = null;
+    private KeyGenerator created;
+    private List<KeyGenerator> selectedItems;
     private Map<String, Object> searchCons;
     protected ResourceBundle bundle;
 
-    public ConferenceRecordController() {
+    public KeyGeneratorController() {
     }
 
     @PostConstruct
     public void init() {
         this.searchCons = new HashMap();
-        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "gmsys_i18n");
-
+        this.bundle = ResourceBundle.getBundle("/org/eman/asist_i18n");
     }
 
-    public ConferenceRecord getCreated() {
+    public KeyGenerator getCreated() {
         return created;
     }
 
-    public void setCreated(ConferenceRecord created) {
+    public void setCreated(KeyGenerator created) {
         this.created = created;
     }
 
-    public List<ConferenceRecord> getSelectedItems() {
+    public List<KeyGenerator> getSelectedItems() {
         return selectedItems;
     }
 
-    public void setSelectedItems(List<ConferenceRecord> selectedItems) {
+    public void setSelectedItems(List<KeyGenerator> selectedItems) {
         this.selectedItems = selectedItems;
     }
 
@@ -71,46 +71,46 @@ public class ConferenceRecordController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setId(org.eman.util.Utils.generateUniqueKey());
+        created.setDiscriminator(org.eman.util.Utils.generateUniqueKey());
     }
 
-    private ConferenceRecordFacade getFacade() {
+    private KeyGeneratorFacade getFacade() {
         return ejbFacade;
     }
 
-    public ConferenceRecord prepareCreate() {
+    public KeyGenerator prepareCreate() {
 
-        created = new ConferenceRecord();
+        created = new KeyGenerator();
         initializeKey();
         return created;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, bundle.getString("ConferenceRecordCreated"));
+        persist(PersistAction.CREATE, bundle.getString("KeyGeneratorCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, bundle.getString("ConferenceRecordUpdated"));
+        persist(PersistAction.UPDATE, bundle.getString("KeyGeneratorUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, bundle.getString("ConferenceRecordDeleted"));
+        persist(PersistAction.DELETE, bundle.getString("KeyGeneratorDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selectedItems = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<ConferenceRecord> searchItems() {
+    public List<KeyGenerator> searchItems() {
 
         items = findItemsByConditions(construtSearchParams(this.searchCons));
         return items;
     }
 
-    protected List<ConferenceRecord> findItemsByConditions(Map<String, Object> params) {
+    protected List<KeyGenerator> findItemsByConditions(Map<String, Object> params) {
         return getFacade().findByConditions(params);
     }
 
@@ -134,13 +134,13 @@ public class ConferenceRecordController implements Serializable {
         return newparams;
     }
 
-    public List<ConferenceRecord> allItems() {
+    public List<KeyGenerator> allItems() {
         items = getFacade().findAll();
 
         return items;
     }
 
-    public List<ConferenceRecord> getItems() {
+    public List<KeyGenerator> getItems() {
         if (null == items) {
             //TODO,根据上次查询条件记录获取记录
         }
@@ -157,7 +157,7 @@ public class ConferenceRecordController implements Serializable {
                     break;
 
                 default: {
-                    for (ConferenceRecord selected : selectedItems) {
+                    for (KeyGenerator selected : selectedItems) {
                         if (selected != null) {
                             setEmbeddableKeys();
                             switch (persistAction) {
@@ -193,29 +193,29 @@ public class ConferenceRecordController implements Serializable {
 
     }
 
-    public ConferenceRecord getConferenceRecord(java.lang.String id) {
+    public KeyGenerator getKeyGenerator(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<ConferenceRecord> getItemsAvailableSelectMany() {
+    public List<KeyGenerator> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<ConferenceRecord> getItemsAvailableSelectOne() {
+    public List<KeyGenerator> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = ConferenceRecord.class)
-    public static class ConferenceRecordControllerConverter implements Converter {
+    @FacesConverter(forClass = KeyGenerator.class, value = "KeyGenerator")
+    public static class KeyGeneratorFacesConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            ConferenceRecordController controller = (ConferenceRecordController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "conferenceRecordController");
-            return controller.getConferenceRecord(getKey(value));
+            KeyGeneratorController controller = (KeyGeneratorController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "keyGeneratorController");
+            return controller.getKeyGenerator(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -235,11 +235,11 @@ public class ConferenceRecordController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof ConferenceRecord) {
-                ConferenceRecord o = (ConferenceRecord) object;
-                return getStringKey(o.getId());
+            if (object instanceof KeyGenerator) {
+                KeyGenerator o = (KeyGenerator) object;
+                return getStringKey(o.getDiscriminator());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), ConferenceRecord.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), KeyGenerator.class.getName()});
                 return null;
             }
         }
