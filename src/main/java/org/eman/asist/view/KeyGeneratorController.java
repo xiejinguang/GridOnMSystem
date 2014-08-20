@@ -1,9 +1,9 @@
 package org.eman.asist.view;
 
-import org.eman.asist.model.KeyGenerator;
+import org.eman.asist.model.KeyCode;
 import org.eman.asist.view.util.JsfUtil;
 import org.eman.asist.view.util.JsfUtil.PersistAction;
-import org.eman.asist.facade.KeyGeneratorFacade;
+import org.eman.asist.facade.KeyCodeFacade;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -27,10 +27,10 @@ import javax.faces.convert.FacesConverter;
 public class KeyGeneratorController implements Serializable {
 
     @EJB
-    protected org.eman.asist.facade.KeyGeneratorFacade ejbFacade;
-    private List<KeyGenerator> items = null;
-    private KeyGenerator created;
-    private List<KeyGenerator> selectedItems;
+    protected org.eman.asist.facade.KeyCodeFacade ejbFacade;
+    private List<KeyCode> items = null;
+    private KeyCode created;
+    private List<KeyCode> selectedItems;
     private Map<String, Object> searchCons;
     protected ResourceBundle bundle;
 
@@ -43,19 +43,19 @@ public class KeyGeneratorController implements Serializable {
         this.bundle = ResourceBundle.getBundle("/org/eman/asist_i18n");
     }
 
-    public KeyGenerator getCreated() {
+    public KeyCode getCreated() {
         return created;
     }
 
-    public void setCreated(KeyGenerator created) {
+    public void setCreated(KeyCode created) {
         this.created = created;
     }
 
-    public List<KeyGenerator> getSelectedItems() {
+    public List<KeyCode> getSelectedItems() {
         return selectedItems;
     }
 
-    public void setSelectedItems(List<KeyGenerator> selectedItems) {
+    public void setSelectedItems(List<KeyCode> selectedItems) {
         this.selectedItems = selectedItems;
     }
 
@@ -74,13 +74,13 @@ public class KeyGeneratorController implements Serializable {
         created.setDiscriminator(org.eman.util.Utils.generateUniqueKey());
     }
 
-    private KeyGeneratorFacade getFacade() {
+    private KeyCodeFacade getFacade() {
         return ejbFacade;
     }
 
-    public KeyGenerator prepareCreate() {
+    public KeyCode prepareCreate() {
 
-        created = new KeyGenerator();
+        created = new KeyCode();
         initializeKey();
         return created;
     }
@@ -104,13 +104,13 @@ public class KeyGeneratorController implements Serializable {
         }
     }
 
-    public List<KeyGenerator> searchItems() {
+    public List<KeyCode> searchItems() {
 
         items = findItemsByConditions(construtSearchParams(this.searchCons));
         return items;
     }
 
-    protected List<KeyGenerator> findItemsByConditions(Map<String, Object> params) {
+    protected List<KeyCode> findItemsByConditions(Map<String, Object> params) {
         return getFacade().findByConditions(params);
     }
 
@@ -134,13 +134,13 @@ public class KeyGeneratorController implements Serializable {
         return newparams;
     }
 
-    public List<KeyGenerator> allItems() {
+    public List<KeyCode> allItems() {
         items = getFacade().findAll();
 
         return items;
     }
 
-    public List<KeyGenerator> getItems() {
+    public List<KeyCode> getItems() {
         if (null == items) {
             //TODO,根据上次查询条件记录获取记录
         }
@@ -157,7 +157,7 @@ public class KeyGeneratorController implements Serializable {
                     break;
 
                 default: {
-                    for (KeyGenerator selected : selectedItems) {
+                    for (KeyCode selected : selectedItems) {
                         if (selected != null) {
                             setEmbeddableKeys();
                             switch (persistAction) {
@@ -193,19 +193,19 @@ public class KeyGeneratorController implements Serializable {
 
     }
 
-    public KeyGenerator getKeyGenerator(java.lang.String id) {
+    public KeyCode getKeyGenerator(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<KeyGenerator> getItemsAvailableSelectMany() {
+    public List<KeyCode> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<KeyGenerator> getItemsAvailableSelectOne() {
+    public List<KeyCode> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = KeyGenerator.class, value = "KeyGenerator")
+    @FacesConverter(forClass = KeyCode.class, value = "KeyGenerator")
     public static class KeyGeneratorFacesConverter implements Converter {
 
         @Override
@@ -235,11 +235,11 @@ public class KeyGeneratorController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof KeyGenerator) {
-                KeyGenerator o = (KeyGenerator) object;
+            if (object instanceof KeyCode) {
+                KeyCode o = (KeyCode) object;
                 return getStringKey(o.getDiscriminator());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), KeyGenerator.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), KeyCode.class.getName()});
                 return null;
             }
         }

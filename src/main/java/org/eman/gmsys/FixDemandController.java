@@ -15,11 +15,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+import org.eman.SpecialCodeGenerator;
 import org.eman.asist.CandidateValueConstants;
 import org.eman.asist.HierarchicalValuesPopulater;
 import org.eman.asist.facade.AsistCandidateValueFacade;
 import org.eman.asist.model.CandidateValue;
+import org.eman.basic.model.Roomspot;
 import org.eman.gmsys.model.FixDemand;
 import org.eman.gmsys.util.JsfUtil;
 import org.eman.gmsys.util.JsfUtil.PersistAction;
@@ -30,6 +33,10 @@ public class FixDemandController implements Serializable {
 
     @EJB
     protected org.eman.gmsys.FixDemandFacade ejbFacade;
+
+    @Inject
+    protected SpecialCodeGenerator scg;
+
     private List<FixDemand> items = null;
     private FixDemand created;
     private List<FixDemand> selectedItems;
@@ -46,20 +53,29 @@ public class FixDemandController implements Serializable {
     private CandidateValue fixkindCV;
 
     public FixDemandController() {
+
     }
 
     @PostConstruct
     public void init() {
         this.searchCons = new HashMap();
-        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(),"gmsys_i18n");
+        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "gmsys_i18n");
 
         statusCV = candidateValueFacade.findBy(CandidateValueConstants.GMSYS_FixDemandStatusKey, CandidateValueConstants.GMSYS_FixDemandStatusValue, true).get(0);
         sourceCV = candidateValueFacade.findBy(CandidateValueConstants.GMSYS_FixDemandSourceKey, CandidateValueConstants.GMSYS_FixDemandSourceValue, true).get(0);
         fixkindCV = candidateValueFacade.findBy(CandidateValueConstants.GMSYS_FixDemandFixKindKey, CandidateValueConstants.GMSYS_FixDemandFixKindValue, true).get(0);
         CandidateValue problemKindCV = candidateValueFacade.findBy(CandidateValueConstants.GMSYS_FixDemandProblemKindKey, CandidateValueConstants.GMSYS_FixDemandProblemKindValue, true).get(0);
-        problemKind = new HierarchicalValuesPopulater(null,null,problemKindCV);
-        problemSubKind = new HierarchicalValuesPopulater(problemKind,null,null);
+        problemKind = new HierarchicalValuesPopulater(null, null, problemKindCV);
+        problemSubKind = new HierarchicalValuesPopulater(problemKind, null, null);
 
+    }
+
+    public void setFixDemandCodeFor(FixDemand fd) {
+        fd.setDemandCode(genFixDemandCode(fd.getStationId().getRoomspotId()));
+    }
+
+    public String genFixDemandCode(Roomspot rs) {
+        return scg.genFixDemandCode(rs.getProvince(), rs.getCity());
     }
 
     public FixDemand getCreated() {

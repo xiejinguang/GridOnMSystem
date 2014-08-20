@@ -9,14 +9,14 @@ package org.eman.asist.facade;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.eman.asist.model.KeyGenerator;
+import org.eman.asist.model.KeyCode;
 
 /**
  *
  * @author 谢金光
  */
 @Stateless
-public class KeyGeneratorFacade extends AbstractFacade<KeyGenerator> {
+public class KeyCodeFacade extends AbstractFacade<KeyCode> {
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
 
@@ -25,8 +25,8 @@ public class KeyGeneratorFacade extends AbstractFacade<KeyGenerator> {
         return em;
     }
 
-    public KeyGeneratorFacade() {
-        super(KeyGenerator.class);
+    public KeyCodeFacade() {
+        super(KeyCode.class);
     }
     
 }

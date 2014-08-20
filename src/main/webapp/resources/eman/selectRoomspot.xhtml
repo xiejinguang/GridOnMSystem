@@ -18,7 +18,7 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        <p:selectOneMenu id="roomspot" var="soitem" value="#{cc.attrs.value}"  filter="true"  filterMatchMode="contains"  style="#{cc.attrs.style}"  converter="org.eman.Roomspot" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" styleClass="vcenter#{(empty cc.attrs.styleClass)?'':','+cc.attrs.styleClass}" >
+        <p:selectOneMenu id="roomspot" var="soitem" value="#{cc.attrs.value}"  filter="true"  filterMatchMode="contains"  style="${cc.attrs.style}"  converter="org.eman.Roomspot" required="${cc.attrs.required}" requiredMessage="${cc.attrs.requiredMessage}" styleClass="vcenter${(empty cc.attrs.styleClass)?'':','+cc.attrs.styleClass}" >
             <f:selectItem itemLabel="${bundle.SelectOneMessage}" />
             <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
                            var="roomspotIdItem"

@@ -27,8 +27,10 @@
                         <eman:selectRoomspot id="roomspotId" value="#{stationController.created.roomspotId}" required="true"  />
 
                         <p:outputLabel value="#{basic_i18n.EditStationLabel_statCode}" for="statCode" />
-                        <p:inputText id="statCode" value="#{stationController.created.statCode}" title="#{basic_i18n.EditStationTitle_statCode}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_statCode}"/>
-
+                        <h:panelGroup>
+                            <p:inputText id="statCode" value="#{stationController.created.statCode}" title="#{basic_i18n.EditStationTitle_statCode}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_statCode}"/>
+                            <p:commandButton value="生成"  actionListener="#{stationController.setStationCodeFor(stationController.created)}" update="statCode,roomspotId:roomspot,:growl" process="roomspotId:roomspot,@this"/>
+                        </h:panelGroup>
 
                         <p:outputLabel value="#{basic_i18n.EditStationLabel_name}" for="name" />
                         <p:inputText id="name" value="#{stationController.created.name}" title="#{basic_i18n.EditStationTitle_name}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditStationRequiredMessage_name}"/>
@@ -90,7 +92,7 @@
                         <p:inputTextarea rows="4" cols="30" id="commont" value="#{stationController.created.commont}" title="#{basic_i18n.EditStationTitle_commont}" />
 
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{stationController.create}" value="#{basic_i18n.Save}" update="display,@form:@parent:StationListForm:datalist,:growl" oncomplete="handleSubmit(args,'StationCreateDialog');"/>
+                    <p:commandButton actionListener="#{stationController.create}" value="#{basic_i18n.Save}" update="display,@form:@parent:StationListForm:datalist,:growl" oncomplete="handleSubmit(args,'StationCreateDialog');" />
                     <p:commandButton type="button" value="#{basic_i18n.Cancel}" onclick="PF('StationCreateDialog').hide()"/>
                 </h:panelGroup>
             </h:form>

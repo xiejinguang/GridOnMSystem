@@ -51,7 +51,7 @@ public class SubjectView implements Serializable {
             curUser.setPassword(newPasswd);
             userFacade.edit(curUser);
         } else {
-
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "密码错误","输入的密码不正确"));
         }
     }
 

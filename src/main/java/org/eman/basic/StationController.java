@@ -18,10 +18,12 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.eman.SpecialCodeGenerator;
 import org.eman.asist.CandidateValueConstants;
 import org.eman.asist.Values;
 import org.eman.asist.facade.AsistCandidateValueFacade;
 import org.eman.asist.model.CandidateValue;
+import org.eman.basic.model.Roomspot;
 import org.eman.basic.model.Station;
 import org.eman.basic.util.JsfUtil;
 import org.eman.basic.util.JsfUtil.PersistAction;
@@ -32,6 +34,10 @@ public class StationController implements Serializable {
 
     @Inject
     protected org.eman.basic.StationFacade ejbFacade;
+    
+    @Inject
+    SpecialCodeGenerator scg;
+    
     private List<Station> items = null;
     private Station created;
     private List<Station> selectedItems;
@@ -56,6 +62,14 @@ public class StationController implements Serializable {
         this.searchCons = new HashMap();
         this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "basic_i18n");
 
+    }
+    
+    public void setStationCodeFor(Station st){
+       st.setStatCode(genNextStationCode(st.getRoomspotId()));                
+    }
+    
+    public String genNextStationCode(Roomspot r ){
+        return scg.genNextStationCode(r.getProvince(), r.getCity(), r.getCounty());
     }
 
     public Station getCreated() {

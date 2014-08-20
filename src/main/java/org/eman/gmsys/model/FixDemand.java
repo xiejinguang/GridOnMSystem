@@ -8,6 +8,7 @@ package org.eman.gmsys.model;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -112,7 +113,7 @@ public class FixDemand implements Serializable, Labeled {
     @Column(length = 45)
     private String status;
     @JoinColumn(name = "stationId", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,cascade = {CascadeType.MERGE})
     private Station stationId;
 
     public FixDemand() {

@@ -91,7 +91,7 @@ public class Station implements Serializable,Labeled {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "statID")
     private Collection<Netnode> netnodeCollection;
     @JoinColumn(name = "roomspotId", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,cascade = {CascadeType.MERGE,})
     private Roomspot roomspotId;
 
     public Station() {

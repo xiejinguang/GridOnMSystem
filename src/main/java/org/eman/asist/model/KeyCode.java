@@ -26,10 +26,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "asist_key_generator")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "KeyGenerator.findAll", query = "SELECT k FROM KeyGenerator k"),
-    @NamedQuery(name = "KeyGenerator.findByDiscriminator", query = "SELECT k FROM KeyGenerator k WHERE k.discriminator = :discriminator"),
-    @NamedQuery(name = "KeyGenerator.findByNumber", query = "SELECT k FROM KeyGenerator k WHERE k.number = :number")})
-public class KeyGenerator implements Serializable {
+    @NamedQuery(name = "KeyCode.findAll", query = "SELECT k FROM KeyCode k"),
+    @NamedQuery(name = "KeyCode.findByDiscriminator", query = "SELECT k FROM KeyCode k WHERE k.discriminator = :discriminator"),
+    @NamedQuery(name = "KeyCode.findByNumber", query = "SELECT k FROM KeyCode k WHERE k.number = :number")})
+public class KeyCode implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -42,14 +42,14 @@ public class KeyGenerator implements Serializable {
     @Column(nullable = false)
     private int number;
 
-    public KeyGenerator() {
+    public KeyCode() {
     }
 
-    public KeyGenerator(String discriminator) {
+    public KeyCode(String discriminator) {
         this.discriminator = discriminator;
     }
 
-    public KeyGenerator(String discriminator, int number) {
+    public KeyCode(String discriminator, int number) {
         this.discriminator = discriminator;
         this.number = number;
     }
@@ -80,10 +80,10 @@ public class KeyGenerator implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof KeyGenerator)) {
+        if (!(object instanceof KeyCode)) {
             return false;
         }
-        KeyGenerator other = (KeyGenerator) object;
+        KeyCode other = (KeyCode) object;
         if ((this.discriminator == null && other.discriminator != null) || (this.discriminator != null && !this.discriminator.equals(other.discriminator))) {
             return false;
         }
@@ -92,7 +92,7 @@ public class KeyGenerator implements Serializable {
 
     @Override
     public String toString() {
-        return "org.eman.asist.model.KeyGenerator[ discriminator=" + discriminator + " ]";
+        return "org.eman.asist.model.KeyCode[ discriminator=" + discriminator + " ]";
     }
     
 }

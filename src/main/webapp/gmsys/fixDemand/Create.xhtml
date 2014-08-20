@@ -21,14 +21,16 @@
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_id}" for="id" />
                         <p:inputText id="id" value="#{fixDemandController.created.id}" title="#{gmsys_i18n.EditFixDemandTitle_id}"  disabled="true"       required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_id}"/>
 
-                        
+
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_stationId}*" for="stationId" />
                         <eman:selectStation id="stationId" value="#{fixDemandController.created.stationId}" required="true" />
 
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_demandCode}" for="demandCode" />
-                        <p:inputText id="demandCode" value="#{fixDemandController.created.demandCode}" title="#{gmsys_i18n.EditFixDemandTitle_demandCode}"  disabled="false"       required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_demandCode}"/>
+                        <h:panelGroup>
+                            <p:inputText id="demandCode" value="#{fixDemandController.created.demandCode}" title="#{gmsys_i18n.EditFixDemandTitle_demandCode}"  disabled="false"       required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_demandCode}"/>
+                            <p:commandButton value="生成"  actionListener="#{fixDemandController.setFixDemandCodeFor(fixDemandController.created)}" update="demandCode,stationId:station,:growl" process="stationId:station,@this"/>
+                        </h:panelGroup>
 
-                        
                         <p:outputLabel value="#{gmsys_i18n.EditFixDemandLabel_demandName}" for="demandName" />
                         <p:inputText id="demandName" value="#{fixDemandController.created.demandName}" title="#{gmsys_i18n.EditFixDemandTitle_demandName}"  disabled="false"       required="true" requiredMessage="#{gmsys_i18n.EditFixDemandRequiredMessage_demandName}"/>
 
