@@ -11,7 +11,7 @@ import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 import org.peasant.util.Repository;
-import org.peasant.util.repositoryimpl.BasicFileRepository;
+import org.peasant.util.repositoryimpl.DiskNDatabaseRepository;
 
 /**
  *
@@ -25,7 +25,7 @@ public class DefaultProducer {
     public Repository getDefaultRepository() {
         String homePath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter(Constants.REPOSITORY_HOME_PARAM);
         if(homePath ==null || homePath.isEmpty())
-            return new BasicFileRepository();
-        return new BasicFileRepository(homePath);
+            return new DiskNDatabaseRepository();
+        return new DiskNDatabaseRepository(homePath);
     }
 }

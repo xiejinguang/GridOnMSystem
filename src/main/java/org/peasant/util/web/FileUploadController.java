@@ -20,6 +20,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
+ * 用于Primefaces的filupload控件
  *
  * @author 谢金光
  */

@@ -9,11 +9,10 @@
         <!-- 程序状态保存在客户端 -->
         <param-value>client</param-value>
     </context-param>
-    <context-param>        
+    <context-param>
         <param-name>javax.faces.NUMBER_OF_VIEWS_IN_SESSION</param-name>
         <param-value>-1</param-value>
     </context-param>
-    
     <context-param>
         <param-name>primefaces.SUBMIT</param-name>
         <param-value>partial</param-value>
@@ -28,7 +27,7 @@
     </context-param>
     <context-param>
         <param-name>peasant.attachment.PATH</param-name>
-        <param-value>/attachments</param-value>
+        <param-value>/attachment</param-value>
     </context-param>
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
@@ -63,10 +62,8 @@
         <!--
         <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
         -->
-        
         <description>由peasant提供的定制EnvironmentLoaderListener,实现Realm可用CDI注入</description>
-        <listener-class>org.peasant.security.shiro.cdi.web.EnvironmentLoaderListener</listener-class>        
-    
+        <listener-class>org.peasant.security.shiro.cdi.web.EnvironmentLoaderListener</listener-class>
     </listener>
     <filter>
         <filter-name>ShiroFilter</filter-name>
@@ -86,9 +83,18 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>GenericFileDownloadServlet</servlet-name>
+        <servlet-class>org.peasant.util.web.GenericFileDownloadServlet</servlet-class>
+
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GenericFileDownloadServlet</servlet-name>
+        <url-pattern>/attachment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

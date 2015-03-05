@@ -24,32 +24,7 @@
         <h:link  value="附件"  outcome="/peasant/util/Attachments.jsf" >
             <f:param name="owner" value="image" />
         </h:link>
-
-        <p:dialog showHeader="false" closeOnEscape="true" appendTo="@(body)" width="100%" height="500px" widgetVar="imagePreview" modal="true" resizable="false" >
-            <p:contentFlow value="#{attachmentController.getAttachmentsByOwner('image')}"  var="image"   style="height: 100%; width: 100%" >            
-                <p:graphicImage value="${attachmentController.getResourcePath(image)}" styleClass="content"    />
-                <div class="caption" style="color: #000">${image.name}</div>
-            </p:contentFlow>
-        </p:dialog>
-
-        <p:dialog showHeader="false" closeOnEscape="true" appendTo="@(body)"  widgetVar="imagePreview1" modal="true" resizable="false" >
-            <p:galleria value="#{attachmentController.getAttachmentsByOwner('image')}"  var="image"  showCaption="true" panelHeight="500" panelWidth="700">            
-                <p:graphicImage value="${attachmentController.getResourcePath(image)}"  title="${image.name}"  width="700"  />
-            </p:galleria>
-        </p:dialog>
-        <h:form prependId="true">
-            <p:inputText id="value1" value="#{testBean.value}" binding="#{testBean2.com}" />
-            <p:commandButton  value="test" actionListener="#{testBean2.action}" />
-            <ps:dialogButton value="选择" outcome="/testDialog" update="value" target="#{testBean.value}"  width="1000" height="300" contentMinWidth="600" contentMinHeight="400" />
-            <ps:dialogButton value="选择" outcome="/testDialog" update="value" target="#{testBean.value}"  width="400" height="300" contentMinWidth="600" contentMinHeight="400" />
-        </h:form>
-        <h:form prependId="true">
-            <p:inputText id="value" value="#{testBean.value}" binding="#{testBean2.com}" />
-            <p:commandButton  value="test" actionListener="#{testBean2.action}"  />
-            <ps:dialogButton value="选择" outcome="/testDialog" update="value" target="#{testBean.value}"  width="1000" height="300" contentMinWidth="600" contentMinHeight="400" />
-            <ps:dialogButton value="选择" outcome="/testDialog" update="value" target="#{testBean.value}"  width="400" height="300" contentMinWidth="600" contentMinHeight="400" />
-        </h:form>
-
+        <ps:editor />
 
 
     </h:body>

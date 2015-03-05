@@ -10,16 +10,12 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.peasant.util.Attachment;
@@ -37,6 +33,9 @@ import org.primefaces.model.UploadedFile;
 @ViewScoped
 public class AttachmentController implements Serializable {
 
+    @Inject
+    AttachmentUPnDownloadService attachServ;
+    
     @Inject
     Repository attachRepo;
 
@@ -80,7 +79,7 @@ public class AttachmentController implements Serializable {
 
     public String getResourcePath(Attachment a) {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        return AttachmentFilter.getAttachmentURLPartPath((HttpServletRequest) ec.getRequest(), (HttpServletResponse) ec.getResponse(), a, AttachmentFilter.MOETHOD_RESOURCE);
+        return attachServ.getAttachmentURLRelativePath(ec.getInitParameter(Constants.ATTACHMENT_PATH_PARAM), a, Constants.MOETHOD_RESOURCE);
     }
 
     public void handleFileUpload(FileUploadEvent fue) {
@@ -88,7 +87,7 @@ public class AttachmentController implements Serializable {
         String filename = uf.getFileName();
         String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         try {
-            attachRepo.storeFromStream(uf.getInputstream(), filename, uf.getContentType(), this.owner, user, null);
+            attachServ.storeFromStream(uf.getInputstream(), filename, uf.getContentType(), this.owner, user, null);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful", filename + " is uploaded!"));
         } catch (IOException ex) {
             Logger.getLogger(FileUploadController.class.getName()).log(Level.SEVERE, null, ex);

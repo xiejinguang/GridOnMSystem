@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "StationProperty.findByQuantity", query = "SELECT s FROM StationProperty s WHERE s.quantity = :quantity"),
     @NamedQuery(name = "StationProperty.findByModel", query = "SELECT s FROM StationProperty s WHERE s.model = :model"),
     @NamedQuery(name = "StationProperty.findByManufacturer", query = "SELECT s FROM StationProperty s WHERE s.manufacturer = :manufacturer")})
-public class StationProperty extends UUIDIdentity implements Serializable {
+public class StationProperty extends UUIDEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Size(max = 45)

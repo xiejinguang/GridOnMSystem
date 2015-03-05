@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dType")
 @DiscriminatorValue(value = "通用会议记录")
-public class ConferenceRecord extends UUIDIdentity implements Serializable {
+public class ConferenceRecord extends UUIDEntity implements Serializable {
 
     @Basic(optional = false)
     @NotNull

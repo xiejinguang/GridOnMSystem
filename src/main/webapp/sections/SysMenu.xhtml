@@ -5,6 +5,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
+        <h:outputStylesheet library="css" name="icons.css" />
         <h:form id="SysMenuForm" prependId="false" >
             <p:accordionPanel    cache="true"  >
                 <p:ajax event="tabChange" update=":SysMenuForm" />
@@ -81,10 +82,14 @@
                             <h:link target="_blank" ><p:graphicImage value="/images/stack/history.png"  width="50px" style="vertical-align: middle"/>History</h:link>                    
                         </li></ul>
                 </p:tab>
-
             </p:accordionPanel>
-
-
+            
+            <p:panelMenu >
+                <p:submenu label="TEST">
+                <p:menuitem value="TEST"  icon="home"/>
+                <p:menuitem value="TEST2" />
+                </p:submenu>
+            </p:panelMenu>
 
         </h:form>
     </ui:composition>
