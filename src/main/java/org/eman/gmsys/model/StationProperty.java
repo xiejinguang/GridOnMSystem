@@ -6,6 +6,7 @@
 
 package org.eman.gmsys.model;
 
+import org.peasant.basic.UUIDEntity;
 import org.eman.basic.model.Roomspot;
 import java.io.Serializable;
 import javax.persistence.Basic;

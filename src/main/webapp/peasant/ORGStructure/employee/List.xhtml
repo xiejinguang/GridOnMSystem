@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{oRGStructure_i18n.ListEmployeeTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+
+            <h:form id="SearchConsForm">
+
+                <p:fieldset id="searchField" legend="${oRGStructure_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+                    <p:panelGrid   style="width:100%"  >
+                        <p:row>
+                            <p:column >
+                                <p:panelGrid id="searchConsGrid" columns="8">
+
+
+                                    <p:outputLabel value="#{oRGStructure_i18n.EmployeeLabel_employeeCode}" for="employeeCode" />
+                                    <p:inputText id="employeeCode" value="#{employeeController.searchCons['employeeCode']}" title="#{oRGStructure_i18n.EmployeeTitle_employeeCode}"  />
+
+
+                                    <p:outputLabel value="#{oRGStructure_i18n.EmployeeLabel_name}" for="name" />
+                                    <p:inputText id="name" value="#{employeeController.searchCons['name']}" title="#{oRGStructure_i18n.EmployeeTitle_name}"  />
+
+
+                                    <p:outputLabel value="#{oRGStructure_i18n.EmployeeLabel_sex}" for="sex" />
+                                    <p:inputText id="sex" value="#{employeeController.searchCons['sex']}" title="#{oRGStructure_i18n.EmployeeTitle_sex}"  />
+
+
+                                    <p:outputLabel value="#{oRGStructure_i18n.EmployeeLabel_birthday}" for="birthday" />
+                                    <p:inputText id="birthday" value="#{employeeController.searchCons['birthday']}" title="#{oRGStructure_i18n.EmployeeTitle_birthday}"  />
+
+
+                                    <p:outputLabel value="#{oRGStructure_i18n.EmployeeLabel_idcardNum}" for="idcardNum" />
+                                    <p:inputText id="idcardNum" value="#{employeeController.searchCons['idcardNum']}" title="#{oRGStructure_i18n.EmployeeTitle_idcardNum}"  />
+
+
+                                    <p:outputLabel value="#{oRGStructure_i18n.EmployeeLabel_mobilePhoneNum}" for="mobilePhoneNum" />
+                                    <p:inputText id="mobilePhoneNum" value="#{employeeController.searchCons['mobilePhoneNum']}" title="#{oRGStructure_i18n.EmployeeTitle_mobilePhoneNum}"  />
+
+
+                                    <p:outputLabel value="#{oRGStructure_i18n.EmployeeLabel_address}" for="address" />
+                                    <p:inputText id="address" value="#{employeeController.searchCons['address']}" title="#{oRGStructure_i18n.EmployeeTitle_address}"  />
+
+
+                                    <p:outputLabel value="#{oRGStructure_i18n.EmployeeLabel_id}" for="id" />
+                                    <p:inputText id="id" value="#{employeeController.searchCons['id']}" title="#{oRGStructure_i18n.EmployeeTitle_id}"  />
+
+                                </p:panelGrid>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton id="searchButton" icon="ui-icon-search"   value="${oRGStructure_i18n.Search}" actionListener="#{employeeController.searchItems}" update=":growl,:EmployeeListForm:datalist"/>
+                                <br/>
+                                <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${oRGStructure_i18n.GetAll}" actionListener="#{employeeController.allItems}" update=":growl,:EmployeeListForm:datalist"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>                   
+                </p:fieldset>
+            </h:form>
+
+            <h:form id="EmployeeListForm">
+                <p:dataTable id="datalist" value="#{employeeController.items}" var="item"
+                             selection="#{employeeController.selectedItems}"
+                             rowKey="#{item.id}"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             paginator="true" paginatorPosition="bottom"
+                             rows="10" 
+                             draggableColumns="true" resizableColumns="true" 
+                             scrollable="true"   liveResize="true" liveScroll="true"
+                             sortMode="multiple"
+                             editable="true" 
+                             stickyHeader="false" 
+                             >
+
+                    <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                    <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+
+                    <f:facet name="header"><p:outputLabel value="#{oRGStructure_i18n.ListEmployeeTitle}" /></f:facet>
+
+                    <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
+
+                    <p:column sortBy="#{item.employeeCode}" filterBy="#{item.employeeCode}">
+                        <f:facet name="header">
+                            <h:outputText value="#{oRGStructure_i18n.EmployeeTitle_employeeCode}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.employeeCode}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                        <f:facet name="header">
+                            <h:outputText value="#{oRGStructure_i18n.EmployeeTitle_name}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.name}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.sex}" filterBy="#{item.sex}">
+                        <f:facet name="header">
+                            <h:outputText value="#{oRGStructure_i18n.EmployeeTitle_sex}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.sex}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.birthday}" filterBy="#{item.birthday}">
+                        <f:facet name="header">
+                            <h:outputText value="#{oRGStructure_i18n.EmployeeTitle_birthday}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.birthday}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.idcardNum}" filterBy="#{item.idcardNum}">
+                        <f:facet name="header">
+                            <h:outputText value="#{oRGStructure_i18n.EmployeeTitle_idcardNum}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idcardNum}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.mobilePhoneNum}" filterBy="#{item.mobilePhoneNum}">
+                        <f:facet name="header">
+                            <h:outputText value="#{oRGStructure_i18n.EmployeeTitle_mobilePhoneNum}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.mobilePhoneNum}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.address}" filterBy="#{item.address}">
+                        <f:facet name="header">
+                            <h:outputText value="#{oRGStructure_i18n.EmployeeTitle_address}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.address}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                        <f:facet name="header">
+                            <h:outputText value="#{oRGStructure_i18n.EmployeeTitle_id}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <div  class="my-datatable-footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{oRGStructure_i18n.Create}" actionListener="#{employeeController.prepareCreate}" process="@this" update="@form:@parent:EmployeeCreateForm" oncomplete="PF('EmployeeCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{oRGStructure_i18n.View}" process="@this" update="@form:@parent:EmployeeViewForm" oncomplete="PF('EmployeeViewDialog').show()" disabled="#{empty employeeController.selectedItems}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{oRGStructure_i18n.Edit}" process="@this" update="@form:@parent:EmployeeEditForm" oncomplete="PF('EmployeeEditDialog').show()" disabled="#{empty employeeController.selectedItems}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{oRGStructure_i18n.Delete}" actionListener="#{employeeController.destroy}" process="@this" update=":growl,datalist" disabled="#{empty employeeController.selectedItems}"/>
+                            <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                            <p:columnToggler datasource="datalist" trigger="toggler" />
+                        </div>
+                    </f:facet>
+                </p:dataTable>
+
+            </h:form>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>

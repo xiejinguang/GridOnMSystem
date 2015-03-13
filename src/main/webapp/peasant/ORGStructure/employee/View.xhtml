@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="EmployeeViewDlg" widgetVar="EmployeeViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport(this)" 
+                  header="#{oRGStructure_i18n.ViewEmployeeTitle}">
+            <h:form id="EmployeeViewForm">
+                <h:panelGroup id="display" rendered="#{not empty employeeController.selectedItems}">
+                    <ui:repeat  value="#{employeeController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{oRGStructure_i18n.EmployeeEntityLabel}"/>
+                                <h:outputText value="#{item.id}" title="#{oRGStructure_i18n.EmployeeEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="4" >
+
+
+                                <h:outputText value="#{oRGStructure_i18n.EmployeeLabel_employeeCode}"/>
+                                <h:outputText value="#{item.employeeCode}" title="#{oRGStructure_i18n.EmployeeTitle_employeeCode}"/>
+
+
+                                <h:outputText value="#{oRGStructure_i18n.EmployeeLabel_name}"/>
+                                <h:outputText value="#{item.name}" title="#{oRGStructure_i18n.EmployeeTitle_name}"/>
+
+
+                                <h:outputText value="#{oRGStructure_i18n.EmployeeLabel_sex}"/>
+                                <h:outputText value="#{item.sex}" title="#{oRGStructure_i18n.EmployeeTitle_sex}"/>
+
+
+                                <h:outputText value="#{oRGStructure_i18n.EmployeeLabel_birthday}"/>
+                                <h:outputText value="#{item.birthday}" title="#{oRGStructure_i18n.EmployeeTitle_birthday}"/>
+
+
+                                <h:outputText value="#{oRGStructure_i18n.EmployeeLabel_idcardNum}"/>
+                                <h:outputText value="#{item.idcardNum}" title="#{oRGStructure_i18n.EmployeeTitle_idcardNum}"/>
+
+
+                                <h:outputText value="#{oRGStructure_i18n.EmployeeLabel_mobilePhoneNum}"/>
+                                <h:outputText value="#{item.mobilePhoneNum}" title="#{oRGStructure_i18n.EmployeeTitle_mobilePhoneNum}"/>
+
+
+                                <h:outputText value="#{oRGStructure_i18n.EmployeeLabel_address}"/>
+                                <h:outputText value="#{item.address}" title="#{oRGStructure_i18n.EmployeeTitle_address}"/>
+
+
+                                <h:outputText value="#{oRGStructure_i18n.EmployeeLabel_id}"/>
+                                <h:outputText value="#{item.id}" title="#{oRGStructure_i18n.EmployeeTitle_id}"/>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton type="button" value="#{oRGStructure_i18n.Close}" onclick="PF('EmployeeViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+
+</html>

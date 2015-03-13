@@ -1,4 +1,4 @@
-package org.eman.gmsys.model;
+package org.peasant.basic;
 
 import java.io.Serializable;
 
@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class UUIDEntity implements Serializable {
     
+    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Size(min = 1, max = 36)

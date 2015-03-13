@@ -1,10 +1,11 @@
+
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 2015-3-5, 17:06:48
+    Created on : 2015-3-11, 14:24:26
     Author     : 谢金光
 */
 
@@ -36,6 +37,7 @@ and open the template in the editor.
 }
 
 
+
 /*以下为系统菜单样式
 */
 
@@ -46,17 +48,15 @@ and open the template in the editor.
     display: inline-block;
     float:left;
 }
-
-
 .sysmenu .roomspot_icon,
 .roomspot_icon
 {
+    @extend .menuitem_icon
     background-image: url("#{resource['design/roomspot.jpg']}");
 
 }
 
 .station_icon{
+    @extend .menuitem_icon
     background-image: url("#{resource['design/home.png']}")!important;
 }
-
-

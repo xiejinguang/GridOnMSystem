@@ -54,6 +54,14 @@
             <base-name>/org/eman/asist_i18n</base-name>
             <var>asist_i18n</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/peasant/i18n</base-name>
+            <var>i18n</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/peasant/ORGStructure_i18n</base-name>
+            <var>oRGStructure_i18n</var>
+        </resource-bundle>
     </application>
     
     <navigation-rule>

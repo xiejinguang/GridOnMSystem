@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="EmployeeCreateDlg" widgetVar="EmployeeCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport(this)" 
+                  header="#{oRGStructure_i18n.CreateEmployeeTitle}">
+            <h:form id="EmployeeCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{not empty employeeController.created}">
+
+
+                        <p:outputLabel value="#{oRGStructure_i18n.EditEmployeeLabel_employeeCode}" for="employeeCode" />
+                        <p:inputText id="employeeCode" value="#{employeeController.created.employeeCode}" title="#{oRGStructure_i18n.EditEmployeeTitle_employeeCode}"  disabled="false"       required="true" requiredMessage="#{oRGStructure_i18n.EditEmployeeRequiredMessage_employeeCode}"/>
+
+
+                        <p:outputLabel value="#{oRGStructure_i18n.EditEmployeeLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{employeeController.created.name}" title="#{oRGStructure_i18n.EditEmployeeTitle_name}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{oRGStructure_i18n.EditEmployeeLabel_sex}" for="sex" />
+                        <p:inputText id="sex" value="#{employeeController.created.sex}" title="#{oRGStructure_i18n.EditEmployeeTitle_sex}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{oRGStructure_i18n.EditEmployeeLabel_birthday}" for="birthday" />
+                        <p:inputText id="birthday" value="#{employeeController.created.birthday}" title="#{oRGStructure_i18n.EditEmployeeTitle_birthday}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{oRGStructure_i18n.EditEmployeeLabel_idcardNum}" for="idcardNum" />
+                        <p:inputText id="idcardNum" value="#{employeeController.created.idcardNum}" title="#{oRGStructure_i18n.EditEmployeeTitle_idcardNum}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{oRGStructure_i18n.EditEmployeeLabel_mobilePhoneNum}" for="mobilePhoneNum" />
+                        <p:inputText id="mobilePhoneNum" value="#{employeeController.created.mobilePhoneNum}" title="#{oRGStructure_i18n.EditEmployeeTitle_mobilePhoneNum}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{oRGStructure_i18n.EditEmployeeLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{employeeController.created.address}" title="#{oRGStructure_i18n.EditEmployeeTitle_address}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{oRGStructure_i18n.EditEmployeeLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{employeeController.created.id}" title="#{oRGStructure_i18n.EditEmployeeTitle_id}"  disabled="true"       required="true" requiredMessage="#{oRGStructure_i18n.EditEmployeeRequiredMessage_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{employeeController.create}" value="#{oRGStructure_i18n.Save}" update="display,@form:@parent:EmployeeListForm:datalist,:growl" oncomplete="handleSubmit(args,'EmployeeCreateDialog');"/>
+                    <p:commandButton type="button" value="#{oRGStructure_i18n.Cancel}" onclick="PF('EmployeeCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

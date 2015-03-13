@@ -5,91 +5,47 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
-        <h:outputStylesheet library="css" name="icons.css" />
+        <h:outputStylesheet name="css/icons.css"  />
+
         <h:form id="SysMenuForm" prependId="false" >
-            <p:accordionPanel    cache="true"  >
-                <p:ajax event="tabChange" update=":SysMenuForm" />
-                <p:tab title="基础信息系统">
-                    <ul class="vmenu">
-                        <li>
-                            <h:link target="_blank" outcome="/basic/roomspot/index.xhtml" styleClass="menu" ><p:graphicImage value="/images/stack/music.png"  width="50px" style="vertical-align: middle"/>机房安装点信息</h:link>
-                        </li>
-                        <li>
-                            <h:link target="_blank"  outcome="/basic/station/index.xhtml" styleClass="menu" ><p:graphicImage value="/images/stack/home.png"  width="50px" style="vertical-align: middle"/>站址信息</h:link>
-                        </li>
-                        <li>
-                            <h:link target="_blank"  outcome="/basic/netnode/index.xhtml" styleClass="menu"><p:graphicImage value="/images/stack/video.png"  width="50px" style="vertical-align: middle"/>网元信息</h:link>
-                        </li>
-                        <li>
-                            <h:link target="_blank"  outcome="/basic/equipmentModel/index.xhtml" styleClass="menu"><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>设备模型信息</h:link>
-                        </li></ul>
+            <p:panelMenu styleClass="sysmenu">
 
+                <p:submenu  label="基础信息系统">
 
-                </p:tab>
-                <p:tab title="网格管家">
-                    <h:link target="_blank" outcome="/gmsys/fixDemand/index.xhtml"><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>#{gmsys_i18n.FixDemandMenuLabel}</h:link>
-                    <h:link target="_blank" outcome="/gmsys/stationProperty/index.xhtml"><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>#{gmsys_i18n.StationPropertyMenuLabel}</h:link>
-                </p:tab>
-                <!--       <p:tab title="巡检管理系统"   >
-                       </p:tab>-->
-                <p:tab title="安全管理系统" rendered="#{'admin'eq request.remoteUser}">
-                    <ul class="vmenu">
-                        <li>
-                            <h:link target="_blank"  outcome="/peasant/security/user/List.xhtml" styleClass="menu"><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>#{security_i18n.UserMenuLabel}</h:link>
-                        </li>
-                        <li>
-                            <h:link target="_blank"  outcome="/peasant/security/userDetail/List.xhtml" styleClass="menu"><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>#{security_i18n.UserDetailMenuLabel}</h:link>
-                        </li>
-                        <li>
-                            <h:link target="_blank"  outcome="/peasant/security/permission/List.xhtml" styleClass="menu"><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>#{security_i18n.PermissionMenuLabel}</h:link>
-                        </li>
-                        <li>
-                            <h:link target="_blank"  outcome="/peasant/security/resource/List.xhtml" styleClass="menu"><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>#{security_i18n.ResourceMenuLabel}</h:link>
-                        </li>
-                        <li>
-                            <h:link target="_blank"  outcome="/peasant/security/role/List.xhtml" styleClass="menu"><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>#{security_i18n.RoleMenuLabel}</h:link>
-                        </li>
-                        <li>
-                            <h:link target="_blank"  outcome="/peasant/security/rolePermission/List.xhtml" styleClass="menu"><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>#{security_i18n.RolePermissionMenuLabel}</h:link>
-                        </li>
+                    <p:menuitem target="_blank"  outcome="/basic/roomspot/index.xhtml" icon="menuitem_icon roomspot_icon"  value="机房安装点信息" />
+                    <p:menuitem target="_blank"  outcome="/basic/netnode/index.xhtml" icon="menuitem_icon station_icon"  value="网元信息" />
+                    <p:menuitem target="_blank"  outcome="/basic/equipmentModel/index.xhtml"  value="设备模型信息" />
 
-                        <li>
-                            <h:link target="_blank"  outcome="/peasant/security/userRole/List.xhtml" styleClass="menu"><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>#{security_i18n.UserRoleMenuLabel}</h:link>
-                        </li>
-                    </ul>
-                </p:tab> 
-                <p:tab title="辅助系统"   >
-                    <h:link target="_blank"  outcome="/asist/asistCandidateValue/List.xhtml" ><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>候选值库</h:link>
-                </p:tab>
-                <p:tab title="测试">
-                    <ul class="vmenu">
-                        <li>
-                            <h:link target="_blank" ><p:graphicImage value="/images/stack/music.png"  width="50px" style="vertical-align: middle"/>Music</h:link>
-                        </li>
-                        <li>
-                            <h:link target="_blank" ><p:graphicImage value="/images/stack/video.png"  width="50px" style="vertical-align: middle"/>Video</h:link>
-                        </li>
-                        <li>
-                            <h:link target="_blank" ><p:graphicImage value="/images/stack/home.png"  width="50px" style="vertical-align: middle"/>Home</h:link>
-                        </li>
-                        <li>
-                            <h:link target="_blank" ><p:graphicImage value="/images/stack/link.png"  width="50px" style="vertical-align: middle"/>Link</h:link>
-                        </li>
-                        <li>
-                            <h:link target="_blank" ><p:graphicImage value="/images/stack/rss.png"  width="50px" style="vertical-align: middle"/>RSS</h:link>
-                        </li>
-                        <li>
-                            <h:link target="_blank" ><p:graphicImage value="/images/stack/history.png"  width="50px" style="vertical-align: middle"/>History</h:link>                    
-                        </li></ul>
-                </p:tab>
-            </p:accordionPanel>
-            
-            <p:panelMenu >
-                <p:submenu label="TEST">
-                <p:menuitem value="TEST"  icon="home"/>
-                <p:menuitem value="TEST2" />
+                </p:submenu>
+                <p:submenu label="网格管家">
+                    <p:menuitem target="_blank" outcome="/gmsys/fixDemand/index.xhtml" value="#{gmsys_i18n.FixDemandMenuLabel}"/>
+                    <p:menuitem target="_blank" outcome="/gmsys/stationProperty/index.xhtml" value="#{gmsys_i18n.StationPropertyMenuLabel}"/>
+                </p:submenu>
+
+                <p:submenu label="安全管理系统" rendered="#{'admin'eq request.remoteUser}">
+                    <p:menuitem target="_blank"  outcome="/peasant/security/user/List.xhtml"  value="#{security_i18n.UserMenuLabel}"/>
+                    <p:menuitem target="_blank"  outcome="/peasant/security/userDetail/List.xhtml"  value="#{security_i18n.UserDetailMenuLabel}" />
+                    <p:menuitem target="_blank"  outcome="/peasant/security/permission/List.xhtml"  value="#{security_i18n.PermissionMenuLabel}" />
+                    <p:menuitem target="_blank"  outcome="/peasant/security/resource/List.xhtml"  value="#{security_i18n.ResourceMenuLabel}" />
+                    <p:menuitem target="_blank"  outcome="/peasant/security/role/List.xhtml"  value="#{security_i18n.RoleMenuLabel}" />
+                    <p:menuitem target="_blank"  outcome="/peasant/security/rolePermission/List.xhtml"  value="#{security_i18n.RolePermissionMenuLabel}" />
+                    <p:menuitem target="_blank"  outcome="/peasant/security/userRole/List.xhtml"  value="#{security_i18n.UserRoleMenuLabel}" />
+                </p:submenu>
+                <p:submenu label="辅助系统"   >
+                    <p:menuitem target="_blank"  outcome="/asist/asistCandidateValue/List.xhtml"  value="候选值库" />
+                </p:submenu>
+                <p:submenu label="测试">
+
+                    <p:menuitem target="_blank"  value="Music"  icon="menuitem_icon music_icon "/>
+                    <p:menuitem target="_blank"  value="Video" icon="menuitem_icon video_icon" />
+                    <p:menuitem target="_blank"  value="Home" icon="menuitem_icon home_icon" />
+                    <p:menuitem target="_blank"  value="Link" icon="menuitem_icon link_icon" />
+                    <p:menuitem target="_blank"  value="RSS" icon="menuitem_icon rss_icon" />
+                    <p:menuitem target="_blank"  value="History" icon="menuitem_icon history_icon" />             
                 </p:submenu>
             </p:panelMenu>
+
+
 
         </h:form>
     </ui:composition>

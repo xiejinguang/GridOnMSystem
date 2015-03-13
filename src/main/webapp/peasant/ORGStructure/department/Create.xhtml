@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DepartmentCreateDlg" widgetVar="DepartmentCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport(this)" 
+                  header="#{oRGStructure_i18n.CreateDepartmentTitle}">
+            <h:form id="DepartmentCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{not empty departmentController.created}">
+
+
+                        <p:outputLabel value="#{oRGStructure_i18n.EditDepartmentLabel_departCode}" for="departCode" />
+                        <p:inputText id="departCode" value="#{departmentController.created.departCode}" title="#{oRGStructure_i18n.EditDepartmentTitle_departCode}"  disabled="false"       required="true" requiredMessage="#{oRGStructure_i18n.EditDepartmentRequiredMessage_departCode}"/>
+
+
+                        <p:outputLabel value="#{oRGStructure_i18n.EditDepartmentLabel_title}" for="title" />
+                        <p:inputText id="title" value="#{departmentController.created.title}" title="#{oRGStructure_i18n.EditDepartmentTitle_title}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{oRGStructure_i18n.EditDepartmentLabel_superior}" for="superior" />
+                        <p:inputText id="superior" value="#{departmentController.created.superior}" title="#{oRGStructure_i18n.EditDepartmentTitle_superior}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{oRGStructure_i18n.EditDepartmentLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{departmentController.created.description}" title="#{oRGStructure_i18n.EditDepartmentTitle_description}" />
+
+
+                        <p:outputLabel value="#{oRGStructure_i18n.EditDepartmentLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{departmentController.created.id}" title="#{oRGStructure_i18n.EditDepartmentTitle_id}"  disabled="true"       required="true" requiredMessage="#{oRGStructure_i18n.EditDepartmentRequiredMessage_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{departmentController.create}" value="#{oRGStructure_i18n.Save}" update="display,@form:@parent:DepartmentListForm:datalist,:growl" oncomplete="handleSubmit(args,'DepartmentCreateDialog');"/>
+                    <p:commandButton type="button" value="#{oRGStructure_i18n.Cancel}" onclick="PF('DepartmentCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

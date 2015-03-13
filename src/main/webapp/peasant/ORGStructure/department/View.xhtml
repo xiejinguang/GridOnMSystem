@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DepartmentViewDlg" widgetVar="DepartmentViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport(this)" 
+                  header="#{oRGStructure_i18n.ViewDepartmentTitle}">
+            <h:form id="DepartmentViewForm">
+                <h:panelGroup id="display" rendered="#{not empty departmentController.selectedItems}">
+                    <ui:repeat  value="#{departmentController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{oRGStructure_i18n.DepartmentEntityLabel}"/>
+                                <h:outputText value="#{item.id}" title="#{oRGStructure_i18n.DepartmentEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="2" >
+
+
+                                <h:outputText value="#{oRGStructure_i18n.DepartmentLabel_departCode}"/>
+                                <h:outputText value="#{item.departCode}" title="#{oRGStructure_i18n.DepartmentTitle_departCode}"/>
+
+
+                                <h:outputText value="#{oRGStructure_i18n.DepartmentLabel_title}"/>
+                                <h:outputText value="#{item.title}" title="#{oRGStructure_i18n.DepartmentTitle_title}"/>
+
+
+                                <h:outputText value="#{oRGStructure_i18n.DepartmentLabel_superior}"/>
+                                <h:outputText value="#{item.superior}" title="#{oRGStructure_i18n.DepartmentTitle_superior}"/>
+
+
+                                <h:outputText value="#{oRGStructure_i18n.DepartmentLabel_description}"/>
+                                <h:outputText value="#{item.description}" title="#{oRGStructure_i18n.DepartmentTitle_description}"/>
+
+
+                                <h:outputText value="#{oRGStructure_i18n.DepartmentLabel_id}"/>
+                                <h:outputText value="#{item.id}" title="#{oRGStructure_i18n.DepartmentTitle_id}"/>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton type="button" value="#{oRGStructure_i18n.Close}" onclick="PF('DepartmentViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+
+</html>
