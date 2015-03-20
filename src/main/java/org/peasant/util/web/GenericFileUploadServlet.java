@@ -6,10 +6,7 @@
 package org.peasant.util.web;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.io.Writer;
-import java.util.Calendar;
 import java.util.Collection;
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -20,7 +17,6 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import org.peasant.util.Attachment;
 import org.peasant.util.Repository;
 
@@ -36,11 +32,16 @@ public class GenericFileUploadServlet extends HttpServlet {
     public static final String PARAM_BELONGER = "belonger";
     public static final String PARAM_ATTACHER = "attacher";
 
-    @EJB
-    Repository repo;
 
     @Inject
     AttachmentUPnDownloadService attaServ;
+
+    @Override
+    public void init() throws ServletException {
+        super.init(); //To change body of generated methods, choose Tools | Templates.       
+    }
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -53,30 +54,52 @@ public class GenericFileUploadServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Collection<Attachment> as = attaServ.handleUploadFileRequest(request, response, request.getParameter(PARAM_BELONGER), request.getRemoteUser());
-        this.constructResponse(response, as);
-    }
-
-    protected void constructResponse(HttpServletResponse response, Collection<Attachment> as) throws IOException {
-        response.setContentType("text/html");
-        try(PrintWriter out = response.getWriter()){
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>文件上传</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<ul>");
-        for(Attachment a : as){
-            out.println("<li>filename："+a.getName()+",Size:"+a.getSize());
-        }        
-        out.println("</ul>");
-        out.println("<br>");
-        out.println("共"+as.size()+"个文件上传成功！！！");
-        out.println("</body>");
-        out.println("</html>");
+        try {
+            Collection<Attachment> as = attaServ.handleUploadFileRequest(request, response, request.getParameter(PARAM_BELONGER), request.getRemoteUser());
+            this.constructSuccessResponse(response, as);
+        } catch (IOException | ServletException e) {
+            this.constructErrorResponse(response, e);
         }
 
+    }
+
+    protected void constructSuccessResponse(HttpServletResponse response, Collection<Attachment> as) throws IOException {
+        response.setContentType("text/html");
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>文件上传</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<ul>");
+            for (Attachment a : as) {
+                out.println("<li>filename：" + a.getName() + ",Size:" + a.getSize());
+            }
+            out.println("</ul>");
+            out.println("<br>");
+            out.println("共" + as.size() + "个文件上传成功！！！");
+            out.println("</body>");
+            out.println("</html>");
+        }
+
+    }
+
+    protected void constructErrorResponse(HttpServletResponse response, Exception e) throws IOException {
+        response.setContentType("text/html");
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>文件上传</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.print("上传失败，原因：");
+            out.println(e);
+            out.println("<br>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -62,6 +62,18 @@
             <base-name>/org/peasant/ORGStructure_i18n</base-name>
             <var>oRGStructure_i18n</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/peasant/i18n_basic</base-name>
+            <var>i18n_basic</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/peasant/i18n_basic</base-name>
+            <var>i18n_basic</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/peasant/i18n_basic</base-name>
+            <var>i18n_basic</var>
+        </resource-bundle>
     </application>
     
     <navigation-rule>

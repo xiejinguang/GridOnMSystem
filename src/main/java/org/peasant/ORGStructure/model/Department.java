@@ -29,16 +29,15 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author 谢金光
  */
 @Entity
-@Table(name = "department", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"departCode"})})
+@Table(catalog = "jobpromotion", schema = "", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"code"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Department_1.findAll", query = "SELECT d FROM Department_1 d"),
-    @NamedQuery(name = "Department_1.findById", query = "SELECT d FROM Department_1 d WHERE d.id = :id"),
-    @NamedQuery(name = "Department_1.findByDepartCode", query = "SELECT d FROM Department_1 d WHERE d.departCode = :departCode"),
-    @NamedQuery(name = "Department_1.findByName", query = "SELECT d FROM Department_1 d WHERE d.name = :name")})
+    @NamedQuery(name = "Department.findAll", query = "SELECT d FROM Department d"),
+    @NamedQuery(name = "Department.findById", query = "SELECT d FROM Department d WHERE d.id = :id"),
+    @NamedQuery(name = "Department.findByCode", query = "SELECT d FROM Department d WHERE d.code = :code"),
+    @NamedQuery(name = "Department.findByName", query = "SELECT d FROM Department d WHERE d.name = :name")})
 public class Department implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -50,10 +49,9 @@ public class Department implements Serializable {
     @NotNull
     @Size(min = 1, max = 10)
     @Column(nullable = false, length = 10)
-    private String departCode;
-    @Basic(optional = false)
+    private String code;
     @Size(max = 45)
-    @Column(nullable = false, length = 45)
+    @Column(length = 45)
     private String name;
     @Lob
     @Size(max = 65535)
@@ -61,7 +59,7 @@ public class Department implements Serializable {
     private String description;
     @OneToMany(mappedBy = "superior")
     private Collection<Department> departmentCollection;
-    @JoinColumn(name = "superior", referencedColumnName = "departCode")
+    @JoinColumn(name = "superior", referencedColumnName = "code")
     @ManyToOne
     private Department superior;
 
@@ -72,9 +70,9 @@ public class Department implements Serializable {
         this.id = id;
     }
 
-    public Department(String id, String departCode) {
+    public Department(String id, String code) {
         this.id = id;
-        this.departCode = departCode;
+        this.code = code;
     }
 
     public String getId() {
@@ -85,12 +83,12 @@ public class Department implements Serializable {
         this.id = id;
     }
 
-    public String getDepartCode() {
-        return departCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setDepartCode(String departCode) {
-        this.departCode = departCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
@@ -148,7 +146,7 @@ public class Department implements Serializable {
 
     @Override
     public String toString() {
-        return "org.peasant.ORGStructure.model.Department_1[ id=" + id + " ]";
+        return "org.peasant.ORGStructure.model.Department[ id=" + id + " ]";
     }
-
+    
 }

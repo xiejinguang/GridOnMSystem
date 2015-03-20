@@ -33,7 +33,7 @@ public class GenericFileDownloadServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        attachServ.handleAttachmentRequest(request, response);
+        attachServ.handleDownloadRequest(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

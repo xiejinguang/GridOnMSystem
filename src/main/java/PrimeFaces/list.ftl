@@ -114,6 +114,13 @@
 
                             <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
                             <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+                            <p:ajax event="toggleSelect" update="createButton,viewButton editButton,deleteButton"/>
+
+                            <p:ajax event="rowUnselectCheckbox" update="createButton,viewButton editButton,deleteButton"/>
+                            <p:ajax event="rowSelectCheckbox" update="createButton,viewButton editButton,deleteButton"/>
+
+                            <p:ajax event="rowDblselect" update="createButton,viewButton editButton,deleteButton"/>
+                            <p:ajax event="rowSelectRadio" update="createButton,viewButton editButton,deleteButton"/>
 
                             <f:facet name="header"><p:outputLabel value="${r"#{"}${bundle}.List${entityName}Title${r"}"}" /></f:facet>
 

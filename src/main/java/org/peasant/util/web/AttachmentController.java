@@ -79,7 +79,7 @@ public class AttachmentController implements Serializable {
 
     public String getResourcePath(Attachment a) {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        return attachServ.getAttachmentURLRelativePath(ec.getInitParameter(Constants.ATTACHMENT_PATH_PARAM), a, Constants.MOETHOD_RESOURCE);
+        return attachServ.getAttachmentURLPath(ec.getInitParameter(Constants.ATTACHMENT_DOWN_SERVLET_PATH_PARAM), a, Constants.MOETHOD_RESOURCE);
     }
 
     public void handleFileUpload(FileUploadEvent fue) {

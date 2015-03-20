@@ -2,22 +2,83 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
     <!-- INTERFACE -->
     <cc:interface>
-        <cc:attribute name="value" type="java.lang.String"/>
+        <cc:attribute name="value"/>
+        <cc:attribute name="contentId" type="java.lang.String" required="true"/>
+        <cc:attribute name="rows" type="java.lang.Integer" default="25"/>
+        <cc:attribute name="cols" type="java.lang.Integer" default="80"/>
+        
+ 
     </cc:interface>
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        
-        <textarea class="xheditor" style="width: 100%;height: 100%">
-            #{cc.attrs.value}
-        </textarea>
+        <script type="text/javascript"  >
+
+//             if (window.XHEDITOR === undefined) {
+//             var sc = document.createElement("script");
+//             sc.src = "#{request.contextPath}/resources/js/xheditor/xheditor-1.2.1.min.js";
+//             var sc1 = document.createElement("script");
+//             sc1.src = "#{request.contextPath}/resources/js/xheditor/xheditor_lang/zh-cn.js";
+//             var b = document.getElementsByTagName("body")[0];
+//             b.appendChild(sc);
+//             b.appendChild(sc1);
+//             }; 
+
+//            document.addEventListener("DOMNodeInserted", function (e) {
+//                console.log(e);
+//                console.log(e.target);
+//                console.log(e.currentTarget);
+//                $(e.target).children(".xheditor").load(function(){
+//                    $(this).xheditor();
+//                });
+//            });
+            var loadJS = function (url, callback, charset) {
+                var head = document.getElementsByTagName('head')[0];
+                var script = document.createElement('script');
+                if (charset) {
+                    script.charset = charset;
+                }
+                script.src = url;
+                if (!callback) {
+                    return;
+                }
+                script.onload = script.onreadystatechange = function () {
+                    if (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete') {
+                        callback();
+                    }
+                };
+                head.appendChild(script);
+            };
+            if (window.XHEDITOR === undefined) {
+                var xj = "#{request.contextPath}/resources/js/xheditor/xheditor-1.2.1.min.js";
+                var xl = "#{request.contextPath}/resources/js/xheditor/xheditor_lang/zh-cn.js";
+                loadJS(xj, function () {
+                    loadJS(xl, function () {
+                        $(".#{cc.attrs.contentId}").xheditor();
+                    });
+                });
+            } else {
+                 $(".#{cc.attrs.contentId}").xheditor();
+            }
+
+        </script>
+        <p:inputTextarea   id="editor"   value="#{cc.attrs.value}" placeholder="请输入内容" maxlength="65535"   rows="${cc.attrs.rows}" cols="${cc.attrs.cols}"  styleClass="#{cc.attrs.contentId}  htmleditor 
+                          {                          
+                          upLinkUrl: '#{request.contextPath}/ajaxupload?belonger=#{cc.attrs.contentId}',                        
+                          upImgUrl: '#{request.contextPath}/ajaxupload?belonger=#{cc.attrs.contentId}', 
+                          upFlashUrl:'#{request.contextPath}/ajaxupload?belonger=#{cc.attrs.contentId}' , 
+                          upMediaUrl:'#{request.contextPath}/ajaxupload?belonger=#{cc.attrs.contentId}'}" style="width: 100%">              
+        </p:inputTextarea>
+
+
+
 
     </cc:implementation>
-    <script type="text/javascript"  src="resources/js/xheditor/xheditor-1.2.1.min.js" />
-    <script type="text/javascript" src="resources/js/xheditor/xheditor_lang/zh-cn.js" />
+
 
 </html>

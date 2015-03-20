@@ -24,7 +24,7 @@ public class DefaultProducer {
     @Default
     public Repository getDefaultRepository() {
         String homePath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter(Constants.REPOSITORY_HOME_PARAM);
-        if(homePath ==null || homePath.isEmpty())
+        if(homePath ==null || homePath.trim().isEmpty())
             return new DiskNDatabaseRepository();
         return new DiskNDatabaseRepository(homePath);
     }

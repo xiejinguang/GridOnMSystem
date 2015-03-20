@@ -26,8 +26,8 @@
         <param-value>native</param-value>
     </context-param>
     <context-param>
-        <param-name>peasant.attachment.PATH</param-name>
-        <param-value>/attachment</param-value>
+        <param-name>peasant.attachment.DOWNLOAD_SERVLET_PATH</param-name>
+        <param-value>/attachments</param-value>
     </context-param>
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
@@ -86,7 +86,10 @@
     <servlet>
         <servlet-name>GenericFileDownloadServlet</servlet-name>
         <servlet-class>org.peasant.util.web.GenericFileDownloadServlet</servlet-class>
-
+    </servlet>
+    <servlet>
+        <servlet-name>FileUploadJSONresultServlet</servlet-name>
+        <servlet-class>org.peasant.util.web.FileUploadJSONresultServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
@@ -94,7 +97,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GenericFileDownloadServlet</servlet-name>
-        <url-pattern>/attachment</url-pattern>
+        <url-pattern>/attachments</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FileUploadJSONresultServlet</servlet-name>
+        <url-pattern>/ajaxupload</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

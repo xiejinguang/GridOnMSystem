@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title>#{oRGStructure_i18n.AppName}-<ui:insert name="title">Default Title</ui:insert></title>
+        <title>#{i18n_basic.AppName}-<ui:insert name="title">Default Title</ui:insert></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
     </h:head>
@@ -19,10 +19,10 @@
             <p:layoutUnit position="north" size="65">
                 <h:form id="menuForm">
                     <p:menubar>
-                        <p:menuitem value="#{oRGStructure_i18n.Home}" outcome="/index" icon="ui-icon-home"/>
-                        <p:submenu label="#{oRGStructure_i18n.Maintenance}">
-                            <p:menuitem value="#{oRGStructure_i18n.DepartmentMenuLabel}" outcome="/peasant/department/List.xhtml" />
-                            <p:menuitem value="#{oRGStructure_i18n.EmployeeMenuLabel}" outcome="/peasant/employee/List.xhtml" />
+                        <p:menuitem value="#{i18n_basic.Home}" outcome="/index" icon="ui-icon-home"/>
+                        <p:submenu label="#{i18n_basic.Maintenance}">
+                            <p:menuitem value="#{i18n_basic.ArticleMenuLabel}" outcome="/peasant/basic/article/List.xhtml" />
+                            <p:menuitem value="#{i18n_basic.ArticleCategoryMenuLabel}" outcome="/peasant/basic/articleCategory/List.xhtml" />
                         </p:submenu>
                     </p:menubar>
                 </h:form>

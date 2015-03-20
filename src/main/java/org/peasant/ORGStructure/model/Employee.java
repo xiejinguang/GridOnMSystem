@@ -10,6 +10,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -17,25 +19,26 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.peasant.basic.model.Address;
 
 /**
  *
  * @author 谢金光
  */
 @Entity
-@Table(uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"employeeCode"})})
+@Table(catalog = "jobpromotion", schema = "", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"idcardNum"}),
+    @UniqueConstraint(columnNames = {"code"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
     @NamedQuery(name = "Employee.findById", query = "SELECT e FROM Employee e WHERE e.id = :id"),
-    @NamedQuery(name = "Employee.findByEmployeeCode", query = "SELECT e FROM Employee e WHERE e.employeeCode = :employeeCode"),
+    @NamedQuery(name = "Employee.findByCode", query = "SELECT e FROM Employee e WHERE e.code = :code"),
     @NamedQuery(name = "Employee.findByName", query = "SELECT e FROM Employee e WHERE e.name = :name"),
     @NamedQuery(name = "Employee.findBySex", query = "SELECT e FROM Employee e WHERE e.sex = :sex"),
     @NamedQuery(name = "Employee.findByBirthday", query = "SELECT e FROM Employee e WHERE e.birthday = :birthday"),
     @NamedQuery(name = "Employee.findByIdcardNum", query = "SELECT e FROM Employee e WHERE e.idcardNum = :idcardNum"),
-    @NamedQuery(name = "Employee.findByMobilePhoneNum", query = "SELECT e FROM Employee e WHERE e.mobilePhoneNum = :mobilePhoneNum"),
-    @NamedQuery(name = "Employee.findByAddress", query = "SELECT e FROM Employee e WHERE e.address = :address")})
+    @NamedQuery(name = "Employee.findByMobilePhoneNum", query = "SELECT e FROM Employee e WHERE e.mobilePhoneNum = :mobilePhoneNum")})
 public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,14 +49,14 @@ public class Employee implements Serializable {
     private String id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(nullable = false, length = 45)
-    private String employeeCode;
+    @Size(min = 1, max = 10)
+    @Column(nullable = false, length = 10)
+    private String code;
     @Size(max = 45)
     @Column(length = 45)
     private String name;
-    @Size(max = 45)
-    @Column(length = 45)
+    @Size(max = 2)
+    @Column(length = 2)
     private String sex;
     @Size(max = 45)
     @Column(length = 45)
@@ -64,9 +67,9 @@ public class Employee implements Serializable {
     @Size(max = 11)
     @Column(length = 11)
     private String mobilePhoneNum;
-    @Size(max = 255)
-    @Column(length = 255)
-    private String address;
+    @JoinColumn(name = "address", referencedColumnName = "id")
+    @ManyToOne
+    private Address address;
 
     public Employee() {
     }
@@ -75,9 +78,9 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    public Employee(String id, String employeeCode) {
+    public Employee(String id, String code) {
         this.id = id;
-        this.employeeCode = employeeCode;
+        this.code = code;
     }
 
     public String getId() {
@@ -88,12 +91,12 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    public String getEmployeeCode() {
-        return employeeCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setEmployeeCode(String employeeCode) {
-        this.employeeCode = employeeCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
@@ -136,11 +139,11 @@ public class Employee implements Serializable {
         this.mobilePhoneNum = mobilePhoneNum;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 

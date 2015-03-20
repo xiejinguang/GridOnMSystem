@@ -37,12 +37,13 @@
                 <p:ajax event="rowUnselect" update="deleteButton"/>
                 <p:ajax event="rowSelectCheckbox"   update="deleteButton" />
                 <p:ajax event="rowUnselectCheckbox" update="deleteButton"/>
+                <p:ajax event="toggleSelect" update="deleteButton"/>
 
 
                 <f:facet name="header">#{i18nBundle.ListAttachmentTitle}
 
                 </f:facet>
-                <p:column selectionMode="multiple" style=" text-align: center" width="15" />
+                <p:column selectionMode="multiple" style=" text-align: center" width="15"  />
                 <!--
                 <p:column headerText="#{i18nBundle.ListAttachmentTitle_Id}">
                     <h:outputText value="#{item.ID}"/>
@@ -64,7 +65,7 @@
                     <h:outputText value="#{item.attacher}"/>
                 </p:column>
                 <p:column headerText="#{i18nBundle.ListAttachmentTitle_UploadTime}" width="150">
-                    <h:outputText value="#{item.uploadTime}" > <f:convertDateTime type="both" pattern="yyyy-MM-dd HH:mm:ss" /> </h:outputText>
+                    <h:outputText value="#{item.uploadTime}" > <f:convertDateTime  type="both" pattern="yyyy-MM-dd HH:mm:ss" timeZone="GMT+8"/> </h:outputText>
                 </p:column>
                 <p:column headerText="#{i18nBundle.ListAttachmentTitle_Download}" width="100">
                     <p:commandButton value="Download" ajax="false"  icon="ui-icon-arrowthick-1-s">

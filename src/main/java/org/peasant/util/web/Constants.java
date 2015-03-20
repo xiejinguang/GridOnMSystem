@@ -12,8 +12,8 @@ package org.peasant.util.web;
 public class Constants {
 
     public static final String REPOSITORY_HOME_PARAM = "peasant.repository.PATH";
-    public static final String ATTACHMENT_PATH_PARAM = "peasant.attachment.PATH";
-    public static final String DEFAULT_ATTACHMENT_SERVLET_PATH = "/attachment";
+    public static final String ATTACHMENT_DOWN_SERVLET_PATH_PARAM = "peasant.attachment.DOWNLOAD_SERVLET_PATH";
+    public static final String DEFAULT_ATTACHMENT_DOWN_SERVLET_PATH = "/attachment";
     public static final String MOETHOD_RESOURCE = "resource";
     public static final String MOETHOD_ATTACHMENT = "attachment";
     public static final String MOETHOD_INLINE = "inline";

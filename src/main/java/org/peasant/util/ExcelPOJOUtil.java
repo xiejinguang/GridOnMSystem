@@ -14,7 +14,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
@@ -26,12 +25,15 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
 /**
+ * Excel转化为POJO的功能基本完成，目前转换办法都是静态的，考虑性能问题，未来再改为非静态，为每个POJO类提供一个此类的实例。
+ * TODO POJOs导出为Excel的功能待完善。
  *
  * @author 谢金光
  */
 public class ExcelPOJOUtil {
 
     /**
+     * @param <T>
      * @MethodName : listToExcel
      * @Description : 导出Excel（可以导出到本地文件系统，也可以导出到浏览器，可自定义工作表大小）
      * @param list 数据源
@@ -51,7 +53,7 @@ public class ExcelPOJOUtil {
             OutputStream out
     ) throws ExcelException {
 
-        if (list.isEmpty() || list == null) {
+        if (null== list ||list.isEmpty()) {
             throw new ExcelException("数据源中没有任何数据");
         }
 
@@ -338,8 +340,9 @@ public class ExcelPOJOUtil {
      * @param columnPropertyMap
      * @return
      * @throws Exception
+     * @throws org.peasant.util.ExcelPOJOUtil.ExcelException
      */
-    public static <T> Collection<T> worksheetToPOJOs(InputStream is, String sheetName, Class<T> entityClazz, Map<String, String> columnPropertyMap) throws Exception {
+    public <T> Collection<T> worksheetToPOJOs(InputStream is, String sheetName, Class<T> entityClazz, Map<String, String> columnPropertyMap) throws Exception,ExcelException {
         Workbook wb = Workbook.getWorkbook(is);
         Sheet sheet = wb.getSheet(sheetName);
         if (null == sheet) {
@@ -357,7 +360,7 @@ public class ExcelPOJOUtil {
      * @return
      * @throws Exception
      */
-    public static <T> Collection<T> worksheetToPOJOs(Sheet sheet, Class<T> entityClazz, Map<String, String> columnPropertyMap) throws Exception {
+    public <T> Collection<T> worksheetToPOJOs(Sheet sheet, Class<T> entityClazz, Map<String, String> columnPropertyMap) throws Exception,ExcelException {
         Cell[] heads = sheet.getRow(0);
         Map<String, Integer> columnNameIndexMap = new HashMap<>(heads.length);
         //  Map<Integer,String> columnIndexNameMap = new HashMap<>(heads.length);
@@ -388,7 +391,7 @@ public class ExcelPOJOUtil {
 
     }
 
-    public static <T> T rowToPOJO(Cell[] row, Map<String, Integer> columnNameIndexMap, Map<String, String> columnPropertyMap, Class<T> entityClazz) throws Exception {
+    public <T> T rowToPOJO(Cell[] row, Map<String, Integer> columnNameIndexMap, Map<String, String> columnPropertyMap, Class<T> entityClazz) throws Exception {
         T entity = entityClazz.newInstance();
         for (Entry<String, Integer> e : columnNameIndexMap.entrySet()) {
             setPropertyByName(columnPropertyMap.get(e.getKey()), row[e.getValue()].getContents(), entity);
@@ -404,7 +407,7 @@ public class ExcelPOJOUtil {
      * @param endRow the ending row index, exclusive.zero based
      * @return 空白行的行索引数组
      */
-    public Integer[] findBlankRows(Sheet sheet, int startRow, int endRow) {
+    public static Integer[] findBlankRows(Sheet sheet, int startRow, int endRow) {
         boolean isBlank = true;
         int cols = sheet.getColumns();
 
@@ -427,14 +430,27 @@ public class ExcelPOJOUtil {
     }
 
     /**
+     *
+     * @param sheet
+     * @param startRow
+     * @param endRow
+     * @param uniqueColumns
+     * @return
+     */
+    public Integer[] findDuplicatedRows(Sheet sheet, int startRow, int endRow, int[] uniqueColumns) {
+        return null;//TODO
+    }
+
+    /**
      * 查找特定工作表中，指定起始行、结束行间的,指定的列中存在的空白单元格.
      *
      * @param sheet
      * @param startRow the beginning row index, inclusive.zero based;
      * @param endRow the ending row index, exclusive.zero based
+     * @param columnIndexs
      * @return 空白单元格的索引，如果未找到空白单元格的话，则返回一个empty Map
      */
-    public Map<Integer, Collection<Integer>> findBlankOrNullCell(Sheet sheet, int startRow, int endRow, int[] columnIndexs) {
+    public static Map<Integer, Collection<Integer>> findBlankOrNullCell(Sheet sheet, int startRow, int endRow, int[] columnIndexs) {
         Map<Integer, Collection<Integer>> m = new HashMap<>();
         for (int i = startRow; i < endRow; i++) {
             for (int j : columnIndexs) {
@@ -546,47 +562,6 @@ public class ExcelPOJOUtil {
 
     }
 
-    protected void setValueByFielddName(String fieldName, Object fieldValue, Object o) throws Exception {
-        Field field = getFieldByName(fieldName, o.getClass());
-        if (field != null) {
-            field.setAccessible(true);
-            //获取字段类型 
-            Class<?> fieldType = field.getType();
-
-            //根据字段类型给字段赋值 
-            if (String.class == fieldType) {
-                field.set(o, String.valueOf(fieldValue));
-            } else if ((Integer.TYPE == fieldType)
-                    || (Integer.class == fieldType)) {
-                field.set(o, Integer.parseInt(fieldValue.toString()));
-            } else if ((Long.TYPE == fieldType)
-                    || (Long.class == fieldType)) {
-                field.set(o, Long.valueOf(fieldValue.toString()));
-            } else if ((Float.TYPE == fieldType)
-                    || (Float.class == fieldType)) {
-                field.set(o, Float.valueOf(fieldValue.toString()));
-            } else if ((Short.TYPE == fieldType)
-                    || (Short.class == fieldType)) {
-                field.set(o, Short.valueOf(fieldValue.toString()));
-            } else if ((Double.TYPE == fieldType)
-                    || (Double.class == fieldType)) {
-                field.set(o, Double.valueOf(fieldValue.toString()));
-            } else if (Character.TYPE == fieldType) {
-                if ((fieldValue != null) && (fieldValue.toString().length() > 0)) {
-                    field.set(o, Character
-                            .valueOf(fieldValue.toString().charAt(0)));
-                }
-            } else if (Date.class == fieldType) {
-                field.set(o, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fieldValue.toString()));
-            } else {
-                field.set(o, fieldValue);
-            }
-        } else {
-            throw new ExcelException(o.getClass().getSimpleName() + "类不存在字段名 " + fieldName);
-        }
-
-    }
-
     /**
      * @MethodName : setFieldValueByName
      * @Description : 根据字段名给对象的字段赋值
@@ -594,7 +569,7 @@ public class ExcelPOJOUtil {
      * @param value 字段值
      * @param o 对象
      */
-    private static void setPropertyByName(String name, Object value, Object o) throws Exception {
+    protected static void setPropertyByName(String name, Object value, Object o) throws Exception {
 
         Class<?> fieldType;
         Field field = getFieldByName(name, o.getClass());
