@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.peasant.util.web;
+package org.peasant.web.fileupdownload;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,34 +11,34 @@ import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import javax.enterprise.context.ApplicationScoped;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebListener;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.peasant.util.Attachment;
 import org.peasant.util.Repository;
 import org.peasant.util.Utils;
-import static org.peasant.util.web.Constants.MOETHOD_ATTACHMENT;
-import static org.peasant.util.web.Constants.MOETHOD_INLINE;
-import static org.peasant.util.web.Constants.MOETHOD_RESOURCE;
+import org.peasant.util.web.ContentTypes;
+import org.peasant.util.web.HttpUtils;
+import static org.peasant.web.fileupdownload.Constants.MOETHOD_ATTACHMENT;
+import static org.peasant.web.fileupdownload.Constants.MOETHOD_INLINE;
+import static org.peasant.web.fileupdownload.Constants.MOETHOD_RESOURCE;
 
 /**
  *
  * @author 谢金光
  */
 @Singleton
-public class AttachmentUPnDownloadService {
+public class AttachmentService {
 
     @Inject
     Repository attachRepo;
-    private String downServPath; //在contextInitialized方法中初始化
+
+    protected String downServPath; //在contextInitialized方法中初始化
 
     public String getResourcePath(String servletPath, Attachment a) {
         return getAttachmentURLPath(servletPath, a, Constants.MOETHOD_RESOURCE);
@@ -135,17 +135,37 @@ public class AttachmentUPnDownloadService {
     public Collection<Attachment> handleUploadFileRequest(HttpServletRequest request, HttpServletResponse response, String belonger, String attacher) throws IOException, ServletException {
         Collection<Attachment> attachs = new java.util.LinkedList<>();
 
-        Collection<Part> parts = request.getParts();
-
         // response.setContentType("application/json;charset=UTF-8");
         // try (PrintWriter out = response.getWriter()) {
                 /* TODO output your page here. You may use following sample code. */
         Attachment a = null;
-        for (Part p : parts) {
-            a = attachRepo.storeFromStream(p.getInputStream(), p.getName(), p.getContentType(), belonger, attacher, Calendar.getInstance().getTime());
-            if (a != null) {
+        String c = request.getContentType();
+        if (c.contains(ContentTypes.MULTIPART)) {
+            Collection<Part> parts = request.getParts();
+            for (Part p : parts) {
+                a = attachRepo.storeFromStream(p.getInputStream(), p.getName(), p.getContentType(), belonger, attacher, Calendar.getInstance().getTime());
+                if (a != null) {
+                    attachs.add(a);
+                }
+            }
+
+        } else {
+            String cd = request.getHeader("Content-Disposition");
+            String filename = null;
+
+            String[] ss = cd.split(";");
+            for (String s : ss) {
+                if (s.contains("filename=")) {
+                    filename = s.substring(s.indexOf("filename=") + 10, s.length() - 1);
+                }
+            }
+
+            if (null != filename) {
+                a = attachRepo.storeFromStream(request.getInputStream(), filename, null, belonger, attacher, Calendar.getInstance().getTime());
                 attachs.add(a);
             }
+            //a = attachRepo.storeFromStream(request.getInputStream(), p.getName(), p.getContentType(), belonger, attacher, Calendar.getInstance().getTime());
+            //TODO
         }
         return attachs;
 
@@ -158,16 +178,16 @@ public class AttachmentUPnDownloadService {
     }
 
     /**
-     * 获取附件的URL路径，同时应设置一个用于处理@param servletPath 请求的 @see
-     * HttpServlet以确保浏览器能够正确请问附件资源。
+     * 获取附件的URL路径，该路径为以servletPath开头的相对WEB应用根的相对路径，同时应设置一个用于处理@param servletPath
+     * 请求的 {@link HttpServlet }以确保浏览器能够正确请问附件资源。
      *
-     * @param servletPath 以'/'开始的servletPath
+     * @param servletPath 以"/"开始的servletPath，请参见ServletContext中关于ServletPath的定义
      * @param attachment
      * @param method
      * @return the java.lang.String a URL absolute path that represents the
      * <i>attachment</i>
      */
-    protected String getAttachmentURLPath(String servletPath, Attachment attachment, String method) {
+    public String getAttachmentURLPath(String servletPath, Attachment attachment, String method) {
         if (servletPath == null || servletPath.trim().isEmpty()) {
             servletPath = Constants.DEFAULT_ATTACHMENT_DOWN_SERVLET_PATH;
         }
@@ -183,6 +203,15 @@ public class AttachmentUPnDownloadService {
         return url.toString();
     }
 
+    public String getAttachmentQueryParams(Attachment attachment, String method) {
+
+        StringBuilder params = new StringBuilder();
+
+        params.append("aid=").append(attachment.getID());
+        params.append("&method=").append(method);
+        return params.toString();
+    }
+
     protected String getAttachmentURLPath(Attachment attachment, String method) {
         //TODO
         return getAttachmentURLPath(downServPath, attachment, method);
@@ -192,24 +221,4 @@ public class AttachmentUPnDownloadService {
         return this.attachRepo;
     }
 
-    @WebListener(value = "AttachementEnvironmentSetterListener")
-    public static class AttachementEnvironmentSetterListener implements ServletContextListener {
-
-        @Inject
-        AttachmentUPnDownloadService attachServ;
-
-        @Override
-        public void contextInitialized(ServletContextEvent sce) {
-            String path = sce.getServletContext().getInitParameter(Constants.ATTACHMENT_DOWN_SERVLET_PATH_PARAM);
-            if (path == null || path.trim().isEmpty()) {
-                attachServ.downServPath = Constants.DEFAULT_ATTACHMENT_DOWN_SERVLET_PATH;
-            }
-        }
-
-        @Override
-        public void contextDestroyed(ServletContextEvent sce) {
-            //Do nothing
-        }
-
-    }
 }

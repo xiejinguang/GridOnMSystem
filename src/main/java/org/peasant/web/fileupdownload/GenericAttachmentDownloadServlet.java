@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.peasant.util.web;
+package org.peasant.web.fileupdownload;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author 谢金光
  */
-public class GenericFileDownloadServlet extends HttpServlet {
+public class GenericAttachmentDownloadServlet extends HttpServlet {
 
     @Inject
-    AttachmentUPnDownloadService attachServ;
+    AttachmentService attachServ;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

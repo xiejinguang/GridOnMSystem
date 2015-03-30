@@ -6,6 +6,7 @@
 
 package org.peasant.util.web;
 
+import org.peasant.web.fileupdownload.Constants;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;

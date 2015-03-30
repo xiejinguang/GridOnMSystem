@@ -9,7 +9,6 @@ import org.peasant.web.fileupdownload.GenericAttachmentUploadServlet;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletResponse;
 import org.peasant.util.Attachment;
@@ -18,33 +17,36 @@ import org.peasant.util.Attachment;
  *
  * @author 谢金光
  */
-@WebServlet(name = "UploadJsonServlet", urlPatterns = {"/upload_json"})
-public class FileUploadJSONresultServlet extends GenericAttachmentUploadServlet {
+@WebServlet(name = "XheditorUploadServlet", urlPatterns = {"/upload_xheditor"})
+public class XheditorUploadServlet extends GenericAttachmentUploadServlet {
 
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-    }
 
     @Override
     protected void constructSuccessResponse(HttpServletResponse response, Collection<Attachment> as) throws IOException {
         response.setContentType("application/json");
         try (javax.json.stream.JsonGenerator jg = javax.json.Json.createGenerator(response.getWriter())) {
-            jg.writeStartArray();
-            for (Attachment a : as) {                
+           //jg.writeStartArray();
+          //  for (Attachment a : as) {
+           Attachment a = (Attachment) as.toArray()[0];
+           String url = attaServ.getResourcePath(a);
+           if(url.startsWith("/")){
+               url=url.substring(1);
+           }
                 jg.writeStartObject()
-                        .write("id", a.getID())
-                        .write("url", attaServ.getResourcePath(a))
-                        .write("localfile", a.getName())
-                        .write("size", a.getSize())
-                       // .write("contentType", a.getContentType())
-                        .write("belonger", a.getBelonger())
-                        .write("uploadtime", dateFormat.format(a.getUploadTime()))
-                        .writeEnd();
-            }
-            jg.writeEnd();
+                            .write("err", "")
+                            .writeStartObject("msg")
+                            .write("id", a.getID())
+                            .write("url", url)
+                            .write("localfile", a.getName())
+                            .write("size", a.getSize())
+                            // .write("contentType", a.getContentType())
+                            .write("belonger", a.getBelonger())
+                            .write("uploadtime", dateFormat.format(a.getUploadTime()))
+                            .writeEnd()
+                    .writeEnd();
+         //   }
+         //   jg.writeEnd();
         }
     }
 
@@ -58,15 +60,5 @@ public class FileUploadJSONresultServlet extends GenericAttachmentUploadServlet 
                     .writeEnd();
         }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

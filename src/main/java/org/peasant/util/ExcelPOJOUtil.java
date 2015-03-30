@@ -569,7 +569,7 @@ public class ExcelPOJOUtil {
      * @param value 字段值
      * @param o 对象
      */
-    protected static void setPropertyByName(String name, Object value, Object o) throws Exception {
+    public static void setPropertyByName(String name, Object value, Object o) throws Exception {
 
         Class<?> fieldType;
         Field field = getFieldByName(name, o.getClass());

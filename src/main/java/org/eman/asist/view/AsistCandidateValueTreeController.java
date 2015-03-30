@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import javax.enterprise.inject.Produces;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,7 +17,6 @@ import org.eman.asist.view.util.JsfUtil;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -38,9 +35,13 @@ public class AsistCandidateValueTreeController extends AsistCandidateValueContro
     private String accordingKey;
 
     private String id;
-     @Inject
-   private Logger logger;
+    @Inject
+    private Logger logger;
 
+    
+    
+        private String newValue;
+    private boolean createNotExist = false;
     /**
      * Get the value of id
      *
@@ -82,8 +83,7 @@ public class AsistCandidateValueTreeController extends AsistCandidateValueContro
     public void setCreateNotExist(boolean createNotExist) {
         this.createNotExist = createNotExist;
     }
-    private String newValue;
-    private boolean createNotExist = false;
+
 
     /**
      * Get the value of selectedNodes
@@ -135,12 +135,13 @@ public class AsistCandidateValueTreeController extends AsistCandidateValueContro
             if (id != null && !id.trim().isEmpty()) {
 
                 AsistCandidateValue root = ejbFacade.find(id);
-                treeRoot = new DefaultTreeNode(root, null);
-                for (AsistCandidateValue v : root.getAsistCandidateValueCollection()) {
-                    buildTreeNodeForEntity(v, treeRoot);
+                treeRoot = buildTreeNodeForEntity(root, null);
+                //treeRoot = new DefaultTreeNode(root, null);
 
-                }
-
+//                for (AsistCandidateValue v : root.getAsistCandidateValueCollection()) {
+//                    buildTreeNodeForEntity(v, treeRoot);
+//
+//                }
             } else if (accordingKey != null && !accordingKey.trim().isEmpty()) {
 
                 params.put("accordingKey", accordingKey);
@@ -159,11 +160,12 @@ public class AsistCandidateValueTreeController extends AsistCandidateValueContro
                         return treeRoot;
                     }
                 }
-                treeRoot = new DefaultTreeNode(roots.get(0), null);
-                for (AsistCandidateValue v : roots.get(0).getAsistCandidateValueCollection()) {
-                    buildTreeNodeForEntity(v, treeRoot);
-
-                }
+                treeRoot = buildTreeNodeForEntity(roots.get(0), null);
+//                treeRoot = new DefaultTreeNode(roots.get(0), null);
+//                for (AsistCandidateValue v : roots.get(0).getAsistCandidateValueCollection()) {
+//                    buildTreeNodeForEntity(v, treeRoot);
+//
+//                }
 
             } else {
                 treeRoot = new DefaultTreeNode(null, null);

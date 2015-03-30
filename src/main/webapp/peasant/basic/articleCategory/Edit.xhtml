@@ -43,7 +43,7 @@
                                     <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
                                     <f:selectItems value="#{articleCategoryController.itemsAvailableSelectOne}"
                                                    var="superiorItem"
-                                                   itemValue="#{superiorItem}"/>
+                                                   itemValue="#{superiorItem}" itemLabel="#{superiorItem.name}"/>
                                 </p:selectOneMenu>
                             </p:panelGrid>
                         </p:panel>

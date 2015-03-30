@@ -5,6 +5,8 @@
  */
 package org.peasant.util.web;
 
+import org.peasant.web.fileupdownload.Constants;
+import org.peasant.web.fileupdownload.AttachmentService;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
@@ -34,7 +36,7 @@ import org.primefaces.model.UploadedFile;
 public class AttachmentController implements Serializable {
 
     @Inject
-    AttachmentUPnDownloadService attachServ;
+    AttachmentService attachServ;
     
     @Inject
     Repository attachRepo;

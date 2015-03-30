@@ -53,4 +53,11 @@ public class HttpUtils {
         return encodeString(req, resp, filename, charset);
     }
 
+    public static boolean isMultipartRequest(HttpServletRequest req) {
+        if (ContentTypes.MULTIPART.equalsIgnoreCase(req.getContentType())) {
+            return true;
+        }
+        return false;//TODO
+    }
+
 }

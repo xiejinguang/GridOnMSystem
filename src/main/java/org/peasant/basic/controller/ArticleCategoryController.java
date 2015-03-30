@@ -6,6 +6,8 @@ import org.peasant.basic.controller.util.JsfUtil.PersistAction;
 import org.peasant.basic.facade.ArticleCategoryFacade;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.model.SelectItem;
+import org.peasant.util.JsfModelBuilder;
 
 @Named("articleCategoryController")
 @ViewScoped
@@ -33,6 +37,8 @@ public class ArticleCategoryController implements Serializable {
     private List<ArticleCategory> selectedItems;
     private Map<String, Object> searchCons;
     protected ResourceBundle bundle;
+
+    List<SelectItem> hierarchicalCategories;
 
     public ArticleCategoryController() {
     }
@@ -203,6 +209,21 @@ public class ArticleCategoryController implements Serializable {
 
     public List<ArticleCategory> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public List<SelectItem> getHierarchicalCategories() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+        if (null == hierarchicalCategories) {
+            Map params = new HashMap();
+            params.put("superior", null);
+            List<ArticleCategory> rootCategories = getFacade().findByConditions(params);
+            hierarchicalCategories = new ArrayList(rootCategories.size());
+            for (ArticleCategory o : rootCategories) {
+
+                hierarchicalCategories.add(JsfModelBuilder.buildHierarchicalSelectItem(ArticleCategory.class, o, "articleCategoryCollection", "name"));
+            }
+
+        }
+        return this.hierarchicalCategories;
     }
 
     @FacesConverter(forClass = ArticleCategory.class, value = "ArticleCategory")

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.peasant.util.web;
+package org.peasant.web.fileupdownload;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,17 +24,17 @@ import org.peasant.util.Repository;
  *
  * @author 谢金光
  */
-@WebServlet(name = "FileUploadServlet", urlPatterns = {"/upload"}, initParams = {
+@WebServlet(name = "UploadServlet", urlPatterns = {"/upload"}, initParams = {
     @WebInitParam(name = "belonger", value = "null")})
-@MultipartConfig
-public class GenericFileUploadServlet extends HttpServlet {
+@MultipartConfig(fileSizeThreshold = 1000000000,maxFileSize = 1000000000,maxRequestSize = 1000000000)
+public class GenericAttachmentUploadServlet extends HttpServlet {
 
     public static final String PARAM_BELONGER = "belonger";
     public static final String PARAM_ATTACHER = "attacher";
 
 
     @Inject
-    AttachmentUPnDownloadService attaServ;
+   protected            AttachmentService attaServ;
 
     @Override
     public void init() throws ServletException {

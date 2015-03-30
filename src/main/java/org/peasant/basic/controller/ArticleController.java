@@ -21,6 +21,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+import org.peasant.basic.facade.ArticleCategoryFacade;
+import org.peasant.basic.model.ArticleCategory;
+import org.peasant.security.view.SubjectView;
 
 @Named("articleController")
 @ViewScoped
@@ -33,6 +37,14 @@ public class ArticleController implements Serializable {
     private List<Article> selectedItems;
     private Map<String, Object> searchCons;
     protected ResourceBundle bundle;
+
+    
+    
+    @Inject 
+    SubjectView sv;
+    @Inject
+    ArticleCategoryFacade acFacade;
+    ArticleCategory gsc ;
 
     public ArticleController() {
     }
@@ -82,6 +94,7 @@ public class ArticleController implements Serializable {
 
         created = new Article();
         initializeKey();
+        created.setCreator(sv.getCurUser().getUsername());//设置创建该文章的用户名
         return created;
     }
 
@@ -102,6 +115,11 @@ public class ArticleController implements Serializable {
             selectedItems = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
+    }
+    
+    public void update(Article a){
+        getFacade().edit(a);
+        JsfUtil.addSuccessMessage(bundle.getString("ArticleUpdated"));
     }
 
     public List<Article> searchItems() {
@@ -132,6 +150,20 @@ public class ArticleController implements Serializable {
             }
         }
         return newparams;
+    }
+    public List<Article> getGridShows(){
+        if(gsc ==null){
+              Map<String,Object > gscp = new HashMap<>(1);
+              gscp.put("name", "网格展示");
+             List<ArticleCategory> acs = acFacade.findByConditions(gscp);
+             if(acs ==null || acs.isEmpty())
+                 return null;
+             gsc =acs.get(0);
+             
+        }
+        Map<String,Object > gs = new HashMap<>(1);        
+        gs.put("category", gsc);
+        return getFacade().findByConditions(searchCons);
     }
 
     public List<Article> allItems() {

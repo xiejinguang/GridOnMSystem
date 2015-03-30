@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="articleId" type="java.lang.String"/>
+        <cc:attribute name="article" type="org.peasant.basic.model.Article" />
+        <cc:attribute name="update" type="java.lang.String" default="@this"/>        
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <c:if test="#{not empty cc.attrs.articleId}">
+            <c:if test ="#{not empty articleController.getArticle(cc.attrs.articleId)}">
+                <c:set target="#{cc.attrs}" property="article" value="#{articleController.getArticle(cc.attrs.articleId)}"/>
+            </c:if>
+        </c:if>
+        <p:scrollPanel mode="native" >
+          
+                <h:outputText escape="false" value="${cc.attrs.article.content}"/>
+         
+        </p:scrollPanel>
+    </cc:implementation>
+</html>

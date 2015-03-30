@@ -7,7 +7,8 @@
     <context-param>
         <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
         <!-- 程序状态保存在客户端 -->
-        <param-value>client</param-value>
+      <!--  <param-value>client</param-value>-->
+      <param-value>server</param-value>
     </context-param>
     <context-param>
         <param-name>javax.faces.NUMBER_OF_VIEWS_IN_SESSION</param-name>
@@ -78,30 +79,43 @@
         <dispatcher>ERROR</dispatcher>
     </filter-mapping>
     <!-- for shiro security framework-->
+    <listener>
+        <listener-class>org.peasant.web.fileupdownload.AttachmentEnvironmentListener</listener-class>
+    </listener>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet>
-        <servlet-name>GenericFileDownloadServlet</servlet-name>
-        <servlet-class>org.peasant.util.web.GenericFileDownloadServlet</servlet-class>
+        <servlet-name>DownloadServlet</servlet-name>
+        <servlet-class>org.peasant.web.fileupdownload.GenericAttachmentDownloadServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FileUploadJSONresultServlet</servlet-name>
         <servlet-class>org.peasant.util.web.FileUploadJSONresultServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <description>负责处理xheditor中图片、文件附件的上传，并返回json</description>
+        <servlet-name>XheditorUploadServlet</servlet-name>
+        <servlet-class>org.peasant.util.web.XheditorUploadServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GenericFileDownloadServlet</servlet-name>
-        <url-pattern>/attachments</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>FileUploadJSONresultServlet</servlet-name>
         <url-pattern>/ajaxupload</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>XheditorUploadServlet</servlet-name>
+        <url-pattern>/upload_xheditor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DownloadServlet</servlet-name>
+        <url-pattern>/attachments</url-pattern>
+        <url-pattern>*.attachment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

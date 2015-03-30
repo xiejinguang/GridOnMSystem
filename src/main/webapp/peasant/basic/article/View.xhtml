@@ -4,71 +4,76 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ps="http://xmlns.jcp.org/jsf/composite/peasant"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition>
         <p:dialog id="ArticleViewDlg" widgetVar="ArticleViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
-                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"  height="600" width="800"
                   onShow="fitViewport(this)" 
                   header="#{i18n_basic.ViewArticleTitle}">
-            <h:form id="ArticleViewForm">
-                <h:panelGroup id="display" rendered="#{not empty articleController.selectedItems}">
-                    <ui:repeat  value="#{articleController.selectedItems}" var="item">
+            <h:form id="ArticleViewForm" rendered="#{not empty articleController.selectedItems}">        
+                    <p:dataScroller  value="#{articleController.selectedItems}" var="item"  lazy="false">
                         <p:panel toggleable="true" >
                             <f:facet name="header">
                                 <h:outputText value="#{i18n_basic.ArticleEntityLabel}"/>
                                 <h:outputText value="#{item.id}" title="#{i18n_basic.ArticleEntityTitle}"/>
                             </f:facet>
-                            <p:panelGrid columns="4" >
+                            <p:panelGrid 
+                                >
+                                <p:row>
+                                    <p:column colspan="1">
+                                        <p:outputLabel value="#{i18n_basic.ArticleLabel_title}" for="title" />
+                                    </p:column>
+                                    <p:column colspan="3">
+                                        <p:inputText style="width:400px" id="title" value="#{item.title}" title="#{i18n_basic.ArticleTitle_title}"  disabled="false"       required="true" requiredMessage="#{i18n_basic.ArticleRequiredMessage_title}"/>
+                                        <div style="float:right ">
+                                            <p:outputLabel value="#{i18n_basic.ArticleLabel_category}" for="category" />
+                                            <p:outputLabel id="category" value="#{item.category}" />
+                                        </div>
+                                    </p:column>
+                                </p:row>
 
+                                <p:row>
+                                    <p:column colspan="1">
+                                        <p:outputLabel value="#{i18n_basic.ArticleLabel_keywords}" for="keywords" />
+                                    </p:column>
+                                    <p:column colspan="3">
 
-                                <h:outputText value="#{i18n_basic.ArticleLabel_id}"/>
-                                <h:outputText value="#{item.id}" title="#{i18n_basic.ArticleTitle_id}"/>
+                                        <p:outputLabel style="width:450px" id="keywords" value="#{item.keywords}" title="#{i18n_basic.ArticleTitle_keywords}"     />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="1"> <p:outputLabel value="#{i18n_basic.ArticleLabel_digest}" for="digest" /></p:column>
+                                    <p:column colspan="3">
+                                        <p:inputTextarea rows="2"  cols="60" id="digest" value="#{item.digest}" title="#{i18n_basic.ArticleTitle_digest}"  disabled="true"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="1"><p:outputLabel value="#{i18n_basic.ArticleLabel_description}" for="description" /></p:column>
+                                    <p:column colspan="3">
+                                        <p:inputTextarea rows="2" cols="60" id="description" value="#{item.description}" title="#{i18n_basic.ArticleTitle_description}" disabled="true"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="4">
+                                        <p:outputLabel value="#{i18n_basic.ArticleLabel_createTime}" for="createTime" />
+                                        <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{item.createTime}" title="#{i18n_basic.ArticleTitle_createTime}" required="false" disabled="true" requiredMessage="#{i18n_basic.ArticleRequiredMessage_createTime}" showOn="button"/>
 
-
-                                <h:outputText value="#{i18n_basic.ArticleLabel_title}"/>
-                                <h:outputText value="#{item.title}" title="#{i18n_basic.ArticleTitle_title}"/>
-
-
-                                <h:outputText value="#{i18n_basic.ArticleLabel_keywords}"/>
-                                <h:outputText value="#{item.keywords}" title="#{i18n_basic.ArticleTitle_keywords}"/>
-
-
-                                <h:outputText value="#{i18n_basic.ArticleLabel_digest}"/>
-                                <h:outputText value="#{item.digest}" title="#{i18n_basic.ArticleTitle_digest}"/>
-
-
-                                <h:outputText value="#{i18n_basic.ArticleLabel_description}"/>
-                                <h:outputText value="#{item.description}" title="#{i18n_basic.ArticleTitle_description}"/>
-
-
-                                <h:outputText value="#{i18n_basic.ArticleLabel_content}"/>
-                                <h:outputText value="#{item.content}" title="#{i18n_basic.ArticleTitle_content}"/>
-
-
-                                <h:outputText value="#{i18n_basic.ArticleLabel_creator}"/>
-                                <h:outputText value="#{item.creator}" title="#{i18n_basic.ArticleTitle_creator}"/>
-
-
-                                <h:outputText value="#{i18n_basic.ArticleLabel_createTime}"/>
-                                <h:outputText value="#{item.createTime}" title="#{i18n_basic.ArticleTitle_createTime}">
-                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
-                                </h:outputText>
-
-
-                                <h:outputText value="#{i18n_basic.ArticleLabel_lastUpdate}"/>
-                                <h:outputText value="#{item.lastUpdate}" title="#{i18n_basic.ArticleTitle_lastUpdate}">
-                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
-                                </h:outputText>
-
-
-                                <h:outputText value="#{i18n_basic.ArticleLabel_category}"/>
-                                <h:outputText value="#{item.category}" title="#{i18n_basic.ArticleTitle_category}"/>
+                                        <p:outputLabel value="#{i18n_basic.ArticleLabel_lastUpdate}" for="lastUpdate"  />
+                                        <p:calendar id="lastUpdate" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{item.lastUpdate}" title="#{i18n_basic.ArticleTitle_lastUpdate}" required="false" disabled="true" requiredMessage="#{i18n_basic.ArticleRequiredMessage_lastUpdate}" showOn="button"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="4">
+                                        <p:outputPanel  style="width: 750px;height: 400px; overflow: scroll" ><p:outputLabel value=" #{item.content}" escape="false"/></p:outputPanel>
+                                    </p:column>
+                                </p:row>
                             </p:panelGrid>
                         </p:panel>
-                    </ui:repeat>
+                    </p:dataScroller>>
                     <p:commandButton type="button" value="#{i18n_basic.Close}" onclick="PF('ArticleViewDialog').hide()"/>
-                </h:panelGroup>
+
             </h:form>
         </p:dialog>
     </ui:composition>

@@ -11,8 +11,9 @@
         <cc:attribute name="contentId" type="java.lang.String" required="true"/>
         <cc:attribute name="rows" type="java.lang.Integer" default="25"/>
         <cc:attribute name="cols" type="java.lang.Integer" default="80"/>
-        
- 
+        <cc:attribute name="urlBase" type="java.lang.String" default=""/>
+
+
     </cc:interface>
 
     <!-- IMPLEMENTATION -->
@@ -55,7 +56,7 @@
                 head.appendChild(script);
             };
             if (window.XHEDITOR === undefined) {
-                var xj = "#{request.contextPath}/resources/js/xheditor/xheditor-1.2.1.min.js";
+                var xj = "#{request.contextPath}/resources/js/xheditor/xheditor.js";
                 var xl = "#{request.contextPath}/resources/js/xheditor/xheditor_lang/zh-cn.js";
                 loadJS(xj, function () {
                     loadJS(xl, function () {
@@ -63,16 +64,18 @@
                     });
                 });
             } else {
-                 $(".#{cc.attrs.contentId}").xheditor();
+                $(".#{cc.attrs.contentId}").xheditor();
             }
 
         </script>
         <p:inputTextarea   id="editor"   value="#{cc.attrs.value}" placeholder="请输入内容" maxlength="65535"   rows="${cc.attrs.rows}" cols="${cc.attrs.cols}"  styleClass="#{cc.attrs.contentId}  htmleditor 
-                          {                          
-                          upLinkUrl: '#{request.contextPath}/ajaxupload?belonger=#{cc.attrs.contentId}',                        
-                          upImgUrl: '#{request.contextPath}/ajaxupload?belonger=#{cc.attrs.contentId}', 
-                          upFlashUrl:'#{request.contextPath}/ajaxupload?belonger=#{cc.attrs.contentId}' , 
-                          upMediaUrl:'#{request.contextPath}/ajaxupload?belonger=#{cc.attrs.contentId}'}" style="width: 100%">              
+                           { 
+                           urlBase:'#{cc.attrs.urlBase}', 
+                         
+                           upLinkUrl: '#{request.contextPath}/upload_xheditor?belonger=#{cc.attrs.contentId}',                        
+                           upImgUrl: '#{request.contextPath}/upload_xheditor?belonger=#{cc.attrs.contentId}', 
+                           upFlashUrl:'#{request.contextPath}/upload_xheditor?belonger=#{cc.attrs.contentId}' , 
+                           upMediaUrl:'#{request.contextPath}/upload_xheditor?belonger=#{cc.attrs.contentId}'}" style="width: 100%">              
         </p:inputTextarea>
 
 
