@@ -79,7 +79,7 @@ public class NetnodeController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setId(org.eman.util.Utils.generateUniqueKey());
+        created.setId(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private NetnodeFacade getFacade() {

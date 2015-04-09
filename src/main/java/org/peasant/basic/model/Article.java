@@ -11,6 +11,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -53,14 +54,20 @@ public class Article extends DatedEntity implements Serializable {
     @Size(max = 255)
     @Column(length = 255)
     private String keywords;
+    
+    @Basic(fetch = FetchType.LAZY)
     @Lob
     @Size(max = 65535)
     @Column(length = 65535)
     private String digest;
+
+    @Basic(fetch = FetchType.LAZY)
     @Lob
     @Size(max = 65535)
     @Column(length = 65535)
     private String description;
+
+    @Basic(fetch = FetchType.LAZY)
     @Lob
     @Size(max = 16777215)
     @Column(length = 16777215)

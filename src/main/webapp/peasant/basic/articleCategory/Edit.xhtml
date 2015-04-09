@@ -41,9 +41,9 @@
                                 <p:outputLabel value="#{i18n_basic.EditArticleCategoryLabel_superior}" for="superior" />
                                 <p:selectOneMenu id="superior" value="#{item.superior}" filter="true"  filterMatchMode="contains" >
                                     <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
-                                    <f:selectItems value="#{articleCategoryController.itemsAvailableSelectOne}"
+                                    <f:selectItems value="#{articleCategoryController.hierarchicalCategories}"
                                                    var="superiorItem"
-                                                   itemValue="#{superiorItem}" itemLabel="#{superiorItem.name}"/>
+                                                />
                                 </p:selectOneMenu>
                             </p:panelGrid>
                         </p:panel>

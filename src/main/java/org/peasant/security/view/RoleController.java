@@ -71,7 +71,7 @@ public class RoleController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setRoleId(org.eman.util.Utils.generateUniqueKey());
+        created.setRoleId(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private RoleFacade getFacade() {

@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ps = "http://xmlns.jcp.org/jsf/composite/peasant">
     <ui:composition>
-        <h:form>
+        <h:form id="SearchForm">
             <p:fieldset id="searchField" legend="${basic_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
                 <p:panelGrid   style="width:100%"  >
                     <p:row>
@@ -105,23 +105,24 @@
             <p:dataTable id="datalist" value="#{roomspotController.items}" var="item"
                          selection="#{roomspotController.selectedItems}"
                          rowKey="#{item.id}"
-                         rowsPerPageTemplate="10,20,30,40,50"
+                         rowsPerPageTemplate="10,20,30,40,50,100,200,500,1000"
                          paginator="true" paginatorPosition="bottom"
-                         rows="10" 
-                         draggableColumns="true" resizableColumns="true" 
-                         scrollable="true"   liveResize="true" liveScroll="true"
-                         sortMode="multiple"
+                         rows="20" 
+                         draggableColumns="true" resizableColumns="true"  liveResize="true"
+                         scrollable="true"    liveScroll="false" scrollHeight="420"
+                         sortMode="multiple"                           
+                         filteredValue="#{roomspotController.filteredValue}" 
                          editable="true"  
-                         stickyHeader="false" 
+                         stickyHeader="false"  
                          >
 
                 <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton" />
                 <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
-                
+
                 <p:ajax event="toggleSelect" update="createButton,viewButton editButton,deleteButton"/>
                 <p:ajax event="rowUnselectCheckbox" update="createButton,viewButton editButton,deleteButton"/>
                 <p:ajax event="rowSelectCheckbox" update="createButton,viewButton editButton,deleteButton"/>
-                
+
                 <p:ajax event="rowDblselect" update="createButton,viewButton editButton,deleteButton"/>
                 <p:ajax event="rowSelectRadio" update="createButton,viewButton editButton,deleteButton"/>
 
@@ -135,55 +136,55 @@
                     </f:facet>
                     <h:outputText value="#{item.id}"/>
                 </p:column>
-                <p:column sortBy="#{item.roomCode}" filterBy="#{item.roomCode}">
+                <p:column sortBy="#{item.roomCode}" filterBy="#{item.roomCode}" filterMatchMode="contains" >
                     <f:facet name="header">
                         <h:outputText value="#{basic_i18n.RoomspotTitle_roomCode}"/>
                     </f:facet>
                     <h:outputText value="#{item.roomCode}"/>
                 </p:column>
-                <p:column sortBy="#{item.roomName}" filterBy="#{item.roomName}">
+                <p:column sortBy="#{item.roomName}" filterBy="#{item.roomName}" filterMatchMode="contains">
                     <f:facet name="header">
-                        <h:outputText value="#{basic_i18n.RoomspotTitle_roomName}"/>
+                        <h:outputText value="#{basic_i18n.RoomspotTitle_roomName}" />
                     </f:facet>
                     <h:outputText value="#{item.roomName}"/>
                 </p:column>
-                                <p:column sortBy="#{item.secondName}" filterBy="#{item.secondName}">
+                <p:column sortBy="#{item.secondName}" filterBy="#{item.secondName}" filterMatchMode="contains">
                     <f:facet name="header">
                         <h:outputText value="#{basic_i18n.RoomspotTitle_secondName}"/>
                     </f:facet>
                     <h:outputText value="#{item.secondName}"/>
                 </p:column>
-                <p:column sortBy="#{item.province}" filterBy="#{item.province}">
+                <p:column sortBy="#{item.province}" filterBy="#{item.province}" filterMatchMode="contains">
                     <f:facet name="header">
                         <h:outputText value="#{basic_i18n.RoomspotTitle_province}"/>
                     </f:facet>
                     <h:outputText value="#{item.province}"/>
                 </p:column>
-                <p:column sortBy="#{item.city}" filterBy="#{item.city}">
+                <p:column sortBy="#{item.city}" filterBy="#{item.city}" filterMatchMode="contains">
                     <f:facet name="header">
                         <h:outputText value="#{basic_i18n.RoomspotTitle_city}"/>
                     </f:facet>
                     <h:outputText value="#{item.city}"/>
                 </p:column>
-                <p:column sortBy="#{item.county}" filterBy="#{item.county}">
+                <p:column sortBy="#{item.county}" filterBy="#{item.county}" filterMatchMode="contains">
                     <f:facet name="header">
                         <h:outputText value="#{basic_i18n.RoomspotTitle_county}"/>
                     </f:facet>
                     <h:outputText value="#{item.county}"/>
                 </p:column>
-                <p:column sortBy="#{item.grid}" filterBy="#{item.grid}">
+                <p:column sortBy="#{item.grid}" filterBy="#{item.grid}" filterMatchMode="contains">
                     <f:facet name="header">
                         <h:outputText value="#{basic_i18n.RoomspotTitle_grid}"/>
                     </f:facet>
                     <h:outputText value="#{item.grid}"/>
                 </p:column>
-                <p:column sortBy="#{item.propertyOwner}" filterBy="#{item.propertyOwner}">
+                <p:column sortBy="#{item.propertyOwner}" filterBy="#{item.propertyOwner}" filterMatchMode="contains">
                     <f:facet name="header">
                         <h:outputText value="#{basic_i18n.RoomspotTitle_propertyOwner}"/>
                     </f:facet>
                     <h:outputText value="#{item.propertyOwner}"/>
                 </p:column>
-                <p:column sortBy="#{item.address}" filterBy="#{item.address}">
+                <p:column sortBy="#{item.address}" filterBy="#{item.address}" filterMatchMode="contains">
                     <f:facet name="header">
                         <h:outputText value="#{basic_i18n.RoomspotTitle_address}"/>
                     </f:facet>
@@ -195,7 +196,7 @@
                     </f:facet>
                     <h:outputText value="#{item.commont}"/>
                 </p:column>
-                <p:column sortBy="#{item.status}" filterBy="#{item.status}">
+                <p:column sortBy="#{item.status}" filterBy="#{item.status}" filterMatchMode="contains">
                     <f:facet name="header">
                         <h:outputText value="#{basic_i18n.RoomspotTitle_status}"/>
                     </f:facet>
@@ -206,6 +207,7 @@
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{basic_i18n.View}" process="@this" update="@form:@parent:RoomspotViewForm"  oncomplete="PF('RoomspotViewDialog').show()" disabled="#{empty roomspotController.selectedItems}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{basic_i18n.Edit}" process="@this" update="@form:@parent:RoomspotEditForm" oncomplete="PF('RoomspotEditDialog').show()" disabled="#{empty roomspotController.selectedItems}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{basic_i18n.Delete}" process="@this" actionListener="#{roomspotController.destroy}" update=":growl,datalist" disabled="#{empty roomspotController.selectedItems}"/>
+                    <ps:excelImporter id="importButton" conf="/basic/roomspot/roomspot.properties" target="org.eman.basic.model.Roomspot" />
                     <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
                     <p:columnToggler datasource="datalist" trigger="toggler" />
                 </f:facet>
@@ -214,6 +216,7 @@
         <ui:include src="Create.xhtml"/>
         <ui:include src="Edit.xhtml"/>
         <ui:include src="View.xhtml"/>
+
     </ui:composition>
 
 </html>

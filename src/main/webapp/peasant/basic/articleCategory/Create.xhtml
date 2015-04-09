@@ -34,9 +34,9 @@
                         <p:outputLabel value="#{i18n_basic.EditArticleCategoryLabel_superior}" for="superior" />
                         <p:selectOneMenu id="superior" value="#{articleCategoryController.created.superior}" filter="true"  filterMatchMode="contains"  converter="ArticleCategory">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
-                            <f:selectItems value="#{articleCategoryController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{articleCategoryController.hierarchicalCategories}"
                                            var="superiorItem"
-                                           itemValue="#{superiorItem}" itemLabel="#{superiorItem.name}"/>
+                                          />
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{articleCategoryController.create}" value="#{i18n_basic.Save}" update="display,@form:@parent:ArticleCategoryListForm:datalist,:growl" oncomplete="handleSubmit(args,'ArticleCategoryCreateDialog');"/>

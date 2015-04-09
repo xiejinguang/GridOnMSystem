@@ -71,7 +71,7 @@ public class StationPropertyController implements Serializable {
     }
 
     protected void initializeKey() {
-        //created.setId(org.eman.util.Utils.generateUniqueKey());
+        //created.setId(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private StationPropertyFacade getFacade() {

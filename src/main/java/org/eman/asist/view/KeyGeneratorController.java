@@ -71,7 +71,7 @@ public class KeyGeneratorController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setDiscriminator(org.eman.util.Utils.generateUniqueKey());
+        created.setDiscriminator(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private KeyCodeFacade getFacade() {

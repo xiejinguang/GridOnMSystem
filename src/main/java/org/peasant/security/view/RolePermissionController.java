@@ -71,7 +71,7 @@ public class RolePermissionController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setIdrolePerm(org.eman.util.Utils.generateUniqueKey());
+        created.setIdrolePerm(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private RolePermissionFacade getFacade() {

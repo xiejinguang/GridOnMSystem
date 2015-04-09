@@ -71,7 +71,7 @@ public class PermissionController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setPermissionId(org.eman.util.Utils.generateUniqueKey());
+        created.setPermissionId(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private PermissionFacade getFacade() {

@@ -101,7 +101,7 @@ public class DialogBean implements Serializable {
     }
 
     private <T> String getOutcomeFor(T entityClass) {
-        return this.viewMap.get(this);
+        return this.viewMap.get(entityClass);
     }
 
     public Map<String, Object> getOptions() {

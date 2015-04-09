@@ -9,14 +9,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.peasant.basic.model.ArticleCategory;
-import org.peasant.util.GenericFacade;
+import org.peasant.util.GenericAbstractFacade;
 
 /**
  *
  * @author 谢金光
  */
 @Stateless
-public class ArticleCategoryFacade extends GenericFacade<ArticleCategory> {
+public class ArticleCategoryFacade extends GenericAbstractFacade<ArticleCategory> {
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
 

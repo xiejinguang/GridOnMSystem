@@ -72,7 +72,7 @@ public class EquipmentModelController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setId(org.eman.util.Utils.generateUniqueKey());
+        created.setId(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private EquipmentModelFacade getFacade() {

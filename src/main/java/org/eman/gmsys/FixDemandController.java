@@ -106,7 +106,7 @@ public class FixDemandController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setId(org.eman.util.Utils.generateUniqueKey());
+        created.setId(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private FixDemandFacade getFacade() {

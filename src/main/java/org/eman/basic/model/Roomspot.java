@@ -11,7 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -24,6 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.eman.gmsys.model.StationProperty;
 import org.peasant.model.Labeled;
+import org.peasant.model.UUIDEntity;
 
 /**
  *
@@ -46,16 +46,10 @@ import org.peasant.model.Labeled;
     @NamedQuery(name = "Roomspot.findByPropertyOwner", query = "SELECT r FROM Roomspot r WHERE r.propertyOwner = :propertyOwner"),
     @NamedQuery(name = "Roomspot.findByStatus", query = "SELECT r FROM Roomspot r WHERE r.status = :status"),
     @NamedQuery(name = "Roomspot.findByAddress", query = "SELECT r FROM Roomspot r WHERE r.address = :address")})
-public class Roomspot implements Serializable,Labeled {
+public class Roomspot extends UUIDEntity implements Serializable,Labeled {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(nullable = false, length = 36)
-    private String id;
-    
+   
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -69,7 +63,6 @@ public class Roomspot implements Serializable,Labeled {
     private String roomName;
 
     @Basic
-    @NotNull
     @Size(min = 1, max = 45)
     @Column(nullable = true, length = 45)
     private String secondName;
@@ -141,13 +134,7 @@ public class Roomspot implements Serializable,Labeled {
         this.propertyOwner = propertyOwner;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    
 
     public String getRoomCode() {
         return roomCode;

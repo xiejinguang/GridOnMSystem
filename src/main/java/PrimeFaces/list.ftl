@@ -54,47 +54,42 @@
                 <h:form id="SearchConsForm">
                     
                         <p:fieldset id="searchField" legend="${r"${"}${bundle}.SearchConsTitle${r"}"}" toggleable="true" toggleSpeed="500" >
-                            <p:panelGrid   style="width:100%"  >
-                                <p:row>
-                                    <p:column >
-                                        <p:panelGrid id="searchConsGrid" columns="8">
+
+                            <p:panelGrid id="searchConsGrid" columns="8">
 
 <#list entityDescriptors as entityDescriptor>
-                                           
-                                                <p:outputLabel value="${r"#{"}${bundle}.${entityName}Label_${entityDescriptor.id?replace(".","_")}${r"}"}" for="${entityDescriptor.id?replace(".","_")}" />
-    <#if entityDescriptor.dateTimeFormat?? && entityDescriptor.dateTimeFormat != "">
-                                                <p:calendar id="${entityDescriptor.id?replace(".","_")}" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" showOn="button"/>
-    <#elseif entityDescriptor.returnType?matches(".*[Bb]+oolean")>
-                                                <p:selectBooleanCheckbox id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" converter="javax.faces.Boolean" />
-    <#elseif entityDescriptor.blob>
-                                                 <p:inputTextarea rows="4" cols="30" id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" />
-    <#elseif entityDescriptor.relationshipOne>
-                                                 <p:selectOneMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" filter="true"  filterMatchMode="contains" <#if !(entityDescriptor.returnType?matches(".*[Ss]+tring"))> converter="javax.faces.${entityDescriptor.returnType?substring((entityDescriptor.returnType?last_index_of('.'))+1)}" </#if> >
-                                                    <f:selectItem itemLabel="${r"#{"}bundle.SelectOneMessage${r"}"}" />
-                                                    <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
-                                                             var="${entityDescriptor.id?replace(".","_")}Item"
-                                                            itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
-                                                </p:selectOneMenu>
-    <#elseif entityDescriptor.relationshipMany>
-                                                <p:selectManyMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" filter="true"  filterMatchMode="contains" showCheckbox="true" >
-                                                    <f:selectItem itemLabel="${r"#{"}bundle.SelectManyMessage${r"}"}" />
-                                                    <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
-                                                        var="${entityDescriptor.id?replace(".","_")}Item"
-                                                        itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
-    <#else>
-                                                <p:inputText id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if !(entityDescriptor.returnType?matches(".*[Ss]+tring"))> converter="javax.faces.${entityDescriptor.returnType?substring((entityDescriptor.returnType?last_index_of('.'))+1)}" </#if> />
-    </#if>
-                                           
+
+                                    <p:outputLabel value="${r"#{"}${bundle}.${entityName}Label_${entityDescriptor.id?replace(".","_")}${r"}"}" for="${entityDescriptor.id?replace(".","_")}" />
+<#if entityDescriptor.dateTimeFormat?? && entityDescriptor.dateTimeFormat != "">
+                                    <p:calendar id="${entityDescriptor.id?replace(".","_")}" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" showOn="button"/>
+<#elseif entityDescriptor.returnType?matches(".*[Bb]+oolean")>
+                                    <p:selectBooleanCheckbox id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" converter="javax.faces.Boolean" />
+<#elseif entityDescriptor.blob>
+                                     <p:inputTextarea rows="4" cols="30" id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" />
+<#elseif entityDescriptor.relationshipOne>
+                                     <p:selectOneMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" filter="true"  filterMatchMode="contains" <#if !(entityDescriptor.returnType?matches(".*[Ss]+tring"))> converter="javax.faces.${entityDescriptor.returnType?substring((entityDescriptor.returnType?last_index_of('.'))+1)}" </#if> >
+                                        <f:selectItem itemLabel="${r"#{"}bundle.SelectOneMessage${r"}"}" />
+                                        <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
+                                                 var="${entityDescriptor.id?replace(".","_")}Item"
+                                                itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
+                                    </p:selectOneMenu>
+<#elseif entityDescriptor.relationshipMany>
+                                    <p:selectManyMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" filter="true"  filterMatchMode="contains" showCheckbox="true" >
+                                        <f:selectItem itemLabel="${r"#{"}bundle.SelectManyMessage${r"}"}" />
+                                        <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
+                                            var="${entityDescriptor.id?replace(".","_")}Item"
+                                            itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
+<#else>
+                                    <p:inputText id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if !(entityDescriptor.returnType?matches(".*[Ss]+tring"))> converter="javax.faces.${entityDescriptor.returnType?substring((entityDescriptor.returnType?last_index_of('.'))+1)}" </#if> />
+</#if>
+
 </#list>
-                                        </p:panelGrid>
-                                    </p:column>
-                                    <p:column>
-                                        <p:commandButton id="searchButton" icon="ui-icon-search"   value="${r"${"}${bundle}.Search${r"}"}" actionListener="${r"#{"}${managedBean}.searchItems${r"}"}" update=":growl,@form:@parent:${entityName}ListForm:datalist"/>
-                                        <br/>
-                                        <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${r"${"}${bundle}.GetAll${r"}"}" actionListener="${r"#{"}${managedBean}.allItems${r"}"}" update=":growl,@form:@parent:${entityName}ListForm:datalist"/>
-                                    </p:column>
-                                </p:row>
-                            </p:panelGrid>                   
+                                </p:panelGrid>
+                                <h:panelGroup> 
+                                    <p:commandButton id="searchButton" icon="ui-icon-search"   value="${r"${"}${bundle}.Search${r"}"}" actionListener="${r"#{"}${managedBean}.searchItems${r"}"}" update=":growl,@form:@parent:${entityName}ListForm:datalist"/>
+                                    <br/>
+                                    <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${r"${"}${bundle}.GetAll${r"}"}" actionListener="${r"#{"}${managedBean}.allItems${r"}"}" update=":growl,@form:@parent:${entityName}ListForm:datalist"/>
+                                </h:panelGroup> 
                         </p:fieldset>
         </h:form>
 
@@ -102,13 +97,14 @@
                         <p:dataTable id="datalist" value="${r"#{"}${managedBeanProperty}${r"}"}" var="${item}"
                             selection="${r"#{"}${managedBean}${r".selectedItems}"}"
                             rowKey="${r"#{"}${item}.${entityIdField}${r"}"}"
-                            rowsPerPageTemplate="10,20,30,40,50"
+                            rowsPerPageTemplate="10,20,30,40,50,100,200,500,1000"
                              paginator="true" paginatorPosition="bottom"
-                             rows="10" 
-                             draggableColumns="true" resizableColumns="true" 
-                             scrollable="true"   liveResize="true" liveScroll="true"
-                             sortMode="multiple"
+                             rows="20" 
+                             draggableColumns="true" resizableColumns="true" liveResize="true"
+                             scrollable="true"    liveScroll="false" 
+                             sortMode="multiple" sortBy="${r"#{"}${item}.${entityIdField}${r"}"}"
                              editable="true" 
+                              filteredValue="${r"#{"}${managedBean}${r".filteredValue}"}"
                              stickyHeader="false" 
                             >
 
@@ -124,11 +120,13 @@
 
                             <f:facet name="header"><p:outputLabel value="${r"#{"}${bundle}.List${entityName}Title${r"}"}" /></f:facet>
 
-                            <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
+                            <p:column exportable="false" style="width:13px;text-align:center" disabledSelection="true" toggleable="false" resizable="false"  > <h:outputText value="${index+1}"/></p:column>
+
+                            <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false" exportable="false"/>  
 
 <#list entityDescriptors as entityDescriptor>
 
-                            <p:column sortBy="${r"#{"}${entityDescriptor.name}${r"}"}" filterBy="${r"#{"}${entityDescriptor.name}${r"}"}">
+                            <p:column sortBy="${r"#{"}${entityDescriptor.name}${r"}"}" filterBy="${r"#{"}${entityDescriptor.name}${r"}"}" filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}"/>
                                 </f:facet>
@@ -144,14 +142,14 @@
                             </p:column>
 </#list>
                             <f:facet name="footer">
-                            <div  class="my-datatable-footer">
+                          
                                 <p:commandButton id="createButton" icon="ui-icon-plus"   value="${r"#{"}${bundle}.Create${r"}"}" actionListener="${r"#{"}${managedBean}.prepareCreate${r"}"}" process="@this" update="@form:@parent:${entityName}CreateForm" oncomplete="PF('${entityName}CreateDialog').show()"/>
                                 <p:commandButton id="viewButton"   icon="ui-icon-search" value="${r"#{"}${bundle}.View${r"}"}" process="@this" update="@form:@parent:${entityName}ViewForm" oncomplete="PF('${entityName}ViewDialog').show()" disabled="${r"#{"}empty ${managedBean}.selectedItems${r"}"}"/>
                                 <p:commandButton id="editButton"   icon="ui-icon-pencil" value="${r"#{"}${bundle}.Edit${r"}"}" process="@this" update="@form:@parent:${entityName}EditForm" oncomplete="PF('${entityName}EditDialog').show()" disabled="${r"#{"}empty ${managedBean}.selectedItems${r"}"}"/>
                                 <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="${r"#{"}${bundle}.Delete${r"}"}" actionListener="${r"#{"}${managedBean}${r".destroy}"}" process="@this" update=":growl,datalist" disabled="${r"#{"}empty ${managedBean}.selectedItems${r"}"}"/>
                                 <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
                                 <p:columnToggler datasource="datalist" trigger="toggler" />
-                            </div>
+                          
                             </f:facet>
                         </p:dataTable>
                 

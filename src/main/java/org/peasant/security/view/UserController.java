@@ -71,7 +71,7 @@ public class UserController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setUsername(org.eman.util.Utils.generateUniqueKey());
+        created.setUsername(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private UserFacade getFacade() {

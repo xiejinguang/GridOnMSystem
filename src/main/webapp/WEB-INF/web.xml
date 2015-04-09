@@ -7,8 +7,8 @@
     <context-param>
         <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
         <!-- 程序状态保存在客户端 -->
-      <!--  <param-value>client</param-value>-->
-      <param-value>server</param-value>
+        <!--  <param-value>client</param-value>-->
+        <param-value>server</param-value>
     </context-param>
     <context-param>
         <param-name>javax.faces.NUMBER_OF_VIEWS_IN_SESSION</param-name>
@@ -79,9 +79,6 @@
         <dispatcher>ERROR</dispatcher>
     </filter-mapping>
     <!-- for shiro security framework-->
-    <listener>
-        <listener-class>org.peasant.web.fileupdownload.AttachmentEnvironmentListener</listener-class>
-    </listener>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>

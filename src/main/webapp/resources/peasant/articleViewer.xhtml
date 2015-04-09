@@ -15,15 +15,15 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        <c:if test="#{not empty cc.attrs.articleId}">
-            <c:if test ="#{not empty articleController.getArticle(cc.attrs.articleId)}">
-                <c:set target="#{cc.attrs}" property="article" value="#{articleController.getArticle(cc.attrs.articleId)}"/>
+
+            <c:if test="#{not empty cc.attrs.articleId}">
+                <c:if test ="#{not empty articleController.getArticle(cc.attrs.articleId)}">
+                    <c:set target="#{cc.attrs}" property="article" value="#{articleController.getArticle(cc.attrs.articleId)}"/>
+                </c:if>
             </c:if>
-        </c:if>
-        <p:scrollPanel mode="native" >
-          
-                <h:outputText escape="false" value="${cc.attrs.article.content}"/>
-         
-        </p:scrollPanel>
+            <p:scrollPanel mode="native" >          
+                <h:outputText escape="false" value="${cc.attrs.article.content}"/>         
+            </p:scrollPanel>
+
     </cc:implementation>
 </html>

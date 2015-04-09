@@ -8,12 +8,15 @@ package org.peasant.web.fileupdownload;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import javax.annotation.PostConstruct;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,14 +34,29 @@ import static org.peasant.web.fileupdownload.Constants.MOETHOD_RESOURCE;
 /**
  *
  * @author 谢金光
+ * @version 1.1
  */
 @Singleton
-public class AttachmentService {
+public class AttachmentService implements Serializable {
 
     @Inject
     Repository attachRepo;
 
+    @Inject
+    ServletContext svc;
+
     protected String downServPath; //在contextInitialized方法中初始化
+
+    @PostConstruct
+    public void init() {
+        if (svc != null) {
+            String path = svc.getInitParameter(Constants.ATTACHMENT_DOWN_SERVLET_PATH_PARAM);
+            if (path == null || path.trim().isEmpty()) {
+                path = Constants.DEFAULT_ATTACHMENT_DOWN_SERVLET_PATH;
+            }
+            this.downServPath = path;
+        }
+    }
 
     public String getResourcePath(String servletPath, Attachment a) {
         return getAttachmentURLPath(servletPath, a, Constants.MOETHOD_RESOURCE);

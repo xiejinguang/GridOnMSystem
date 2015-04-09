@@ -83,7 +83,7 @@ public class ArticleController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setId(org.eman.util.Utils.generateUniqueKey());
+        created.setId(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private ArticleFacade getFacade() {
@@ -163,7 +163,7 @@ public class ArticleController implements Serializable {
         }
         Map<String,Object > gs = new HashMap<>(1);        
         gs.put("category", gsc);
-        return getFacade().findByConditions(searchCons);
+        return getFacade().findByConditions(gs);
     }
 
     public List<Article> allItems() {

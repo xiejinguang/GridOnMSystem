@@ -71,7 +71,7 @@ public class UserRoleController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setIduserRole(org.eman.util.Utils.generateUniqueKey());
+        created.setIduserRole(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private UserRoleFacade getFacade() {

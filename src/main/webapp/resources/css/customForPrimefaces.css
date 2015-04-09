@@ -77,3 +77,7 @@ and open the template in the editor.
  
   //  color:  #0066cc;
 }
+
+.ui-datatable-footer{
+    text-align: left !important;
+}

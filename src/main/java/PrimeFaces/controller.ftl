@@ -108,6 +108,7 @@ public class ${controllerClassName} implements Serializable {
     private List<${entityClassName}> items = null;
     private ${entityClassName} created;
     private List<${entityClassName}> selectedItems;
+    private List<${entityClassName}> filteredValue;
     private Map<String,Object> searchCons;
     protected ResourceBundle bundle;
 
@@ -138,6 +139,14 @@ public class ${controllerClassName} implements Serializable {
         this.selectedItems =selectedItems;
     }
 
+public  List<${entityClassName}> getFilteredValue() {
+        return selectedItems;
+    }
+    
+    public void setFilteredValue(List<${entityClassName}> selectedItems){
+        this.selectedItems =selectedItems;
+    }
+
     public Map<String, Object> getSearchCons() {
         return searchCons;
     }
@@ -157,7 +166,7 @@ public class ${controllerClassName} implements Serializable {
 <#if keyEmbedded>
         created.${keySetter}(new ${keyType}());
 <#else>
-        created.${keySetter}(org.eman.util.Utils.generateUniqueKey());
+        created.${keySetter}(org.peasant.util.Utils.generateUniqueKey());
 </#if>
     }
 

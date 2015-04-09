@@ -1,32 +1,35 @@
 package org.peasant.util;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
+import jxl.read.biff.BiffException;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
 /**
- * Excel转化为POJO的功能基本完成，目前转换办法都是静态的，考虑性能问题，未来再改为非静态，为每个POJO类提供一个此类的实例。
- * TODO POJOs导出为Excel的功能待完善。
+ * Excel转化为POJO的功能基本完成，目前转换办法都是静态的，考虑性能问题，未来再改为非静态，为每个POJO类提供一个此类的实例。 TODO
+ * POJOs导出为Excel的功能待完善。
  *
  * @author 谢金光
  */
@@ -53,7 +56,7 @@ public class ExcelPOJOUtil {
             OutputStream out
     ) throws ExcelException {
 
-        if (null== list ||list.isEmpty()) {
+        if (null == list || list.isEmpty()) {
             throw new ExcelException("数据源中没有任何数据");
         }
 
@@ -111,13 +114,13 @@ public class ExcelPOJOUtil {
      * @MethodName : listToExcel
      * @Description : 导出Excel（可以导出到本地文件系统，也可以导出到浏览器，工作表大小为2003支持的最大值）
      * @param list 数据源
-     * @param fieldMap 类的英文属性和Excel中的中文列名的对应关系
+     * @param fieldConf 类的英文属性和Excel中的中文列名的对应关系
      * @param out 导出流
      * @throws ExcelException
      */
-    public static <T> void listToExcel(List<T> list, LinkedHashMap<String, String> fieldMap, String sheetName, OutputStream out) throws ExcelException {
+    public static <T> void listToExcel(List<T> list, LinkedHashMap<String, String> fieldConf, String sheetName, OutputStream out) throws ExcelException {
 
-        listToExcel(list, fieldMap, sheetName, 65535, out);
+        listToExcel(list, fieldConf, sheetName, 65535, out);
 
     }
 
@@ -184,91 +187,104 @@ public class ExcelPOJOUtil {
         listToExcel(list, fieldMap, sheetName, 65535, response);
     }
 
+    public static int getRealRowCount(Sheet sheet) {
+        //获取工作表的有效行数
+        int realRows = 0;
+        for (int i = 0; i < sheet.getRows(); i++) {
+
+            int nullCols = 0;
+            for (int j = 0; j < sheet.getColumns(); j++) {
+                Cell currentCell = sheet.getCell(j, i);
+                if (currentCell == null || "".equals(currentCell.getContents())) {
+                    nullCols++;
+                }
+            }
+
+            if (nullCols == sheet.getColumns()) {
+                break;
+            } else {
+                realRows++;
+            }
+        }
+        return realRows;
+    }
+
+    /**
+     * 推荐使用此方法
+     *
+     * @param <T>
+     * @param is
+     * @param sheetName
+     * @param entityClazz
+     * @param fieldConf
+     * @throws java.io.IOException
+     * @throws org.peasant.util.ExcelPOJOUtil.ExcelException
+     * @return the java.util.Collection
+     */
+    public static <T> Collection<T> worksheetToPOJOs(InputStream is, String sheetName, Class<T> entityClazz, java.util.Properties fieldConf, Converters converters) throws ExcelException, IOException {
+        try {
+            Workbook wb = Workbook.getWorkbook(is);
+            Sheet sheet = wb.getSheet(sheetName);
+            if (null == sheet) {
+                sheet = wb.getSheet(0);
+            }
+            return worksheetToPOJOs(sheet, entityClazz, fieldConf, converters);
+        } catch (BiffException ex) {
+            Logger.getLogger(ExcelPOJOUtil.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ExcelException(sheetName, ex);
+        }
+    }
+
     /**
      *
-     * @MethodName : excelToPOJOs
-     * @Description : 将Excel转化为POJOList
      * @param <T>
-     * @param sheetName
-     * @param in ：承载着Excel的输入流
-     * @param entityClass ：List中对象的类型（Excel中的每一行都要转化为该类型的对象）
-     * @param fieldMap ：Excel中的中文列头和类的英文属性的对应关系Map
-     * @param uniqueColumns ：指定业务主键组合（即复合主键），这些列的组合不能重复
-     * @return ：List
-     * @throws ExcelException
+     * @param sheet
+     * @param entityClazz
+     * @param fieldConf
+     * @throws org.peasant.util.ExcelPOJOUtil.ExcelException
+     * @return the java.util.Collection<T>
      */
-    public static <T> List<T> excelToPOJOs(
-            InputStream in,
-            String sheetName,
-            Class<T> entityClass,
-            java.util.Properties fieldMap,
-            String[] uniqueColumns
-    ) throws ExcelException {
+    protected static <T> Collection<T> worksheetToPOJOs(Sheet sheet, Class<T> entityClazz, java.util.Properties fieldConf, Converters converters) throws ExcelException {
 
-        List<T> resultList;
+        //获取Excel中的列名 
+        Cell[] heads = sheet.getRow(0);
+        //将列名和列号放入Map中,这样通过列名就可以拿到列号 
+        Map<String, Integer> columnNameIndexMap = new HashMap<>(heads.length);
+        //  Map<Integer,String> columnIndexNameMap = new HashMap<>(heads.length);
+        for (int i = 0; i < heads.length; i++) {
 
-        try {
-
-            //根据Excel数据源创建WorkBook 
-            Workbook wb = Workbook.getWorkbook(in);
-            //获取工作表 
-            Sheet sheet = wb.getSheet(sheetName);
-
-            //获取工作表的有效行数 
-            int realRows = 0;
-            for (int i = 0; i < sheet.getRows(); i++) {
-
-                int nullCols = 0;
-                for (int j = 0; j < sheet.getColumns(); j++) {
-                    Cell currentCell = sheet.getCell(j, i);
-                    if (currentCell == null || "".equals(currentCell.getContents())) {
-                        nullCols++;
-                    }
-                }
-
-                if (nullCols == sheet.getColumns()) {
-                    break;
-                } else {
-                    realRows++;
-                }
+            if (!(heads[i].getContents() == null || "".equals(heads[i].getContents()))) {
+                columnNameIndexMap.put(heads[i].getContents().trim(), i);
+                //columnIndexNameMap.put(i, heads[i].getContents().trim());
             }
+        }
+        int rowCount = sheet.getRows();
+        Collection<T> results = new ArrayList<>(rowCount - 1);
 
-            //如果Excel中没有数据则提示错误 
-            if (realRows <= 1) {
-                throw new ExcelException("Excel文件中没有任何数据");
+        int realRows = getRealRowCount(sheet);
+
+        //如果Excel中没有数据则提示错误 
+        if (realRows <= 1) {
+            throw new ExcelException("Excel文件中没有任何数据");
+        }
+        //定义要返回的list 
+
+        //判断需要的字段在Excel中是否都存在 
+        Configuration conf = new Configuration(fieldConf);
+        for (String cnName : conf.getRequiredFieldMap().keySet()) {
+            if (!columnNameIndexMap.containsKey(cnName)) {
+                //如果有列名不存在，则抛出异常，提示错误 
+                throw new ExcelException("Excel中缺少必要的字段:\"" + cnName + "\"，或字段名称有误");
             }
-            //定义要返回的list 
-            resultList = new ArrayList<>();
+        }
 
-            Cell[] firstRow = sheet.getRow(0);
-
-            String[] excelFieldNames = new String[firstRow.length];
-
-            //获取Excel中的列名 
-            for (int i = 0; i < firstRow.length; i++) {
-                excelFieldNames[i] = firstRow[i].getContents().trim();
-            }
-
-            //判断需要的字段在Excel中是否都存在 
-            List<String> excelFields = Arrays.asList(excelFieldNames);
-            for (String cnName : fieldMap.stringPropertyNames()) {
-                if (!excelFields.contains(cnName)) {
-                    //如果有列名不存在，则抛出异常，提示错误 
-                    throw new ExcelException("Excel中缺少必要的字段:\"" + cnName + "\"，或字段名称有误");
-                }
-            }
-
-            //将列名和列号放入Map中,这样通过列名就可以拿到列号 
-            Map<String, Integer> colNameIndexMap = new LinkedHashMap<>();
-            for (int i = 0; i < excelFieldNames.length; i++) {
-                colNameIndexMap.put(excelFieldNames[i], firstRow[i].getColumn());
-            }
-
-            //判断是否有重复行 
+        String[] uniqueColumns = null;//TODO
+        //判断是否有重复行 //TODO 配置文件中可以配置唯一列，或组合唯一
+        if (uniqueColumns != null && uniqueColumns.length > 0) {
             //1.获取uniqueFields指定的列 
             Cell[][] uniqueCells = new Cell[uniqueColumns.length][];
             for (int i = 0; i < uniqueColumns.length; i++) {
-                int col = colNameIndexMap.get(uniqueColumns[i]);
+                int col = columnNameIndexMap.get(uniqueColumns[i]);
                 uniqueCells[i] = sheet.getColumn(col);
             }
 
@@ -292,111 +308,41 @@ public class ExcelPOJOUtil {
                     throw new ExcelException("Excel中有重复行，请检查");
                 }
             }
-
-            //将sheet转换为list 
-            for (int i = 1; i < realRows; i++) {
-                //新建要转换的对象 
-                T entity = entityClass.newInstance();
-
-                //给对象中的字段赋值 
-                for (Entry<Object, Object> entry : fieldMap.entrySet()) {
-                    //获取中文字段名 
-                    String columnName = (String) entry.getKey();
-                    //获取英文字段名 
-                    String fieldName = (String) entry.getValue();
-                    //根据中文字段名获取列号 
-                    int col = colNameIndexMap.get(columnName);
-
-                    //获取当前单元格中的内容 
-                    String content = sheet.getCell(col, i).getContents().trim();
-
-                    //给对象赋值 
-                    setPropertyByName(fieldName, content, entity);
-                }
-
-                resultList.add(entity);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            //如果是ExcelException，则直接抛出 
-            if (e instanceof ExcelException) {
-                throw (ExcelException) e;
-
-                //否则将其它异常包装成ExcelException再抛出 
-            } else {
-                e.printStackTrace();
-                throw new ExcelException("导入Excel失败");
-            }
         }
-        return resultList;
-    }
 
-    /**
-     *
-     * @param <T>
-     * @param is
-     * @param sheetName
-     * @param entityClazz
-     * @param columnPropertyMap
-     * @return
-     * @throws Exception
-     * @throws org.peasant.util.ExcelPOJOUtil.ExcelException
-     */
-    public <T> Collection<T> worksheetToPOJOs(InputStream is, String sheetName, Class<T> entityClazz, Map<String, String> columnPropertyMap) throws Exception,ExcelException {
-        Workbook wb = Workbook.getWorkbook(is);
-        Sheet sheet = wb.getSheet(sheetName);
-        if (null == sheet) {
-            sheet = wb.getSheet(0);
-        }
-        return worksheetToPOJOs(sheet, entityClazz, columnPropertyMap);
-    }
-
-    /**
-     *
-     * @param <T>
-     * @param sheet
-     * @param entityClazz
-     * @param columnPropertyMap
-     * @return
-     * @throws Exception
-     */
-    public <T> Collection<T> worksheetToPOJOs(Sheet sheet, Class<T> entityClazz, Map<String, String> columnPropertyMap) throws Exception,ExcelException {
-        Cell[] heads = sheet.getRow(0);
-        Map<String, Integer> columnNameIndexMap = new HashMap<>(heads.length);
-        //  Map<Integer,String> columnIndexNameMap = new HashMap<>(heads.length);
-        for (int i = 0; i < heads.length; i++) {
-
-            if (heads[i].getContents() != null && "".equals(heads[i].getContents())) {
-                columnNameIndexMap.put(heads[i].getContents().trim(), i);
-                //columnIndexNameMap.put(i, heads[i].getContents().trim());
-            }
-        }
-        int rowCount = sheet.getRows();
-        Collection<T> results = new ArrayList<>(rowCount);
         for (int i = 1; i < rowCount; i++) {
             try {
                 //对每一行记录按照给定的列与实体的属性对应关系，给实体的属性进行赋值
                 T entity = entityClazz.newInstance();
                 Cell[] row = sheet.getRow(i);
+                Map<String, FieldDescriptor> colFieldMap = conf.getColumnFieldMap();
                 for (Entry<String, Integer> e : columnNameIndexMap.entrySet()) {
 
-                    setPropertyByName(columnPropertyMap.get(e.getKey()), row[e.getValue()].getContents(), entity);
+                    if (colFieldMap.containsKey(e.getKey())) {//只对配置文件中指定的列进行赋值
+                        String property = colFieldMap.get(e.getKey()).getFieldName();
+                        Object value = null;
+
+                        if (converters != null) {//使用提供的Converters进行转换
+                            Converter ctr = converters.getConverter(ReflectUtil.getPropertyType(property, entity));
+                            if (ctr != null) {
+                                value = ctr.convert(row[e.getValue()].getContents());
+                            } else {
+                                value = ConvertUtil.convert(row[e.getValue()].getContents(), ReflectUtil.getPropertyType(property, entity));
+                            }
+                        } else {//若未提供对应类型的Converter,则尝试使用ConvertUtil对值进行转换
+                            value = ConvertUtil.convert(row[e.getValue()].getContents(), ReflectUtil.getPropertyType(property, entity));
+
+                        }
+                        ReflectUtil.setPropertyByName(colFieldMap.get(e.getKey()).getFieldName(), value, entity);
+                    }
                 }
                 results.add(entity);
-            } catch (InstantiationException | IllegalAccessException ex) {
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException ex) {
                 Logger.getLogger(ExcelPOJOUtil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return results;
 
-    }
-
-    public <T> T rowToPOJO(Cell[] row, Map<String, Integer> columnNameIndexMap, Map<String, String> columnPropertyMap, Class<T> entityClazz) throws Exception {
-        T entity = entityClazz.newInstance();
-        for (Entry<String, Integer> e : columnNameIndexMap.entrySet()) {
-            setPropertyByName(columnPropertyMap.get(e.getKey()), row[e.getValue()].getContents(), entity);
-        }
-        return entity;
     }
 
     /**
@@ -515,26 +461,6 @@ public class ExcelPOJOUtil {
     }
 
     /**
-     * 根据字段名获取该字段的set方法，若字段名为"fieldName",则猜测set方法名为"setFieldName";
-     *
-     *
-     * @param fieldName
-     * @param entityClazz
-     * @return 如果未找到匹配的set方法则返回null;
-     */
-    protected static Method getSetMethodByFieldName(String fieldName, Class<?> entityClazz) {
-        fieldName = fieldName.trim();
-        String smn = "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
-        Method[] ms = entityClazz.getMethods();
-        for (Method m : ms) {
-            if (m.getName().equals(smn)) {
-                return m;
-            }
-        }
-        return null;
-    }
-
-    /**
      * @MethodName : getFieldValueByNameSequence
      * @Description : 根据带路径或不带路径的属性名获取属性值
      * 即接受简单属性名，如userName等，又接受带路径的属性名，如student.department.name等
@@ -559,34 +485,6 @@ public class ExcelPOJOUtil {
             value = getFieldValueByNameSequence(subFieldNameSequence, fieldObj);
         }
         return value;
-
-    }
-
-    /**
-     * @MethodName : setFieldValueByName
-     * @Description : 根据字段名给对象的字段赋值
-     * @param name 字段名
-     * @param value 字段值
-     * @param o 对象
-     */
-    public static void setPropertyByName(String name, Object value, Object o) throws Exception {
-
-        Class<?> fieldType;
-        Field field = getFieldByName(name, o.getClass());
-        if (field != null) {
-            field.setAccessible(true);
-            //获取字段类型 
-            fieldType = field.getType();
-            field.set(o, ConvertUtils.convertToPrimitive(value, fieldType));
-        } else {
-            Method sm = getSetMethodByFieldName(name, o.getClass());
-            fieldType = sm.getParameterTypes()[0];
-            if (null != sm) {
-                sm.invoke(o, ConvertUtils.convertToPrimitive(value, fieldType));
-            } else {
-                throw new ExcelException(o.getClass().getSimpleName() + "类不存在属性 " + name);
-            }
-        }
 
     }
 
@@ -663,6 +561,7 @@ public class ExcelPOJOUtil {
 
         //设置自动列宽 
         setColumnAutoSize(sheet, 5);
+
     }
 
     /**
@@ -687,6 +586,83 @@ public class ExcelPOJOUtil {
         public ExcelException(String message, Throwable cause) {
             super(message, cause);
             // TODO Auto-generated constructor stub 
+        }
+
+    }
+
+    public static class FieldDescriptor {
+
+        private final String column;
+        private final String field;
+        private boolean required = false;
+
+        public FieldDescriptor(String column, String conf) {
+            this.column = column;
+            String[] cs = conf.split(",");
+            this.field = cs[0];
+            if (cs.length > 1 && "required".equalsIgnoreCase(cs[1])) {
+                required = true;
+            }
+        }
+
+        public String getColumnName() {
+            return column;
+
+        }
+
+        ;
+
+        public String getFieldName() {
+            return field;
+        }
+
+        ;
+
+        public boolean isRequired() {
+            return required;
+        }
+    ;
+
+    }
+
+    public static class Configuration {
+
+        private final Properties config;
+
+        private final Map<String, FieldDescriptor> required = new HashMap();
+        private final Map<String, FieldDescriptor> columnfield = new HashMap();
+        ;
+        private final List<FieldDescriptor> fields = new LinkedList<>();
+
+        ;
+
+        public Configuration(Properties config) {
+
+            this.config = config;
+            for (Entry e : config.entrySet()) {
+                String column = (String) e.getKey();
+                String conf = (String) e.getValue();
+                FieldDescriptor fd = new FieldDescriptor(column, conf);
+                fields.add(fd);
+                columnfield.put(column, fd);
+                if (fd.required) {
+                    required.put(column, fd);
+                }
+
+            }
+
+        }
+
+        public Map<String, FieldDescriptor> getRequiredFieldMap() {
+            return required;
+        }
+
+        public Map<String, FieldDescriptor> getColumnFieldMap() {
+            return columnfield;
+        }
+
+        public List<FieldDescriptor> getAllFileds() {
+            return fields;
         }
 
     }

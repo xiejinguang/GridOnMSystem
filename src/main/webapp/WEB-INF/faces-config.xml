@@ -66,14 +66,7 @@
             <base-name>/org/peasant/i18n_basic</base-name>
             <var>i18n_basic</var>
         </resource-bundle>
-        <resource-bundle>
-            <base-name>/org/peasant/i18n_basic</base-name>
-            <var>i18n_basic</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/org/peasant/i18n_basic</base-name>
-            <var>i18n_basic</var>
-        </resource-bundle>
+
     </application>
     
     <navigation-rule>
@@ -90,6 +83,13 @@
         </navigation-case>    
     </navigation-rule>
     
+        <navigation-rule>
+            <description>导入Excel文件</description>
+        <navigation-case>
+            <from-outcome>importExcel</from-outcome>
+            <to-view-id>/peasant/util/importExcel</to-view-id>
+        </navigation-case>    
+    </navigation-rule>
     
     
     <navigation-rule>

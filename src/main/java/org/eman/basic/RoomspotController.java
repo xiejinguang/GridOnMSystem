@@ -39,6 +39,8 @@ public class RoomspotController implements Serializable {
     private List<Roomspot> selectedItems;
     private Map<String, Object> searchCons;
     protected ResourceBundle bundle;
+    
+    private List<Roomspot> filteredValue;
 
     @EJB
     AsistCandidateValueFacade candidateValueFacade;
@@ -97,7 +99,7 @@ public class RoomspotController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setId(org.eman.util.Utils.generateUniqueKey());
+        created.setId(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private RoomspotFacade getFacade() {
@@ -314,6 +316,14 @@ public class RoomspotController implements Serializable {
 
     public void setAreaCVs(CandidateValue areaCVs) {
         this.areaCVs = areaCVs;
+    }
+
+    public List<Roomspot> getFilteredValue() {
+        return filteredValue;
+    }
+
+    public void setFilteredValue(List<Roomspot> filteredValue) {
+        this.filteredValue = filteredValue;
     }
 
     @FacesConverter(forClass = Roomspot.class, value = "org.eman.Roomspot")

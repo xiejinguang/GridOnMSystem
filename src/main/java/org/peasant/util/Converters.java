@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package org.eman.util;
+package org.peasant.util;
 
 /**
  *
  * @author 谢金光
  */
-public class Utils {
-    public static String generateUniqueKey(){
-        return java.util.UUID.randomUUID().toString();
-    }
+public interface Converters {
+
+    public <T> Converter<T> getConverter(Class<T> clazz);
+
+    public Converter getConverter(String name);
+
 }

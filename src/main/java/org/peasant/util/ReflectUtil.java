@@ -8,9 +8,9 @@ package org.peasant.util;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 /**
  *
@@ -22,10 +22,12 @@ public class ReflectUtil {
         String pmg = "get" + Character.toUpperCase(property.charAt(0)) + property.substring(1);
         return pmg;
     }
+
     public static String getPropertySetter(String property) {
         String pms = "set" + Character.toUpperCase(property.charAt(0)) + property.substring(1);
         return pms;
     }
+
     /**
      * 根据字段名获取该字段的set方法，若字段名为"fieldName",则猜测set方法名为"setFieldName";
      *
@@ -53,7 +55,7 @@ public class ReflectUtil {
      * @param clazz 包含该字段的类
      * @return 字段
      */
-   public static Field getFieldByName(String fieldName, Class<?> clazz) {
+    public static Field getFieldByName(String fieldName, Class<?> clazz) {
         Field[] fields = clazz.getFields();
         for (Field field : fields) {
             if (field.getName().equals(fieldName)) {
@@ -62,25 +64,88 @@ public class ReflectUtil {
         }
         return null;
     }
-   public static Object getProperty(Object o , String property)throws IllegalArgumentException,IllegalAccessException,InvocationTargetException{
-       try{
-        Field f = o.getClass().getField(property);
-        return f.get(o);
-       }
-       catch(NoSuchFieldException ex){
-           String msg = o.getClass().getName() + "不存在字段‘" + property + "',尝试getProperty方法";
 
-            Logger.getLogger(JsfModelBuilder.class.getName()).log(Level.INFO, msg, ex);
+    public static Object getProperty(Object o, String property) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+        try {
+            Field f = o.getClass().getField(property);
+            return f.get(o);
+        } catch (NoSuchFieldException ex) {
+            String msg = o.getClass().getName() + "不存在字段‘" + property + "',尝试getProperty方法";
+
+            Logger.getLogger(ReflectUtil.class.getName()).log(Level.INFO, msg);
             String pms = getPropertyGetter(property);
             try {
                 Method pm = o.getClass().getMethod(pms);
-              return  pm.invoke(o);
-            } catch (NoSuchMethodException ex1){
-               msg = o.getClass().getName() + "不存在字段‘" + property + "',也不存在方法‘" + pms + "'!!!";
-               Logger.getLogger(JsfModelBuilder.class.getName()).log(Level.SEVERE, msg, ex1);
+                return pm.invoke(o);
+            } catch (NoSuchMethodException ex1) {
+                msg = o.getClass().getName() + "不存在字段‘" + property + "',也不存在方法‘" + pms + "'!!!";
+                Logger.getLogger(ReflectUtil.class.getName()).log(Level.SEVERE, msg, ex1);
                 throw new IllegalArgumentException(msg, ex1);
             }
-       }
-   }
-    
+        }
+    }
+
+    /**
+     *
+     *
+     * @throws java.lang.IllegalAccessException
+     * @throws java.lang.reflect.InvocationTargetException
+     * @MethodName : setFieldValueByName
+     * @Description : 根据字段名给对象的字段赋值
+     * @param name 字段名
+     * @param value 字段值
+     * @param target 对象
+     *
+     */
+    public static void setPropertyByName(String name, Object value, Object target) throws IllegalAccessException, InvocationTargetException {
+
+        Class<?> fieldType;
+        Field field = getFieldByName(name, target.getClass());
+        if (field != null) {
+            field.setAccessible(true);
+            //获取字段类型 
+            fieldType = field.getType();
+            if (fieldType.isInstance(value)) {
+                field.set(target, value);
+            } else {
+                field.set(target, ConvertUtil.convert(value, fieldType));
+            }
+        } else {
+            Method sm = getSetMethodByFieldName(name, target.getClass());
+
+            if (null != sm) {
+                fieldType = sm.getParameterTypes()[0];
+
+                if (fieldType.isInstance(value)) {
+                    sm.invoke(target, value);
+                } else {
+                    sm.invoke(target, ConvertUtil.convert(value, fieldType));
+                }
+            } else {
+                throw new IllegalArgumentException(target.getClass().getSimpleName() + "类不存在属性\" " + name + "\"!!!");
+            }
+        }
+
+    }
+
+    public static Class getPropertyType(String name, Object target) {
+
+        Field field = getFieldByName(name, target.getClass());
+        if (field != null) {
+            field.setAccessible(true);
+            //获取字段类型 
+            return field.getType();
+
+        } else {
+            Method sm = getSetMethodByFieldName(name, target.getClass());
+
+            if (null != sm) {
+                return sm.getParameterTypes()[0];
+            } else {
+                throw new IllegalArgumentException(target.getClass().getSimpleName() + "类不存在属性\" " + name + "\"!!!");
+            }
+        }
+
+    }
+
 }

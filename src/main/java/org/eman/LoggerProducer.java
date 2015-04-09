@@ -7,7 +7,6 @@
 package org.eman;
 
 import java.io.Serializable;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;

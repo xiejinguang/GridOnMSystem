@@ -9,7 +9,7 @@ package org.eman.basic.ejb;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.peasant.util.GenericFacade;
+import org.peasant.util.GenericAbstractFacade;
 import org.peasant.util.repositoryimpl.DBAttachment;
 
 /**
@@ -17,7 +17,7 @@ import org.peasant.util.repositoryimpl.DBAttachment;
  * @author 谢金光
  */
 @Stateless
-public class DBAttachmentFacade extends GenericFacade<DBAttachment> {
+public class DBAttachmentFacade extends GenericAbstractFacade<DBAttachment> {
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
 

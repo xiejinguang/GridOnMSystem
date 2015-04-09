@@ -12,10 +12,13 @@ import javax.servlet.annotation.WebListener;
 
 /**
  * 在应用启动时，执行Attachement服务的环境配置，从web.xml中读取peasant.attachment.DOWNLOAD_SERVLET_PATH参数配置，或使用默认值
+ * 在CDI环境中，该类可不使用
  *
+ * @deprecated since {@link  AttachmentService }1.1
  * @author 谢金光
  */
-@WebListener(value = "AttachmentEnvironmentListener")
+
+
 public class AttachmentEnvironmentListener implements ServletContextListener {
 
     @Inject
@@ -25,9 +28,9 @@ public class AttachmentEnvironmentListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         String path = sce.getServletContext().getInitParameter(Constants.ATTACHMENT_DOWN_SERVLET_PATH_PARAM);
         if (path == null || path.trim().isEmpty()) {
-           path = Constants.DEFAULT_ATTACHMENT_DOWN_SERVLET_PATH;
+            path = Constants.DEFAULT_ATTACHMENT_DOWN_SERVLET_PATH;
         }
-        attachServ.downServPath =path;
+        attachServ.downServPath = path;
     }
 
     @Override

@@ -71,7 +71,7 @@ public class ResourceController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setResourceId(org.eman.util.Utils.generateUniqueKey());
+        created.setResourceId(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private ResourceFacade getFacade() {

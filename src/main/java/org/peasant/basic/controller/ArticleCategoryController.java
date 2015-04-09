@@ -24,7 +24,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.SelectItem;
-import org.peasant.util.JsfModelBuilder;
+import javax.inject.Singleton;
+import org.peasant.util.web.JsfModelBuilder;
 
 @Named("articleCategoryController")
 @ViewScoped
@@ -77,7 +78,7 @@ public class ArticleCategoryController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setId(org.eman.util.Utils.generateUniqueKey());
+        created.setId(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private ArticleCategoryFacade getFacade() {
@@ -212,22 +213,26 @@ public class ArticleCategoryController implements Serializable {
     }
 
     public List<SelectItem> getHierarchicalCategories() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
-        if (null == hierarchicalCategories) {
-            Map params = new HashMap();
-            params.put("superior", null);
-            List<ArticleCategory> rootCategories = getFacade().findByConditions(params);
-            hierarchicalCategories = new ArrayList(rootCategories.size());
-            for (ArticleCategory o : rootCategories) {
 
-                hierarchicalCategories.add(JsfModelBuilder.buildHierarchicalSelectItem(ArticleCategory.class, o, "articleCategoryCollection", "name"));
-            }
+        Map params = new HashMap();
+        params.put("superior", null);
+        List<ArticleCategory> rootCategories = getFacade().findByConditions(params);
+        hierarchicalCategories = new ArrayList(rootCategories.size());
+        for (ArticleCategory o : rootCategories) {
 
+            hierarchicalCategories.add(JsfModelBuilder.buildHierarchicalSelectItem(ArticleCategory.class, o, "articleCategoryCollection", "name"));
         }
+
         return this.hierarchicalCategories;
     }
 
     @FacesConverter(forClass = ArticleCategory.class, value = "ArticleCategory")
-    public static class ArticleCategoryFacesConverter implements Converter {
+    @org.peasant.model.EntityConverter(forClass = ArticleCategory.class, value = "org.peasant.basic.model.ArticleCategory")
+    @Singleton
+    public static class ArticleCategoryFacesConverter implements Converter, org.peasant.util.Converter<ArticleCategory> {
+
+        @EJB
+        ArticleCategoryFacade articleCategoryFacade;
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
@@ -263,6 +268,63 @@ public class ArticleCategoryController implements Serializable {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), ArticleCategory.class.getName()});
                 return null;
             }
+        }
+
+        /**
+         *
+         * @param key the value of key
+         * @return the T
+         */
+        public ArticleCategory getAsObject(String key) {
+
+            ArticleCategory result = articleCategoryFacade.find(key);
+
+            if (result == null) {
+                Map<String, Object> params = new HashMap<>();
+                params.put("name", key);
+                List<ArticleCategory> rs = articleCategoryFacade.findByNamedQuery("ArticleCategory.findByName", params);
+                if (rs != null && !rs.isEmpty()) {
+                    result = rs.get(0);
+                }
+
+            }
+            return result;
+        }
+
+        @Override
+        public String getAsString(Object value) {
+            if (value == null) {
+                return null;
+            }
+            if (value instanceof ArticleCategory) {
+                ArticleCategory o = (ArticleCategory) value;
+                return getStringKey(o.getId());
+            } else {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{value, value.getClass().getName(), ArticleCategory.class.getName()});
+                return null;
+            }
+        }
+
+        /**
+         *
+         * @param value the value of value
+         * @return the T
+         */
+        @Override
+        public ArticleCategory convert(Object value) {
+            if (value == null) {
+                return null;
+            }
+            if (value instanceof String) {
+                return getAsObject((String) value);
+            }
+            if (value instanceof ArticleCategory) {
+                return (ArticleCategory) value;
+            } else {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{value, value.getClass().getName(), ArticleCategory.class.getName()});
+                return null;
+            }
+
         }
 
     }

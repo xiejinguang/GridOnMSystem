@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings jaxb-support="false" id="_14278508823411" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:ns4="http://nbmodeler.java.net" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <jpa:entity class="GmsysFixDemand" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="false" id="_14278508823444">
+        <jpa:table name="gmsys_fix_demand">
+            <jpa:unique-constraint>
+                <jpa:column-name>demandCode</jpa:column-name>
+            </jpa:unique-constraint>
+        </jpa:table>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.String" visibile="true" id="_14278508823629">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="gmsys_fix_demand" length="36"/>
+            </jpa:id>
+            <jpa:basic name="demandCode" optional="false" attribute-type="java.lang.String" visibile="true" id="_142785088236210">
+                <jpa:column name="demandCode" unique="false" nullable="false" insertable="true" updatable="true" table="gmsys_fix_demand" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="demandName" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236211">
+                <jpa:column name="demandName" unique="false" nullable="true" insertable="true" updatable="true" table="gmsys_fix_demand" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="problemKind" optional="false" attribute-type="java.lang.String" visibile="true" id="_142785088236212">
+                <jpa:column name="problemKind" unique="false" nullable="false" insertable="true" updatable="true" table="gmsys_fix_demand" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="problemSubKind" optional="false" attribute-type="java.lang.String" visibile="true" id="_142785088236213">
+                <jpa:column name="problemSubKind" unique="false" nullable="false" insertable="true" updatable="true" table="gmsys_fix_demand" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="problemDetails" optional="false" attribute-type="java.lang.String" visibile="true" id="_142785088236214">
+                <jpa:column name="problemDetails" unique="false" nullable="false" insertable="true" updatable="true" table="gmsys_fix_demand" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="solution" optional="false" attribute-type="java.lang.String" visibile="true" id="_142785088236315">
+                <jpa:column name="solution" unique="false" nullable="false" insertable="true" updatable="true" table="gmsys_fix_demand" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="fixKind" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236316">
+                <jpa:column name="fixKind" unique="false" nullable="true" insertable="true" updatable="true" table="gmsys_fix_demand" length="25"/>
+            </jpa:basic>
+            <jpa:basic name="budgetList" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236317">
+                <jpa:column name="budgetList" unique="false" nullable="true" insertable="true" updatable="true" table="gmsys_fix_demand" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="budget" optional="true" attribute-type="java.lang.Long" visibile="true" id="_142785088236318">
+                <jpa:column name="budget" unique="false" nullable="true" insertable="true" updatable="true" table="gmsys_fix_demand"/>
+            </jpa:basic>
+            <jpa:basic name="discoverDate" optional="false" attribute-type="java.util.Date" visibile="true" id="_142785088236319">
+                <jpa:column name="discoverDate" unique="false" nullable="false" insertable="true" updatable="true" table="gmsys_fix_demand"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="source" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236320">
+                <jpa:column name="source" unique="false" nullable="true" insertable="true" updatable="true" table="gmsys_fix_demand" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="status" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236321">
+                <jpa:column name="status" unique="false" nullable="true" insertable="true" updatable="true" table="gmsys_fix_demand" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="createDate" optional="true" attribute-type="java.util.Date" visibile="true" id="_142785088236322">
+                <jpa:column name="createDate" unique="false" nullable="true" insertable="true" updatable="true" table="gmsys_fix_demand"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:many-to-one name="stationId" target-entity="BasicStation" optional="false" primaryKey="false" connected-entity-id="_14278508823567" connected-attribute-id="_142785088236454" visibile="true" id="_142785088236323">
+                <jpa:join-column name="stationId" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="BasicRoomspot" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="false" id="_14278508823565">
+        <jpa:table name="basic_roomspot">
+            <jpa:unique-constraint>
+                <jpa:column-name>secondName</jpa:column-name>
+            </jpa:unique-constraint>
+            <jpa:unique-constraint>
+                <jpa:column-name>roomCode</jpa:column-name>
+            </jpa:unique-constraint>
+        </jpa:table>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.String" visibile="true" id="_142785088236424">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="basic_roomspot" length="36"/>
+            </jpa:id>
+            <jpa:basic name="roomCode" optional="false" attribute-type="java.lang.String" visibile="true" id="_142785088236425">
+                <jpa:column name="roomCode" unique="false" nullable="false" insertable="true" updatable="true" table="basic_roomspot" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="roomName" optional="false" attribute-type="java.lang.String" visibile="true" id="_142785088236426">
+                <jpa:column name="roomName" unique="false" nullable="false" insertable="true" updatable="true" table="basic_roomspot" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="secondName" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236427">
+                <jpa:column name="secondName" unique="false" nullable="true" insertable="true" updatable="true" table="basic_roomspot" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="province" optional="false" attribute-type="java.lang.String" visibile="true" id="_142785088236428">
+                <jpa:column name="province" unique="false" nullable="false" insertable="true" updatable="true" table="basic_roomspot" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="city" optional="false" attribute-type="java.lang.String" visibile="true" id="_142785088236429">
+                <jpa:column name="city" unique="false" nullable="false" insertable="true" updatable="true" table="basic_roomspot" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="county" optional="false" attribute-type="java.lang.String" visibile="true" id="_142785088236430">
+                <jpa:column name="county" unique="false" nullable="false" insertable="true" updatable="true" table="basic_roomspot" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="grid" optional="false" attribute-type="java.lang.String" visibile="true" id="_142785088236431">
+                <jpa:column name="grid" unique="false" nullable="false" insertable="true" updatable="true" table="basic_roomspot" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="propertyOwner" optional="false" attribute-type="java.lang.String" visibile="true" id="_142785088236432">
+                <jpa:column name="propertyOwner" unique="false" nullable="false" insertable="true" updatable="true" table="basic_roomspot" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="status" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236433">
+                <jpa:column name="status" unique="false" nullable="true" insertable="true" updatable="true" table="basic_roomspot" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="address" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236434">
+                <jpa:column name="address" unique="false" nullable="true" insertable="true" updatable="true" table="basic_roomspot" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="commont" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236435">
+                <jpa:column name="commont" unique="false" nullable="true" insertable="true" updatable="true" table="basic_roomspot" length="65535"/>
+                <jpa:lob/>
+            </jpa:basic>
+            <jpa:one-to-many name="basicStationCollection" target-entity="BasicStation" mapped-by="roomspotId" connected-entity-id="_14278508823567" connected-attribute-id="_142785088236456" visibile="true" id="_142785088236436"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="BasicNetnode" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="false" id="_14278508823566">
+        <jpa:table name="basic_netnode">
+            <jpa:unique-constraint>
+                <jpa:column-name>ossCode</jpa:column-name>
+            </jpa:unique-constraint>
+        </jpa:table>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.String" visibile="true" id="_142785088236437">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="basic_netnode" length="36"/>
+            </jpa:id>
+            <jpa:basic name="ossCode" optional="false" attribute-type="java.lang.String" visibile="true" id="_142785088236438">
+                <jpa:column name="ossCode" unique="false" nullable="false" insertable="true" updatable="true" table="basic_netnode" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="name" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236439">
+                <jpa:column name="name" unique="false" nullable="true" insertable="true" updatable="true" table="basic_netnode" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="investTime" optional="true" attribute-type="java.util.Date" visibile="true" id="_142785088236440">
+                <jpa:column name="investTime" unique="false" nullable="true" insertable="true" updatable="true" table="basic_netnode"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="commont" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236441">
+                <jpa:column name="commont" unique="false" nullable="true" insertable="true" updatable="true" table="basic_netnode" length="65535"/>
+                <jpa:lob/>
+            </jpa:basic>
+            <jpa:basic name="status" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236442">
+                <jpa:column name="status" unique="false" nullable="true" insertable="true" updatable="true" table="basic_netnode" length="45"/>
+            </jpa:basic>
+            <jpa:many-to-one name="statID" target-entity="BasicStation" optional="false" primaryKey="false" connected-entity-id="_14278508823567" connected-attribute-id="_142785088236455" visibile="true" id="_142785088236443">
+                <jpa:join-column name="statID" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="equipModelId" target-entity="BasicEquipmentModel" optional="false" primaryKey="false" connected-entity-id="_14278508823568" connected-attribute-id="_142785088236464" visibile="true" id="_142785088236444">
+                <jpa:join-column name="equipModelId" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="BasicStation" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="false" id="_14278508823567">
+        <jpa:table name="basic_station">
+            <jpa:unique-constraint>
+                <jpa:column-name>name</jpa:column-name>
+            </jpa:unique-constraint>
+            <jpa:unique-constraint>
+                <jpa:column-name>statCode</jpa:column-name>
+            </jpa:unique-constraint>
+        </jpa:table>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.String" visibile="true" id="_142785088236445">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="basic_station" length="36"/>
+            </jpa:id>
+            <jpa:basic name="statCode" optional="false" attribute-type="java.lang.String" visibile="true" id="_142785088236446">
+                <jpa:column name="statCode" unique="false" nullable="false" insertable="true" updatable="true" table="basic_station" length="20"/>
+            </jpa:basic>
+            <jpa:basic name="name" optional="false" attribute-type="java.lang.String" visibile="true" id="_142785088236447">
+                <jpa:column name="name" unique="false" nullable="false" insertable="true" updatable="true" table="basic_station" length="20"/>
+            </jpa:basic>
+            <jpa:basic name="address" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236448">
+                <jpa:column name="address" unique="false" nullable="true" insertable="true" updatable="true" table="basic_station" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="owner" optional="false" attribute-type="java.lang.String" visibile="true" id="_142785088236449">
+                <jpa:column name="owner" unique="false" nullable="false" insertable="true" updatable="true" table="basic_station" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="type" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236450">
+                <jpa:column name="type" unique="false" nullable="true" insertable="true" updatable="true" table="basic_station" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="accomMaintainer" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236451">
+                <jpa:column name="accomMaintainer" unique="false" nullable="true" insertable="true" updatable="true" table="basic_station" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="status" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236452">
+                <jpa:column name="status" unique="false" nullable="true" insertable="true" updatable="true" table="basic_station" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="commont" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236453">
+                <jpa:column name="commont" unique="false" nullable="true" insertable="true" updatable="true" table="basic_station" length="65535"/>
+                <jpa:lob/>
+            </jpa:basic>
+            <jpa:many-to-one name="roomspotId" target-entity="BasicRoomspot" optional="false" primaryKey="false" connected-entity-id="_14278508823565" connected-attribute-id="_142785088236436" visibile="true" id="_142785088236456">
+                <jpa:join-column name="roomspotId" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="gmsysFixDemandCollection" target-entity="GmsysFixDemand" mapped-by="stationId" connected-entity-id="_14278508823444" connected-attribute-id="_142785088236323" visibile="true" id="_142785088236454"/>
+            <jpa:one-to-many name="basicNetnodeCollection" target-entity="BasicNetnode" mapped-by="statID" connected-entity-id="_14278508823566" connected-attribute-id="_142785088236443" visibile="true" id="_142785088236455"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="BasicEquipmentModel" jaxb-root-element="false" static-metamodel="false" visibile="true" minimized="false" id="_14278508823568">
+        <jpa:table name="basic_equipment_model"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.String" visibile="true" id="_142785088236457">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="basic_equipment_model" length="36"/>
+            </jpa:id>
+            <jpa:basic name="type" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236458">
+                <jpa:column name="type" unique="false" nullable="true" insertable="true" updatable="true" table="basic_equipment_model" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="class1" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236459">
+                <jpa:column name="class" unique="false" nullable="true" insertable="true" updatable="true" table="basic_equipment_model" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="netType" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236460">
+                <jpa:column name="netType" unique="false" nullable="true" insertable="true" updatable="true" table="basic_equipment_model" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="model" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236461">
+                <jpa:column name="model" unique="false" nullable="true" insertable="true" updatable="true" table="basic_equipment_model" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="manufacturer" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236462">
+                <jpa:column name="manufacturer" unique="false" nullable="true" insertable="true" updatable="true" table="basic_equipment_model" length="45"/>
+            </jpa:basic>
+            <jpa:basic name="commont" optional="true" attribute-type="java.lang.String" visibile="true" id="_142785088236463">
+                <jpa:column name="commont" unique="false" nullable="true" insertable="true" updatable="true" table="basic_equipment_model" length="65535"/>
+                <jpa:lob/>
+            </jpa:basic>
+            <jpa:one-to-many name="basicNetnodeCollection" target-entity="BasicNetnode" mapped-by="equipModelId" connected-entity-id="_14278508823566" connected-attribute-id="_142785088236444" visibile="true" id="_142785088236464"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:diagram id="_14278508823422">
+        <plane elementRef="_14278508823411" id="_14278508823433_p">
+            <shape elementRef="_14278508823444" id="_14278508823444_gui">
+                <Bounds x="729.0" y="565.0" width="198.0" height="397.0"/>
+            </shape>
+            <shape elementRef="_14278508823565" id="_14278508823565_gui">
+                <Bounds x="182.0" y="620.0" width="186.0" height="353.0"/>
+            </shape>
+            <shape elementRef="_14278508823566" id="_14278508823566_gui">
+                <Bounds x="318.0" y="32.0" width="175.0" height="243.0"/>
+            </shape>
+            <shape elementRef="_14278508823567" id="_14278508823567_gui">
+                <Bounds x="638.0" y="165.0" width="212.0" height="331.0"/>
+            </shape>
+            <shape elementRef="_14278508823568" id="_14278508823568_gui">
+                <Bounds x="32.0" y="339.0" width="222.0" height="243.0"/>
+            </shape>
+        </plane>
+    </jpa:diagram>
+</jpa:entity-mappings>

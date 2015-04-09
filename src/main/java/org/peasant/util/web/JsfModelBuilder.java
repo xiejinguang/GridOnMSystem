@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.peasant.util;
+package org.peasant.util.web;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -12,6 +12,7 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 import org.eman.asist.model.AsistCandidateValue;
+import org.peasant.util.ReflectUtil;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
