@@ -9,12 +9,11 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import org.peasant.util.Repository;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -29,7 +28,7 @@ import org.primefaces.model.UploadedFile;
 @ApplicationScoped
 public class FileUploadController implements Serializable{
 
-    @EJB
+    @Inject
     Repository repo;
 
     public String[] getFiles() {

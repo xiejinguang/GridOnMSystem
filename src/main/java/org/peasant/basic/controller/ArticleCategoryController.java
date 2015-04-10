@@ -25,10 +25,12 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.SelectItem;
 import javax.inject.Singleton;
+import org.peasant.model.Logged;
 import org.peasant.util.web.JsfModelBuilder;
 
 @Named("articleCategoryController")
 @ViewScoped
+@Logged
 public class ArticleCategoryController implements Serializable {
 
     @EJB

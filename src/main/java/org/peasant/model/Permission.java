@@ -5,7 +5,6 @@
  */
 package org.peasant.model;
 
-import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
@@ -15,14 +14,12 @@ import javax.interceptor.InterceptorBinding;
 
 /**
  *
- * @author Administrator
+ * @author 谢金光
  */
-@Inherited
-@Documented
 @InterceptorBinding
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE,ElementType.METHOD,ElementType.CONSTRUCTOR})
-public @interface Logged {
+@Target({ElementType.TYPE,ElementType.METHOD})
+@Inherited
+public @interface Permission {
     
 }
-

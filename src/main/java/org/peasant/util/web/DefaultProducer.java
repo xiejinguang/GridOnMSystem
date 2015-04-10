@@ -11,6 +11,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
+import javax.inject.Singleton;
 import org.peasant.util.Repository;
 import org.peasant.util.repositoryimpl.DiskNDatabaseRepository;
 
@@ -18,11 +19,12 @@ import org.peasant.util.repositoryimpl.DiskNDatabaseRepository;
  *
  * @author 谢金光
  */
+@Singleton
 public class DefaultProducer {
 
-    @Produces
-    @ApplicationScoped
+    @Produces    
     @Default
+    @ApplicationScoped
     public Repository getDefaultRepository() {
         String homePath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter(Constants.REPOSITORY_HOME_PARAM);
         if(homePath ==null || homePath.trim().isEmpty())

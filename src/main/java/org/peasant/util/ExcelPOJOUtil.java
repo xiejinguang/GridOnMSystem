@@ -241,8 +241,9 @@ public class ExcelPOJOUtil {
      * @param sheet
      * @param entityClazz
      * @param fieldConf
+     * @param converters
      * @throws org.peasant.util.ExcelPOJOUtil.ExcelException
-     * @return the java.util.Collection<T>
+     * @return the java.util.Collection
      */
     protected static <T> Collection<T> worksheetToPOJOs(Sheet sheet, Class<T> entityClazz, java.util.Properties fieldConf, Converters converters) throws ExcelException {
 
@@ -323,7 +324,12 @@ public class ExcelPOJOUtil {
                         Object value = null;
 
                         if (converters != null) {//使用提供的Converters进行转换
-                            Converter ctr = converters.getConverter(ReflectUtil.getPropertyType(property, entity));
+                            Converter ctr = null;
+                            try {
+                                ctr = converters.getConverter(ReflectUtil.getPropertyType(property, entity));
+                            } catch (Exception ex) {
+                                Logger.getLogger(ExcelPOJOUtil.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                             if (ctr != null) {
                                 value = ctr.convert(row[e.getValue()].getContents());
                             } else {
@@ -339,10 +345,11 @@ public class ExcelPOJOUtil {
                 results.add(entity);
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException ex) {
                 Logger.getLogger(ExcelPOJOUtil.class.getName()).log(Level.SEVERE, null, ex);
+                throw new ExcelException("在将Excel行记录转换为POJO时出现异常！", ex);
+
             }
         }
         return results;
-
     }
 
     /**

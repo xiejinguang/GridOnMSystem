@@ -15,10 +15,7 @@ import javax.enterprise.inject.Instance;
 import org.peasant.model.EntityConverter;
 
 /**
- * 在CDI环境下，此类还会尝试获取{@link org.eman.util.Converter }的实现Bean用于转换.
- *
- * @see org.peasant.model.EntityConverter
- * @see Converter
+ * 
  * @author 谢金光
  */
 public class ConvertUtil {

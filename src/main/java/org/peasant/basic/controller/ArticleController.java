@@ -24,10 +24,12 @@ import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 import org.peasant.basic.facade.ArticleCategoryFacade;
 import org.peasant.basic.model.ArticleCategory;
+import org.peasant.model.Logged;
 import org.peasant.security.view.SubjectView;
 
 @Named("articleController")
 @ViewScoped
+@Logged
 public class ArticleController implements Serializable {
 
     @EJB

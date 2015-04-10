@@ -22,6 +22,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import org.peasant.model.Logged;
+import org.peasant.model.Permission;
 import org.peasant.util.Attachment;
 import org.peasant.util.Repository;
 import org.peasant.util.Utils;
@@ -36,6 +38,7 @@ import static org.peasant.web.fileupdownload.Constants.MOETHOD_RESOURCE;
  * @author 谢金光
  * @version 1.1
  */
+@Logged
 @Singleton
 public class AttachmentService implements Serializable {
 
@@ -47,6 +50,9 @@ public class AttachmentService implements Serializable {
 
     protected String downServPath; //在contextInitialized方法中初始化
 
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         if (svc != null) {

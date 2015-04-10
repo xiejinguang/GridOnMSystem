@@ -16,59 +16,57 @@ import org.peasant.util.Converter;
 import org.peasant.util.Converters;
 
 /**
- *CDI环境下的Converters,为应用程序提供全局可注入的{@link Conveters}。
- * 
+ * CDI环境下的Converters,为应用程序提供全局可注入的{@link Conveters}。动态获取应用程序内可用的{@link Converter}
+ *
  * @see EntityConverter
  * @author 谢金光
  */
 @Singleton
+@Logged
 public class GlobalConverters implements Converters {
 
     @Inject
     @Any
     private Instance<Converter<? extends Object>> anyconverter;
 
+    private static final Logger LOG = Logger.getLogger(GlobalConverters.class.getName());
+
     @Override
     public <T> Converter<T> getConverter(final Class<T> clazz) {
-        //尝试使用converter进行转换
+
+        return getConverter(clazz, null);
+    }
+
+    @Override
+    public Converter getConverter(String name) {
+        return getConverter(null, name);
+    }
+
+    /**
+     * 参数clazz与name之间是或的关系,动态获取Converter
+     *
+     * @param clazz
+     * @param name
+     * @return
+     */
+    protected Converter getConverter(Class clazz, String name) {
         if (anyconverter != null) {
-            Instance<Converter<? extends Object>> converters;
-            converters = anyconverter.select(new EntityConverter() {
 
-                @Override
-                public String value() {
-                    return clazz.getName();
-                }
+            for (Converter ctr : anyconverter) {
+                EntityConverter ec = ctr.getClass().getAnnotation(EntityConverter.class);
+                if (ec != null) {
+                    if (clazz != null && ec.forClass().equals(clazz)) {
+                        return ctr;
+                    }
 
-                @Override
-                public Class forClass() {
-                    return clazz;
+                    if (name != null && name.equals(ec.value())) {
+                        return ctr;
+                    }
                 }
-
-                @Override
-                public Class<? extends Annotation> annotationType() {
-                    return EntityConverter.class;
-                }
-            });
-            if (converters != null) {
-                Converter<T> c;
-                try {
-                    return (Converter<T>) converters.get();
-                } catch (Exception ex) {
-                    
-                    Logger.getLogger(GlobalConverters.class.getName()).log(Level.WARNING, null, ex);
-                }
-                return null;
             }
         }
 
         return null;
-    }
-    private static final Logger LOG = Logger.getLogger(GlobalConverters.class.getName());
-
-    @Override
-    public Converter getConverter(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

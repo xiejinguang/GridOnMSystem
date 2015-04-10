@@ -5,42 +5,58 @@
  */
 package org.peasant.model;
 
+import java.io.Serializable;
 import java.util.logging.Logger;
 import javax.annotation.Priority;
 import javax.interceptor.AroundConstruct;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
+import org.slf4j.LoggerFactory;
 
 /**
+ * 在beans.xml中必须将bean-discovery-mode设备为all,否则在Glassfish
+ * 4.0中将无法发现定义的Interceptor,即使你在beans.xml用使用interceptors元素列出Interceptor。
  *
  * @author Administrator
  */
-@Logged
 @Interceptor
+@Logged
 @Priority(Interceptor.Priority.APPLICATION)
-public class LoggedInterceptor {
+public class LoggedInterceptor implements Serializable {
+
+    org.slf4j.Logger logger = LoggerFactory.getLogger(LoggedInterceptor.class.getSimpleName());
+
+    public LoggedInterceptor() {
+    }
 
     @AroundInvoke
     public Object logInvocation(InvocationContext ctx) throws Exception {
 
         String clazz = ctx.getMethod().getDeclaringClass().getName();
         String method = ctx.getMethod().getName();
-        Logger.global.entering(clazz, method, ctx.getParameters());
+
+        logger.debug("Entering the Method[{}] of Class[{}] with Parameter[{}]", new Object[]{method, clazz, ctx.getParameters()});
         try {
             Object result = ctx.proceed();
-            Logger.global.exiting(clazz, method, result);
+            logger.debug("Exiting the Method[{}] of Class[{}] with result[{}]", new Object[]{method, clazz, result});
             return result;
         } catch (Exception e) {
-            Logger.global.throwing(clazz, method, e);
+            logger.debug("Exiting the Method[{}] of Class[{}] with Exception[{}]", new Object[]{method, clazz, e});
             throw e;
         }
 
     }
 
     @AroundConstruct
-    public Object created(InvocationContext ctx) {
-        return null;
+    public Object logConstruction(InvocationContext ctx) throws Exception {
+
+        logger.info("Initializing a new instance of Class[{}] using constructor[{}] with parameters[{}]!",
+                new Object[]{ctx.getConstructor().getDeclaringClass(), ctx.getConstructor(), ctx.getParameters()});
+        Object instance = ctx.proceed();
+        logger.info("Successfully constructed an instance[{}] using constructor[{}] with parameters[{}]!",
+                new Object[]{instance, ctx.getConstructor(), ctx.getParameters()});
+        return instance;
     }
 
 }
