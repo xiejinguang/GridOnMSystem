@@ -16,7 +16,9 @@ import org.peasant.util.Converter;
 import org.peasant.util.Converters;
 
 /**
- *
+ *CDI环境下的Converters,为应用程序提供全局可注入的{@link Conveters}。
+ * 
+ * @see EntityConverter
  * @author 谢金光
  */
 @Singleton

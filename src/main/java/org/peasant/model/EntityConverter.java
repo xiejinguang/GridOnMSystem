@@ -11,9 +11,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import javax.inject.Qualifier;
+import org.peasant.util.Converter;
 
 /**
- *
+ *在CDI环境下，对{@link Converter}进行标注，使用声明的Converter可被{@link GlobalConverters}按类型或名字进行查找。
  * @author 谢金光
  */
 @Qualifier
@@ -22,7 +23,15 @@ import javax.inject.Qualifier;
 @Inherited
 public @interface EntityConverter {
 
+    /**
+     *建议使用目标转换类型的名字作为该字段值
+     * @return
+     */
     String value() default "";
 
+    /**
+     *建议使用目标转换类型的{@link java.lang.Class}作为该字段值
+     * @return
+     */
     Class forClass() default Object.class;
 }

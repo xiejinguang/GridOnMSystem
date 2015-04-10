@@ -6,13 +6,24 @@
 package org.peasant.util;
 
 /**
- *
+ *提供获取特定{@link Converter}的方法。
  * @author 谢金光
  */
 public interface Converters {
-
+    
+    /**
+     *
+     * @param <T>
+     * @param clazz
+     * @return {@link Converter}，或null当找不到特定的类型的Converter时或在查找时发生Exception
+     */
     public <T> Converter<T> getConverter(Class<T> clazz);
 
+    /**
+     *
+     * @param name
+     * @return {@link Converter}，或null当找不到特定名字的Converter时或在查找时发生Exception
+     */
     public Converter getConverter(String name);
 
 }
