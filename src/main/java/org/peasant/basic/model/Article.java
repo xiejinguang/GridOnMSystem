@@ -24,8 +24,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.peasant.model.DatedEntity;
-import org.peasant.model.UUIDEntity;
+import org.peasant.jpa.DatedEntity;
+import org.peasant.jpa.UUIDEntity;
 
 /**
  *

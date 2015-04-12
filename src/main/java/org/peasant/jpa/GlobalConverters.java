@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.peasant.model;
+package org.peasant.jpa;
 
-import java.lang.annotation.Annotation;
-import java.util.logging.Level;
+import java.io.Serializable;
 import java.util.logging.Logger;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
@@ -21,9 +21,12 @@ import org.peasant.util.Converters;
  * @see EntityConverter
  * @author 谢金光
  */
-@Singleton
+@ApplicationScoped
 @Logged
-public class GlobalConverters implements Converters {
+public class GlobalConverters implements Converters,Serializable {
+
+    public GlobalConverters() {
+    }
 
     @Inject
     @Any

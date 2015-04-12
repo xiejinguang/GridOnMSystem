@@ -71,7 +71,7 @@ public class FixDemandController implements Serializable {
     }
 
     public void setFixDemandCodeFor(FixDemand fd) {
-        fd.setDemandCode(genFixDemandCode(fd.getStationId().getRoomspotId()));
+        fd.setDemandCode(genFixDemandCode(fd.getStationId().getRoomspot()));
     }
 
     public String genFixDemandCode(Roomspot rs) {

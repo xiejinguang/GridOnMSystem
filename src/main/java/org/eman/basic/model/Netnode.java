@@ -24,14 +24,14 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.peasant.model.Labeled;
+import org.peasant.jpa.Labeled;
 
 /**
  *
  * @author 谢金光
  */
 @Entity
-@Table(name = "basic_netnode", uniqueConstraints = {
+@Table(catalog = "jobpromotion", schema = "",name = "basic_netnode", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"ossCode"})})
 @XmlRootElement
 @NamedQueries({
@@ -70,9 +70,9 @@ public class Netnode implements Serializable,Labeled {
     @JoinColumn(name = "equipModelId", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private EquipmentModel equipModelId;
-    @JoinColumn(name = "statID", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "roomspotId", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    private Station statID;
+    private Roomspot roomspot;
 
     public Netnode() {
     }
@@ -142,12 +142,12 @@ public class Netnode implements Serializable,Labeled {
         this.equipModelId = equipModelId;
     }
 
-    public Station getStatID() {
-        return statID;
+    public Roomspot getRoomspot() {
+        return roomspot;
     }
 
-    public void setStatID(Station statID) {
-        this.statID = statID;
+    public void setRoomspot(Roomspot roomspot) {
+        this.roomspot = roomspot;
     }
 
     @Override

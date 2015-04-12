@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.inject.Instance;
-import org.peasant.model.EntityConverter;
+import org.peasant.jpa.EntityConverter;
 
 /**
  * 

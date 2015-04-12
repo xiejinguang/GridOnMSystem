@@ -12,7 +12,6 @@ import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 import org.eman.Module;
 import org.eman.asist.model.AsistCandidateValue;
 import org.eman.asist.model.CandidateValue;
@@ -46,7 +45,7 @@ public class AsistCandidateValueFacade extends AbstractFacade<AsistCandidateValu
     }
 
     @Override
-    @Transactional
+    
     public void remove(AsistCandidateValue entity) {
         super.remove(entity);
         if (entity.getParentID() != null) {

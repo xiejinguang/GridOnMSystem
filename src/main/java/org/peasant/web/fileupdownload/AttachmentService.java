@@ -13,17 +13,16 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import org.peasant.model.Logged;
-import org.peasant.model.Permission;
+import org.peasant.jpa.Logged;
 import org.peasant.util.Attachment;
 import org.peasant.util.Repository;
 import org.peasant.util.Utils;
@@ -39,8 +38,11 @@ import static org.peasant.web.fileupdownload.Constants.MOETHOD_RESOURCE;
  * @version 1.1
  */
 @Logged
-@Singleton
+@ApplicationScoped
 public class AttachmentService implements Serializable {
+
+    public AttachmentService() {
+    }
 
     @Inject
     Repository attachRepo;

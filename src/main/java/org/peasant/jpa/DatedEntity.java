@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.peasant.model;
+package org.peasant.jpa;
 
-import org.peasant.model.UUIDEntity;
+import org.peasant.jpa.UUIDEntity;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;

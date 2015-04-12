@@ -5,10 +5,14 @@
  */
 package org.eman;
 
+import java.io.Serializable;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
+
 import org.eman.asist.facade.KeyCodeFacade;
 import org.eman.asist.model.KeyCode;
 import org.peasant.util.Cn2Spell;
@@ -18,13 +22,16 @@ import org.peasant.util.Cn2Spell;
  * @author 谢金光
  */
 @Named
-@Singleton
-public class SpecialCodeGenerator {
+@ApplicationScoped
+public class SpecialCodeGenerator implements Serializable{ 
 
-    public final static String STATION_PREFIX = "BS";
-    public final static int STATION_NUMBER_WIDTH = 4;
-    public final static String FIXDEMAND_PREFIX = "FD";
-    public final static int FIXDEMAND_NUMBER_WIDTH = 6;
+    public SpecialCodeGenerator() {
+    }
+
+    protected  final static String STATION_PREFIX = "BS";
+    protected final static int STATION_NUMBER_WIDTH = 4;
+    protected final static String FIXDEMAND_PREFIX = "FD";
+    protected final static int FIXDEMAND_NUMBER_WIDTH = 6;
     @Inject
     KeyCodeFacade keyCodeFacade;
 
@@ -37,7 +44,6 @@ public class SpecialCodeGenerator {
         String c = Cn2Spell.converterToFirstSpell(FIXDEMAND_PREFIX + province + city).toUpperCase();
         return c + genKeyCode(c, FIXDEMAND_NUMBER_WIDTH);
     }
-
     @Transactional
     protected String genKeyCode(String key, int length) {
         KeyCode kc = keyCodeFacade.find(key);

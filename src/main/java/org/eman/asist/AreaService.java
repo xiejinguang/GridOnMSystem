@@ -6,6 +6,7 @@
 
 package org.eman.asist;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.event.ValueChangeEvent;
 
@@ -13,7 +14,7 @@ import javax.faces.event.ValueChangeEvent;
  *
  * @author 谢金光
  */
-public interface AreaService {
+public interface AreaService extends Serializable{
 
     List<String> getCitys();
 

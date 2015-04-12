@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.peasant.ORGStructure.model.Employee;
-import org.peasant.model.UUIDEntity;
+import org.peasant.jpa.UUIDEntity;
 
 /**
  *

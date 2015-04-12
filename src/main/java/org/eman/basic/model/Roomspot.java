@@ -22,15 +22,15 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.eman.gmsys.model.StationProperty;
-import org.peasant.model.Labeled;
-import org.peasant.model.UUIDEntity;
+import org.peasant.jpa.Labeled;
+import org.peasant.jpa.UUIDEntity;
 
 /**
  *
  * @author 谢金光
  */
 @Entity
-@Table(name = "basic_roomspot", uniqueConstraints = {
+@Table(catalog = "jobpromotion", schema = "",name = "basic_roomspot", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"roomCode"}),@UniqueConstraint(columnNames = {"secondName"})})
 @XmlRootElement
 @NamedQueries({
@@ -110,11 +110,14 @@ public class Roomspot extends UUIDEntity implements Serializable,Labeled {
     @Column(length = 65535)
     private String commont;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomspotId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomspot")
     private List<Station> stationList;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomspotId")
     private List<StationProperty> stationPropertyList;
+    
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "roomspot")
+    private List<Netnode> netnodeList;
 
     public Roomspot() {
     }
@@ -271,6 +274,14 @@ public class Roomspot extends UUIDEntity implements Serializable,Labeled {
     @Override
     public String getLabel() {
         return roomCode+"|" + roomName;
+    }
+
+    public List<Netnode> getNetnodeList() {
+        return netnodeList;
+    }
+
+    public void setNetnodeList(List<Netnode> netnodeList) {
+        this.netnodeList = netnodeList;
     }
 
   

@@ -1,4 +1,4 @@
-package org.peasant.model;
+package org.peasant.jpa;
 
 import java.io.Serializable;
 

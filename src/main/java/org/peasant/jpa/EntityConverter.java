@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.peasant.model;
+package org.peasant.jpa;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;

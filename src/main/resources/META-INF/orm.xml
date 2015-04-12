@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<entity-mappings
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xmlns='http://java.sun.com/xml/ns/persistence/orm'
+    xsi:schemaLocation='http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd'>
+    <description></description>
+    <persistence-unit-metadata>
+        <description></description>
+        <!--<xml-mapping-metadata-complete>当使用Annotation标注实体时，不能指定该元素，否则，JPA只认本文件中以XML声明的Entity及其它JPA类型</xml-mapping-metadata-complete>-->温
+        <persistence-unit-defaults>
+            <description></description>
+            <schema></schema>
+            <catalog></catalog>
+            <delimited-identifiers></delimited-identifiers>
+            <access></access>
+            <cascade-persist></cascade-persist>
+            <entity-listeners>
+                <entity-listener class="org.peasant.jpa.PersistenceContextListener">
+                    <description>The default Entity Listener.用于记录PersistenceContext中的Entity操作事件。</description>                    
+                </entity-listener>
+            </entity-listeners>
+        </persistence-unit-defaults>
+    </persistence-unit-metadata>  
+
+</entity-mappings>

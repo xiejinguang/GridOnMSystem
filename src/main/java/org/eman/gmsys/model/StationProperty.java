@@ -6,7 +6,7 @@
 
 package org.eman.gmsys.model;
 
-import org.peasant.model.UUIDEntity;
+import org.peasant.jpa.UUIDEntity;
 import org.eman.basic.model.Roomspot;
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author 谢金光
  */
 @Entity
-@Table(name = "gm_station_property",uniqueConstraints = @UniqueConstraint(columnNames = {"number"}))
+@Table(catalog = "jobpromotion", schema = "",name = "gm_station_property",uniqueConstraints = @UniqueConstraint(columnNames = {"number"}))
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "StationProperty.findAll", query = "SELECT s FROM StationProperty s"),

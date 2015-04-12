@@ -1,6 +1,6 @@
 package org.eman.gmsys.model;
 
-import org.peasant.model.UUIDEntity;
+import org.peasant.jpa.UUIDEntity;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "cm_conference_record")
+@Table(catalog = "jobpromotion", schema = "",name = "cm_conference_record")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dType")
 @DiscriminatorValue(value = "通用会议记录")

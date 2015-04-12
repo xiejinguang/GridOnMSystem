@@ -5,6 +5,7 @@
  */
 package org.eman.gmsys;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,8 +24,10 @@ import org.primefaces.model.TreeNode;
  */
 @Named
 @ViewScoped
-public class StationPropertyPatrolView {
+public class StationPropertyPatrolView implements Serializable{
 
+    public StationPropertyPatrolView() {
+    }
     @Inject
     StationPropertyFacade spFacade;
 

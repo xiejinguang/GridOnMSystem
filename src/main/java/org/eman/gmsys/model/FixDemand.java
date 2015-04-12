@@ -24,14 +24,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.eman.basic.model.Station;
-import org.peasant.model.Labeled;
+import org.peasant.jpa.Labeled;
 
 /**
  *
  * @author 谢金光
  */
 @Entity
-@Table(name = "gmsys_fix_demand", uniqueConstraints = {
+@Table(catalog = "jobpromotion", schema = "",name = "gmsys_fix_demand", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"demandCode"})})
 @XmlRootElement
 @NamedQueries({

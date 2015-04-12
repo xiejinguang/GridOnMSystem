@@ -5,6 +5,7 @@
  */
 package org.eman.web;
 
+import java.io.Serializable;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -18,7 +19,7 @@ import javax.inject.Named;
  */
 @Named
 @ViewScoped
-public class TestBean2 {
+public class TestBean2 implements Serializable{
 
     private UIComponent com;
 

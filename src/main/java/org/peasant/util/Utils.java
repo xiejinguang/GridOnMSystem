@@ -23,13 +23,12 @@ public class Utils {
         byte[] buffer = new byte[1024000];
         int size = 0;
         int s = 0;
-        s = is.read(buffer);
-        while (s > -1) {
 
+        while ((s = is.read(buffer)) > -1) {
             size += s;
             os.write(buffer, 0, s);
-            s = is.read(buffer);
         }
+        os.flush();
         return size;
 
     }

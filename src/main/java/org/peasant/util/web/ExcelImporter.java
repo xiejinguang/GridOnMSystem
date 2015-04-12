@@ -21,6 +21,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletContext;
+import javax.transaction.Transactional;
 import javax.transaction.UserTransaction;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -93,7 +94,7 @@ public class ExcelImporter implements Serializable {
             Logger.getLogger(ExcelImporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+@Transactional
     public void handleExcelImport(FileUploadEvent fue) {
 
         feedbackInfo("文件上传成功，正在执行导入,请稍候……\n", null);

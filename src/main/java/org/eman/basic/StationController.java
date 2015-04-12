@@ -65,7 +65,7 @@ public class StationController implements Serializable {
     }
     
     public void setStationCodeFor(Station st){
-       st.setStatCode(genNextStationCode(st.getRoomspotId()));                
+       st.setStatCode(genNextStationCode(st.getRoomspot()));                
     }
     
     public String genNextStationCode(Roomspot r ){

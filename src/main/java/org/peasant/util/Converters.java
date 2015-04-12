@@ -5,11 +5,13 @@
  */
 package org.peasant.util;
 
+import java.io.Serializable;
+
 /**
  *提供获取特定{@link Converter}的方法。
  * @author 谢金光
  */
-public interface Converters {
+public interface Converters extends Serializable{
     
     /**
      *

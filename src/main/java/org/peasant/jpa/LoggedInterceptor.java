@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.peasant.model;
+package org.peasant.jpa;
 
 import java.io.Serializable;
-import java.util.logging.Logger;
 import javax.annotation.Priority;
 import javax.interceptor.AroundConstruct;
 import javax.interceptor.AroundInvoke;
@@ -53,10 +52,10 @@ public class LoggedInterceptor implements Serializable {
 
         logger.info("Initializing a new instance of Class[{}] using constructor[{}] with parameters[{}]!",
                 new Object[]{ctx.getConstructor().getDeclaringClass(), ctx.getConstructor(), ctx.getParameters()});
-        Object instance = ctx.proceed();
-        logger.info("Successfully constructed an instance[{}] using constructor[{}] with parameters[{}]!",
-                new Object[]{instance, ctx.getConstructor(), ctx.getParameters()});
-        return instance;
+        Object result = ctx.proceed();
+        logger.info("Successfully constructed an instance [{}] using constructor[{}] with parameters[{}]!",
+                new Object[]{ctx.getTarget(), ctx.getConstructor(), ctx.getParameters()});
+        return result;
     }
 
 }

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.peasant.model;
+package org.peasant.jpa;
 
 import java.util.Enumeration;
 

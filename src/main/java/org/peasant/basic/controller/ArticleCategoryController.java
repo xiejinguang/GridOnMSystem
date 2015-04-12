@@ -25,7 +25,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.SelectItem;
 import javax.inject.Singleton;
-import org.peasant.model.Logged;
+import org.peasant.jpa.Logged;
 import org.peasant.util.web.JsfModelBuilder;
 
 @Named("articleCategoryController")
@@ -229,7 +229,7 @@ public class ArticleCategoryController implements Serializable {
     }
 
     @FacesConverter(forClass = ArticleCategory.class, value = "ArticleCategory")
-    @org.peasant.model.EntityConverter(forClass = ArticleCategory.class, value = "org.peasant.basic.model.ArticleCategory")
+    @org.peasant.jpa.EntityConverter(forClass = ArticleCategory.class, value = "org.peasant.basic.model.ArticleCategory")
     @Singleton
     public static class ArticleCategoryFacesConverter implements Converter, org.peasant.util.Converter<ArticleCategory> {
 

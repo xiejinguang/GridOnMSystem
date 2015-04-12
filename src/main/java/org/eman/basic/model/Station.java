@@ -26,14 +26,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.peasant.model.Labeled;
+import org.peasant.jpa.Labeled;
 
 /**
  *
  * @author 谢金光
  */
 @Entity
-@Table(name = "basic_station", uniqueConstraints = {
+@Table(catalog = "jobpromotion", schema = "",name = "basic_station", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"name"}),
     @UniqueConstraint(columnNames = {"statCode"})})
 @XmlRootElement
@@ -88,11 +88,10 @@ public class Station implements Serializable,Labeled {
     private String commont;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "stationId")
     private Collection<FixDemand> fixDemandCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "statID")
-    private Collection<Netnode> netnodeCollection;
+
     @JoinColumn(name = "roomspotId", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false,cascade = {CascadeType.MERGE,})
-    private Roomspot roomspotId;
+    private Roomspot roomspot;
 
     public Station() {
     }
@@ -189,21 +188,14 @@ public class Station implements Serializable,Labeled {
         this.fixDemandCollection = fixDemandCollection;
     }
 
-    @XmlTransient
-    public Collection<Netnode> getNetnodeCollection() {
-        return netnodeCollection;
+
+
+    public Roomspot getRoomspot() {
+        return roomspot;
     }
 
-    public void setNetnodeCollection(Collection<Netnode> netnodeCollection) {
-        this.netnodeCollection = netnodeCollection;
-    }
-
-    public Roomspot getRoomspotId() {
-        return roomspotId;
-    }
-
-    public void setRoomspotId(Roomspot roomspotId) {
-        this.roomspotId = roomspotId;
+    public void setRoomspot(Roomspot roomspot) {
+        this.roomspot = roomspot;
     }
 
     @Override
