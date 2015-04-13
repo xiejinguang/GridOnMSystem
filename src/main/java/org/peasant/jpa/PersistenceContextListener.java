@@ -5,7 +5,6 @@
  */
 package org.peasant.jpa;
 
-import com.oracle.jrockit.jfr.EventDefinition;
 import javax.persistence.PostLoad;
 import javax.persistence.PostPersist;
 import javax.persistence.PostRemove;

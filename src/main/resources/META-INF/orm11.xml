@@ -9,17 +9,18 @@ and open the template in the editor.
 <entity-mappings
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xmlns='http://java.sun.com/xml/ns/persistence/orm'
-    xsi:schemaLocation='http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd'>
+    xsi:schemaLocation='http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd'
+    version="2.0">
     <description></description>
     <persistence-unit-metadata>
         <description></description>
-        <!--<xml-mapping-metadata-complete>当使用Annotation标注实体时，不能指定该元素，否则，JPA只认本文件中以XML声明的Entity及其它JPA类型</xml-mapping-metadata-complete>-->温
+        <!--<xml-mapping-metadata-complete>当使用Annotation标注实体时，不能指定该元素，否则，JPA只认本文件中以XML声明的Entity及其它JPA类型</xml-mapping-metadata-complete>-->
         <persistence-unit-defaults>
             <description></description>
             <schema></schema>
             <catalog></catalog>
             <delimited-identifiers></delimited-identifiers>
-            <access></access>
+            <access>PROPERTY</access>
             <cascade-persist></cascade-persist>
             <entity-listeners>
                 <entity-listener class="org.peasant.jpa.PersistenceContextListener">
@@ -27,6 +28,5 @@ and open the template in the editor.
                 </entity-listener>
             </entity-listeners>
         </persistence-unit-defaults>
-    </persistence-unit-metadata>  
-
+    </persistence-unit-metadata> 
 </entity-mappings>

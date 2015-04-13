@@ -92,7 +92,7 @@ public class AttachmentController implements Serializable {
             attachServ.storeFromStream(uf.getInputstream(), filename, uf.getContentType(), this.owner, user, null);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful", filename + " is uploaded!"));
         } catch (IOException ex) {
-            Logger.getLogger(FileUploadController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AttachmentController.class.getName()).log(Level.SEVERE, null, ex);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed", "The file:" + filename + " is failed for uploading! Exception: " + ex.toString()));
         }
     }

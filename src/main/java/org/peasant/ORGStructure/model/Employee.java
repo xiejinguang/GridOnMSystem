@@ -6,14 +6,19 @@
 package org.peasant.ORGStructure.model;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Map;
 import javax.persistence.Basic;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SecondaryTable;
+import javax.persistence.SecondaryTables;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -29,6 +34,9 @@ import org.peasant.basic.model.Address;
 @Table(catalog = "jobpromotion", schema = "", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"idcardNum"}),
     @UniqueConstraint(columnNames = {"code"})})
+@SecondaryTables({@SecondaryTable(catalog = "jobpromotion", schema = "",name ="employee_addressHistory"),
+    @SecondaryTable(catalog = "jobpromotion", schema = "",name ="employee_addresses")})
+
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
@@ -40,6 +48,7 @@ import org.peasant.basic.model.Address;
     @NamedQuery(name = "Employee.findByIdcardNum", query = "SELECT e FROM Employee e WHERE e.idcardNum = :idcardNum"),
     @NamedQuery(name = "Employee.findByMobilePhoneNum", query = "SELECT e FROM Employee e WHERE e.mobilePhoneNum = :mobilePhoneNum")})
 public class Employee implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -67,9 +76,58 @@ public class Employee implements Serializable {
     @Size(max = 11)
     @Column(length = 11)
     private String mobilePhoneNum;
-    @JoinColumn(name = "address", referencedColumnName = "id")
-    @ManyToOne
-    private Address address;
+    
+    
+    
+    @Embedded
+    @ElementCollection
+    @CollectionTable(catalog = "jobpromotion",name = "employee_addresses")
+    
+    private Map<String, Address> addressses;
+    
+    @Embedded
+    @ElementCollection
+    @CollectionTable(catalog = "jobpromotion",name = "employee_addressHistory")
+    private Collection<Address> addressHistory;
+    @Embedded
+    private Address majorAddress;
+
+    /**
+     * Get the value of majorAddress
+     *
+     * @return the value of majorAddress
+     */
+    public Address getMajorAddress() {
+        return majorAddress;
+    }
+
+    /**
+     * Set the value of majorAddress
+     *
+     * @param majorAddress new value of majorAddress
+     */
+    public void setMajorAddress(Address majorAddress) {
+        this.majorAddress = majorAddress;
+    }
+
+
+    /**
+     * Get the value of addressses
+     *
+     * @return the value of addressses
+     */
+    public Map<String, Address> getAddressses() {
+        return addressses;
+    }
+
+    /**
+     * Set the value of addressses
+     *
+     * @param addressses new value of addressses
+     */
+    public void setAddressses(Map<String, Address> addressses) {
+        this.addressses = addressses;
+    }
 
     public Employee() {
     }
@@ -139,12 +197,12 @@ public class Employee implements Serializable {
         this.mobilePhoneNum = mobilePhoneNum;
     }
 
-    public Address getAddress() {
-        return address;
+    public Collection<Address> getAddress() {
+        return addressHistory;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddress(Collection<Address> address) {
+        this.addressHistory = address;
     }
 
     @Override
@@ -171,5 +229,5 @@ public class Employee implements Serializable {
     public String toString() {
         return "org.peasant.ORGStructure.model.Employee[ id=" + id + " ]";
     }
-    
+
 }

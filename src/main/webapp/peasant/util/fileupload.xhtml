@@ -10,7 +10,7 @@
         <p:dialog id="attachmentDlg" widgetVar="attachmentDlg" appendTo="@(body)" modal="true">
             <h:form>
 
-                <p:fileUpload  fileUploadListener="#{fileUploadController.handleFileUpload}" dragDropSupport="true" fileLimit="5" mode="advanced" sizeLimit="10000000000" multiple="true" 
+                <p:fileUpload  fileUploadListener="#{attachmentController.handleFileUpload}" dragDropSupport="true" fileLimit="5" mode="advanced" sizeLimit="10000000000" multiple="true" 
                                uploadLabel="${utilMsgs['fileupload_uploadLabel']}" label="${utilMsgs['fileupload_label']}" 
                                cancelLabel="${utilMsgs['fileupload_cancelLabel']}"/>
             </h:form>

@@ -5,6 +5,8 @@
  */
 package org.peasant.util.web;
 
+import java.net.FileNameMap;
+
 /**
  *
  * @author 谢金光
@@ -14,5 +16,9 @@ public class ContentTypes {
     public static final String MULTIPART = "multipart/form-data";
     public static final String OCTET_STREAM = "application/octet-stream";
     public static final String JSON = "application/json";
+
+    public static FileNameMap getFileNameMap() {
+        return java.net.URLConnection.getFileNameMap();
+    }
 
 }

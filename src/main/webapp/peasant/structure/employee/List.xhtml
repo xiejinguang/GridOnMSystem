@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{i18n_structure.ListEmployeeTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+
+            <h:form id="SearchConsForm">
+
+                <p:fieldset id="searchField" legend="${i18n_structure.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+
+                    <p:panelGrid id="searchConsGrid" columns="8">
+
+
+                        <p:outputLabel value="#{i18n_structure.EmployeeLabel_majorAddress}" for="majorAddress" />
+                        <p:inputText id="majorAddress" value="#{employeeController.searchCons['majorAddress']}" title="#{i18n_structure.EmployeeTitle_majorAddress}"  converter="javax.faces.Address"  />
+
+
+                        <p:outputLabel value="#{i18n_structure.EmployeeLabel_addressses}" for="addressses" />
+                        <p:inputText id="addressses" value="#{employeeController.searchCons['addressses']}" title="#{i18n_structure.EmployeeTitle_addressses}"  converter="javax.faces.Address>"  />
+
+
+                        <p:outputLabel value="#{i18n_structure.EmployeeLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{employeeController.searchCons['id']}" title="#{i18n_structure.EmployeeTitle_id}"  />
+
+
+                        <p:outputLabel value="#{i18n_structure.EmployeeLabel_code}" for="code" />
+                        <p:inputText id="code" value="#{employeeController.searchCons['code']}" title="#{i18n_structure.EmployeeTitle_code}"  />
+
+
+                        <p:outputLabel value="#{i18n_structure.EmployeeLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{employeeController.searchCons['name']}" title="#{i18n_structure.EmployeeTitle_name}"  />
+
+
+                        <p:outputLabel value="#{i18n_structure.EmployeeLabel_sex}" for="sex" />
+                        <p:inputText id="sex" value="#{employeeController.searchCons['sex']}" title="#{i18n_structure.EmployeeTitle_sex}"  />
+
+
+                        <p:outputLabel value="#{i18n_structure.EmployeeLabel_birthday}" for="birthday" />
+                        <p:inputText id="birthday" value="#{employeeController.searchCons['birthday']}" title="#{i18n_structure.EmployeeTitle_birthday}"  />
+
+
+                        <p:outputLabel value="#{i18n_structure.EmployeeLabel_idcardNum}" for="idcardNum" />
+                        <p:inputText id="idcardNum" value="#{employeeController.searchCons['idcardNum']}" title="#{i18n_structure.EmployeeTitle_idcardNum}"  />
+
+
+                        <p:outputLabel value="#{i18n_structure.EmployeeLabel_mobilePhoneNum}" for="mobilePhoneNum" />
+                        <p:inputText id="mobilePhoneNum" value="#{employeeController.searchCons['mobilePhoneNum']}" title="#{i18n_structure.EmployeeTitle_mobilePhoneNum}"  />
+
+
+                        <p:outputLabel value="#{i18n_structure.EmployeeLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{employeeController.searchCons['address']}" title="#{i18n_structure.EmployeeTitle_address}"  converter="javax.faces.Address>"  />
+
+                    </p:panelGrid>
+                    <h:panelGroup> 
+                        <p:commandButton id="searchButton" icon="ui-icon-search"   value="${i18n_structure.Search}" actionListener="#{employeeController.searchItems}" update=":growl,@form:@parent:EmployeeListForm:datalist"/>
+                        <br/>
+                        <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${i18n_structure.GetAll}" actionListener="#{employeeController.allItems}" update=":growl,@form:@parent:EmployeeListForm:datalist"/>
+                    </h:panelGroup> 
+                </p:fieldset>
+            </h:form>
+
+            <h:form id="EmployeeListForm">
+                <p:dataTable id="datalist" value="#{employeeController.items}" var="item"
+                             selection="#{employeeController.selectedItems}"
+                             rowKey="#{item.id}"
+                             rowsPerPageTemplate="10,20,30,40,50,100,200,500,1000"
+                             paginator="true" paginatorPosition="bottom"
+                             rows="20" 
+                             draggableColumns="true" resizableColumns="true" liveResize="true"
+                             scrollable="true"    liveScroll="false" 
+                             sortMode="multiple" sortBy="#{item.id}"
+                             editable="true" 
+                             filteredValue="#{employeeController.filteredValue}"
+                             stickyHeader="false" 
+                             >
+
+                    <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                    <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+                    <p:ajax event="toggleSelect" update="createButton,viewButton editButton,deleteButton"/>
+
+                    <p:ajax event="rowUnselectCheckbox" update="createButton,viewButton editButton,deleteButton"/>
+                    <p:ajax event="rowSelectCheckbox" update="createButton,viewButton editButton,deleteButton"/>
+
+                    <p:ajax event="rowDblselect" update="createButton,viewButton editButton,deleteButton"/>
+                    <p:ajax event="rowSelectRadio" update="createButton,viewButton editButton,deleteButton"/>
+
+                    <f:facet name="header"><p:outputLabel value="#{i18n_structure.ListEmployeeTitle}" /></f:facet>
+
+                    <p:column exportable="false" style="width:13px;text-align:center" disabledSelection="true" toggleable="false" resizable="false"  > <h:outputText value="Expression index is undefined on line 123, column 183 in unknown."/></p:column>
+
+                    <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false" exportable="false"/>  
+
+
+                    <p:column sortBy="#{item.majorAddress}" filterBy="#{item.majorAddress}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_structure.EmployeeTitle_majorAddress}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.majorAddress}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.addressses}" filterBy="#{item.addressses}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_structure.EmployeeTitle_addressses}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.addressses}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.id}" filterBy="#{item.id}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_structure.EmployeeTitle_id}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.code}" filterBy="#{item.code}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_structure.EmployeeTitle_code}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.code}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.name}" filterBy="#{item.name}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_structure.EmployeeTitle_name}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.name}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.sex}" filterBy="#{item.sex}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_structure.EmployeeTitle_sex}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.sex}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.birthday}" filterBy="#{item.birthday}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_structure.EmployeeTitle_birthday}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.birthday}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.idcardNum}" filterBy="#{item.idcardNum}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_structure.EmployeeTitle_idcardNum}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idcardNum}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.mobilePhoneNum}" filterBy="#{item.mobilePhoneNum}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_structure.EmployeeTitle_mobilePhoneNum}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.mobilePhoneNum}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.address}" filterBy="#{item.address}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_structure.EmployeeTitle_address}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.address}"/>
+                    </p:column>
+                    <f:facet name="footer">
+
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{i18n_structure.Create}" actionListener="#{employeeController.prepareCreate}" process="@this" update="@form:@parent:EmployeeCreateForm" oncomplete="PF('EmployeeCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{i18n_structure.View}" process="@this" update="@form:@parent:EmployeeViewForm" oncomplete="PF('EmployeeViewDialog').show()" disabled="#{empty employeeController.selectedItems}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{i18n_structure.Edit}" process="@this" update="@form:@parent:EmployeeEditForm" oncomplete="PF('EmployeeEditDialog').show()" disabled="#{empty employeeController.selectedItems}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{i18n_structure.Delete}" actionListener="#{employeeController.destroy}" process="@this" update=":growl,datalist" disabled="#{empty employeeController.selectedItems}"/>
+                        <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                        <p:columnToggler datasource="datalist" trigger="toggler" />
+
+                    </f:facet>
+                </p:dataTable>
+
+            </h:form>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>

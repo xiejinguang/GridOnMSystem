@@ -24,7 +24,7 @@ import org.peasant.util.Converters;
 @ApplicationScoped
 @Logged
 public class GlobalConverters implements Converters,Serializable {
-
+ 
     public GlobalConverters() {
     }
 

@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author 谢金光
  */
-@Singleton
+
 public class PersistenceContextProducer implements Serializable {
 
     @PersistenceContext(unitName = "GridOnMSystem_PU")

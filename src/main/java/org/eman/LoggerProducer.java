@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
  *
  * @author 谢金光
  */
-@Singleton
 public class LoggerProducer implements Serializable{
 
     public LoggerProducer() {
