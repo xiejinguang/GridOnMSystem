@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.peasant.util.web;
+package org.peasant.cc;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.inject.Any;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -25,8 +24,6 @@ import javax.transaction.Transactional;
 import javax.transaction.UserTransaction;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import org.peasant.basic.model.ArticleCategory;
-import org.peasant.util.Converter;
 import org.peasant.util.Converters;
 import org.peasant.util.ExcelPOJOUtil;
 import org.primefaces.event.FileUploadEvent;
@@ -42,13 +39,13 @@ public class ExcelImporter implements Serializable {
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
 
-    @Inject
+    @Inject 
     ServletContext svc;
     
     @Inject
     UserTransaction utr;
 
-    @Inject
+    @Inject 
     Converters converters;
 
 

@@ -6,46 +6,21 @@
 package org.peasant.basic.model;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Embeddable;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import org.peasant.ORGStructure.model.Employee;
 import org.peasant.jpa.UUIDEntity;
 
 /**
  *
  * @author 谢金光
  */
-@Entity
-@Table(catalog = "jobpromotion", schema = "", name = "address")
+
+@Embeddable
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Address.findAll", query = "SELECT a FROM Address a"),
-    @NamedQuery(name = "Address.findById", query = "SELECT a FROM Address a WHERE a.id = :id"),
-    @NamedQuery(name = "Address.findByCountry", query = "SELECT a FROM Address a WHERE a.country = :country"),
-    @NamedQuery(name = "Address.findByProvince", query = "SELECT a FROM Address a WHERE a.province = :province"),
-    @NamedQuery(name = "Address.findByCity", query = "SELECT a FROM Address a WHERE a.city = :city"),
-    @NamedQuery(name = "Address.findByCounty", query = "SELECT a FROM Address a WHERE a.county = :county"),
-    @NamedQuery(name = "Address.findByAddress", query = "SELECT a FROM Address a WHERE a.address = :address"),
-    @NamedQuery(name = "Address.findByAddress2", query = "SELECT a FROM Address a WHERE a.address2 = :address2")})
 public class Address extends UUIDEntity implements Serializable {
 
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(nullable = false, length = 36)
-    private String id;
     @Size(max = 45)
     @Column(length = 45)
     private String country;
@@ -61,11 +36,6 @@ public class Address extends UUIDEntity implements Serializable {
     @Size(max = 255)
     @Column(length = 255)
     private String address;
-    @Size(max = 255)
-    @Column(length = 255)
-    private String address2;
-    @OneToMany(mappedBy = "address")
-    private Collection<Employee> employeeCollection;
 
     public Address() {
         super();
@@ -113,23 +83,6 @@ public class Address extends UUIDEntity implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getAddress2() {
-        return address2;
-    }
-
-    public void setAddress2(String address2) {
-        this.address2 = address2;
-    }
-
-    @XmlTransient
-    public Collection<Employee> getEmployeeCollection() {
-        return employeeCollection;
-    }
-
-    public void setEmployeeCollection(Collection<Employee> employeeCollection) {
-        this.employeeCollection = employeeCollection;
     }
 
     @Override
