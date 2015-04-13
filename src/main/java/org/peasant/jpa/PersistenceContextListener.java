@@ -6,6 +6,7 @@
 package org.peasant.jpa;
 
 import com.oracle.jrockit.jfr.EventDefinition;
+import javax.persistence.PostLoad;
 import javax.persistence.PostPersist;
 import javax.persistence.PostRemove;
 import javax.persistence.PostUpdate;
@@ -20,7 +21,6 @@ import org.slf4j.LoggerFactory;
  *
  * @author Administrator
  */
-
 public class PersistenceContextListener {
 
     public PersistenceContextListener() {
@@ -57,4 +57,10 @@ public class PersistenceContextListener {
     public void postUpdate(Object object) {
         logger.info("PersistenceContextListener :: Lifecycle Callback Method PostUpdate Invoked Upon Entity ::{} ", object);
     }
+
+    @PostLoad
+    public void postLoad(Object object) {
+        logger.info("PersistenceContextListener :: Lifecycle Callback Method PostLoad Invoked Upon Entity ::{} ", object);
+    }
+   
 }
