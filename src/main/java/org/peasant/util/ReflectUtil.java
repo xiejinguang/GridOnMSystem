@@ -66,7 +66,9 @@ public class ReflectUtil {
     }
 
     public static Object getProperty(Object o, String property) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+
         try {
+
             Field f = o.getClass().getField(property);
             return f.get(o);
         } catch (NoSuchFieldException ex) {
@@ -88,16 +90,17 @@ public class ReflectUtil {
     /**
      *
      *
+     * @param name 字段名
+     * @param value 字段值
+     * @param target 对象
      * @throws java.lang.IllegalAccessException
      * @throws java.lang.reflect.InvocationTargetException
      * @MethodName : setFieldValueByName
      * @Description : 根据字段名给对象的字段赋值
-     * @param name 字段名
-     * @param value 字段值
-     * @param target 对象
+     * @return the Object value
      *
      */
-    public static void setPropertyByName(String name, Object value, Object target) throws IllegalAccessException, InvocationTargetException {
+    public static Object setPropertyByName(String name, Object value, Object target) throws IllegalAccessException, InvocationTargetException {
 
         Class<?> fieldType;
         Field field = getFieldByName(name, target.getClass());
@@ -125,27 +128,92 @@ public class ReflectUtil {
                 throw new IllegalArgumentException(target.getClass().getSimpleName() + "类不存在属性\" " + name + "\"!!!");
             }
         }
+        return value;
 
     }
 
-    public static Class getPropertyType(String name, Object target) {
+    /**
+     *
+     * 此导入程序能够处理属性衔接，如属性.子属性.子属性。若在处理像这种属性衔接的
+     * 属性时，它的父属性未赋值（即Null），则使用父属性的类型的无参数构造函数创 建一个实例，并赋值给它。
+     *
+     * @param name
+     * @param value
+     * @param target
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     * @throws InstantiationException
+     * @return the Object value
+     */
+    public static Object setConcatenatedPropertyByName(String name, Object value, Object target) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+        String[] cp = name.split(".");
+        Object pTarget = target;
+        Object lastTarget = target;
+        for (int i = 0; i < cp.length - 1; i++) {
+            lastTarget = getProperty(pTarget, cp[i]);
+            if (null == lastTarget) {
+                lastTarget = getPropertyType(cp[i], pTarget).newInstance();
+                setPropertyByName(cp[i], lastTarget, pTarget);
+                pTarget = lastTarget;
+            }
+        }
+        setPropertyByName(cp[cp.length - 1], value, lastTarget);
+        return value;
+    }
 
-        Field field = getFieldByName(name, target.getClass());
+    public static Class getPropertyType(String name, Object target) {
+        Class tz = target.getClass();
+        return getPropertyType(name, tz);
+
+    }
+
+    public static Class getPropertyType(String name, Class targetClazz) throws IllegalArgumentException, SecurityException {
+        Field field = getFieldByName(name, targetClazz);
         if (field != null) {
             field.setAccessible(true);
             //获取字段类型 
             return field.getType();
 
         } else {
-            Method sm = getSetMethodByFieldName(name, target.getClass());
+            Method sm = getSetMethodByFieldName(name, targetClazz);
 
             if (null != sm) {
                 return sm.getParameterTypes()[0];
             } else {
-                throw new IllegalArgumentException(target.getClass().getSimpleName() + "类不存在属性\" " + name + "\"!!!");
+                throw new IllegalArgumentException(targetClazz.getSimpleName() + "类不存在属性\" " + name + "\"!!!");
             }
         }
+    }
 
+    /**
+     * A convenient method to
+     * {@code getConcatenatedPropertyType(String name, Class targetClazz)}.
+     *
+     * @param name
+     * @param target
+     * @return
+     */
+    public static Class getConcatenatedPropertyType(String name, Object target) {
+        return getConcatenatedPropertyType(name, target.getClass());
+
+    }
+
+    /**
+     * 获取特定类的特定属的类型，能够处理属性衔接，如属性.子属性.子属性
+     *
+     * @param name
+     * @param targetClazz
+     * @return
+     */
+    public static Class getConcatenatedPropertyType(String name, Class targetClazz) {
+        String[] properties = name.split(".");
+        Class propertyType = null;
+        Class tc = targetClazz;
+        for (String property : properties) {
+            propertyType = getPropertyType(property, tc);
+            tc = propertyType;
+        }
+        return propertyType;
     }
 
 }

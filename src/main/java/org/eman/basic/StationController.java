@@ -69,7 +69,7 @@ public class StationController implements Serializable {
     }
     
     public String genNextStationCode(Roomspot r ){
-        return scg.genNextStationCode(r.getProvince(), r.getCity(), r.getCounty());
+        return scg.genNextStationCode(r.getAddress().getProvince(), r.getAddress().getCity(), r.getAddress().getCounty());
     }
 
     public Station getCreated() {

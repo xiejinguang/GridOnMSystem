@@ -34,7 +34,7 @@
                                 <p:inputText id="secondName" value="#{item.secondName}" title="#{basic_i18n.EditRoomspotTitle_secondName}" disabled="false"/>
 
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_province}" for="province" />
-                                <p:selectOneMenu id="province" value="#{item.province}"    editable="false"  disabled="false"   filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforEdit.handleProvinceChange}" >
+                                <p:selectOneMenu id="province" value="#{item.address.province}"    editable="false"  disabled="false"   filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforEdit.handleProvinceChange}" >
                                     <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
                                     <f:selectItems  value="#{roomspotController.areaforEdit.provinces}"
                                                     var="value"
@@ -44,7 +44,7 @@
                                 </p:selectOneMenu>
 
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_city}" for="city" />
-                                <p:selectOneMenu id="city" value="#{item.city}"    disabled="false"  filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforEdit.handleCityChange}" >
+                                <p:selectOneMenu id="city" value="#{item.address.city}"    disabled="false"  filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforEdit.handleCityChange}" >
                                     <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
                                     <f:selectItems  value="#{roomspotController.areaforEdit.citys}"
                                                     var="value"
@@ -54,7 +54,7 @@
                                 </p:selectOneMenu>  
 
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_county}" for="county" />
-                                <p:selectOneMenu id="county" value="#{item.county}"    disabled="false"  filter="true" filterMatchMode="contains"  >
+                                <p:selectOneMenu id="county" value="#{item.address.county}"    disabled="false"  filter="true" filterMatchMode="contains"  >
                                     <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
                                     <f:selectItems  value="#{roomspotController.areaforEdit.countys}"
                                                     var="value"
@@ -93,7 +93,7 @@
                                 </p:selectOneMenu>
 
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_address}" for="address" />
-                                <p:inputText id="address" value="#{item.address}" title="#{basic_i18n.EditRoomspotTitle_address}" disabled="false"   />
+                                <p:inputText id="address" value="#{item.address.address}" title="#{basic_i18n.EditRoomspotTitle_address}" disabled="false"   />
 
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_commont}" for="commont" />
                                 <p:inputTextarea rows="4" cols="30" id="commont" value="#{item.commont}" title="#{basic_i18n.EditRoomspotTitle_commont}" />

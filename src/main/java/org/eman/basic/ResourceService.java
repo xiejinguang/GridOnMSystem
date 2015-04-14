@@ -28,7 +28,7 @@ public class ResourceService {
         List<Roomspot> l = rsf.findAll();
         TreeNode root = new DefaultTreeNode();        
         for (Roomspot rs : l) {
-            new DefaultTreeNode(Constants.TREENODE_TYPE_ROOMSPOT, rs, findOrCreate(root, rs.getProvince(), rs.getCity(), rs.getCounty()));
+            new DefaultTreeNode(Constants.TREENODE_TYPE_ROOMSPOT, rs, findOrCreate(root, rs.getAddress().getProvince(),  rs.getAddress().getCity(),  rs.getAddress().getCounty()));
         }
         return root;
 

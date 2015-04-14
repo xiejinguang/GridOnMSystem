@@ -25,7 +25,7 @@ import javax.transaction.UserTransaction;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import org.peasant.util.Converters;
-import org.peasant.util.ExcelPOJOUtil;
+import org.peasant.excel2entity.ExcelPOJOUtil;
 import org.primefaces.event.FileUploadEvent;
 
 /**

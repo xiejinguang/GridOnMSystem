@@ -1,6 +1,6 @@
 package org.eman.basic;
 
-import org.eman.basic.model.EquipmentModel;
+import org.eman.basic.model.NetworkNodeModel;
 import org.eman.basic.util.JsfUtil;
 import org.eman.basic.util.JsfUtil.PersistAction;
 
@@ -27,9 +27,9 @@ public class EquipmentModelController implements Serializable {
 
     @EJB
     protected org.eman.basic.EquipmentModelFacade ejbFacade;
-    private List<EquipmentModel> items = null;
-    private EquipmentModel created;
-    private List<EquipmentModel> selectedItems;
+    private List<NetworkNodeModel> items = null;
+    private NetworkNodeModel created;
+    private List<NetworkNodeModel> selectedItems;
     private Map<String, Object> searchCons;
     protected ResourceBundle bundle;
 
@@ -44,19 +44,19 @@ public class EquipmentModelController implements Serializable {
 
     }
 
-    public EquipmentModel getCreated() {
+    public NetworkNodeModel getCreated() {
         return created;
     }
 
-    public void setCreated(EquipmentModel created) {
+    public void setCreated(NetworkNodeModel created) {
         this.created = created;
     }
 
-    public List<EquipmentModel> getSelectedItems() {
+    public List<NetworkNodeModel> getSelectedItems() {
         return selectedItems;
     }
 
-    public void setSelectedItems(List<EquipmentModel> selectedItems) {
+    public void setSelectedItems(List<NetworkNodeModel> selectedItems) {
         this.selectedItems = selectedItems;
     }
 
@@ -79,9 +79,9 @@ public class EquipmentModelController implements Serializable {
         return ejbFacade;
     }
 
-    public EquipmentModel prepareCreate() {
+    public NetworkNodeModel prepareCreate() {
 
-        created = new EquipmentModel();
+        created = new NetworkNodeModel();
         initializeKey();
         return created;
     }
@@ -105,13 +105,13 @@ public class EquipmentModelController implements Serializable {
         }
     }
 
-    public List<EquipmentModel> searchItems() {
+    public List<NetworkNodeModel> searchItems() {
 
         items = findItemsByConditions(construtSearchParams(this.searchCons));
         return items;
     }
 
-    protected List<EquipmentModel> findItemsByConditions(Map<String, Object> params) {
+    protected List<NetworkNodeModel> findItemsByConditions(Map<String, Object> params) {
         return getFacade().findByConditions(params);
     }
 
@@ -135,13 +135,13 @@ public class EquipmentModelController implements Serializable {
         return newparams;
     }
 
-    public List<EquipmentModel> allItems() {
+    public List<NetworkNodeModel> allItems() {
         items = getFacade().findAll();
 
         return items;
     }
 
-    public List<EquipmentModel> getItems() {
+    public List<NetworkNodeModel> getItems() {
         if (null == items) {
             //TODO,根据上次查询条件记录获取记录
         }
@@ -158,7 +158,7 @@ public class EquipmentModelController implements Serializable {
                     break;
 
                 default: {
-                    for (EquipmentModel selected : selectedItems) {
+                    for (NetworkNodeModel selected : selectedItems) {
                         if (selected != null) {
                             setEmbeddableKeys();
                             switch (persistAction) {
@@ -194,19 +194,19 @@ public class EquipmentModelController implements Serializable {
 
     }
 
-    public EquipmentModel getEquipmentModel(java.lang.String id) {
+    public NetworkNodeModel getEquipmentModel(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<EquipmentModel> getItemsAvailableSelectMany() {
+    public List<NetworkNodeModel> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<EquipmentModel> getItemsAvailableSelectOne() {
+    public List<NetworkNodeModel> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = EquipmentModel.class, value = "org.eman.EquipmentModel")
+    @FacesConverter(forClass = NetworkNodeModel.class, value = "org.eman.EquipmentModel")
     public static class EquipmentModelControllerConverter implements Converter {
 
         @Override
@@ -236,11 +236,11 @@ public class EquipmentModelController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof EquipmentModel) {
-                EquipmentModel o = (EquipmentModel) object;
+            if (object instanceof NetworkNodeModel) {
+                NetworkNodeModel o = (NetworkNodeModel) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), EquipmentModel.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), NetworkNodeModel.class.getName()});
                 return null;
             }
         }

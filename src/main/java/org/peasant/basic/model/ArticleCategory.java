@@ -8,6 +8,7 @@ package org.peasant.basic.model;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -49,7 +50,7 @@ public class ArticleCategory extends UUIDEntity implements Serializable {
     @Size(max = 65535)
     @Column(length = 65535)
     private String description;
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.DETACH})
     private Collection<Article> articleCollection;
     @OneToMany(mappedBy = "superior")
     private Collection<ArticleCategory> articleCategoryCollection;

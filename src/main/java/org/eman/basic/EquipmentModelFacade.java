@@ -9,14 +9,14 @@ package org.eman.basic;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.eman.basic.model.EquipmentModel;
+import org.eman.basic.model.NetworkNodeModel;
 
 /**
  *
  * @author 谢金光
  */
 @Stateless
-public class EquipmentModelFacade extends AbstractFacade<EquipmentModel> {
+public class EquipmentModelFacade extends AbstractFacade<NetworkNodeModel> {
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
 
@@ -26,7 +26,7 @@ public class EquipmentModelFacade extends AbstractFacade<EquipmentModel> {
     }
 
     public EquipmentModelFacade() {
-        super(EquipmentModel.class);
+        super(NetworkNodeModel.class);
     }
     
 }

@@ -33,6 +33,16 @@ import javax.validation.constraints.NotNull;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class DatedEntity extends UUIDEntity implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+    @Column(name = "create_time", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createTime;
+
+    @Column(name = "last_update", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdate;
+
     public DatedEntity() {
     }
 
@@ -45,18 +55,6 @@ public abstract class DatedEntity extends UUIDEntity implements Serializable {
         super(uuid);
         this.createTime = createTime;
     }
-
-    private static final long serialVersionUID = 1L;
-
-    
-    
-    @Column(name = "create_time",nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createTime;
-
-    @Column(name = "last_update",nullable=false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdate;
 
     public Date getCreateTime() {
         return createTime;
@@ -84,7 +82,10 @@ public abstract class DatedEntity extends UUIDEntity implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DatedEntity)) {
+        if (!super.equals(object)) {
+            return false;
+        }
+        if (!(this.getClass().isInstance(object))) {
             return false;
         }
         DatedEntity other = (DatedEntity) object;
@@ -96,7 +97,7 @@ public abstract class DatedEntity extends UUIDEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "org.eman.gmsys.model.DatedEntity[ id=" + id + " ]";
+        return this.getClass().getName() + "[ id=" + id + " ]";
     }
 
     @PrePersist
@@ -104,11 +105,11 @@ public abstract class DatedEntity extends UUIDEntity implements Serializable {
         this.createTime = Calendar.getInstance().getTime();
         this.lastUpdate = Calendar.getInstance().getTime();
     }
-    
+
     @PreUpdate
-    public void getLastUpdateTimeUpdate(){
+    public void getLastUpdateTimeUpdate() {
         this.lastUpdate = Calendar.getInstance().getTime();
-        
+
     }
 
 }

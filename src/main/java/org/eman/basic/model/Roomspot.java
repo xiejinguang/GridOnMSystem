@@ -6,22 +6,27 @@
 package org.eman.basic.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.eman.gmsys.model.StationProperty;
+import org.peasant.basic.model.Address;
 import org.peasant.jpa.Labeled;
 import org.peasant.jpa.UUIDEntity;
 
@@ -30,8 +35,9 @@ import org.peasant.jpa.UUIDEntity;
  * @author 谢金光
  */
 @Entity
-@Table(catalog = "jobpromotion", schema = "",name = "basic_roomspot", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"roomCode"}),@UniqueConstraint(columnNames = {"secondName"})})
+@Table(catalog = "jobpromotion", schema = "", name = "basic_roomspot", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"roomCode"}),
+    @UniqueConstraint(columnNames = {"secondName"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Roomspot.findAll", query = "SELECT r FROM Roomspot r"),
@@ -46,16 +52,16 @@ import org.peasant.jpa.UUIDEntity;
     @NamedQuery(name = "Roomspot.findByPropertyOwner", query = "SELECT r FROM Roomspot r WHERE r.propertyOwner = :propertyOwner"),
     @NamedQuery(name = "Roomspot.findByStatus", query = "SELECT r FROM Roomspot r WHERE r.status = :status"),
     @NamedQuery(name = "Roomspot.findByAddress", query = "SELECT r FROM Roomspot r WHERE r.address = :address")})
-public class Roomspot extends UUIDEntity implements Serializable,Labeled {
+public class Roomspot extends UUIDEntity implements Serializable, Labeled {
 
     private static final long serialVersionUID = 1L;
-   
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
     private String roomCode;
-    
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -71,73 +77,91 @@ public class Roomspot extends UUIDEntity implements Serializable,Labeled {
     @NotNull
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
-    private String province;
-    
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(nullable = false, length = 45)
-    private String city;
-    
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(nullable = false, length = 45)
-    private String county;
-    
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(nullable = false, length = 45)
     private String grid;
-    
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
     private String propertyOwner;
-    
+
     @Size(max = 45)
     @Column(length = 45)
     private String status;
-    
-    @Size(max = 255)
-    @Column(length = 255)
-    private String address;
-    
+
     @Lob
     @Size(max = 65535)
     @Column(length = 65535)
     private String commont;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomspot")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "roomspot", orphanRemoval = false)
     private List<Station> stationList;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomspotId")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "roomspotId", orphanRemoval = false)
     private List<StationProperty> stationPropertyList;
-    
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "roomspot")
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "roomspot", orphanRemoval = false)
     private List<Netnode> netnodeList;
+
+    @Embedded
+    @Basic(optional = false)
+    @NotNull
+    private Address address = new Address();
+
+    @Temporal(TemporalType.DATE)
+    private Date productionStartTime;
+
+    /**
+     * Get the value of productionStartTime
+     *
+     * @return the value of productionStartTime
+     */
+    public Date getProductionStartTime() {
+        return productionStartTime;
+    }
+
+    /**
+     * Set the value of productionStartTime
+     *
+     * @param productionStartTime new value of productionStartTime
+     */
+    public void setProductionStartTime(Date productionStartTime) {
+        this.productionStartTime = productionStartTime;
+    }
+
+    /**
+     * Get the value of address
+     *
+     * @return the value of address
+     */
+    public Address getAddress() {
+        return address;
+    }
+
+    /**
+     * Set the value of address
+     *
+     * @param address new value of address
+     */
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public Roomspot() {
     }
 
     public Roomspot(String id) {
-        this.id = id;
+        super(id);
     }
 
-    public Roomspot(String id, String roomCode, String roomName, String province, String city, String county, String grid, String propertyOwner) {
-        this.id = id;
+    public Roomspot(String id, String roomCode, String roomName, String grid, String propertyOwner) {
+        this(id);
         this.roomCode = roomCode;
         this.roomName = roomName;
-        this.province = province;
-        this.city = city;
-        this.county = county;
+
         this.grid = grid;
         this.propertyOwner = propertyOwner;
     }
-
-    
 
     public String getRoomCode() {
         return roomCode;
@@ -154,38 +178,13 @@ public class Roomspot extends UUIDEntity implements Serializable,Labeled {
     public void setRoomName(String roomName) {
         this.roomName = roomName;
     }
-    
-    
+
     public String getSecondName() {
         return secondName;
     }
 
     public void setSecondName(String SecondName) {
         this.secondName = SecondName;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCounty() {
-        return county;
-    }
-
-    public void setCounty(String county) {
-        this.county = county;
     }
 
     public String getGrid() {
@@ -212,14 +211,6 @@ public class Roomspot extends UUIDEntity implements Serializable,Labeled {
         this.status = status;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getCommont() {
         return commont;
     }
@@ -236,15 +227,15 @@ public class Roomspot extends UUIDEntity implements Serializable,Labeled {
     public void setStationPropertyList(List<StationProperty> stationPropertyList) {
         this.stationPropertyList = stationPropertyList;
     }
-        @XmlTransient
-      public List<Station> getStationList() {
+
+    @XmlTransient
+    public List<Station> getStationList() {
         return stationList;
     }
 
     public void setStationList(List<Station> stationList) {
         this.stationList = stationList;
     }
-
 
     @Override
     public int hashCode() {
@@ -273,7 +264,7 @@ public class Roomspot extends UUIDEntity implements Serializable,Labeled {
 
     @Override
     public String getLabel() {
-        return roomCode+"|" + roomName;
+        return roomCode + "|" + roomName;
     }
 
     public List<Netnode> getNetnodeList() {
@@ -283,7 +274,5 @@ public class Roomspot extends UUIDEntity implements Serializable,Labeled {
     public void setNetnodeList(List<Netnode> netnodeList) {
         this.netnodeList = netnodeList;
     }
-
-  
 
 }

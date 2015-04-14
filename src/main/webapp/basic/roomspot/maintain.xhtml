@@ -31,7 +31,7 @@
 
 
                                 <p:outputLabel value="#{basic_i18n.RoomspotLabel_province}" for="province" />
-                                <p:selectOneMenu id="province" value="#{roomspotController.searchCons['province']}"    disabled="false"  filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforSeachCons.handleProvinceChange}" >
+                                <p:selectOneMenu id="province" value="#{roomspotController.searchCons['address.province']}"    disabled="false"  filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforSeachCons.handleProvinceChange}" >
                                     <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
                                     <f:selectItems  value="#{roomspotController.areaforSeachCons.provinces}"
                                                     var="item"
@@ -42,7 +42,7 @@
 
 
                                 <p:outputLabel value="#{basic_i18n.RoomspotLabel_city}" for="city" />
-                                <p:selectOneMenu id="city" value="#{roomspotController.searchCons['city']}"    disabled="false"  filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforSeachCons.handleCityChange}" >
+                                <p:selectOneMenu id="city" value="#{roomspotController.searchCons['address.city']}"    disabled="false"  filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforSeachCons.handleCityChange}" >
                                     <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
                                     <f:selectItems  value="#{roomspotController.areaforSeachCons.citys}"
                                                     var="item"
@@ -52,7 +52,7 @@
                                 </p:selectOneMenu>                                    
 
 
-                                <p:outputLabel value="#{basic_i18n.RoomspotLabel_county}" for="county" />
+                                <p:outputLabel value="#{basic_i18n.RoomspotLabel_county}" for="address.county" />
                                 <p:selectOneMenu id="county" value="#{roomspotController.searchCons['county']}"    disabled="false"  filter="true" filterMatchMode="contains"  >
                                     <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
                                     <f:selectItems  value="#{roomspotController.areaforSeachCons.countys}"
@@ -154,23 +154,23 @@
                     </f:facet>
                     <h:outputText value="#{item.secondName}"/>
                 </p:column>
-                <p:column sortBy="#{item.province}" filterBy="#{item.province}" filterMatchMode="contains">
+                <p:column sortBy="#{item.address.province}" filterBy="#{item.address.province}" filterMatchMode="contains">
                     <f:facet name="header">
                         <h:outputText value="#{basic_i18n.RoomspotTitle_province}"/>
                     </f:facet>
-                    <h:outputText value="#{item.province}"/>
+                    <h:outputText value="#{item.address.province}"/>
                 </p:column>
-                <p:column sortBy="#{item.city}" filterBy="#{item.city}" filterMatchMode="contains">
+                <p:column sortBy="#{item.address.city}" filterBy="#{item.address.city}" filterMatchMode="contains">
                     <f:facet name="header">
                         <h:outputText value="#{basic_i18n.RoomspotTitle_city}"/>
                     </f:facet>
-                    <h:outputText value="#{item.city}"/>
+                    <h:outputText value="#{item.address.city}"/>
                 </p:column>
-                <p:column sortBy="#{item.county}" filterBy="#{item.county}" filterMatchMode="contains">
+                <p:column sortBy="#{item.address.county}" filterBy="#{item.address.county}" filterMatchMode="contains">
                     <f:facet name="header">
                         <h:outputText value="#{basic_i18n.RoomspotTitle_county}"/>
                     </f:facet>
-                    <h:outputText value="#{item.county}"/>
+                    <h:outputText value="#{item.address.county}"/>
                 </p:column>
                 <p:column sortBy="#{item.grid}" filterBy="#{item.grid}" filterMatchMode="contains">
                     <f:facet name="header">
@@ -188,7 +188,7 @@
                     <f:facet name="header">
                         <h:outputText value="#{basic_i18n.RoomspotTitle_address}"/>
                     </f:facet>
-                    <h:outputText value="#{item.address}"/>
+                    <h:outputText value="#{item.address.address}"/>
                 </p:column>
                 <p:column sortBy="#{item.commont}" filterBy="#{item.commont}">
                     <f:facet name="header">

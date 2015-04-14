@@ -1,4 +1,4 @@
-package org.peasant.util;
+package org.peasant.excel2entity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,6 +26,10 @@ import jxl.read.biff.BiffException;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
+import org.peasant.util.ConvertUtil;
+import org.peasant.util.Converter;
+import org.peasant.util.Converters;
+import org.peasant.util.ReflectUtil;
 
 /**
  * Excel转化为POJO的功能基本完成，目前转换办法都是静态的，考虑性能问题，未来再改为非静态，为每个POJO类提供一个此类的实例。 TODO
@@ -317,30 +321,31 @@ public class ExcelPOJOUtil {
                 T entity = entityClazz.newInstance();
                 Cell[] row = sheet.getRow(i);
                 Map<String, FieldDescriptor> colFieldMap = conf.getColumnFieldMap();
-                for (Entry<String, Integer> e : columnNameIndexMap.entrySet()) {
+                for (Entry<String, FieldDescriptor> e : colFieldMap.entrySet()) {//只对配置文件中指定的列进行赋值,并且按出现的先后顺序进行字段赋值
 
-                    if (colFieldMap.containsKey(e.getKey())) {//只对配置文件中指定的列进行赋值
-                        String property = colFieldMap.get(e.getKey()).getFieldName();
-                        Object value = null;
+                    String property = e.getValue().getFieldName();//Could be concatenated property name;
+                    Object value = null;
+                    String sValue = row[columnNameIndexMap.get(e.getKey())].getContents();
+                    Class propertyType = ReflectUtil.getConcatenatedPropertyType(property, entityClazz);
 
-                        if (converters != null) {//使用提供的Converters进行转换
-                            Converter ctr = null;
-                            try {
-                                ctr = converters.getConverter(ReflectUtil.getPropertyType(property, entity));
-                            } catch (Exception ex) {
-                                Logger.getLogger(ExcelPOJOUtil.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                            if (ctr != null) {
-                                value = ctr.convert(row[e.getValue()].getContents());
-                            } else {
-                                value = ConvertUtil.convert(row[e.getValue()].getContents(), ReflectUtil.getPropertyType(property, entity));
-                            }
-                        } else {//若未提供对应类型的Converter,则尝试使用ConvertUtil对值进行转换
-                            value = ConvertUtil.convert(row[e.getValue()].getContents(), ReflectUtil.getPropertyType(property, entity));
-
+                    if (converters != null) {//使用提供的Converters进行转换
+                        Converter ctr = null;
+                        try {
+                            ctr = converters.getConverter(propertyType);
+                        } catch (Exception ex) {
+                            Logger.getLogger(ExcelPOJOUtil.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        ReflectUtil.setPropertyByName(colFieldMap.get(e.getKey()).getFieldName(), value, entity);
+                        if (ctr != null) {
+                            value = ctr.convert(sValue);
+                        } else {
+                            value = ConvertUtil.convert(sValue, propertyType);
+                        }
+                    } else {//若未提供对应类型的Converter,则尝试使用ConvertUtil对值进行转换
+                        value = ConvertUtil.convert(sValue, propertyType);
+
                     }
+                    ReflectUtil.setPropertyByName(property, value, entity);
+
                 }
                 results.add(entity);
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException ex) {

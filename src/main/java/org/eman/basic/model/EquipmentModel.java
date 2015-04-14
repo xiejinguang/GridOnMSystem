@@ -6,81 +6,91 @@
 package org.eman.basic.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import org.peasant.jpa.UUIDEntity;
 
 /**
  *
  * @author 谢金光
  */
 @Entity
-@Table(catalog = "jobpromotion", schema = "",name = "basic_equipment_model")
-@XmlRootElement
+@Table(catalog = "eman_basic", name = "equipment_model")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "TYPE", discriminatorType = DiscriminatorType.STRING, length = 25)
 @NamedQueries({
     @NamedQuery(name = "EquipmentModel.findAll", query = "SELECT e FROM EquipmentModel e"),
     @NamedQuery(name = "EquipmentModel.findById", query = "SELECT e FROM EquipmentModel e WHERE e.id = :id"),
     @NamedQuery(name = "EquipmentModel.findByType", query = "SELECT e FROM EquipmentModel e WHERE e.type = :type"),
-    @NamedQuery(name = "EquipmentModel.findByClass1", query = "SELECT e FROM EquipmentModel e WHERE e.class1 = :class1"),
-    @NamedQuery(name = "EquipmentModel.findByNetType", query = "SELECT e FROM EquipmentModel e WHERE e.netType = :netType"),
+    @NamedQuery(name = "EquipmentModel.findByClass1", query = "SELECT e FROM EquipmentModel e WHERE e.category = :category"),
     @NamedQuery(name = "EquipmentModel.findByModel", query = "SELECT e FROM EquipmentModel e WHERE e.model = :model"),
     @NamedQuery(name = "EquipmentModel.findByManufacturer", query = "SELECT e FROM EquipmentModel e WHERE e.manufacturer = :manufacturer")})
-public class EquipmentModel implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+public class EquipmentModel extends UUIDEntity implements Serializable {
+
+    protected static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 36)
     @Column(nullable = false, length = 36)
-    private String id;
+    protected String id;
+    @Basic(optional = false)
+    @NotNull
+    @Size(max = 25)
+    @Column(nullable = false, name = "TYPE", length = 25)
+    protected String type;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(nullable = false, length = 45)
+    private String category;
+
     @Basic(optional = false)
     @NotNull
     @Size(max = 45)
     @Column(nullable = false, length = 45)
-    private String type;
-    @Basic(optional = false)
-    @NotNull
-    @Size(max = 45)
-    @Column(nullable = false, name = "class", length = 45)
-    private String class1;
-    @Basic(optional = false)
-    @NotNull
-    @Size(max = 45)
-    @Column(nullable = false, length = 45)
-    private String netType;
-    @Basic(optional = false)
-    @NotNull
-    @Size(max = 45)
-    @Column(nullable = false, length = 45)
-    private String model;
+    protected String model; //型号
     @Size(max = 45)
     @Column(length = 45)
-    private String manufacturer;
+    protected String manufacturer; //制造商
     @Lob
     @Size(max = 65535)
     @Column(length = 65535)
-    private String commont;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipModelId")
-    private Collection<Netnode> netnodeCollection;
+    protected String commont;
 
-    public EquipmentModel() {
+    /**
+     * Get the value of category
+     *
+     * @return the value of category
+     */
+    public String getCategory() {
+        return category;
     }
 
-    public EquipmentModel(String id) {
-        this.id = id;
+    /**
+     * Set the value of category
+     *
+     * @param category new value of category
+     */
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public EquipmentModel() {
     }
 
     public String getId() {
@@ -97,22 +107,6 @@ public class EquipmentModel implements Serializable {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getClass1() {
-        return class1;
-    }
-
-    public void setClass1(String class1) {
-        this.class1 = class1;
-    }
-
-    public String getNetType() {
-        return netType;
-    }
-
-    public void setNetType(String netType) {
-        this.netType = netType;
     }
 
     public String getModel() {
@@ -137,22 +131,6 @@ public class EquipmentModel implements Serializable {
 
     public void setCommont(String commont) {
         this.commont = commont;
-    }
-
-    @XmlTransient
-    public Collection<Netnode> getNetnodeCollection() {
-        return netnodeCollection;
-    }
-
-    public void setNetnodeCollection(Collection<Netnode> netnodeCollection) {
-        this.netnodeCollection = netnodeCollection;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
     }
 
     @Override

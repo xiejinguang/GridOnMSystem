@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.eman.basic.model;
 
 import java.io.Serializable;
@@ -11,7 +10,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -24,14 +22,16 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.peasant.jpa.DatedEntity;
 import org.peasant.jpa.Labeled;
+import org.peasant.jpa.UUIDEntity;
 
 /**
  *
  * @author 谢金光
  */
 @Entity
-@Table(catalog = "jobpromotion", schema = "",name = "basic_netnode", uniqueConstraints = {
+@Table(catalog = "jobpromotion", schema = "", name = "basic_netnode", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"ossCode"})})
 @XmlRootElement
 @NamedQueries({
@@ -41,57 +41,73 @@ import org.peasant.jpa.Labeled;
     @NamedQuery(name = "Netnode.findByName", query = "SELECT n FROM Netnode n WHERE n.name = :name"),
     @NamedQuery(name = "Netnode.findByInvestTime", query = "SELECT n FROM Netnode n WHERE n.investTime = :investTime"),
     @NamedQuery(name = "Netnode.findByStatus", query = "SELECT n FROM Netnode n WHERE n.status = :status")})
-public class Netnode implements Serializable,Labeled {
+public class Netnode extends DatedEntity implements Serializable, Labeled {
+
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(nullable = false, length = 36)
-    private String id;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
     private String ossCode;
+
     @Basic(optional = false)
     @Size(max = 45)
     @Column(nullable = false, length = 45)
     private String name;
+
     @Temporal(TemporalType.DATE)
     private Date investTime;
+
     @Lob
     @Size(max = 65535)
     @Column(length = 65535)
     private String commont;
+
     @Size(max = 45)
     @Column(length = 45)
     private String status;
-    @JoinColumn(name = "equipModelId", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
-    private EquipmentModel equipModelId;
+
+    @JoinColumn(name = "equipModelId", referencedColumnName = "id", nullable = true)
+    @ManyToOne(optional = true)
+    private NetworkNodeModel equipModelId;
+
     @JoinColumn(name = "roomspotId", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Roomspot roomspot;
+
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = true)
+    private Date productionStartTime;
+
+    /**
+     * Get the value of productionStartTime
+     *
+     * @return the value of productionStartTime
+     */
+    public Date getProductionStartTime() {
+        return productionStartTime;
+    }
+
+    /**
+     * Set the value of productionStartTime
+     *
+     * @param productionStartTime new value of productionStartTime
+     */
+    public void setProductionStartTime(Date productionStartTime) {
+        this.productionStartTime = productionStartTime;
+    }
 
     public Netnode() {
     }
 
     public Netnode(String id) {
-        this.id = id;
+        super(id);
     }
 
     public Netnode(String id, String ossCode) {
-        this.id = id;
+        this(id);
         this.ossCode = ossCode;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getOssCode() {
@@ -134,11 +150,11 @@ public class Netnode implements Serializable,Labeled {
         this.status = status;
     }
 
-    public EquipmentModel getEquipModelId() {
+    public NetworkNodeModel getEquipModelId() {
         return equipModelId;
     }
 
-    public void setEquipModelId(EquipmentModel equipModelId) {
+    public void setEquipModelId(NetworkNodeModel equipModelId) {
         this.equipModelId = equipModelId;
     }
 
@@ -177,7 +193,7 @@ public class Netnode implements Serializable,Labeled {
 
     @Override
     public String getLabel() {
-        return ossCode+"|"+name;
+        return ossCode + "|" + name;
     }
-    
+
 }

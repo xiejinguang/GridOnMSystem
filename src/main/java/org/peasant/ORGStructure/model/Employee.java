@@ -15,8 +15,11 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.MapKey;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SecondaryTable;
 import javax.persistence.SecondaryTables;
 import javax.persistence.Table;
@@ -25,6 +28,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.peasant.basic.model.Address;
+import org.peasant.jpa.DatedEntity;
 
 /**
  *
@@ -34,8 +38,6 @@ import org.peasant.basic.model.Address;
 @Table(catalog = "jobpromotion", schema = "", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"idcardNum"}),
     @UniqueConstraint(columnNames = {"code"})})
-@SecondaryTables({@SecondaryTable(catalog = "jobpromotion", schema = "",name ="employee_addressHistory"),
-    @SecondaryTable(catalog = "jobpromotion", schema = "",name ="employee_addresses")})
 
 @XmlRootElement
 @NamedQueries({
@@ -47,7 +49,7 @@ import org.peasant.basic.model.Address;
     @NamedQuery(name = "Employee.findByBirthday", query = "SELECT e FROM Employee e WHERE e.birthday = :birthday"),
     @NamedQuery(name = "Employee.findByIdcardNum", query = "SELECT e FROM Employee e WHERE e.idcardNum = :idcardNum"),
     @NamedQuery(name = "Employee.findByMobilePhoneNum", query = "SELECT e FROM Employee e WHERE e.mobilePhoneNum = :mobilePhoneNum")})
-public class Employee implements Serializable {
+public class Employee extends DatedEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -76,21 +78,38 @@ public class Employee implements Serializable {
     @Size(max = 11)
     @Column(length = 11)
     private String mobilePhoneNum;
-    
-    
-    
+
     @Embedded
     @ElementCollection
-    @CollectionTable(catalog = "jobpromotion",name = "employee_addresses")
-    
     private Map<String, Address> addressses;
-    
+
     @Embedded
     @ElementCollection
-    @CollectionTable(catalog = "jobpromotion",name = "employee_addressHistory")
+    @CollectionTable(name = "addressHistory11", catalog = "jobpromotion")
     private Collection<Address> addressHistory;
     @Embedded
     private Address majorAddress;
+
+    @ElementCollection
+    private Collection<String> nicknames;
+
+    /**
+     * Get the value of nicknames
+     *
+     * @return the value of nicknames
+     */
+    public Collection<String> getNicknames() {
+        return nicknames;
+    }
+
+    /**
+     * Set the value of nicknames
+     *
+     * @param nicknames new value of nicknames
+     */
+    public void setNicknames(Collection<String> nicknames) {
+        this.nicknames = nicknames;
+    }
 
     /**
      * Get the value of majorAddress
@@ -109,7 +128,6 @@ public class Employee implements Serializable {
     public void setMajorAddress(Address majorAddress) {
         this.majorAddress = majorAddress;
     }
-
 
     /**
      * Get the value of addressses

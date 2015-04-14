@@ -90,7 +90,7 @@ public class Station implements Serializable,Labeled {
     private Collection<FixDemand> fixDemandCollection;
 
     @JoinColumn(name = "roomspotId", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false,cascade = {CascadeType.MERGE,})
+    @ManyToOne(optional = false,cascade = {CascadeType.MERGE})
     private Roomspot roomspot;
 
     public Station() {
