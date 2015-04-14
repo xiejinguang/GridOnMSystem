@@ -48,11 +48,32 @@ public class NetworkNodeModel extends EquipmentModel {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipModelId")
     private Collection<Netnode> netnodeCollection;
 
+    private String serviceType;
+
+    /**
+     * Get the value of serviceType
+     *
+     * @return the value of serviceType
+     */
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    /**
+     * Set the value of serviceType
+     *
+     * @param serviceType new value of serviceType
+     */
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
+    }
+
     public NetworkNodeModel() {
+        super();
     }
 
     public NetworkNodeModel(String id) {
-        this.id = id;
+        super(id);
     }
 
     public String getNetType() {
@@ -77,6 +98,16 @@ public class NetworkNodeModel extends EquipmentModel {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
+    }
+
+    public static enum StandardType {
+
+        CDMA_1X, CDMA_EVDO, LTE_FDD, LTE_TDD, GSM, WCDMA, TDSCDMA
+    }
+
+    public static enum ServiceType {
+
+        VOICE, DATA, VOICE_OVER_IP,
     }
 
 }

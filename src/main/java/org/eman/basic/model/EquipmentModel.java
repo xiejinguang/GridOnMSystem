@@ -71,6 +71,28 @@ public class EquipmentModel extends UUIDEntity implements Serializable {
     @Size(max = 65535)
     @Column(length = 65535)
     protected String commont;
+    @Lob
+    @Size(max = 65535)
+    @Column(length = 65535)
+    private String functionBrief;
+
+    /**
+     * Get the value of function
+     *
+     * @return the value of function
+     */
+    public String getFunctionBrief() {
+        return functionBrief;
+    }
+
+    /**
+     * Set the value of function
+     *
+     * @param functionBrief new value of function
+     */
+    public void setFunctionBrief(String functionBrief) {
+        this.functionBrief = functionBrief;
+    }
 
     /**
      * Get the value of category
@@ -93,12 +115,8 @@ public class EquipmentModel extends UUIDEntity implements Serializable {
     public EquipmentModel() {
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public EquipmentModel(String id) {
+        super(id);
     }
 
     public String getType() {
