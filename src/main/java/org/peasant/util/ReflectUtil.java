@@ -32,11 +32,20 @@ public class ReflectUtil {
 
     public static Collection<Field> getAllFields(Class clazz) {
         Collection<Field> fc = new LinkedList<>();
-        fc.addAll(Arrays.asList(clazz.getDeclaredFields()));
-        fc.addAll(getAllFields(clazz.getSuperclass()));
-        for (Class inter : clazz.getInterfaces()) {
+        Field[] dfs = clazz.getDeclaredFields();
+
+        fc.addAll(Arrays.asList(dfs));
+
+        Class superClazz = clazz.getSuperclass();
+        if (superClazz != null) {
+            fc.addAll(getAllFields(superClazz));
+        }
+        Class[] interfaces = clazz.getInterfaces();
+
+        for (Class inter : interfaces) {
             fc.addAll(getAllFields(inter));
         }
+
         return fc;
     }
 

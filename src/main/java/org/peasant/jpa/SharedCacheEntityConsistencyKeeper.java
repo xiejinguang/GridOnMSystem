@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import org.slf4j.Logger;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.spi.CDI;
@@ -26,6 +27,7 @@ import javax.persistence.PostRemove;
 import javax.persistence.PostUpdate;
 import javax.persistence.PreRemove;
 import org.peasant.util.ReflectUtil;
+import org.slf4j.LoggerFactory;
 
 /**
  * 此类仅能在CDI环境下工作,待改进。在JPA开启Shared Cache（二级高速缓存）的情况下，创建并持久化一个具有拥有外键 关系( *
@@ -55,6 +57,8 @@ public class SharedCacheEntityConsistencyKeeper {
 
     private static EntityManager em;
 
+    private static final Logger LOG = LoggerFactory.getLogger(SharedCacheEntityConsistencyKeeper.class.getName());
+
     public SharedCacheEntityConsistencyKeeper() {
         Instance<EntityManager> instance = CDI.current().select(EntityManager.class, new Default() {
 
@@ -71,7 +75,7 @@ public class SharedCacheEntityConsistencyKeeper {
 
     @PostPersist
     public void postPersiste(Object entity) {
-        keepConsistency(entity, Action.POST_PERSIST);
+        keepConsistency(entity, EntityLifeCycleEventType.POST_PERSIST);
     }
 
     public List<Field> getFields(Object entity) throws SecurityException {
@@ -80,7 +84,7 @@ public class SharedCacheEntityConsistencyKeeper {
 
     @PostUpdate
     public void postUpdate(Object entity) {
-        keepConsistency(entity, Action.POST_UPDATE);
+        keepConsistency(entity, EntityLifeCycleEventType.POST_UPDATE);
     }
 
     /**
@@ -90,10 +94,10 @@ public class SharedCacheEntityConsistencyKeeper {
      */
     @PostRemove
     public void postRemove(Object entity) {
-        keepConsistency(entity, Action.POST_REMOVE);
+        keepConsistency(entity, EntityLifeCycleEventType.POST_REMOVE);
     }
 
-   synchronized protected void keepConsistency(Object entity, Action action) {
+    synchronized protected void keepConsistency(Object entity, EntityLifeCycleEventType action) {
         List<Field> fields = getFields(entity);
         for (Field f : fields) {
             try {
@@ -101,19 +105,24 @@ public class SharedCacheEntityConsistencyKeeper {
                 if (m2o != null) {
                     Object p = ReflectUtil.getProperty(entity, f.getName());
                     if (p != null) {
-                        List<Field> opposedFields = getFields(p);
-                        for (Field opf : opposedFields) {
-                            OneToMany o2m = opf.getAnnotation(OneToMany.class);
-                            if (o2m != null && f.getName().equals(o2m.mappedBy())) {
+                        if (em != null) {
 
-                                if (Class.forName("java.util.Map").isAssignableFrom(opf.getType())) {
-                                    break;//如果对应字段的类型是Map,那无法进行处理。
-                                }
-                                Collection entitys = (Collection) ReflectUtil.getProperty(p, opf.getName());
-                                if (entitys == null) {
-                                    entitys = new LinkedList<>();
-                                    ReflectUtil.setPropertyByName(opf.getName(), entitys, p);
-                                }
+                            em.getEntityManagerFactory().getCache().evict(p.getClass(), EntityUtil.getPrimaryKey(p));//调用缓存接口，清除掉脏数据。
+                            LOG.debug("LifeCycle Callback Method[@{}]is invoked the entity[{}], clear the JPA SharedCache of assosiated entity[]", action, entity, p);
+                        }
+//                        List<Field> opposedFields = getFields(p);
+//                        for (Field opf : opposedFields) {
+//                            OneToMany o2m = opf.getAnnotation(OneToMany.class);
+//                            if (o2m != null && f.getName().equals(o2m.mappedBy())) {
+//
+//                                if (Class.forName("java.util.Map").isAssignableFrom(opf.getType())) {
+//                                    break;//如果对应字段的类型是Map,那无法进行处理。
+//                                }
+//                                Collection entitys = (Collection) ReflectUtil.getProperty(p, opf.getName());
+//                                if (entitys == null) {
+//                                    entitys = new LinkedList<>();
+//                                    ReflectUtil.setPropertyByName(opf.getName(), entitys, p);
+//                                }
 //                                switch (action) {
 //                                    case POST_PERSIST:
 //                                    case POST_UPDATE:
@@ -130,9 +139,8 @@ public class SharedCacheEntityConsistencyKeeper {
 //                                        break;
 //                                }
 
-                            }
-
-                        }
+//                            }
+//                        }
                     }
 
                     OneToOne o2o = f.getAnnotation(OneToOne.class);
@@ -149,9 +157,8 @@ public class SharedCacheEntityConsistencyKeeper {
             }
         }
     }
-    
 
-    public static enum Action {
+    public static enum EntityLifeCycleEventType {
 
         PRE_PERSIST, POST_PERSIST, PRE_UPDATE, POST_UPDATE, PRE_REMOVE, POST_REMOVE
     }

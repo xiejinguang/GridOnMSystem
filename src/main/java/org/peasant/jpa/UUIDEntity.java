@@ -22,7 +22,7 @@ public abstract class UUIDEntity implements Serializable {
     @Size(min = 36, max = 36)
     @NotNull
     @Column(nullable = false, length = 36)
-
+    
     protected String id;
 
     public UUIDEntity() {
