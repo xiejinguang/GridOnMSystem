@@ -8,7 +8,9 @@ package org.peasant.util;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,6 +28,16 @@ public class ReflectUtil {
     public static String getPropertySetter(String property) {
         String pms = "set" + Character.toUpperCase(property.charAt(0)) + property.substring(1);
         return pms;
+    }
+
+    public static Collection<Field> getAllFields(Class clazz) {
+        Collection<Field> fc = new LinkedList<>();
+        fc.addAll(Arrays.asList(clazz.getDeclaredFields()));
+        fc.addAll(getAllFields(clazz.getSuperclass()));
+        for (Class inter : clazz.getInterfaces()) {
+            fc.addAll(getAllFields(inter));
+        }
+        return fc;
     }
 
     /**

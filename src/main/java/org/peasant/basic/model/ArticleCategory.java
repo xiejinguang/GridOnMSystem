@@ -8,10 +8,10 @@ package org.peasant.basic.model;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -31,6 +31,7 @@ import org.peasant.jpa.UUIDEntity;
  * @author 谢金光
  */
 @Entity
+//@Cacheable(false)
 @Table(name = "article_category", catalog = "jobpromotion", schema = "", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"name"})})
 @XmlRootElement
@@ -52,7 +53,7 @@ public class ArticleCategory extends UUIDEntity implements Serializable {
     private String description;
     @OneToMany(mappedBy = "category",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.DETACH})
     private Collection<Article> articleCollection;
-    @OneToMany(mappedBy = "superior")
+    @OneToMany(mappedBy = "superior",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.DETACH,CascadeType.REMOVE})
     private Collection<ArticleCategory> articleCategoryCollection;
     @JoinColumn(name = "superior", referencedColumnName = "id")
     @ManyToOne

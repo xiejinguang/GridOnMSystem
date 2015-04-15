@@ -26,6 +26,7 @@ and open the template in the editor.
                 <entity-listener class="org.peasant.jpa.PersistenceContextListener">
                     <description>The default Entity Listener.用于记录PersistenceContext中的Entity操作事件。</description>                    
                 </entity-listener>
+                <entity-listener class="org.peasant.jpa.SharedCacheEntityConsistencyKeeper"></entity-listener>
             </entity-listeners>
         </persistence-unit-defaults>
     </persistence-unit-metadata> 

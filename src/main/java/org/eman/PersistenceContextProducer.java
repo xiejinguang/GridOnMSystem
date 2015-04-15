@@ -7,7 +7,6 @@ package org.eman;
 
 import java.io.Serializable;
 import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 

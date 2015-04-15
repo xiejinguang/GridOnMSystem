@@ -45,13 +45,12 @@ import org.peasant.jpa.UUIDEntity;
     @NamedQuery(name = "Roomspot.findByRoomCode", query = "SELECT r FROM Roomspot r WHERE r.roomCode = :roomCode"),
     @NamedQuery(name = "Roomspot.findByRoomName", query = "SELECT r FROM Roomspot r WHERE r.roomName = :roomName"),
     @NamedQuery(name = "Roomspot.findBySecondName", query = "SELECT r FROM Roomspot r WHERE r.secondName = :secondName"),
-    @NamedQuery(name = "Roomspot.findByProvince", query = "SELECT r FROM Roomspot r WHERE r.province = :province"),
-    @NamedQuery(name = "Roomspot.findByCity", query = "SELECT r FROM Roomspot r WHERE r.city = :city"),
-    @NamedQuery(name = "Roomspot.findByCounty", query = "SELECT r FROM Roomspot r WHERE r.county = :county"),
+//    @NamedQuery(name = "Roomspot.findByProvince", query = "SELECT r FROM Roomspot r WHERE r.address.province = :province"),
+//    @NamedQuery(name = "Roomspot.findByCity", query = "SELECT r FROM Roomspot r WHERE r.address.city = :city"),
+//    @NamedQuery(name = "Roomspot.findByCounty", query = "SELECT r FROM Roomspot r WHERE r.address.county = :county"),
     @NamedQuery(name = "Roomspot.findByGrid", query = "SELECT r FROM Roomspot r WHERE r.grid = :grid"),
     @NamedQuery(name = "Roomspot.findByPropertyOwner", query = "SELECT r FROM Roomspot r WHERE r.propertyOwner = :propertyOwner"),
-    @NamedQuery(name = "Roomspot.findByStatus", query = "SELECT r FROM Roomspot r WHERE r.status = :status"),
-    @NamedQuery(name = "Roomspot.findByAddress", query = "SELECT r FROM Roomspot r WHERE r.address = :address")})
+    @NamedQuery(name = "Roomspot.findByStatus", query = "SELECT r FROM Roomspot r WHERE r.status = :status")})
 public class Roomspot extends UUIDEntity implements Serializable, Labeled {
 
     private static final long serialVersionUID = 1L;
