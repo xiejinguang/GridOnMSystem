@@ -30,6 +30,11 @@ public class ReflectUtil {
         return pms;
     }
 
+    /**
+     *获取所有Field，包括public,protected,default(package),private以及继承的。
+     * @param clazz
+     * @return
+     */
     public static Collection<Field> getAllFields(Class clazz) {
         Collection<Field> fc = new LinkedList<>();
         Field[] dfs = clazz.getDeclaredFields();
@@ -70,6 +75,8 @@ public class ReflectUtil {
     }
 
     /**
+     * 获取公共访问权限的字段
+     * 
      * @MethodName : getFieldByName
      * @Description : 根据字段名获取字段
      * @param fieldName 字段名

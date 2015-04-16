@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author 谢金光
  */
 @Entity
-@DiscriminatorValue(value = "网络主设备")
+@DiscriminatorValue(value = "网络节点设备")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "NetworkNodeModel.findAll", query = "SELECT e FROM NetworkNodeModel e"),
@@ -44,28 +44,54 @@ public class NetworkNodeModel extends EquipmentModel {
     @NotNull
     @Size(max = 45)
     @Column(nullable = false, length = 45)
-    private String netType;//网络类型，Should be 3G,4G
+    private String networkClass;//网络类型，Should be 3G,4G,……
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipModelId")
     private Collection<Netnode> netnodeCollection;
 
-    private String serviceType;
+    @Basic(optional = true)
+    @Size(max = 45)
+    @Column(nullable = true, length = 45)
+    private String supportedServiceType;//支持的业务类型,should be:语音，数据
+
+    @Basic(optional = true)
+    @Size(max = 45)
+    @Column(nullable = true, length = 45)
+    private String supportedStandards;//支持的标准,should be：CDMA1X，CDMA_EVDO,GSM,WCDMA……等值或组合值。
 
     /**
-     * Get the value of serviceType
+     * Get the value of supportedStandards
      *
-     * @return the value of serviceType
+     * @return the value of supportedStandards
      */
-    public String getServiceType() {
-        return serviceType;
+    public String getSupportedStandards() {
+        return supportedStandards;
     }
 
     /**
-     * Set the value of serviceType
+     * Set the value of supportedStandards
      *
-     * @param serviceType new value of serviceType
+     * @param supportedStandards new value of supportedStandards
      */
-    public void setServiceType(String serviceType) {
-        this.serviceType = serviceType;
+    public void setSupportedStandards(String supportedStandards) {
+        this.supportedStandards = supportedStandards;
+    }
+
+    /**
+     * Get the value of supportedServiceType
+     *
+     * @return the value of supportedServiceType
+     */
+    public String getSupportedServiceType() {
+        return supportedServiceType;
+    }
+
+    /**
+     * Set the value of supportedServiceType
+     *
+     * @param supportedServiceType new value of supportedServiceType
+     */
+    public void setSupportedServiceType(String supportedServiceType) {
+        this.supportedServiceType = supportedServiceType;
     }
 
     public NetworkNodeModel() {
@@ -76,12 +102,12 @@ public class NetworkNodeModel extends EquipmentModel {
         super(id);
     }
 
-    public String getNetType() {
-        return netType;
+    public String getNetworkClass() {
+        return networkClass;
     }
 
-    public void setNetType(String netType) {
-        this.netType = netType;
+    public void setNetworkClass(String networkClass) {
+        this.networkClass = networkClass;
     }
 
     @XmlTransient

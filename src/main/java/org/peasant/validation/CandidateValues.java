@@ -12,31 +12,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import javax.validation.constraints.Pattern;
 
 /**
  *
- * @author Administrator
+ * @author 谢金光
  */
-@Pattern.List({
-    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
-            + "[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*"
-            + "@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-})
-@Constraint(validatedBy = {})
 @Documented
-@Target({ElementType.METHOD,
-    ElementType.FIELD,
-    ElementType.ANNOTATION_TYPE,
-    ElementType.CONSTRUCTOR,
-    ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidEmail {
+@Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD})
+@Constraint(validatedBy = CandidateValuesValidator.class)
+public @interface CandidateValues {
 
-    String message() default "{invalid.email}";
-
+    String key();
+    String message() default "{org.peasant.validation.CandidateValues.message}";
     Class<?>[] groups() default {};
-
     Class<? extends Payload>[] payload() default {};
-
 }

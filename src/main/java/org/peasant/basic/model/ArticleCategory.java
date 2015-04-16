@@ -51,9 +51,9 @@ public class ArticleCategory extends UUIDEntity implements Serializable {
     @Size(max = 65535)
     @Column(length = 65535)
     private String description;
-    @OneToMany(mappedBy = "category",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.DETACH})
+    @OneToMany(mappedBy = "category",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     private Collection<Article> articleCollection;
-    @OneToMany(mappedBy = "superior",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.DETACH,CascadeType.REMOVE})
+    @OneToMany(mappedBy = "superior",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     private Collection<ArticleCategory> articleCategoryCollection;
     @JoinColumn(name = "superior", referencedColumnName = "id")
     @ManyToOne

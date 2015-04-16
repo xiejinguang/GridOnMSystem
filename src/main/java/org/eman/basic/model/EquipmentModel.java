@@ -20,6 +20,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.peasant.jpa.DatedEntity;
 import org.peasant.jpa.UUIDEntity;
 
 /**
@@ -38,26 +39,21 @@ import org.peasant.jpa.UUIDEntity;
     @NamedQuery(name = "EquipmentModel.findByModel", query = "SELECT e FROM EquipmentModel e WHERE e.model = :model"),
     @NamedQuery(name = "EquipmentModel.findByManufacturer", query = "SELECT e FROM EquipmentModel e WHERE e.manufacturer = :manufacturer")})
 
-public class EquipmentModel extends UUIDEntity implements Serializable {
+public class EquipmentModel extends DatedEntity implements Serializable {
 
     protected static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(nullable = false, length = 36)
-    protected String id;
+
     @Basic(optional = false)
     @NotNull
     @Size(max = 25)
     @Column(nullable = false, name = "TYPE", length = 25)
-    protected String type;
+    protected String type;//大类别，网络主设备，动力配套
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
-    private String category;
+    private String category;//次类别，
 
     @Basic(optional = false)
     @NotNull
@@ -75,6 +71,13 @@ public class EquipmentModel extends UUIDEntity implements Serializable {
     @Size(max = 65535)
     @Column(length = 65535)
     private String functionBrief;
+
+    public EquipmentModel() {
+    }
+
+    public EquipmentModel(String id) {
+        super(id);
+    }
 
     /**
      * Get the value of function
@@ -110,13 +113,6 @@ public class EquipmentModel extends UUIDEntity implements Serializable {
      */
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    public EquipmentModel() {
-    }
-
-    public EquipmentModel(String id) {
-        super(id);
     }
 
     public String getType() {

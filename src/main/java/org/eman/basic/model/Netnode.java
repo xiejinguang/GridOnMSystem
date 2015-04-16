@@ -55,14 +55,17 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
     @Size(max = 45)
     @Column(nullable = false, length = 45)
     private String name;
+    @Basic(optional = false)
+    @Size(min = 1, max = 25)
+    @NotNull
+    @Column(nullable = false, length = 25)
+    private String nodeType;
 
-    @Temporal(TemporalType.DATE)
-    private Date investTime;
-
-    @Lob
-    @Size(max = 65535)
-    @Column(length = 65535)
-    private String commont;
+    @Basic(optional = false)
+    @Size(min = 1, max = 25)
+    @NotNull
+    @Column(nullable = false, length = 25)
+    private String network;
 
     @Size(max = 45)
     @Column(length = 45)
@@ -78,24 +81,92 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
 
     @Temporal(TemporalType.DATE)
     @Column(nullable = true)
-    private Date productionStartTime;
+    private Date startProductionTime;
+
+    @Basic(optional = false)
+    @Size(min = 1, max = 25)
+    @NotNull
+    @Column(nullable = false, length = 25)
+    private String serviceType;
+
+    @Temporal(TemporalType.DATE)
+    private Date investTime;
+
+    @Lob
+    @Size(max = 65535)
+    @Column(length = 65535)
+    private String commont;
 
     /**
-     * Get the value of productionStartTime
+     * Get the value of network
      *
-     * @return the value of productionStartTime
+     * @return the value of network
      */
-    public Date getProductionStartTime() {
-        return productionStartTime;
+    public String getNetwork() {
+        return network;
     }
 
     /**
-     * Set the value of productionStartTime
+     * Set the value of network
      *
-     * @param productionStartTime new value of productionStartTime
+     * @param network new value of network
      */
-    public void setProductionStartTime(Date productionStartTime) {
-        this.productionStartTime = productionStartTime;
+    public void setNetwork(String network) {
+        this.network = network;
+    }
+
+    /**
+     * Get the value of nodeType
+     *
+     * @return the value of nodeType
+     */
+    public String getNodeType() {
+        return nodeType;
+    }
+
+    /**
+     * Set the value of nodeType
+     *
+     * @param nodeType new value of nodeType
+     */
+    public void setNodeType(String nodeType) {
+        this.nodeType = nodeType;
+    }
+
+    /**
+     * Get the value of serviceType
+     *
+     * @return the value of serviceType
+     */
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    /**
+     * Set the value of serviceType
+     *
+     * @param serviceType new value of serviceType
+     */
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
+    }
+
+    /**
+     * Get the value of startProductionTime
+     *
+     * @return the value of startProductionTime
+     */
+    public Date getStartProductionTime() {
+        return startProductionTime;
+    }
+
+    /**
+     * Set the value of startProductionTime
+     *
+     * @param startProductionTime new value of startProductionTime
+     */
+    public void setStartProductionTime(Date startProductionTime) {
+        this.startProductionTime = startProductionTime;
     }
 
     public Netnode() {
@@ -196,4 +267,13 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
         return ossCode + "|" + name;
     }
 
+    public static enum NetnodeStatus {
+
+        ACTIVATED,//激活服务
+        READY_DEACTIVATED,//开通未激活服务
+        DATA_ADDED,//数据添至网络
+        DATA_REMOVED,//数据从网络中删除
+        DESTROYED,//设备拆除
+        UNKNOWN//未知
+    }
 }
