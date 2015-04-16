@@ -97,6 +97,27 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
     @Column(length = 65535)
     private String commont;
 
+    
+    private String superior;
+
+    /**
+     * Get the value of superior
+     *
+     * @return the value of superior
+     */
+    public String getSuperior() {
+        return superior;
+    }
+
+    /**
+     * Set the value of superior
+     *
+     * @param superior new value of superior
+     */
+    public void setSuperior(String superior) {
+        this.superior = superior;
+    }
+
     /**
      * Get the value of network
      *
