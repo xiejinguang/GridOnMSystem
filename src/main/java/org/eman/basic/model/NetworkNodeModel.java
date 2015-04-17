@@ -35,7 +35,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "NetworkNodeModel.findById", query = "SELECT e FROM NetworkNodeModel e WHERE e.id = :id"),
     @NamedQuery(name = "NetworkNodeModel.findByType", query = "SELECT e FROM NetworkNodeModel e WHERE e.type = :type"),
     @NamedQuery(name = "NetworkNodeModel.findByClass1", query = "SELECT e FROM NetworkNodeModel e WHERE e.category = :category"),
-    @NamedQuery(name = "NetworkNodeModel.findByNetType", query = "SELECT e FROM NetworkNodeModel e WHERE e.netType = :netType"),
     @NamedQuery(name = "NetworkNodeModel.findByModel", query = "SELECT e FROM NetworkNodeModel e WHERE e.model = :model"),
     @NamedQuery(name = "NetworkNodeModel.findByManufacturer", query = "SELECT e FROM NetworkNodeModel e WHERE e.manufacturer = :manufacturer")})
 public class NetworkNodeModel extends EquipmentModel {

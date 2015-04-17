@@ -174,7 +174,7 @@ public class ReflectUtil {
      * @return the Object value
      */
     public static Object setConcatenatedPropertyByName(String name, Object value, Object target) throws IllegalAccessException, InvocationTargetException, InstantiationException {
-        String[] cp = name.split(".");
+        String[] cp = name.split("\\.");
         Object pTarget = target;
         Object lastTarget = target;
         for (int i = 0; i < cp.length - 1; i++) {
@@ -231,10 +231,10 @@ public class ReflectUtil {
      *
      * @param name
      * @param targetClazz
-     * @return
+     * @return Null if the targetClazz don't have the property specified by @param name
      */
     public static Class getConcatenatedPropertyType(String name, Class targetClazz) {
-        String[] properties = name.split(".");
+        String[] properties = name.split("\\.");
         Class propertyType = null;
         Class tc = targetClazz;
         for (String property : properties) {

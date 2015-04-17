@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{i18n_eman_basic.ListNetworkNodeModelTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+
+            <h:form id="SearchConsForm">
+
+                <p:fieldset id="searchField" legend="${i18n_eman_basic.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+
+                    <p:panelGrid id="searchConsGrid" columns="8">
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.NetworkNodeModelLabel_supportedStandards}" for="supportedStandards" />
+                        <p:inputText id="supportedStandards" value="#{networkNodeModelController.searchCons['supportedStandards']}" title="#{i18n_eman_basic.NetworkNodeModelTitle_supportedStandards}"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.NetworkNodeModelLabel_supportedServiceType}" for="supportedServiceType" />
+                        <p:inputText id="supportedServiceType" value="#{networkNodeModelController.searchCons['supportedServiceType']}" title="#{i18n_eman_basic.NetworkNodeModelTitle_supportedServiceType}"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.NetworkNodeModelLabel_networkClass}" for="networkClass" />
+                        <p:inputText id="networkClass" value="#{networkNodeModelController.searchCons['networkClass']}" title="#{i18n_eman_basic.NetworkNodeModelTitle_networkClass}"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.NetworkNodeModelLabel_functionBrief}" for="functionBrief" />
+                        <p:inputTextarea rows="4" cols="30" id="functionBrief" value="#{networkNodeModelController.searchCons['functionBrief']}" title="#{i18n_eman_basic.NetworkNodeModelTitle_functionBrief}" />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.NetworkNodeModelLabel_category}" for="category" />
+                        <p:inputText id="category" value="#{networkNodeModelController.searchCons['category']}" title="#{i18n_eman_basic.NetworkNodeModelTitle_category}"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.NetworkNodeModelLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{networkNodeModelController.searchCons['type']}" title="#{i18n_eman_basic.NetworkNodeModelTitle_type}"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.NetworkNodeModelLabel_model}" for="model" />
+                        <p:inputText id="model" value="#{networkNodeModelController.searchCons['model']}" title="#{i18n_eman_basic.NetworkNodeModelTitle_model}"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.NetworkNodeModelLabel_manufacturer}" for="manufacturer" />
+                        <p:inputText id="manufacturer" value="#{networkNodeModelController.searchCons['manufacturer']}" title="#{i18n_eman_basic.NetworkNodeModelTitle_manufacturer}"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.NetworkNodeModelLabel_commont}" for="commont" />
+                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{networkNodeModelController.searchCons['commont']}" title="#{i18n_eman_basic.NetworkNodeModelTitle_commont}" />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.NetworkNodeModelLabel_createTime}" for="createTime" />
+                        <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{networkNodeModelController.searchCons['createTime']}" title="#{i18n_eman_basic.NetworkNodeModelTitle_createTime}" showOn="button"/>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.NetworkNodeModelLabel_lastUpdate}" for="lastUpdate" />
+                        <p:calendar id="lastUpdate" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{networkNodeModelController.searchCons['lastUpdate']}" title="#{i18n_eman_basic.NetworkNodeModelTitle_lastUpdate}" showOn="button"/>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.NetworkNodeModelLabel_createTimeDone}" for="createTimeDone" />
+                        <p:inputText id="createTimeDone" value="#{networkNodeModelController.searchCons['createTimeDone']}" title="#{i18n_eman_basic.NetworkNodeModelTitle_createTimeDone}"  converter="javax.faces.void"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.NetworkNodeModelLabel_lastUpdateTimeUpdate}" for="lastUpdateTimeUpdate" />
+                        <p:inputText id="lastUpdateTimeUpdate" value="#{networkNodeModelController.searchCons['lastUpdateTimeUpdate']}" title="#{i18n_eman_basic.NetworkNodeModelTitle_lastUpdateTimeUpdate}"  converter="javax.faces.void"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.NetworkNodeModelLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{networkNodeModelController.searchCons['id']}" title="#{i18n_eman_basic.NetworkNodeModelTitle_id}"  />
+
+                    </p:panelGrid>
+                    <h:panelGroup> 
+                        <p:commandButton id="searchButton" icon="ui-icon-search"   value="${i18n_eman_basic.Search}" actionListener="#{networkNodeModelController.searchItems}" update=":growl,@form:@parent:NetworkNodeModelListForm:datalist"/>
+                        <br/>
+                        <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${i18n_eman_basic.GetAll}" actionListener="#{networkNodeModelController.allItems}" update=":growl,@form:@parent:NetworkNodeModelListForm:datalist"/>
+                    </h:panelGroup> 
+                </p:fieldset>
+            </h:form>
+
+            <h:form id="NetworkNodeModelListForm">
+                <p:dataTable id="datalist" value="#{networkNodeModelController.items}" var="item"
+                             selection="#{networkNodeModelController.selectedItems}"
+                             rowKey="#{item.id}"
+                             rowsPerPageTemplate="10,20,30,40,50,100,200,500,1000"
+                             paginator="true" paginatorPosition="bottom"
+                             rows="20" 
+                             draggableColumns="true" resizableColumns="true" liveResize="true"
+                             scrollable="true"    liveScroll="false" 
+                             sortMode="multiple" sortBy="#{item.id}"
+                             editable="true" 
+                             filteredValue="#{networkNodeModelController.filteredValue}"
+                             stickyHeader="false" 
+                             >
+
+                    <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                    <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+                    <p:ajax event="toggleSelect" update="createButton,viewButton editButton,deleteButton"/>
+
+                    <p:ajax event="rowUnselectCheckbox" update="createButton,viewButton editButton,deleteButton"/>
+                    <p:ajax event="rowSelectCheckbox" update="createButton,viewButton editButton,deleteButton"/>
+
+                    <p:ajax event="rowDblselect" update="createButton,viewButton editButton,deleteButton"/>
+                    <p:ajax event="rowSelectRadio" update="createButton,viewButton editButton,deleteButton"/>
+
+                    <f:facet name="header"><p:outputLabel value="#{i18n_eman_basic.ListNetworkNodeModelTitle}" /></f:facet>
+
+                    <p:column exportable="false" style="width:13px;text-align:center" disabledSelection="true" toggleable="false" resizable="false"  > <h:outputText value="Expression index is undefined on line 123, column 183 in unknown."/></p:column>
+
+                    <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false" exportable="false"/>  
+
+
+                    <p:column sortBy="#{item.supportedStandards}" filterBy="#{item.supportedStandards}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.NetworkNodeModelTitle_supportedStandards}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.supportedStandards}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.supportedServiceType}" filterBy="#{item.supportedServiceType}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.NetworkNodeModelTitle_supportedServiceType}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.supportedServiceType}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.networkClass}" filterBy="#{item.networkClass}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.NetworkNodeModelTitle_networkClass}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.networkClass}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.functionBrief}" filterBy="#{item.functionBrief}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.NetworkNodeModelTitle_functionBrief}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.functionBrief}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.category}" filterBy="#{item.category}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.NetworkNodeModelTitle_category}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.category}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.type}" filterBy="#{item.type}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.NetworkNodeModelTitle_type}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.type}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.model}" filterBy="#{item.model}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.NetworkNodeModelTitle_model}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.model}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.manufacturer}" filterBy="#{item.manufacturer}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.NetworkNodeModelTitle_manufacturer}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.manufacturer}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.commont}" filterBy="#{item.commont}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.NetworkNodeModelTitle_commont}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.commont}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.createTime}" filterBy="#{item.createTime}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.NetworkNodeModelTitle_createTime}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.createTime}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column sortBy="#{item.lastUpdate}" filterBy="#{item.lastUpdate}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.NetworkNodeModelTitle_lastUpdate}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.lastUpdate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column sortBy="#{item.createTimeDone}" filterBy="#{item.createTimeDone}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.NetworkNodeModelTitle_createTimeDone}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.createTimeDone}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.lastUpdateTimeUpdate}" filterBy="#{item.lastUpdateTimeUpdate}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.NetworkNodeModelTitle_lastUpdateTimeUpdate}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.lastUpdateTimeUpdate}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.id}" filterBy="#{item.id}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.NetworkNodeModelTitle_id}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+                    <f:facet name="footer">
+
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{i18n_eman_basic.Create}" actionListener="#{networkNodeModelController.prepareCreate}" process="@this" update="@form:@parent:NetworkNodeModelCreateForm" oncomplete="PF('NetworkNodeModelCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{i18n_eman_basic.View}" process="@this" update="@form:@parent:NetworkNodeModelViewForm" oncomplete="PF('NetworkNodeModelViewDialog').show()" disabled="#{empty networkNodeModelController.selectedItems}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{i18n_eman_basic.Edit}" process="@this" update="@form:@parent:NetworkNodeModelEditForm" oncomplete="PF('NetworkNodeModelEditDialog').show()" disabled="#{empty networkNodeModelController.selectedItems}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{i18n_eman_basic.Delete}" actionListener="#{networkNodeModelController.destroy}" process="@this" update=":growl,datalist" disabled="#{empty networkNodeModelController.selectedItems}"/>
+                        <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                        <p:columnToggler datasource="datalist" trigger="toggler" />
+
+                    </f:facet>
+                </p:dataTable>
+
+            </h:form>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>

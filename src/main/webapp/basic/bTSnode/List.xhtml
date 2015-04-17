@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{i18n_eman_basic.ListBTSnodeTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+
+            <h:form id="SearchConsForm">
+
+                <p:fieldset id="searchField" legend="${i18n_eman_basic.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
+
+                    <p:panelGrid id="searchConsGrid" columns="8">
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_bandWidth}" for="bandWidth" />
+                        <p:inputText id="bandWidth" value="#{bTSnodeController.searchCons['bandWidth']}" title="#{i18n_eman_basic.BTSnodeTitle_bandWidth}"  converter="javax.faces.int"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_grade}" for="grade" />
+                        <p:inputText id="grade" value="#{bTSnodeController.searchCons['grade']}" title="#{i18n_eman_basic.BTSnodeTitle_grade}"  converter="javax.faces.Grade"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_ossCode}" for="ossCode" />
+                        <p:inputText id="ossCode" value="#{bTSnodeController.searchCons['ossCode']}" title="#{i18n_eman_basic.BTSnodeTitle_ossCode}"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_nodeNumber}" for="nodeNumber" />
+                        <p:inputText id="nodeNumber" value="#{bTSnodeController.searchCons['nodeNumber']}" title="#{i18n_eman_basic.BTSnodeTitle_nodeNumber}"  converter="javax.faces.Integer"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_superior}" for="superior" />
+                        <p:selectOneMenu id="superior" value="#{bTSnodeController.searchCons['superior']}" filter="true"  filterMatchMode="contains"  converter="javax.faces.Netnode"  >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
+                            <f:selectItems value="#{netnodeController.itemsAvailableSelectOne}"
+                                           var="superiorItem"
+                                           itemValue="#{superiorItem}"/>
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_network}" for="network" />
+                        <p:inputText id="network" value="#{bTSnodeController.searchCons['network']}" title="#{i18n_eman_basic.BTSnodeTitle_network}"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_nodeType}" for="nodeType" />
+                        <p:inputText id="nodeType" value="#{bTSnodeController.searchCons['nodeType']}" title="#{i18n_eman_basic.BTSnodeTitle_nodeType}"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_serviceType}" for="serviceType" />
+                        <p:inputText id="serviceType" value="#{bTSnodeController.searchCons['serviceType']}" title="#{i18n_eman_basic.BTSnodeTitle_serviceType}"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_startProductionTime}" for="startProductionTime" />
+                        <p:calendar id="startProductionTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{bTSnodeController.searchCons['startProductionTime']}" title="#{i18n_eman_basic.BTSnodeTitle_startProductionTime}" showOn="button"/>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{bTSnodeController.searchCons['name']}" title="#{i18n_eman_basic.BTSnodeTitle_name}"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_investTime}" for="investTime" />
+                        <p:calendar id="investTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{bTSnodeController.searchCons['investTime']}" title="#{i18n_eman_basic.BTSnodeTitle_investTime}" showOn="button"/>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_commont}" for="commont" />
+                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{bTSnodeController.searchCons['commont']}" title="#{i18n_eman_basic.BTSnodeTitle_commont}" />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{bTSnodeController.searchCons['status']}" title="#{i18n_eman_basic.BTSnodeTitle_status}"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_equipModelId}" for="equipModelId" />
+                        <p:selectOneMenu id="equipModelId" value="#{bTSnodeController.searchCons['equipModelId']}" filter="true"  filterMatchMode="contains"  converter="javax.faces.NetworkNodeModel"  >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
+                            <f:selectItems value="#{networkNodeModelController.itemsAvailableSelectOne}"
+                                           var="equipModelIdItem"
+                                           itemValue="#{equipModelIdItem}"/>
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_roomspot}" for="roomspot" />
+                        <p:selectOneMenu id="roomspot" value="#{bTSnodeController.searchCons['roomspot']}" filter="true"  filterMatchMode="contains"  converter="javax.faces.Roomspot"  >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
+                            <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
+                                           var="roomspotItem"
+                                           itemValue="#{roomspotItem}"/>
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_label}" for="label" />
+                        <p:inputText id="label" value="#{bTSnodeController.searchCons['label']}" title="#{i18n_eman_basic.BTSnodeTitle_label}"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_createTime}" for="createTime" />
+                        <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{bTSnodeController.searchCons['createTime']}" title="#{i18n_eman_basic.BTSnodeTitle_createTime}" showOn="button"/>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_lastUpdate}" for="lastUpdate" />
+                        <p:calendar id="lastUpdate" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{bTSnodeController.searchCons['lastUpdate']}" title="#{i18n_eman_basic.BTSnodeTitle_lastUpdate}" showOn="button"/>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_createTimeDone}" for="createTimeDone" />
+                        <p:inputText id="createTimeDone" value="#{bTSnodeController.searchCons['createTimeDone']}" title="#{i18n_eman_basic.BTSnodeTitle_createTimeDone}"  converter="javax.faces.void"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_lastUpdateTimeUpdate}" for="lastUpdateTimeUpdate" />
+                        <p:inputText id="lastUpdateTimeUpdate" value="#{bTSnodeController.searchCons['lastUpdateTimeUpdate']}" title="#{i18n_eman_basic.BTSnodeTitle_lastUpdateTimeUpdate}"  converter="javax.faces.void"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.BTSnodeLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{bTSnodeController.searchCons['id']}" title="#{i18n_eman_basic.BTSnodeTitle_id}"  />
+
+                    </p:panelGrid>
+                    <h:panelGroup> 
+                        <p:commandButton id="searchButton" icon="ui-icon-search"   value="${i18n_eman_basic.Search}" actionListener="#{bTSnodeController.searchItems}" update=":growl,@form:@parent:BTSnodeListForm:datalist"/>
+                        <br/>
+                        <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${i18n_eman_basic.GetAll}" actionListener="#{bTSnodeController.allItems}" update=":growl,@form:@parent:BTSnodeListForm:datalist"/>
+                    </h:panelGroup> 
+                </p:fieldset>
+            </h:form>
+
+            <h:form id="BTSnodeListForm">
+                <p:dataTable id="datalist" value="#{bTSnodeController.items}" var="item"
+                             selection="#{bTSnodeController.selectedItems}"
+                             rowKey="#{item.id}"
+                             rowsPerPageTemplate="10,20,30,40,50,100,200,500,1000"
+                             paginator="true" paginatorPosition="bottom"
+                             rows="20" 
+                             draggableColumns="true" resizableColumns="true" liveResize="true"
+                             scrollable="true"    liveScroll="false" 
+                             sortMode="multiple" sortBy="#{item.id}"
+                             editable="true" 
+                             filteredValue="#{bTSnodeController.filteredValue}"
+                             stickyHeader="false" 
+                             >
+
+                    <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                    <p:ajax event="rowUnselect" update="createButton,viewButton editButton,deleteButton"/>
+                    <p:ajax event="toggleSelect" update="createButton,viewButton editButton,deleteButton"/>
+
+                    <p:ajax event="rowUnselectCheckbox" update="createButton,viewButton editButton,deleteButton"/>
+                    <p:ajax event="rowSelectCheckbox" update="createButton,viewButton editButton,deleteButton"/>
+
+                    <p:ajax event="rowDblselect" update="createButton,viewButton editButton,deleteButton"/>
+                    <p:ajax event="rowSelectRadio" update="createButton,viewButton editButton,deleteButton"/>
+
+                    <f:facet name="header"><p:outputLabel value="#{i18n_eman_basic.ListBTSnodeTitle}" /></f:facet>
+
+                    <p:column exportable="false" style="width:13px;text-align:center" disabledSelection="true" toggleable="false" resizable="false"  > <h:outputText value="Expression index is undefined on line 123, column 183 in unknown."/></p:column>
+
+                    <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false" exportable="false"/>  
+
+
+                    <p:column sortBy="#{item.bandWidth}" filterBy="#{item.bandWidth}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_bandWidth}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.bandWidth}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.grade}" filterBy="#{item.grade}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_grade}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.grade}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.ossCode}" filterBy="#{item.ossCode}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_ossCode}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.ossCode}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.nodeNumber}" filterBy="#{item.nodeNumber}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_nodeNumber}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nodeNumber}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.superior}" filterBy="#{item.superior}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_superior}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.superior}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.network}" filterBy="#{item.network}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_network}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.network}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.nodeType}" filterBy="#{item.nodeType}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_nodeType}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nodeType}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.serviceType}" filterBy="#{item.serviceType}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_serviceType}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.serviceType}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.startProductionTime}" filterBy="#{item.startProductionTime}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_startProductionTime}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.startProductionTime}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column sortBy="#{item.name}" filterBy="#{item.name}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_name}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.name}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.investTime}" filterBy="#{item.investTime}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_investTime}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.investTime}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column sortBy="#{item.commont}" filterBy="#{item.commont}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_commont}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.commont}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.status}" filterBy="#{item.status}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_status}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.status}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.equipModelId}" filterBy="#{item.equipModelId}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_equipModelId}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.equipModelId}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.roomspot}" filterBy="#{item.roomspot}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_roomspot}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.roomspot}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.label}" filterBy="#{item.label}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_label}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.label}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.createTime}" filterBy="#{item.createTime}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_createTime}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.createTime}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column sortBy="#{item.lastUpdate}" filterBy="#{item.lastUpdate}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_lastUpdate}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.lastUpdate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column sortBy="#{item.createTimeDone}" filterBy="#{item.createTimeDone}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_createTimeDone}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.createTimeDone}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.lastUpdateTimeUpdate}" filterBy="#{item.lastUpdateTimeUpdate}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_lastUpdateTimeUpdate}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.lastUpdateTimeUpdate}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{item.id}" filterBy="#{item.id}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{i18n_eman_basic.BTSnodeTitle_id}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+                    <f:facet name="footer">
+
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{i18n_eman_basic.Create}" actionListener="#{bTSnodeController.prepareCreate}" process="@this" update="@form:@parent:BTSnodeCreateForm" oncomplete="PF('BTSnodeCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{i18n_eman_basic.View}" process="@this" update="@form:@parent:BTSnodeViewForm" oncomplete="PF('BTSnodeViewDialog').show()" disabled="#{empty bTSnodeController.selectedItems}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{i18n_eman_basic.Edit}" process="@this" update="@form:@parent:BTSnodeEditForm" oncomplete="PF('BTSnodeEditDialog').show()" disabled="#{empty bTSnodeController.selectedItems}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{i18n_eman_basic.Delete}" actionListener="#{bTSnodeController.destroy}" process="@this" update=":growl,datalist" disabled="#{empty bTSnodeController.selectedItems}"/>
+                        <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                        <p:columnToggler datasource="datalist" trigger="toggler" />
+
+                    </f:facet>
+                </p:dataTable>
+
+            </h:form>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>

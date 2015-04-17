@@ -10,37 +10,71 @@
         <p:dialog id="EquipmentModelViewDlg" widgetVar="EquipmentModelViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
                   onShow="fitViewport(this)" 
-                  header="#{basic_i18n.ViewEquipmentModelTitle}">
+                  header="#{i18n_eman_basic.ViewEquipmentModelTitle}">
             <h:form id="EquipmentModelViewForm">
                 <h:panelGroup id="display" rendered="#{not empty equipmentModelController.selectedItems}">
                     <ui:repeat  value="#{equipmentModelController.selectedItems}" var="item">
                         <p:panel toggleable="true" >
                             <f:facet name="header">
-                                <h:outputText value="#{basic_i18n.EquipmentModelEntityLabel}"/>
-                                <h:outputText value="#{item.id}" title="#{basic_i18n.EquipmentModelEntityTitle}"/>
+                                <h:outputText value="#{i18n_eman_basic.EquipmentModelEntityLabel}"/>
+                                <h:outputText value="#{item.id}" title="#{i18n_eman_basic.EquipmentModelEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="4" >
-                                <h:outputText value="#{basic_i18n.EquipmentModelLabel_id}"/>
-                                <h:outputText value="#{item.id}" title="#{basic_i18n.EquipmentModelTitle_id}"/>
-                                <h:outputText value="#{basic_i18n.EquipmentModelLabel_type}"/>
-                                <h:outputText value="#{item.type}" title="#{basic_i18n.EquipmentModelTitle_type}"/>
-                                <h:outputText value="#{basic_i18n.EquipmentModelLabel_class1}"/>
-                                <h:outputText value="#{item.type}" title="#{basic_i18n.EquipmentModelTitle_class1}"/>
-                                <h:outputText value="#{basic_i18n.EquipmentModelLabel_netType}"/>
-                                <h:outputText value="#{item.networkClass}" title="#{basic_i18n.EquipmentModelTitle_netType}"/>
-                                <h:outputText value="#{basic_i18n.EquipmentModelLabel_model}"/>
-                                <h:outputText value="#{item.model}" title="#{basic_i18n.EquipmentModelTitle_model}"/>
-                                <h:outputText value="#{basic_i18n.EquipmentModelLabel_manufacturer}"/>
-                                <h:outputText value="#{item.manufacturer}" title="#{basic_i18n.EquipmentModelTitle_manufacturer}"/>
-                                <h:outputText value="#{basic_i18n.EquipmentModelLabel_commont}"/>
-                                <h:outputText value="#{item.commont}" title="#{basic_i18n.EquipmentModelTitle_commont}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.EquipmentModelLabel_functionBrief}"/>
+                                <h:outputText value="#{item.functionBrief}" title="#{i18n_eman_basic.EquipmentModelTitle_functionBrief}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.EquipmentModelLabel_category}"/>
+                                <h:outputText value="#{item.category}" title="#{i18n_eman_basic.EquipmentModelTitle_category}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.EquipmentModelLabel_type}"/>
+                                <h:outputText value="#{item.type}" title="#{i18n_eman_basic.EquipmentModelTitle_type}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.EquipmentModelLabel_model}"/>
+                                <h:outputText value="#{item.model}" title="#{i18n_eman_basic.EquipmentModelTitle_model}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.EquipmentModelLabel_manufacturer}"/>
+                                <h:outputText value="#{item.manufacturer}" title="#{i18n_eman_basic.EquipmentModelTitle_manufacturer}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.EquipmentModelLabel_commont}"/>
+                                <h:outputText value="#{item.commont}" title="#{i18n_eman_basic.EquipmentModelTitle_commont}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.EquipmentModelLabel_createTime}"/>
+                                <h:outputText value="#{item.createTime}" title="#{i18n_eman_basic.EquipmentModelTitle_createTime}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+
+
+                                <h:outputText value="#{i18n_eman_basic.EquipmentModelLabel_lastUpdate}"/>
+                                <h:outputText value="#{item.lastUpdate}" title="#{i18n_eman_basic.EquipmentModelTitle_lastUpdate}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+
+
+                                <h:outputText value="#{i18n_eman_basic.EquipmentModelLabel_createTimeDone}"/>
+                                <h:outputText value="#{item.createTimeDone}" title="#{i18n_eman_basic.EquipmentModelTitle_createTimeDone}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.EquipmentModelLabel_lastUpdateTimeUpdate}"/>
+                                <h:outputText value="#{item.lastUpdateTimeUpdate}" title="#{i18n_eman_basic.EquipmentModelTitle_lastUpdateTimeUpdate}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.EquipmentModelLabel_id}"/>
+                                <h:outputText value="#{item.id}" title="#{i18n_eman_basic.EquipmentModelTitle_id}"/>
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>
-                    <p:commandButton type="button" value="#{basic_i18n.Close}" onclick="PF('EquipmentModelViewDialog').hide()"/>
+                    <p:commandButton type="button" value="#{i18n_eman_basic.Close}" onclick="PF('EquipmentModelViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
     </ui:composition>
-   
+
 </html>

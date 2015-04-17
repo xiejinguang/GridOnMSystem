@@ -28,7 +28,7 @@ import org.peasant.jpa.UUIDEntity;
  * @author 谢金光
  */
 @Entity
-@Table(catalog = "eman_basic", name = "equipment_model")
+@Table(name = "basic_equipment_model")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TYPE", discriminatorType = DiscriminatorType.STRING, length = 25)
 @NamedQueries({

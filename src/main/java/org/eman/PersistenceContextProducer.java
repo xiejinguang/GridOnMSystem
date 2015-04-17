@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.peasant.validation.ValidationSource;
 
 /**
  *
@@ -22,6 +23,7 @@ public class PersistenceContextProducer implements Serializable {
 
     @Produces
     @Module(name = "asist")
+    @ValidationSource
     public EntityManager getAsistEntityManager() {
         return em;
     }

@@ -11,6 +11,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import javax.validation.Constraint;
+import javax.validation.ConstraintTarget;
 import javax.validation.Payload;
 
 /**
@@ -27,4 +28,9 @@ public @interface CandidateValues {
     String message() default "{org.peasant.validation.CandidateValues.message}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
+    
+    
+//Custom constraints that can be applied to both return values and method parameters
+//require a validationAppliesTo element to identify the target of the constraint.
+    //ConstraintTarget validationAppliesTo() default ConstraintTarget.IMPLICIT;
 }

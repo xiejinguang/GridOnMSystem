@@ -35,7 +35,7 @@ import org.peasant.jpa.UUIDEntity;
  * @author 谢金光
  */
 @Entity
-@Table(catalog = "jobpromotion", schema = "", name = "basic_roomspot", uniqueConstraints = {
+@Table(name = "basic_roomspot", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"roomCode"}),
     @UniqueConstraint(columnNames = {"secondName"})})
 @XmlRootElement
@@ -102,10 +102,8 @@ public class Roomspot extends UUIDEntity implements Serializable, Labeled {
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "roomspot", orphanRemoval = false)
     private List<Netnode> netnodeList;
 
-    @Embedded
-    @Basic(optional = false)
-    @NotNull
-    private Address address = new Address();
+    @Embedded  
+    private Address address;
 
     @Temporal(TemporalType.DATE)
     private Date productionStartTime;

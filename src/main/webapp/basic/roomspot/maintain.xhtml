@@ -9,95 +9,92 @@
     <ui:composition>
         <h:form id="SearchForm">
             <p:fieldset id="searchField" legend="${basic_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
-                <p:panelGrid   style="width:100%"  >
-                    <p:row>
-                        <p:column >
-                            <p:panelGrid id="searchConsGrid" columns="8" >
+
+                <p:panelGrid id="searchConsGrid" columns="8" >
 
 
-                                <p:outputLabel value="#{basic_i18n.RoomspotLabel_id}" for="id" />
-                                <p:inputText id="id" value="#{roomspotController.searchCons['id']}" title="#{basic_i18n.RoomspotTitle_id}"  />
+                    <p:outputLabel value="#{basic_i18n.RoomspotLabel_id}" for="id" />
+                    <p:inputText id="id" value="#{roomspotController.searchCons['id']}" title="#{basic_i18n.RoomspotTitle_id}"  />
 
 
-                                <p:outputLabel value="#{basic_i18n.RoomspotLabel_roomCode}" for="roomCode" />
-                                <p:inputText id="roomCode" value="#{roomspotController.searchCons['roomCode']}" title="#{basic_i18n.RoomspotTitle_roomCode}"  />
+                    <p:outputLabel value="#{basic_i18n.RoomspotLabel_roomCode}" for="roomCode" />
+                    <p:inputText id="roomCode" value="#{roomspotController.searchCons['roomCode']}" title="#{basic_i18n.RoomspotTitle_roomCode}"  />
 
 
-                                <p:outputLabel value="#{basic_i18n.RoomspotLabel_roomName}" for="roomName" />
-                                <p:inputText id="roomName" value="#{roomspotController.searchCons['roomName']}" title="#{basic_i18n.RoomspotTitle_roomName}"  />
+                    <p:outputLabel value="#{basic_i18n.RoomspotLabel_roomName}" for="roomName" />
+                    <p:inputText id="roomName" value="#{roomspotController.searchCons['roomName']}" title="#{basic_i18n.RoomspotTitle_roomName}"  />
 
-                                <p:outputLabel value="#{basic_i18n.RoomspotLabel_secondName}" for="secondName" />
-                                <p:inputText id="secondName" value="#{roomspotController.searchCons['secondName']}" title="#{basic_i18n.RoomspotTitle_secondName}"  />
-
-
-                                <p:outputLabel value="#{basic_i18n.RoomspotLabel_province}" for="province" />
-                                <p:selectOneMenu id="province" value="#{roomspotController.searchCons['address.province']}"    disabled="false"  filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforSeachCons.handleProvinceChange}" >
-                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
-                                    <f:selectItems  value="#{roomspotController.areaforSeachCons.provinces}"
-                                                    var="item"
-                                                    itemValue="#{item}" itemLabel="#{item}" >
-                                    </f:selectItems>
-                                    <p:ajax update="city" />
-                                </p:selectOneMenu>
+                    <p:outputLabel value="#{basic_i18n.RoomspotLabel_secondName}" for="secondName" />
+                    <p:inputText id="secondName" value="#{roomspotController.searchCons['secondName']}" title="#{basic_i18n.RoomspotTitle_secondName}"  />
 
 
-                                <p:outputLabel value="#{basic_i18n.RoomspotLabel_city}" for="city" />
-                                <p:selectOneMenu id="city" value="#{roomspotController.searchCons['address.city']}"    disabled="false"  filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforSeachCons.handleCityChange}" >
-                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
-                                    <f:selectItems  value="#{roomspotController.areaforSeachCons.citys}"
-                                                    var="item"
-                                                    itemValue="#{item}" itemLabel="#{item}" >
-                                    </f:selectItems>
-                                    <p:ajax update="county"/>
-                                </p:selectOneMenu>                                    
+                    <p:outputLabel value="#{basic_i18n.RoomspotLabel_province}" for="province" />
+                    <p:selectOneMenu id="province" value="#{roomspotController.searchCons['address.province']}"    disabled="false"  filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforSeachCons.handleProvinceChange}" >
+                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                        <f:selectItems  value="#{roomspotController.areaforSeachCons.provinces}"
+                                        var="item"
+                                        itemValue="#{item}" itemLabel="#{item}" >
+                        </f:selectItems>
+                        <p:ajax update="city" />
+                    </p:selectOneMenu>
 
 
-                                <p:outputLabel value="#{basic_i18n.RoomspotLabel_county}" for="address.county" />
-                                <p:selectOneMenu id="county" value="#{roomspotController.searchCons['county']}"    disabled="false"  filter="true" filterMatchMode="contains"  >
-                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
-                                    <f:selectItems  value="#{roomspotController.areaforSeachCons.countys}"
-                                                    var="item"
-                                                    itemValue="#{item}" itemLabel="#{item}" >
-                                    </f:selectItems>
-                                </p:selectOneMenu>  
+                    <p:outputLabel value="#{basic_i18n.RoomspotLabel_city}" for="city" />
+                    <p:selectOneMenu id="city" value="#{roomspotController.searchCons['address.city']}"    disabled="false"  filter="true" filterMatchMode="contains" valueChangeListener="#{roomspotController.areaforSeachCons.handleCityChange}" >
+                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                        <f:selectItems  value="#{roomspotController.areaforSeachCons.citys}"
+                                        var="item"
+                                        itemValue="#{item}" itemLabel="#{item}" >
+                        </f:selectItems>
+                        <p:ajax update="county"/>
+                    </p:selectOneMenu>                                    
 
 
-                                <p:outputLabel value="#{basic_i18n.RoomspotLabel_grid}" for="grid" /> 
-                                <p:selectOneMenu id="grid" value="#{roomspotController.searchCons['grid']}"    disabled="false"  filter="true" filterMatchMode="contains"  >
-                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
-                                    <f:selectItems  value="#{roomspotController.gridCVs.children}"
-                                                    var="child"
-                                                    itemValue="#{child.value}" itemLabel="#{child.value}" >
-                                    </f:selectItems>
-                                </p:selectOneMenu>  
+                    <p:outputLabel value="#{basic_i18n.RoomspotLabel_county}" for="county" />
+                    <p:selectOneMenu id="county" value="#{roomspotController.searchCons['county']}"    disabled="false"  filter="true" filterMatchMode="contains"  >
+                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                        <f:selectItems  value="#{roomspotController.areaforSeachCons.countys}"
+                                        var="item"
+                                        itemValue="#{item}" itemLabel="#{item}" >
+                        </f:selectItems>
+                    </p:selectOneMenu>  
 
-                                <p:outputLabel value="#{basic_i18n.RoomspotLabel_propertyOwner}" for="propertyOwner" /> 
-                                <p:selectOneMenu id="propertyOwner" value="#{roomspotController.searchCons['propertyOwner']}"    disabled="false"  filter="true" filterMatchMode="contains"  >
-                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
-                                    <f:selectItems  value="#{roomspotController.companyCVs.children}"
-                                                    var="child"
-                                                    itemValue="#{child.value}" itemLabel="#{child.value}" >
-                                    </f:selectItems>
-                                </p:selectOneMenu>
 
-                                <p:outputLabel value="#{basic_i18n.RoomspotLabel_status}" for="status" />
-                                <p:selectOneMenu id="status" value="#{roomspotController.searchCons['status']}"  disabled="false"  filter="true" filterMatchMode="contains" >
-                                    <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
-                                    <f:selectItems  value="#{roomspotController.statusCVs.children}"
-                                                    var="child"
-                                                    itemValue="#{child.value}" itemLabel="#{child.value}" >
-                                    </f:selectItems>
-                                </p:selectOneMenu>
+                    <p:outputLabel value="#{basic_i18n.RoomspotLabel_grid}" for="grid" /> 
+                    <p:selectOneMenu id="grid" value="#{roomspotController.searchCons['grid']}"    disabled="false"  filter="true" filterMatchMode="contains"  >
+                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                        <f:selectItems  value="#{roomspotController.gridCVs.children}"
+                                        var="child"
+                                        itemValue="#{child.value}" itemLabel="#{child.value}" >
+                        </f:selectItems>
+                    </p:selectOneMenu>  
 
-                            </p:panelGrid>
-                        </p:column>
-                        <p:column>
-                            <p:commandButton id="searchButton" icon="ui-icon-search"   value="${basic_i18n.Search}" actionListener="#{roomspotController.searchItems}" update=":growl,:RoomspotListForm:datalist"/>
-                            <br/>
-                            <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${basic_i18n.GetAll}" actionListener="#{roomspotController.allItems}" update=":growl,:RoomspotListForm:datalist"/>
-                        </p:column>
-                    </p:row>
-                </p:panelGrid>                   
+                    <p:outputLabel value="#{basic_i18n.RoomspotLabel_propertyOwner}" for="propertyOwner" /> 
+                    <p:selectOneMenu id="propertyOwner" value="#{roomspotController.searchCons['propertyOwner']}"    disabled="false"  filter="true" filterMatchMode="contains"  >
+                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                        <f:selectItems  value="#{roomspotController.companyCVs.children}"
+                                        var="child"
+                                        itemValue="#{child.value}" itemLabel="#{child.value}" >
+                        </f:selectItems>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="#{basic_i18n.RoomspotLabel_status}" for="status" />
+                    <p:selectOneMenu id="status" value="#{roomspotController.searchCons['status']}"  disabled="false"  filter="true" filterMatchMode="contains" >
+                        <f:selectItem itemLabel="${bundle.SelectOneMessage}"/>
+                        <f:selectItems  value="#{roomspotController.statusCVs.children}"
+                                        var="child"
+                                        itemValue="#{child.value}" itemLabel="#{child.value}" >
+                        </f:selectItems>
+                    </p:selectOneMenu>
+
+                </p:panelGrid>
+
+                <h:panelGroup>
+                    <p:commandButton id="searchButton" icon="ui-icon-search"   value="${basic_i18n.Search}" actionListener="#{roomspotController.searchItems}" update=":growl,:RoomspotListForm:datalist"/>
+                    
+                    <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${basic_i18n.GetAll}" actionListener="#{roomspotController.allItems}" update=":growl,:RoomspotListForm:datalist"/>
+                </h:panelGroup>
+
             </p:fieldset>
         </h:form>
 
@@ -207,7 +204,7 @@
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{basic_i18n.View}" process="@this" update="@form:@parent:RoomspotViewForm"  oncomplete="PF('RoomspotViewDialog').show()" disabled="#{empty roomspotController.selectedItems}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{basic_i18n.Edit}" process="@this" update="@form:@parent:RoomspotEditForm" oncomplete="PF('RoomspotEditDialog').show()" disabled="#{empty roomspotController.selectedItems}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{basic_i18n.Delete}" process="@this" actionListener="#{roomspotController.destroy}" update=":growl,datalist" disabled="#{empty roomspotController.selectedItems}"/>
-                    <ps:excelImporter id="importButton" conf="/basic/roomspot/roomspot.properties" target="org.eman.basic.model.Roomspot" />
+                    <ps:excelImporter id="importButton" conf="/org/eman/basic/model/roomspot.properties" target="org.eman.basic.model.Roomspot" />
                     <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
                     <p:columnToggler datasource="datalist" trigger="toggler" />
                 </f:facet>

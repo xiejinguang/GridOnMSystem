@@ -70,6 +70,10 @@
             <base-name>/peasant/i18n_structure</base-name>
             <var>i18n_structure</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/org/eman/i18n_eman_basic</base-name>
+            <var>i18n_eman_basic</var>
+        </resource-bundle>
     </application>
     
     <navigation-rule>

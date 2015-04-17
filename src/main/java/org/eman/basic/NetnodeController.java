@@ -1,8 +1,8 @@
 package org.eman.basic;
 
-import org.eman.basic.model.Netnode;
-import org.eman.basic.util.JsfUtil;
-import org.eman.basic.util.JsfUtil.PersistAction;
+import org.eman.basic.model.util.JsfUtil;
+import org.eman.basic.model.util.JsfUtil.PersistAction;
+import org.eman.basic.NetnodeFacade;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -20,9 +20,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import org.eman.asist.CandidateValueConstants;
-import org.eman.asist.facade.AsistCandidateValueFacade;
-import org.eman.asist.model.CandidateValue;
+import org.eman.basic.model.Netnode;
 
 @Named("netnodeController")
 @ViewScoped
@@ -30,15 +28,12 @@ public class NetnodeController implements Serializable {
 
     @EJB
     protected org.eman.basic.NetnodeFacade ejbFacade;
-    @EJB
-    AsistCandidateValueFacade candidateValueFacade;
     private List<Netnode> items = null;
     private Netnode created;
     private List<Netnode> selectedItems;
+    private List<Netnode> filteredValue;
     private Map<String, Object> searchCons;
     protected ResourceBundle bundle;
-
-    private CandidateValue statusCV;
 
     public NetnodeController() {
     }
@@ -46,9 +41,8 @@ public class NetnodeController implements Serializable {
     @PostConstruct
     public void init() {
         this.searchCons = new HashMap();
-        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "basic_i18n");
+        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "/org/eman/i18n_eman_basic");
 
-        this.statusCV = candidateValueFacade.findBy(CandidateValueConstants.NetnodeStatusKey, CandidateValueConstants.NetnodeStatusValue, true).get(0);
     }
 
     public Netnode getCreated() {
@@ -64,6 +58,14 @@ public class NetnodeController implements Serializable {
     }
 
     public void setSelectedItems(List<Netnode> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
+
+    public List<Netnode> getFilteredValue() {
+        return selectedItems;
+    }
+
+    public void setFilteredValue(List<Netnode> selectedItems) {
         this.selectedItems = selectedItems;
     }
 
@@ -213,16 +215,8 @@ public class NetnodeController implements Serializable {
         return getFacade().findAll();
     }
 
-    public CandidateValue getStatusCV() {
-        return statusCV;
-    }
-
-    public void setStatusCV(CandidateValue statusCV) {
-        this.statusCV = statusCV;
-    }
-
-    @FacesConverter(forClass = Netnode.class)
-    public static class NetnodeControllerConverter implements Converter {
+    @FacesConverter(forClass = Netnode.class, value = "Netnode")
+    public static class NetnodeFacesConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {

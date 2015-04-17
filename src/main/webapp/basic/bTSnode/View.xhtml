@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="BTSnodeViewDlg" widgetVar="BTSnodeViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport(this)" 
+                  header="#{i18n_eman_basic.ViewBTSnodeTitle}">
+            <h:form id="BTSnodeViewForm">
+                <h:panelGroup id="display" rendered="#{not empty bTSnodeController.selectedItems}">
+                    <ui:repeat  value="#{bTSnodeController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeEntityLabel}"/>
+                                <h:outputText value="#{item.id}" title="#{i18n_eman_basic.BTSnodeEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="6" >
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_bandWidth}"/>
+                                <h:outputText value="#{item.bandWidth}" title="#{i18n_eman_basic.BTSnodeTitle_bandWidth}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_grade}"/>
+                                <h:outputText value="#{item.grade}" title="#{i18n_eman_basic.BTSnodeTitle_grade}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_ossCode}"/>
+                                <h:outputText value="#{item.ossCode}" title="#{i18n_eman_basic.BTSnodeTitle_ossCode}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_nodeNumber}"/>
+                                <h:outputText value="#{item.nodeNumber}" title="#{i18n_eman_basic.BTSnodeTitle_nodeNumber}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_superior}"/>
+                                <h:outputText value="#{item.superior}" title="#{i18n_eman_basic.BTSnodeTitle_superior}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_network}"/>
+                                <h:outputText value="#{item.network}" title="#{i18n_eman_basic.BTSnodeTitle_network}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_nodeType}"/>
+                                <h:outputText value="#{item.nodeType}" title="#{i18n_eman_basic.BTSnodeTitle_nodeType}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_serviceType}"/>
+                                <h:outputText value="#{item.serviceType}" title="#{i18n_eman_basic.BTSnodeTitle_serviceType}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_startProductionTime}"/>
+                                <h:outputText value="#{item.startProductionTime}" title="#{i18n_eman_basic.BTSnodeTitle_startProductionTime}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_name}"/>
+                                <h:outputText value="#{item.name}" title="#{i18n_eman_basic.BTSnodeTitle_name}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_investTime}"/>
+                                <h:outputText value="#{item.investTime}" title="#{i18n_eman_basic.BTSnodeTitle_investTime}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_commont}"/>
+                                <h:outputText value="#{item.commont}" title="#{i18n_eman_basic.BTSnodeTitle_commont}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_status}"/>
+                                <h:outputText value="#{item.status}" title="#{i18n_eman_basic.BTSnodeTitle_status}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_equipModelId}"/>
+                                <h:outputText value="#{item.equipModelId}" title="#{i18n_eman_basic.BTSnodeTitle_equipModelId}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_roomspot}"/>
+                                <h:outputText value="#{item.roomspot}" title="#{i18n_eman_basic.BTSnodeTitle_roomspot}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_label}"/>
+                                <h:outputText value="#{item.label}" title="#{i18n_eman_basic.BTSnodeTitle_label}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_createTime}"/>
+                                <h:outputText value="#{item.createTime}" title="#{i18n_eman_basic.BTSnodeTitle_createTime}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_lastUpdate}"/>
+                                <h:outputText value="#{item.lastUpdate}" title="#{i18n_eman_basic.BTSnodeTitle_lastUpdate}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_createTimeDone}"/>
+                                <h:outputText value="#{item.createTimeDone}" title="#{i18n_eman_basic.BTSnodeTitle_createTimeDone}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_lastUpdateTimeUpdate}"/>
+                                <h:outputText value="#{item.lastUpdateTimeUpdate}" title="#{i18n_eman_basic.BTSnodeTitle_lastUpdateTimeUpdate}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeLabel_id}"/>
+                                <h:outputText value="#{item.id}" title="#{i18n_eman_basic.BTSnodeTitle_id}"/>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton type="button" value="#{i18n_eman_basic.Close}" onclick="PF('BTSnodeViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+
+</html>

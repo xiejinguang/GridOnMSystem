@@ -32,7 +32,7 @@ import org.peasant.jpa.UUIDEntity;
  */
 @Entity
 //@Cacheable(false)
-@Table(name = "article_category", catalog = "jobpromotion", schema = "", uniqueConstraints = {
+@Table(catalog = "jobpromotion", schema = "",name = "article_category", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"name"})})
 @XmlRootElement
 @NamedQueries({

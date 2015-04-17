@@ -6,33 +6,28 @@
 package org.peasant.basic.model;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.peasant.jpa.DatedEntity;
-import org.peasant.jpa.UUIDEntity;
 
 /**
  *
  * @author 谢金光
  */
 @Entity
-@Table(name = "article", catalog = "jobpromotion", schema = "")
+@Table(catalog = "jobpromotion", schema = "",name = "article")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Article.findAll", query = "SELECT a FROM Article a"),

@@ -33,7 +33,7 @@ import org.peasant.jpa.Labeled;
  * @author 谢金光
  */
 @Entity
-@Table(catalog = "jobpromotion", schema = "",name = "basic_station", uniqueConstraints = {
+@Table(name = "basic_station", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"name"}),
     @UniqueConstraint(columnNames = {"statCode"})})
 @XmlRootElement

@@ -13,31 +13,61 @@
         <p:dialog id="EquipmentModelCreateDlg" widgetVar="EquipmentModelCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
                   maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
                   onShow="fitViewport(this)" 
-                  header="#{basic_i18n.CreateEquipmentModelTitle}">
+                  header="#{i18n_eman_basic.CreateEquipmentModelTitle}">
             <h:form id="EquipmentModelCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{not empty equipmentModelController.created}">
-                        <p:outputLabel value="#{basic_i18n.EditEquipmentModelLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{equipmentModelController.created.id}" title="#{basic_i18n.EditEquipmentModelTitle_id}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.EditEquipmentModelRequiredMessage_id}"/>
-                        <p:outputLabel value="#{basic_i18n.EditEquipmentModelLabel_type}" for="type" />
-                        <p:inputText id="type" value="#{equipmentModelController.created.type}" title="#{basic_i18n.EditEquipmentModelTitle_type}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditEquipmentModelRequiredMessage_type}"/>
-                        <p:outputLabel value="#{basic_i18n.EditEquipmentModelLabel_class1}" for="class1" />
-                        <p:inputText id="class1" value="#{equipmentModelController.created.type}" title="#{basic_i18n.EditEquipmentModelTitle_class1}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditEquipmentModelRequiredMessage_class1}"/>
-                        <p:outputLabel value="#{basic_i18n.EditEquipmentModelLabel_netType}" for="netType" />
-                        <p:inputText id="netType" value="#{equipmentModelController.created.networkClass}" title="#{basic_i18n.EditEquipmentModelTitle_netType}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditEquipmentModelRequiredMessage_netType}"/>
-                        <p:outputLabel value="#{basic_i18n.EditEquipmentModelLabel_model}" for="model" />
-                        <p:inputText id="model" value="#{equipmentModelController.created.model}" title="#{basic_i18n.EditEquipmentModelTitle_model}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditEquipmentModelRequiredMessage_model}"/>
-                        <p:outputLabel value="#{basic_i18n.EditEquipmentModelLabel_manufacturer}" for="manufacturer" />
-                        <p:inputText id="manufacturer" value="#{equipmentModelController.created.manufacturer}" title="#{basic_i18n.EditEquipmentModelTitle_manufacturer}"  disabled="false"       />
-                        <p:outputLabel value="#{basic_i18n.EditEquipmentModelLabel_commont}" for="commont" />
-                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{equipmentModelController.created.commont}" title="#{basic_i18n.EditEquipmentModelTitle_commont}" />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditEquipmentModelLabel_functionBrief}" for="functionBrief" />
+                        <p:inputTextarea rows="4" cols="30" id="functionBrief" value="#{equipmentModelController.created.functionBrief}" title="#{i18n_eman_basic.EditEquipmentModelTitle_functionBrief}" />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditEquipmentModelLabel_category}" for="category" />
+                        <p:inputText id="category" value="#{equipmentModelController.created.category}" title="#{i18n_eman_basic.EditEquipmentModelTitle_category}"  disabled="false"       required="true" requiredMessage="#{i18n_eman_basic.EditEquipmentModelRequiredMessage_category}"/>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditEquipmentModelLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{equipmentModelController.created.type}" title="#{i18n_eman_basic.EditEquipmentModelTitle_type}"  disabled="false"       required="true" requiredMessage="#{i18n_eman_basic.EditEquipmentModelRequiredMessage_type}"/>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditEquipmentModelLabel_model}" for="model" />
+                        <p:inputText id="model" value="#{equipmentModelController.created.model}" title="#{i18n_eman_basic.EditEquipmentModelTitle_model}"  disabled="false"       required="true" requiredMessage="#{i18n_eman_basic.EditEquipmentModelRequiredMessage_model}"/>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditEquipmentModelLabel_manufacturer}" for="manufacturer" />
+                        <p:inputText id="manufacturer" value="#{equipmentModelController.created.manufacturer}" title="#{i18n_eman_basic.EditEquipmentModelTitle_manufacturer}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditEquipmentModelLabel_commont}" for="commont" />
+                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{equipmentModelController.created.commont}" title="#{i18n_eman_basic.EditEquipmentModelTitle_commont}" />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditEquipmentModelLabel_createTime}" for="createTime" />
+                        <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{equipmentModelController.created.createTime}" title="#{i18n_eman_basic.EditEquipmentModelTitle_createTime}" required="true" requiredMessage="#{i18n_eman_basic.EditEquipmentModelRequiredMessage_createTime}" showOn="button"/>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditEquipmentModelLabel_lastUpdate}" for="lastUpdate" />
+                        <p:calendar id="lastUpdate" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{equipmentModelController.created.lastUpdate}" title="#{i18n_eman_basic.EditEquipmentModelTitle_lastUpdate}" required="true" requiredMessage="#{i18n_eman_basic.EditEquipmentModelRequiredMessage_lastUpdate}" showOn="button"/>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditEquipmentModelLabel_createTimeDone}" for="createTimeDone" />
+                        <p:inputText id="createTimeDone" value="#{equipmentModelController.created.createTimeDone}" title="#{i18n_eman_basic.EditEquipmentModelTitle_createTimeDone}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditEquipmentModelLabel_lastUpdateTimeUpdate}" for="lastUpdateTimeUpdate" />
+                        <p:inputText id="lastUpdateTimeUpdate" value="#{equipmentModelController.created.lastUpdateTimeUpdate}" title="#{i18n_eman_basic.EditEquipmentModelTitle_lastUpdateTimeUpdate}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditEquipmentModelLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{equipmentModelController.created.id}" title="#{i18n_eman_basic.EditEquipmentModelTitle_id}"  disabled="true"       required="true" requiredMessage="#{i18n_eman_basic.EditEquipmentModelRequiredMessage_id}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{equipmentModelController.create}" value="#{basic_i18n.Save}" update="display,@form:@parent:EquipmentModelListForm:datalist,:growl" oncomplete="handleSubmit(args,'EquipmentModelCreateDialog');"/>
-                    <p:commandButton type="button" value="#{basic_i18n.Cancel}" onclick="PF('EquipmentModelCreateDialog').hide()"/>
+                    <p:commandButton actionListener="#{equipmentModelController.create}" value="#{i18n_eman_basic.Save}" update="display,@form:@parent:EquipmentModelListForm:datalist,:growl" oncomplete="handleSubmit(args,'EquipmentModelCreateDialog');"/>
+                    <p:commandButton type="button" value="#{i18n_eman_basic.Cancel}" onclick="PF('EquipmentModelCreateDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
 
     </ui:composition>
-   
+
 </html>

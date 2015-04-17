@@ -31,7 +31,7 @@ import org.peasant.jpa.Labeled;
  * @author 谢金光
  */
 @Entity
-@Table(catalog = "jobpromotion", schema = "",name = "gmsys_fix_demand", uniqueConstraints = {
+@Table(name = "gmsys_fix_demand", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"demandCode"})})
 @XmlRootElement
 @NamedQueries({

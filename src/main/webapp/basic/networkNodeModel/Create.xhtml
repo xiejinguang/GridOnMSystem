@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="NetworkNodeModelCreateDlg" widgetVar="NetworkNodeModelCreateDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport(this)" 
+                  header="#{i18n_eman_basic.CreateNetworkNodeModelTitle}">
+            <h:form id="NetworkNodeModelCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="6" rendered="#{not empty networkNodeModelController.created}">
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_supportedStandards}" for="supportedStandards" />
+                        <p:inputText id="supportedStandards" value="#{networkNodeModelController.created.supportedStandards}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_supportedStandards}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_supportedServiceType}" for="supportedServiceType" />
+                        <p:inputText id="supportedServiceType" value="#{networkNodeModelController.created.supportedServiceType}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_supportedServiceType}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_networkClass}" for="networkClass" />
+                        <p:inputText id="networkClass" value="#{networkNodeModelController.created.networkClass}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_networkClass}"  disabled="false"       required="true" requiredMessage="#{i18n_eman_basic.EditNetworkNodeModelRequiredMessage_networkClass}"/>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_functionBrief}" for="functionBrief" />
+                        <p:inputTextarea rows="4" cols="30" id="functionBrief" value="#{networkNodeModelController.created.functionBrief}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_functionBrief}" />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_category}" for="category" />
+                        <p:inputText id="category" value="#{networkNodeModelController.created.category}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_category}"  disabled="false"       required="true" requiredMessage="#{i18n_eman_basic.EditNetworkNodeModelRequiredMessage_category}"/>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{networkNodeModelController.created.type}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_type}"  disabled="false"       required="true" requiredMessage="#{i18n_eman_basic.EditNetworkNodeModelRequiredMessage_type}"/>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_model}" for="model" />
+                        <p:inputText id="model" value="#{networkNodeModelController.created.model}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_model}"  disabled="false"       required="true" requiredMessage="#{i18n_eman_basic.EditNetworkNodeModelRequiredMessage_model}"/>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_manufacturer}" for="manufacturer" />
+                        <p:inputText id="manufacturer" value="#{networkNodeModelController.created.manufacturer}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_manufacturer}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_commont}" for="commont" />
+                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{networkNodeModelController.created.commont}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_commont}" />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_createTime}" for="createTime" />
+                        <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{networkNodeModelController.created.createTime}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_createTime}" required="true" requiredMessage="#{i18n_eman_basic.EditNetworkNodeModelRequiredMessage_createTime}" showOn="button"/>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_lastUpdate}" for="lastUpdate" />
+                        <p:calendar id="lastUpdate" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{networkNodeModelController.created.lastUpdate}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_lastUpdate}" required="true" requiredMessage="#{i18n_eman_basic.EditNetworkNodeModelRequiredMessage_lastUpdate}" showOn="button"/>
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_createTimeDone}" for="createTimeDone" />
+                        <p:inputText id="createTimeDone" value="#{networkNodeModelController.created.createTimeDone}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_createTimeDone}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_lastUpdateTimeUpdate}" for="lastUpdateTimeUpdate" />
+                        <p:inputText id="lastUpdateTimeUpdate" value="#{networkNodeModelController.created.lastUpdateTimeUpdate}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_lastUpdateTimeUpdate}"  disabled="false"       />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{networkNodeModelController.created.id}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_id}"  disabled="true"       required="true" requiredMessage="#{i18n_eman_basic.EditNetworkNodeModelRequiredMessage_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{networkNodeModelController.create}" value="#{i18n_eman_basic.Save}" update="display,@form:@parent:NetworkNodeModelListForm:datalist,:growl" oncomplete="handleSubmit(args,'NetworkNodeModelCreateDialog');"/>
+                    <p:commandButton type="button" value="#{i18n_eman_basic.Cancel}" onclick="PF('NetworkNodeModelCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

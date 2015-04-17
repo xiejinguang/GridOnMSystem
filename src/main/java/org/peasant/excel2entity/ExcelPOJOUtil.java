@@ -321,13 +321,16 @@ public class ExcelPOJOUtil {
                 T entity = entityClazz.newInstance();
                 Cell[] row = sheet.getRow(i);
                 Map<String, FieldDescriptor> colFieldMap = conf.getColumnFieldMap();
-                for (Entry<String, FieldDescriptor> e : colFieldMap.entrySet()) {//只对配置文件中指定的列进行赋值,并且按出现的先后顺序进行字段赋值
-
+                for (Entry<String, FieldDescriptor> e : colFieldMap.entrySet()) {//只对配置文件中指定的列进行赋值,并且按出现的先后顺序进行字段赋值(实现中暂不能保证先后顺序，因读取配置是使用的是hashMap)
+                    if(!columnNameIndexMap.containsKey(e.getKey()))//如果属性未出现在Excel的Sheet的字段中，则不进行赋值
+                        continue;
                     String property = e.getValue().getFieldName();//Could be concatenated property name;
                     Object value = null;
                     String sValue = row[columnNameIndexMap.get(e.getKey())].getContents();
                     Class propertyType = ReflectUtil.getConcatenatedPropertyType(property, entityClazz);
-
+                    if(propertyType==null){
+                        throw new ExcelException("在POJO类："+entityClazz+"中找不到指定的属性:"+property);
+                    }
                     if (converters != null) {//使用提供的Converters进行转换
                         Converter ctr = null;
                         try {
@@ -344,7 +347,7 @@ public class ExcelPOJOUtil {
                         value = ConvertUtil.convert(sValue, propertyType);
 
                     }
-                    ReflectUtil.setPropertyByName(property, value, entity);
+                    ReflectUtil.setConcatenatedPropertyByName(property, value, entity);
 
                 }
                 results.add(entity);

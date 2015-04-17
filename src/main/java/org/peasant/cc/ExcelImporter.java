@@ -91,7 +91,7 @@ public class ExcelImporter implements Serializable {
             Logger.getLogger(ExcelImporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-@Transactional
+
     public void handleExcelImport(FileUploadEvent fue) {
 
         feedbackInfo("文件上传成功，正在执行导入,请稍候……\n", null);
@@ -131,7 +131,7 @@ public class ExcelImporter implements Serializable {
                 feedbackWarn("导入的数据不符合约束：", r.toString());
             }
         } catch (Exception ex) {
-            feedbackError("导入失败：" + ex.getMessage(), null);
+            feedbackError("导入失败：" + ex.getMessage(), ex.getCause().toString());
             Logger.getLogger(ExcelImporter.class.getName()).log(Level.SEVERE, null, ex);
         }
 

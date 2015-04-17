@@ -1,8 +1,8 @@
 package org.eman.basic;
 
-import org.eman.basic.model.NetworkNodeModel;
-import org.eman.basic.util.JsfUtil;
-import org.eman.basic.util.JsfUtil.PersistAction;
+import org.eman.basic.model.util.JsfUtil;
+import org.eman.basic.model.util.JsfUtil.PersistAction;
+import org.eman.basic.EquipmentModelFacade;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -20,6 +20,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.eman.basic.model.EquipmentModel;
 
 @Named("equipmentModelController")
 @ViewScoped
@@ -27,9 +28,10 @@ public class EquipmentModelController implements Serializable {
 
     @EJB
     protected org.eman.basic.EquipmentModelFacade ejbFacade;
-    private List<NetworkNodeModel> items = null;
-    private NetworkNodeModel created;
-    private List<NetworkNodeModel> selectedItems;
+    private List<EquipmentModel> items = null;
+    private EquipmentModel created;
+    private List<EquipmentModel> selectedItems;
+    private List<EquipmentModel> filteredValue;
     private Map<String, Object> searchCons;
     protected ResourceBundle bundle;
 
@@ -39,24 +41,31 @@ public class EquipmentModelController implements Serializable {
     @PostConstruct
     public void init() {
         this.searchCons = new HashMap();
-
-        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "basic_i18n");
+        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "/org/eman/i18n_eman_basic");
 
     }
 
-    public NetworkNodeModel getCreated() {
+    public EquipmentModel getCreated() {
         return created;
     }
 
-    public void setCreated(NetworkNodeModel created) {
+    public void setCreated(EquipmentModel created) {
         this.created = created;
     }
 
-    public List<NetworkNodeModel> getSelectedItems() {
+    public List<EquipmentModel> getSelectedItems() {
         return selectedItems;
     }
 
-    public void setSelectedItems(List<NetworkNodeModel> selectedItems) {
+    public void setSelectedItems(List<EquipmentModel> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
+
+    public List<EquipmentModel> getFilteredValue() {
+        return selectedItems;
+    }
+
+    public void setFilteredValue(List<EquipmentModel> selectedItems) {
         this.selectedItems = selectedItems;
     }
 
@@ -79,9 +88,9 @@ public class EquipmentModelController implements Serializable {
         return ejbFacade;
     }
 
-    public NetworkNodeModel prepareCreate() {
+    public EquipmentModel prepareCreate() {
 
-        created = new NetworkNodeModel();
+        created = new EquipmentModel();
         initializeKey();
         return created;
     }
@@ -105,13 +114,13 @@ public class EquipmentModelController implements Serializable {
         }
     }
 
-    public List<NetworkNodeModel> searchItems() {
+    public List<EquipmentModel> searchItems() {
 
         items = findItemsByConditions(construtSearchParams(this.searchCons));
         return items;
     }
 
-    protected List<NetworkNodeModel> findItemsByConditions(Map<String, Object> params) {
+    protected List<EquipmentModel> findItemsByConditions(Map<String, Object> params) {
         return getFacade().findByConditions(params);
     }
 
@@ -135,13 +144,13 @@ public class EquipmentModelController implements Serializable {
         return newparams;
     }
 
-    public List<NetworkNodeModel> allItems() {
+    public List<EquipmentModel> allItems() {
         items = getFacade().findAll();
 
         return items;
     }
 
-    public List<NetworkNodeModel> getItems() {
+    public List<EquipmentModel> getItems() {
         if (null == items) {
             //TODO,根据上次查询条件记录获取记录
         }
@@ -158,7 +167,7 @@ public class EquipmentModelController implements Serializable {
                     break;
 
                 default: {
-                    for (NetworkNodeModel selected : selectedItems) {
+                    for (EquipmentModel selected : selectedItems) {
                         if (selected != null) {
                             setEmbeddableKeys();
                             switch (persistAction) {
@@ -194,20 +203,20 @@ public class EquipmentModelController implements Serializable {
 
     }
 
-    public NetworkNodeModel getEquipmentModel(java.lang.String id) {
+    public EquipmentModel getEquipmentModel(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<NetworkNodeModel> getItemsAvailableSelectMany() {
+    public List<EquipmentModel> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<NetworkNodeModel> getItemsAvailableSelectOne() {
+    public List<EquipmentModel> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = NetworkNodeModel.class, value = "org.eman.EquipmentModel")
-    public static class EquipmentModelControllerConverter implements Converter {
+    @FacesConverter(forClass = EquipmentModel.class, value = "EquipmentModel")
+    public static class EquipmentModelFacesConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
@@ -236,11 +245,11 @@ public class EquipmentModelController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof NetworkNodeModel) {
-                NetworkNodeModel o = (NetworkNodeModel) object;
+            if (object instanceof EquipmentModel) {
+                EquipmentModel o = (EquipmentModel) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), NetworkNodeModel.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), EquipmentModel.class.getName()});
                 return null;
             }
         }

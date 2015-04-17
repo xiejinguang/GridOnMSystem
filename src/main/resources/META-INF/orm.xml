@@ -18,7 +18,7 @@ and open the template in the editor.
         <persistence-unit-defaults>
             <description></description>
             <schema></schema>
-            <catalog></catalog>
+            <catalog>eman</catalog>
             <delimited-identifiers></delimited-identifiers>
             <access>PROPERTY</access>
             <cascade-persist></cascade-persist>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pta="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="BTSnodeEditDlg" widgetVar="BTSnodeEditDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport(this)" 
+                  header="#{i18n_eman_basic.EditBTSnodeTitle}">
+            <h:form id="BTSnodeEditForm">
+                <h:panelGroup id="display" rendered="#{not empty bTSnodeController.selectedItems}">
+                    <ui:repeat  value="#{bTSnodeController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{i18n_eman_basic.BTSnodeEntityLabel}"/>
+                                <h:outputText value="#{item.id}" title="#{i18n_eman_basic.BTSnodeEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="6" >
+
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_bandWidth}" for="bandWidth" />
+                                <p:inputText id="bandWidth" value="#{item.bandWidth}" title="#{i18n_eman_basic.EditBTSnodeTitle_bandWidth}" disabled="false"   />
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_grade}" for="grade" />
+                                <p:inputText id="grade" value="#{item.grade}" title="#{i18n_eman_basic.EditBTSnodeTitle_grade}" disabled="false"   required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_grade}"/>
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_ossCode}" for="ossCode" />
+                                <p:inputText id="ossCode" value="#{item.ossCode}" title="#{i18n_eman_basic.EditBTSnodeTitle_ossCode}" disabled="false"   required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_ossCode}"/>
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_nodeNumber}" for="nodeNumber" />
+                                <p:inputText id="nodeNumber" value="#{item.nodeNumber}" title="#{i18n_eman_basic.EditBTSnodeTitle_nodeNumber}" disabled="false"   required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_nodeNumber}"/>
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_superior}" for="superior" />
+                                <p:selectOneMenu id="superior" value="#{item.superior}" filter="true"  filterMatchMode="contains" >
+                                    <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
+                                    <f:selectItems value="#{netnodeController.itemsAvailableSelectOne}"
+                                                   var="superiorItem"
+                                                   itemValue="#{superiorItem}"/>
+                                </p:selectOneMenu>
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_network}" for="network" />
+                                <p:inputText id="network" value="#{item.network}" title="#{i18n_eman_basic.EditBTSnodeTitle_network}" disabled="false"   required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_network}"/>
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_nodeType}" for="nodeType" />
+                                <p:inputText id="nodeType" value="#{item.nodeType}" title="#{i18n_eman_basic.EditBTSnodeTitle_nodeType}" disabled="false"   required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_nodeType}"/>
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_serviceType}" for="serviceType" />
+                                <p:inputText id="serviceType" value="#{item.serviceType}" title="#{i18n_eman_basic.EditBTSnodeTitle_serviceType}" disabled="false"   required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_serviceType}"/>
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_startProductionTime}" for="startProductionTime" />
+                                <p:calendar id="startProductionTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{item.startProductionTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_startProductionTime}"  showOn="button"/>
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_name}" for="name" />
+                                <p:inputText id="name" value="#{item.name}" title="#{i18n_eman_basic.EditBTSnodeTitle_name}" disabled="false"   required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_name}"/>
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_investTime}" for="investTime" />
+                                <p:calendar id="investTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{item.investTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_investTime}"  showOn="button"/>
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_commont}" for="commont" />
+                                <p:inputTextarea rows="4" cols="30" id="commont" value="#{item.commont}" title="#{i18n_eman_basic.EditBTSnodeTitle_commont}" />
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_status}" for="status" />
+                                <p:inputText id="status" value="#{item.status}" title="#{i18n_eman_basic.EditBTSnodeTitle_status}" disabled="false"   />
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_equipModelId}" for="equipModelId" />
+                                <p:selectOneMenu id="equipModelId" value="#{item.equipModelId}" filter="true"  filterMatchMode="contains" >
+                                    <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
+                                    <f:selectItems value="#{networkNodeModelController.itemsAvailableSelectOne}"
+                                                   var="equipModelIdItem"
+                                                   itemValue="#{equipModelIdItem}"/>
+                                </p:selectOneMenu>
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_roomspot}" for="roomspot" />
+                                <p:selectOneMenu id="roomspot" value="#{item.roomspot}" filter="true"  filterMatchMode="contains" required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_roomspot}">
+                                    <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
+                                    <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
+                                                   var="roomspotItem"
+                                                   itemValue="#{roomspotItem}"/>
+                                </p:selectOneMenu>
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_label}" for="label" />
+                                <p:inputText id="label" value="#{item.label}" title="#{i18n_eman_basic.EditBTSnodeTitle_label}" disabled="false"   />
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_createTime}" for="createTime" />
+                                <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{item.createTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_createTime}" required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_createTime}" showOn="button"/>
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_lastUpdate}" for="lastUpdate" />
+                                <p:calendar id="lastUpdate" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{item.lastUpdate}" title="#{i18n_eman_basic.EditBTSnodeTitle_lastUpdate}" required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_lastUpdate}" showOn="button"/>
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_createTimeDone}" for="createTimeDone" />
+                                <p:inputText id="createTimeDone" value="#{item.createTimeDone}" title="#{i18n_eman_basic.EditBTSnodeTitle_createTimeDone}" disabled="false"   />
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_lastUpdateTimeUpdate}" for="lastUpdateTimeUpdate" />
+                                <p:inputText id="lastUpdateTimeUpdate" value="#{item.lastUpdateTimeUpdate}" title="#{i18n_eman_basic.EditBTSnodeTitle_lastUpdateTimeUpdate}" disabled="false"   />
+
+
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_id}" for="id" />
+                                <p:inputText id="id" value="#{item.id}" title="#{i18n_eman_basic.EditBTSnodeTitle_id}" disabled="true"   required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_id}"/>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton actionListener="#{bTSnodeController.update}" value="#{i18n_eman_basic.Save}" update="display,@form:@parent:BTSnodeListForm:datalist,:growl" oncomplete="handleSubmit(args,'BTSnodeEditDialog');"/>
+                    <p:commandButton type="button" value="#{i18n_eman_basic.Cancel}" onclick="PF('BTSnodeEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

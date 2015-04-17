@@ -35,7 +35,7 @@ import org.peasant.jpa.DatedEntity;
  * @author 谢金光
  */
 @Entity
-@Table(catalog = "jobpromotion", schema = "", uniqueConstraints = {
+@Table(uniqueConstraints = {
     @UniqueConstraint(columnNames = {"idcardNum"}),
     @UniqueConstraint(columnNames = {"code"})})
 

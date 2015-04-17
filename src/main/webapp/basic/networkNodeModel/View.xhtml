@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="NetworkNodeModelViewDlg" widgetVar="NetworkNodeModelViewDialog" modal="true" dynamic="true" fitViewport="true" minHeight="450" minWidth="600"   position="center"
+                  maximizable="true" minimizable="false" draggable="true" closable="true" resizable="true" appendTo="@(body)" closeOnEscape="true" showEffect="explode"
+                  onShow="fitViewport(this)" 
+                  header="#{i18n_eman_basic.ViewNetworkNodeModelTitle}">
+            <h:form id="NetworkNodeModelViewForm">
+                <h:panelGroup id="display" rendered="#{not empty networkNodeModelController.selectedItems}">
+                    <ui:repeat  value="#{networkNodeModelController.selectedItems}" var="item">
+                        <p:panel toggleable="true" >
+                            <f:facet name="header">
+                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelEntityLabel}"/>
+                                <h:outputText value="#{item.id}" title="#{i18n_eman_basic.NetworkNodeModelEntityTitle}"/>
+                            </f:facet>
+                            <p:panelGrid columns="6" >
+
+
+                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_supportedStandards}"/>
+                                <h:outputText value="#{item.supportedStandards}" title="#{i18n_eman_basic.NetworkNodeModelTitle_supportedStandards}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_supportedServiceType}"/>
+                                <h:outputText value="#{item.supportedServiceType}" title="#{i18n_eman_basic.NetworkNodeModelTitle_supportedServiceType}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_networkClass}"/>
+                                <h:outputText value="#{item.networkClass}" title="#{i18n_eman_basic.NetworkNodeModelTitle_networkClass}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_functionBrief}"/>
+                                <h:outputText value="#{item.functionBrief}" title="#{i18n_eman_basic.NetworkNodeModelTitle_functionBrief}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_category}"/>
+                                <h:outputText value="#{item.category}" title="#{i18n_eman_basic.NetworkNodeModelTitle_category}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_type}"/>
+                                <h:outputText value="#{item.type}" title="#{i18n_eman_basic.NetworkNodeModelTitle_type}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_model}"/>
+                                <h:outputText value="#{item.model}" title="#{i18n_eman_basic.NetworkNodeModelTitle_model}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_manufacturer}"/>
+                                <h:outputText value="#{item.manufacturer}" title="#{i18n_eman_basic.NetworkNodeModelTitle_manufacturer}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_commont}"/>
+                                <h:outputText value="#{item.commont}" title="#{i18n_eman_basic.NetworkNodeModelTitle_commont}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_createTime}"/>
+                                <h:outputText value="#{item.createTime}" title="#{i18n_eman_basic.NetworkNodeModelTitle_createTime}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+
+
+                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_lastUpdate}"/>
+                                <h:outputText value="#{item.lastUpdate}" title="#{i18n_eman_basic.NetworkNodeModelTitle_lastUpdate}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+
+
+                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_createTimeDone}"/>
+                                <h:outputText value="#{item.createTimeDone}" title="#{i18n_eman_basic.NetworkNodeModelTitle_createTimeDone}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_lastUpdateTimeUpdate}"/>
+                                <h:outputText value="#{item.lastUpdateTimeUpdate}" title="#{i18n_eman_basic.NetworkNodeModelTitle_lastUpdateTimeUpdate}"/>
+
+
+                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_id}"/>
+                                <h:outputText value="#{item.id}" title="#{i18n_eman_basic.NetworkNodeModelTitle_id}"/>
+                            </p:panelGrid>
+                        </p:panel>
+                    </ui:repeat>
+                    <p:commandButton type="button" value="#{i18n_eman_basic.Close}" onclick="PF('NetworkNodeModelViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+
+</html>

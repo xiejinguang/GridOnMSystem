@@ -29,12 +29,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author 谢金光
  */
 @Entity
-@Table(catalog = "jobpromotion", schema = "",name = "gm_station_property",uniqueConstraints = @UniqueConstraint(columnNames = {"number"}))
+@Table(catalog = "eman", schema = "",name = "gmsys_station_property",uniqueConstraints = @UniqueConstraint(columnNames = {"codeNum"}))
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "StationProperty.findAll", query = "SELECT s FROM StationProperty s"),
     @NamedQuery(name = "StationProperty.findById", query = "SELECT s FROM StationProperty s WHERE s.id = :id"),
-    @NamedQuery(name = "StationProperty.findByNumber", query = "SELECT s FROM StationProperty s WHERE s.number = :number"),
+    @NamedQuery(name = "StationProperty.findByNumber", query = "SELECT s FROM StationProperty s WHERE s.codeNum = :codeNum"),
     @NamedQuery(name = "StationProperty.findByName", query = "SELECT s FROM StationProperty s WHERE s.name = :name"),
     @NamedQuery(name = "StationProperty.findByQuantity", query = "SELECT s FROM StationProperty s WHERE s.quantity = :quantity"),
     @NamedQuery(name = "StationProperty.findByModel", query = "SELECT s FROM StationProperty s WHERE s.model = :model"),
@@ -44,7 +44,7 @@ public class StationProperty extends UUIDEntity implements Serializable {
 
     @Size(max = 45)
     @Column(length = 45)
-    private String number;
+    private String codeNum;
     @Size(max = 45)
     @Column(length = 45)
     private String name;
@@ -78,12 +78,12 @@ public class StationProperty extends UUIDEntity implements Serializable {
 
 
 
-    public String getNumber() {
-        return number;
+    public String getCodeNum() {
+        return codeNum;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setCodeNum(String codeNum) {
+        this.codeNum = codeNum;
     }
 
     public String getName() {

@@ -6,32 +6,43 @@
 package org.eman.basic.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.peasant.jpa.DatedEntity;
 import org.peasant.jpa.Labeled;
-import org.peasant.jpa.UUIDEntity;
 
 /**
  *
  * @author 谢金光
  */
 @Entity
-@Table(catalog = "jobpromotion", schema = "", name = "basic_netnode", uniqueConstraints = {
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "nodeType", discriminatorType = DiscriminatorType.STRING)
+@Table(name = "basic_netnode", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"ossCode"})})
 @XmlRootElement
 @NamedQueries({
@@ -52,9 +63,15 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
     private String ossCode;
 
     @Basic(optional = false)
+    @Min(0)
+    @Column(nullable = false)
+    private int nodeNumber;
+
+    @Basic(optional = false)
     @Size(max = 45)
     @Column(nullable = false, length = 45)
     private String name;
+
     @Basic(optional = false)
     @Size(min = 1, max = 25)
     @NotNull
@@ -97,15 +114,80 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
     @Column(length = 65535)
     private String commont;
 
-    
-    private String superior;
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "superior")
+    private Collection<Netnode> subordinates;
+
+    @ManyToOne
+    @JoinColumn(name = "superiorId")
+    private Netnode superior;
+    @NotNull
+    @Basic(optional = false)
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Grade grade = Grade.UNKNOWN;
+
+    /**
+     * Get the value of grade
+     *
+     * @return the value of grade
+     */
+    public Grade getGrade() {
+        return grade;
+    }
+
+    /**
+     * Set the value of grade
+     *
+     * @param grade new value of grade
+     */
+    public void setGrade(Grade grade) {
+        this.grade = grade;
+    }
+
+    public Netnode() {
+    }
+
+    public Netnode(String id) {
+        super(id);
+    }
+
+    public Netnode(String id, String ossCode) {
+        this(id);
+        this.ossCode = ossCode;
+    }
+
+    public String getOssCode() {
+        return ossCode;
+    }
+
+    public void setOssCode(String ossCode) {
+        this.ossCode = ossCode;
+    }
+
+    /**
+     * Get the value of nodeNumber
+     *
+     * @return the value of nodeNumber
+     */
+    public Integer getNodeNumber() {
+        return nodeNumber;
+    }
+
+    /**
+     * Set the value of nodeNumber
+     *
+     * @param nodeNumber new value of nodeNumber
+     */
+    public void setNodeNumber(Integer nodeNumber) {
+        this.nodeNumber = nodeNumber;
+    }
 
     /**
      * Get the value of superior
      *
      * @return the value of superior
      */
-    public String getSuperior() {
+    public Netnode getSuperior() {
         return superior;
     }
 
@@ -114,7 +196,7 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
      *
      * @param superior new value of superior
      */
-    public void setSuperior(String superior) {
+    public void setSuperior(Netnode superior) {
         this.superior = superior;
     }
 
@@ -190,26 +272,6 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
         this.startProductionTime = startProductionTime;
     }
 
-    public Netnode() {
-    }
-
-    public Netnode(String id) {
-        super(id);
-    }
-
-    public Netnode(String id, String ossCode) {
-        this(id);
-        this.ossCode = ossCode;
-    }
-
-    public String getOssCode() {
-        return ossCode;
-    }
-
-    public void setOssCode(String ossCode) {
-        this.ossCode = ossCode;
-    }
-
     public String getName() {
         return name;
     }
@@ -258,6 +320,14 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
         this.roomspot = roomspot;
     }
 
+    public Collection<Netnode> getSubordinates() {
+        return subordinates;
+    }
+
+    public void setSubordinates(Collection<Netnode> subordinates) {
+        this.subordinates = subordinates;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -296,5 +366,10 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
         DATA_REMOVED,//数据从网络中删除
         DESTROYED,//设备拆除
         UNKNOWN//未知
+    }
+
+    public static enum Grade {
+
+        VIP,A, B, C, D, E, F, G, UNKNOWN
     }
 }

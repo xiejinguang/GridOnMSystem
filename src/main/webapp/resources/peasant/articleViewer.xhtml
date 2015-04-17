@@ -21,9 +21,9 @@
                     <c:set target="#{cc.attrs}" property="article" value="#{articleController.getArticle(cc.attrs.articleId)}"/>
                 </c:if>
             </c:if>
-            <p:scrollPanel mode="native" >          
+              
                 <h:outputText escape="false" value="${cc.attrs.article.content}"/>         
-            </p:scrollPanel>
+          
 
     </cc:implementation>
 </html>
