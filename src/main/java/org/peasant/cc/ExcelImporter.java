@@ -20,6 +20,11 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletContext;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -38,15 +43,14 @@ public class ExcelImporter implements Serializable {
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
 
-    @Inject 
+    @Inject
     ServletContext svc;
-    
+
     @Inject
     UserTransaction utr;
 
-    @Inject 
+    @Inject
     Converters converters;
-
 
     private String configPath;
     private StringBuilder result = new StringBuilder();
@@ -91,7 +95,7 @@ public class ExcelImporter implements Serializable {
         }
     }
 
-    public void handleExcelImport(FileUploadEvent fue) {
+    public void handleExcelImport(FileUploadEvent fue) throws HeuristicRollbackException, HeuristicMixedException {
 
         feedbackInfo("文件上传成功，正在执行导入,请稍候……\n", null);
         try (InputStream fis = fue.getFile().getInputstream()) {
@@ -129,9 +133,12 @@ public class ExcelImporter implements Serializable {
                 }
                 feedbackWarn("导入的数据不符合约束：", r.toString());
             }
-        } catch (Exception ex) {
+        } catch (RollbackException ex) {
             feedbackError("导入失败：" + ex.getMessage(), ex.getCause().toString());
             Logger.getLogger(ExcelImporter.class.getName()).log(Level.WARNING, null, ex);
+        } catch (Exception ex) {
+            feedbackError("导入失败：" + ex.getMessage(), ex.getCause().toString());
+            Logger.getLogger(ExcelImporter.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -146,7 +153,7 @@ public class ExcelImporter implements Serializable {
 
     public void feedbackWarn(String summary, String detail) {
         FacesContext.getCurrentInstance().addMessage("importResult", new FacesMessage(FacesMessage.SEVERITY_WARN, summary, detail));
-       
+
     }
 
 }

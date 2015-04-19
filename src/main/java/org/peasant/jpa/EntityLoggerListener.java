@@ -17,50 +17,48 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The default Entity Listener.用于记录PersistenceContext中的Entity操作事件。
- *
- * @author Administrator
+ *@T
+ * @author 谢金光@peasant.org
  */
-public class PersistenceContextListener implements Serializable {
+public class EntityLoggerListener implements Serializable {
 
     Logger logger = LoggerFactory.getLogger(LoggedInterceptor.class.getSimpleName());
 
-    public PersistenceContextListener() {
+    public EntityLoggerListener() {
     }
 
     @PrePersist
     public void prePersist(Object object) {
-        logger.info("PersistenceContextListener :: Lifecycle Callback Method PrePersist Invoked Upon Entity ::{} ", object);
+        logger.info("EntityLoggerListener :: Lifecycle Callback Method PrePersist Invoked Upon Entity ::{} ", object);
     }
 
     @PostPersist
     public void postPersist(Object object) {
-        logger.info("PersistenceContextListener :: Lifecycle Callback Method PostPersist Invoked Upon Entity ::{} ", object);
+        logger.info("EntityLoggerListener :: Lifecycle Callback Method PostPersist Invoked Upon Entity ::{} ", object);
     }
 
     @PreRemove
     public void preRemove(Object object) {
-        logger.info("PersistenceContextListener :: Lifecycle Callback Method PreRemove Invoked Upon Entity ::{} ", object);
+        logger.info("EntityLoggerListener :: Lifecycle Callback Method PreRemove Invoked Upon Entity ::{} ", object);
     }
 
     @PostRemove
     public void postRemove(Object object) {
-        logger.info("PersistenceContextListener :: Lifecycle Callback Method PostRemove Invoked Upon Entity ::{} ", object);
+        logger.info("EntityLoggerListener :: Lifecycle Callback Method PostRemove Invoked Upon Entity ::{} ", object);
     }
 
     @PreUpdate
     public void preUpdate(Object object) {
-        logger.info("PersistenceContextListener :: Lifecycle Callback Method PreUpdate Invoked Upon Entity ::{} ", object);
+        logger.info("EntityLoggerListener :: Lifecycle Callback Method PreUpdate Invoked Upon Entity ::{} ", object);
     }
 
     @PostUpdate
     public void postUpdate(Object object) {
-        logger.info("PersistenceContextListener :: Lifecycle Callback Method PostUpdate Invoked Upon Entity ::{} ", object);
+        logger.info("EntityLoggerListener :: Lifecycle Callback Method PostUpdate Invoked Upon Entity ::{} ", object);
     }
 
     @PostLoad
     public void postLoad(Object object) {
-        logger.info("PersistenceContextListener :: Lifecycle Callback Method PostLoad Invoked Upon Entity ::{} ", object);
+        logger.info("EntityLoggerListener :: Lifecycle Callback Method PostLoad Invoked Upon Entity ::{} ", object);
     }
-
 }
