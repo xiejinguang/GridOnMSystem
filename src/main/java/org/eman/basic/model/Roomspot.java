@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.eman.gmsys.model.StationProperty;
 import org.peasant.basic.model.Address;
+import org.peasant.jpa.DatedEntity;
 import org.peasant.jpa.Labeled;
 import org.peasant.jpa.UUIDEntity;
 
@@ -36,8 +37,8 @@ import org.peasant.jpa.UUIDEntity;
  */
 @Entity
 @Table(name = "basic_roomspot", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"roomCode"}),
-    @UniqueConstraint(columnNames = {"secondName"})})
+    @UniqueConstraint(name="UNQ_basic_roomspot_0",columnNames = {"roomCode"}),
+    @UniqueConstraint(name="UNQ_basic_roomspot_1",columnNames = {"secondName"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Roomspot.findAll", query = "SELECT r FROM Roomspot r"),
@@ -51,7 +52,7 @@ import org.peasant.jpa.UUIDEntity;
     @NamedQuery(name = "Roomspot.findByGrid", query = "SELECT r FROM Roomspot r WHERE r.grid = :grid"),
     @NamedQuery(name = "Roomspot.findByPropertyOwner", query = "SELECT r FROM Roomspot r WHERE r.propertyOwner = :propertyOwner"),
     @NamedQuery(name = "Roomspot.findByStatus", query = "SELECT r FROM Roomspot r WHERE r.status = :status")})
-public class Roomspot extends UUIDEntity implements Serializable, Labeled {
+public class Roomspot extends DatedEntity implements Serializable, Labeled {
 
     private static final long serialVersionUID = 1L;
 
@@ -234,30 +235,7 @@ public class Roomspot extends UUIDEntity implements Serializable, Labeled {
         this.stationList = stationList;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Roomspot)) {
-            return false;
-        }
-        Roomspot other = (Roomspot) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "org.eman.gmsys.model.Roomspot[ id=" + id + " ]";
-    }
+   
 
     @Override
     public String getLabel() {

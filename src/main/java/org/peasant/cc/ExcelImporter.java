@@ -20,7 +20,6 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletContext;
-import javax.transaction.Transactional;
 import javax.transaction.UserTransaction;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -120,7 +119,7 @@ public class ExcelImporter implements Serializable {
             feedbackInfo("导入成功，共导入" + pojos.size() + "条记录\n", null);
 
         } catch (ConstraintViolationException | IOException | ExcelPOJOUtil.ExcelException ex) {
-            Logger.getLogger(ExcelImporter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExcelImporter.class.getName()).log(Level.WARNING, null, ex);
             feedbackError("导入失败：" + ex.getMessage(), null);
             if (ex instanceof ConstraintViolationException) {
                 ConstraintViolationException cve = (ConstraintViolationException) ex;
@@ -132,21 +131,22 @@ public class ExcelImporter implements Serializable {
             }
         } catch (Exception ex) {
             feedbackError("导入失败：" + ex.getMessage(), ex.getCause().toString());
-            Logger.getLogger(ExcelImporter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExcelImporter.class.getName()).log(Level.WARNING, null, ex);
         }
 
     }
 
     public void feedbackInfo(String summary, String detail) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail));
+        FacesContext.getCurrentInstance().addMessage("importResult", new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail));
     }
 
     public void feedbackError(String summary, String detail) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail));
+        FacesContext.getCurrentInstance().addMessage("importResult", new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail));
     }
 
     public void feedbackWarn(String summary, String detail) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail));
+        FacesContext.getCurrentInstance().addMessage("importResult", new FacesMessage(FacesMessage.SEVERITY_WARN, summary, detail));
+       
     }
 
 }

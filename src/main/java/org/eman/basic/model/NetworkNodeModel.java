@@ -118,12 +118,7 @@ public class NetworkNodeModel extends EquipmentModel {
         this.netnodeCollection = netnodeCollection;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+   
 
     public static enum StandardType {
 

@@ -34,8 +34,8 @@ import org.peasant.jpa.Labeled;
  */
 @Entity
 @Table(name = "basic_station", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"name"}),
-    @UniqueConstraint(columnNames = {"statCode"})})
+    @UniqueConstraint(name="UNQ_basic_station_0",columnNames = {"name"}),
+    @UniqueConstraint(name="UNQ_basic_station_1",columnNames = {"statCode"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Station.findAll", query = "SELECT s FROM Station s"),

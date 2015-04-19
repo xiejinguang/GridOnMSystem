@@ -147,22 +147,6 @@ public class EquipmentModel extends DatedEntity implements Serializable {
         this.commont = commont;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EquipmentModel)) {
-            return false;
-        }
-        EquipmentModel other = (EquipmentModel) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "org.eman.basic.model.EquipmentModel[ id=" + id + " ]";
-    }
+  
 
 }

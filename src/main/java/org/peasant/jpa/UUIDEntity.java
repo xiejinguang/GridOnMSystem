@@ -3,17 +3,20 @@ package org.peasant.jpa;
 import java.io.Serializable;
 
 import java.lang.String;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @MappedSuperclass
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class UUIDEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -21,30 +24,67 @@ public abstract class UUIDEntity implements Serializable {
     @Basic(optional = false)
     @Size(min = 36, max = 36)
     @NotNull
-    @Column(nullable = false, length = 36)
-    
-    protected String id;
+    @Column(nullable = false, length = 36, name = "id", columnDefinition = "char(36) not null")
+    private String id;
 
     public UUIDEntity() {
-        id = java.util.UUID.randomUUID().toString();        
+        this.id = java.util.UUID.randomUUID().toString();
     }
 
     public UUIDEntity(String uuid) {
+        java.util.UUID.fromString(uuid);
+        this.id = uuid;
 
-        if (null == uuid || uuid.trim().equals("")) {
-            id = java.util.UUID.randomUUID().toString();
-        }
     }
 
     public String getId() {
+
         return this.id;
     }
 
     public void setId(String id) {
-        if (null == id || id.trim().equals("")) {
-            id = java.util.UUID.randomUUID().toString();
-        }
+
+        java.util.UUID.fromString(id);
         this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id methods are not set
+        if (!super.equals(object)) {
+            return false;
+        }
+        if (!(this.getClass().isInstance(object))) {
+            return false;
+        }
+        UUIDEntity other = (UUIDEntity) object;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
+    }
+
+    @Override
+    public String toString() {
+//        Method[] methods = this.getClass().getMethods();
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(this.getClass().getName()).append('[');
+//        for (Method m : methods) {
+//            if (m.getParameterTypes().length == 0 && !m.getReturnType().equals(Void.class)) {
+//                try {
+//                    sb.append('[').append(m.getName()).append('=').append(m.invoke(this)).append(']');
+//                } catch (InvocationTargetException | IllegalAccessException | IllegalArgumentException ex) {
+//                    Logger.getLogger(UUIDEntity.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        }
+//        sb.append(']');
+//        return sb.toString();
+        return this.getClass().getName() + "[ id=" + id + " ]";
     }
 
 }

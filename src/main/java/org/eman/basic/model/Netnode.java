@@ -43,7 +43,7 @@ import org.peasant.jpa.Labeled;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "nodeType", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "basic_netnode", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"ossCode"})})
+    @UniqueConstraint(name = "UNQ_basic_netnode_0", columnNames = {"ossCode"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Netnode.findAll", query = "SELECT n FROM Netnode n"),
@@ -88,14 +88,6 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
     @Column(length = 45)
     private String status;
 
-    @JoinColumn(name = "equipModelId", referencedColumnName = "id", nullable = true)
-    @ManyToOne(optional = true)
-    private NetworkNodeModel equipModelId;
-
-    @JoinColumn(name = "roomspotId", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
-    private Roomspot roomspot;
-
     @Temporal(TemporalType.DATE)
     @Column(nullable = true)
     private Date startProductionTime;
@@ -114,17 +106,26 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
     @Column(length = 65535)
     private String commont;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "superior")
-    private Collection<Netnode> subordinates;
-
     @ManyToOne
     @JoinColumn(name = "superiorId")
     private Netnode superior;
+
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "superior")
+    private Collection<Netnode> subordinates;
+
     @NotNull
     @Basic(optional = false)
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Grade grade = Grade.UNKNOWN;
+
+    @JoinColumn(name = "equipModelId", referencedColumnName = "id", nullable = true)
+    @ManyToOne(optional = true)
+    private NetworkNodeModel equipModelId;
+
+    @JoinColumn(name = "roomspotId", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false)
+    private Roomspot roomspot;
 
     /**
      * Get the value of grade
@@ -328,30 +329,7 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
         this.subordinates = subordinates;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Netnode)) {
-            return false;
-        }
-        Netnode other = (Netnode) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "org.eman.basic.model.Netnode[ id=" + id + " ]";
-    }
+    
 
     @Override
     public String getLabel() {
@@ -370,6 +348,6 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
 
     public static enum Grade {
 
-        VIP,A, B, C, D, E, F, G, UNKNOWN
+        VIP, A, B, C, D, E, F, G, UNKNOWN
     }
 }

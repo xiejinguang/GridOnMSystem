@@ -7,7 +7,9 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ps = "http://xmlns.jcp.org/jsf/composite/peasant">
     <ui:composition>
+         
         <h:form id="SearchForm">
+            
             <p:fieldset id="searchField" legend="${basic_i18n.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
 
                 <p:panelGrid id="searchConsGrid" columns="8" >
@@ -91,7 +93,7 @@
 
                 <h:panelGroup>
                     <p:commandButton id="searchButton" icon="ui-icon-search"   value="${basic_i18n.Search}" actionListener="#{roomspotController.searchItems}" update=":growl,:RoomspotListForm:datalist"/>
-                    
+
                     <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${basic_i18n.GetAll}" actionListener="#{roomspotController.allItems}" update=":growl,:RoomspotListForm:datalist"/>
                 </h:panelGroup>
 

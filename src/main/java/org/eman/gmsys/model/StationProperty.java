@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.eman.gmsys.model;
 
 import org.peasant.jpa.UUIDEntity;
@@ -29,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author 谢金光
  */
 @Entity
-@Table(catalog = "eman", schema = "",name = "gmsys_station_property",uniqueConstraints = @UniqueConstraint(columnNames = {"codeNum"}))
+@Table(catalog = "eman", schema = "", name = "gmsys_station_property", uniqueConstraints = @UniqueConstraint(columnNames = {"codeNum"}))
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "StationProperty.findAll", query = "SELECT s FROM StationProperty s"),
@@ -40,8 +39,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "StationProperty.findByModel", query = "SELECT s FROM StationProperty s WHERE s.model = :model"),
     @NamedQuery(name = "StationProperty.findByManufacturer", query = "SELECT s FROM StationProperty s WHERE s.manufacturer = :manufacturer")})
 public class StationProperty extends UUIDEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1L;
+    
     @Size(max = 45)
     @Column(length = 45)
     private String codeNum;
@@ -67,102 +67,75 @@ public class StationProperty extends UUIDEntity implements Serializable {
     @JoinColumn(name = "roomspotId", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Roomspot roomspotId;
-
+    
     public StationProperty() {
         super();
     }
-
+    
     public StationProperty(String id) {
-        this.id = id;
+        super(id);
     }
-
-
-
+    
     public String getCodeNum() {
         return codeNum;
     }
-
+    
     public void setCodeNum(String codeNum) {
         this.codeNum = codeNum;
     }
-
+    
     public String getName() {
         return name;
     }
-
+    
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public Integer getQuantity() {
         return quantity;
     }
-
+    
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
-
+    
     public String getModel() {
         return model;
     }
-
+    
     public void setModel(String model) {
         this.model = model;
     }
-
+    
     public String getManufacturer() {
         return manufacturer;
     }
-
+    
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
     }
-
+    
     public String getAbnormity() {
         return abnormity;
     }
-
+    
     public void setAbnormity(String abnormity) {
         this.abnormity = abnormity;
     }
-
+    
     public Roomspot getRoomspotId() {
         return roomspotId;
     }
-
+    
     public void setRoomspotId(Roomspot roomspotId) {
         this.roomspotId = roomspotId;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof StationProperty)) {
-            return false;
-        }
-        StationProperty other = (StationProperty) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "org.eman.gmsys.model.StationProperty[ id=" + id + " ]";
-    }
-
+    
     public Boolean getTaged() {
         return taged;
     }
-
+    
     public void setTaged(Boolean taged) {
         this.taged = taged;
     }
