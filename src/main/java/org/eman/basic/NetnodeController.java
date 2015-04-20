@@ -62,11 +62,11 @@ public class NetnodeController implements Serializable {
     }
 
     public List<Netnode> getFilteredValue() {
-        return selectedItems;
+        return filteredValue;
     }
 
-    public void setFilteredValue(List<Netnode> selectedItems) {
-        this.selectedItems = selectedItems;
+    public void setFilteredValue(List<Netnode> filteredValue) {
+        this.filteredValue = filteredValue;
     }
 
     public Map<String, Object> getSearchCons() {
@@ -81,7 +81,7 @@ public class NetnodeController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setId(org.peasant.util.Utils.generateUniqueKey());
+        created.setUuid(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private NetnodeFacade getFacade() {
@@ -247,7 +247,7 @@ public class NetnodeController implements Serializable {
             }
             if (object instanceof Netnode) {
                 Netnode o = (Netnode) object;
-                return getStringKey(o.getId());
+                return getStringKey(o.getUuid());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Netnode.class.getName()});
                 return null;

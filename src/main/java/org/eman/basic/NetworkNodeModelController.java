@@ -62,11 +62,11 @@ public class NetworkNodeModelController implements Serializable {
     }
 
     public List<NetworkNodeModel> getFilteredValue() {
-        return selectedItems;
+        return filteredValue;
     }
 
-    public void setFilteredValue(List<NetworkNodeModel> selectedItems) {
-        this.selectedItems = selectedItems;
+    public void setFilteredValue(List<NetworkNodeModel> filteredValue) {
+        this.filteredValue = filteredValue;
     }
 
     public Map<String, Object> getSearchCons() {
@@ -81,7 +81,7 @@ public class NetworkNodeModelController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setId(org.peasant.util.Utils.generateUniqueKey());
+        created.setUuid(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private NetworkNodeModelFacade getFacade() {
@@ -247,7 +247,7 @@ public class NetworkNodeModelController implements Serializable {
             }
             if (object instanceof NetworkNodeModel) {
                 NetworkNodeModel o = (NetworkNodeModel) object;
-                return getStringKey(o.getId());
+                return getStringKey(o.getUuid());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), NetworkNodeModel.class.getName()});
                 return null;

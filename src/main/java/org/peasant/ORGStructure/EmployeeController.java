@@ -80,7 +80,7 @@ public class EmployeeController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setId(org.peasant.util.Utils.generateUniqueKey());
+        created.setUuid(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private EmployeeFacade getFacade() {
@@ -246,7 +246,7 @@ public class EmployeeController implements Serializable {
             }
             if (object instanceof Employee) {
                 Employee o = (Employee) object;
-                return getStringKey(o.getId());
+                return getStringKey(o.getUuid());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Employee.class.getName()});
                 return null;

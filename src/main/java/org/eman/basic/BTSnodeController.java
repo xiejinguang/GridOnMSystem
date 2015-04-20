@@ -57,12 +57,12 @@ public class BTSnodeController implements Serializable {
         return selectedItems;
     }
 
-    public void setSelectedItems(List<BTSnode> selectedItems) {
-        this.selectedItems = selectedItems;
+    public void setSelectedItems(List<BTSnode> filteredValue) {
+        this.filteredValue = filteredValue;
     }
 
     public List<BTSnode> getFilteredValue() {
-        return selectedItems;
+        return filteredValue;
     }
 
     public void setFilteredValue(List<BTSnode> selectedItems) {
@@ -81,7 +81,7 @@ public class BTSnodeController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setId(org.peasant.util.Utils.generateUniqueKey());
+        created.setUuid(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private BTSnodeFacade getFacade() {
@@ -247,7 +247,7 @@ public class BTSnodeController implements Serializable {
             }
             if (object instanceof BTSnode) {
                 BTSnode o = (BTSnode) object;
-                return getStringKey(o.getId());
+                return getStringKey(o.getUuid());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), BTSnode.class.getName()});
                 return null;

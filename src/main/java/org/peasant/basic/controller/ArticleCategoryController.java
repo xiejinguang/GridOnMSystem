@@ -80,7 +80,7 @@ public class ArticleCategoryController implements Serializable {
     }
     
     protected void initializeKey() {
-        created.setId(org.peasant.util.Utils.generateUniqueKey());
+        created.setUuid(org.peasant.util.Utils.generateUniqueKey());
     }
     
     private ArticleCategoryFacade getFacade() {
@@ -276,7 +276,7 @@ public class ArticleCategoryController implements Serializable {
             }
             if (object instanceof ArticleCategory) {
                 ArticleCategory o = (ArticleCategory) object;
-                return getStringKey(o.getId());
+                return getStringKey(o.getUuid());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), ArticleCategory.class.getName()});
                 return null;
@@ -311,7 +311,7 @@ public class ArticleCategoryController implements Serializable {
             }
             if (value instanceof ArticleCategory) {
                 ArticleCategory o = (ArticleCategory) value;
-                return getStringKey(o.getId());
+                return getStringKey(o.getUuid());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{value, value.getClass().getName(), ArticleCategory.class.getName()});
                 return null;

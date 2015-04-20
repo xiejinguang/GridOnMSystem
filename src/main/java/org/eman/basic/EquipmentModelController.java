@@ -62,11 +62,11 @@ public class EquipmentModelController implements Serializable {
     }
 
     public List<EquipmentModel> getFilteredValue() {
-        return selectedItems;
+        return filteredValue;
     }
 
-    public void setFilteredValue(List<EquipmentModel> selectedItems) {
-        this.selectedItems = selectedItems;
+    public void setFilteredValue(List<EquipmentModel> filteredValue) {
+        this.filteredValue = selectedItems;
     }
 
     public Map<String, Object> getSearchCons() {
@@ -81,7 +81,7 @@ public class EquipmentModelController implements Serializable {
     }
 
     protected void initializeKey() {
-        created.setId(org.peasant.util.Utils.generateUniqueKey());
+        created.setUuid(org.peasant.util.Utils.generateUniqueKey());
     }
 
     private EquipmentModelFacade getFacade() {
@@ -247,7 +247,7 @@ public class EquipmentModelController implements Serializable {
             }
             if (object instanceof EquipmentModel) {
                 EquipmentModel o = (EquipmentModel) object;
-                return getStringKey(o.getId());
+                return getStringKey(o.getUuid());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), EquipmentModel.class.getName()});
                 return null;

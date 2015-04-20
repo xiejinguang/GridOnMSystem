@@ -55,74 +55,108 @@ import org.peasant.jpa.Labeled;
 public class Netnode extends DatedEntity implements Serializable, Labeled {
 
     private static final long serialVersionUID = 1L;
-
+    /**
+     * OSS系统对应的网元号
+     */
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(nullable = false, length = 45)
     private String ossCode;
-
+    /**
+     * 网管中的网元ID序号
+     */
     @Basic(optional = false)
     @Min(0)
     @Column(nullable = false)
-    private int nodeNumber;
-
+    private Integer nodeId;
+    /**
+     * 网管中的网元名称
+     */
     @Basic(optional = false)
     @Size(max = 45)
     @Column(nullable = false, length = 45)
     private String name;
-
+    /**
+     * 网元类型，可能的值是BTS、BSC、RRU、MSC、eNode、MME……
+     */
     @Basic(optional = false)
     @Size(min = 1, max = 25)
     @NotNull
     @Column(nullable = false, length = 25)
     private String nodeType;
-
+    /**
+     * 网元归属的网络名称，可能的值是村村通、CDMA、LTE
+     */
     @Basic(optional = false)
     @Size(min = 1, max = 25)
     @NotNull
     @Column(nullable = false, length = 25)
     private String network;
-
+    /**
+     * 网元的状态
+     */
     @Size(max = 45)
     @Column(length = 45)
-    private String status;
-
+    @Enumerated(EnumType.STRING)
+    private NetnodeStatus status;
+    /**
+     * 网元的投产时间
+     */
     @Temporal(TemporalType.DATE)
     @Column(nullable = true)
     private Date startProductionTime;
-
+    /**
+     * 提供的服务类型
+     */
     @Basic(optional = false)
     @Size(min = 1, max = 25)
     @NotNull
     @Column(nullable = false, length = 25)
     private String serviceType;
-
+    /**
+     * OSS系统对的网元编码
+     */
     @Temporal(TemporalType.DATE)
     private Date investTime;
-
+    /**
+     * 备注
+     */
     @Lob
     @Size(max = 65535)
     @Column(length = 65535)
     private String commont;
-
+    /**
+     * 父网元
+     */
     @ManyToOne
     @JoinColumn(name = "superiorId")
     private Netnode superior;
 
+    /**
+     * 子网元集合
+     */
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "superior")
     private Collection<Netnode> subordinates;
 
+    /**
+     * 网元的等级
+     */
     @NotNull
     @Basic(optional = false)
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Grade grade = Grade.UNKNOWN;
-
+    /**
+     * 网元的设备模型
+     */
     @JoinColumn(name = "equipModelId", referencedColumnName = "id", nullable = true)
     @ManyToOne(optional = true)
     private NetworkNodeModel equipModelId;
 
+    /**
+     * 网元的安装机房、站点
+     */
     @JoinColumn(name = "roomspotId", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Roomspot roomspot;
@@ -166,21 +200,21 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
     }
 
     /**
-     * Get the value of nodeNumber
+     * Get the value of nodeId
      *
-     * @return the value of nodeNumber
+     * @return the value of nodeId
      */
-    public Integer getNodeNumber() {
-        return nodeNumber;
+    public Integer getNodeId() {
+        return nodeId;
     }
 
     /**
-     * Set the value of nodeNumber
+     * Set the value of nodeId
      *
-     * @param nodeNumber new value of nodeNumber
+     * @param nodeId new value of nodeId
      */
-    public void setNodeNumber(Integer nodeNumber) {
-        this.nodeNumber = nodeNumber;
+    public void setNodeId(Integer nodeId) {
+        this.nodeId = nodeId;
     }
 
     /**
@@ -297,11 +331,11 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
         this.commont = commont;
     }
 
-    public String getStatus() {
+    public NetnodeStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(NetnodeStatus status) {
         this.status = status;
     }
 
@@ -328,8 +362,6 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
     public void setSubordinates(Collection<Netnode> subordinates) {
         this.subordinates = subordinates;
     }
-
-    
 
     @Override
     public String getLabel() {

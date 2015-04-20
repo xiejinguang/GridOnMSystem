@@ -19,9 +19,11 @@ import javax.persistence.Table;
 @Table(name = "basic_BTSnode")
 public class BTSnode extends Netnode {
 
-    
+    /**
+     * kb为衡量单位
+     */
     @Column
-    private int bandWidth=2048;//kb为衡量单位
+    private int bandWidth = 2048;
 
     /**
      * Get the value of bandWidth

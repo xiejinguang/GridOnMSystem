@@ -44,7 +44,7 @@ public class NetworkNodeModel extends EquipmentModel {
     @Size(max = 45)
     @Column(nullable = false, length = 45)
     private String networkClass;//网络类型，Should be 3G,4G,……
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipModelId")
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "equipModelId")
     private Collection<Netnode> netnodeCollection;
 
     @Basic(optional = true)

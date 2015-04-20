@@ -72,7 +72,7 @@
 
 
                         <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{networkNodeModelController.created.id}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_id}"  disabled="true"       required="true" requiredMessage="#{i18n_eman_basic.EditNetworkNodeModelRequiredMessage_id}"/>
+                        <p:inputText id="id" value="#{networkNodeModelController.created.uuid}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_id}"  disabled="true"       required="true" requiredMessage="#{i18n_eman_basic.EditNetworkNodeModelRequiredMessage_id}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{networkNodeModelController.create}" value="#{i18n_eman_basic.Save}" update="display,@form:@parent:NetworkNodeModelListForm:datalist,:growl" oncomplete="handleSubmit(args,'NetworkNodeModelCreateDialog');"/>
                     <p:commandButton type="button" value="#{i18n_eman_basic.Cancel}" onclick="PF('NetworkNodeModelCreateDialog').hide()"/>

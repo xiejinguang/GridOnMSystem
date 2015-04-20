@@ -24,40 +24,40 @@ public abstract class UUIDEntity implements Serializable {
     @Basic(optional = false)
     @Size(min = 36, max = 36)
     @NotNull
-    @Column(nullable = false, length = 36, name = "id", columnDefinition = "char(36) not null")
-    private String id;
+    @Column(nullable = false, length = 36, name = "uuid", columnDefinition = "char(36) not null")
+    private String uuid;
 
     public UUIDEntity() {
-        this.id = java.util.UUID.randomUUID().toString();
+        this.uuid = java.util.UUID.randomUUID().toString();
     }
 
     public UUIDEntity(String uuid) {
         java.util.UUID.fromString(uuid);
-        this.id = uuid;
+        this.uuid = uuid;
 
     }
 
-    public String getId() {
+    public String getUuid() {
 
-        return this.id;
+        return this.uuid;
     }
 
-    public void setId(String id) {
+    public void setUuid(String uuid) {
 
-        java.util.UUID.fromString(id);
-        this.id = id;
+        java.util.UUID.fromString(uuid);
+        this.uuid = uuid;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (uuid != null ? uuid.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id methods are not set
+        // TODO: Warning - this method won't work in the case the uuid methods are not set
         if (!super.equals(object)) {
             return false;
         }
@@ -65,7 +65,7 @@ public abstract class UUIDEntity implements Serializable {
             return false;
         }
         UUIDEntity other = (UUIDEntity) object;
-        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
+        return !((this.uuid == null && other.uuid != null) || (this.uuid != null && !this.uuid.equals(other.uuid)));
     }
 
     @Override
@@ -84,7 +84,7 @@ public abstract class UUIDEntity implements Serializable {
 //        }
 //        sb.append(']');
 //        return sb.toString();
-        return this.getClass().getName() + "[ id=" + id + " ]";
+        return this.getClass().getName() + "[ id=" + uuid + " ]";
     }
 
 }

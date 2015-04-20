@@ -103,7 +103,7 @@
         <h:form id="RoomspotListForm">
             <p:dataTable id="datalist" value="#{roomspotController.items}" var="item"
                          selection="#{roomspotController.selectedItems}"
-                         rowKey="#{item.id}"
+                         rowKey="#{item.uuid}"
 
                          rows="20" 
                          
@@ -134,11 +134,11 @@
 
                 <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
 
-                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                <p:column sortBy="#{iteuuidid}" filterBy="#{iuuidm.id}">
                     <f:facet name="header">
                         <h:outputText value="#{basic_i18n.RoomspotTitle_id}"/>
                     </f:facet>
-                    <h:outputText value="#{item.id}"/>
+                    <h:outputText value="#uuidtem.id}"/>
                 </p:column>
                 <p:column sortBy="#{item.roomCode}" filterBy="#{item.roomCode}" filterMatchMode="contains" >
                     <f:facet name="header">

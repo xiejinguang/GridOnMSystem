@@ -140,11 +140,11 @@ public class ${controllerClassName} implements Serializable {
     }
 
 public  List<${entityClassName}> getFilteredValue() {
-        return selectedItems;
+        return filteredValue;
     }
     
-    public void setFilteredValue(List<${entityClassName}> selectedItems){
-        this.selectedItems =selectedItems;
+    public void setFilteredValue(List<${entityClassName}> filteredValue){
+        this.filteredValue =filteredValue;
     }
 
     public Map<String, Object> getSearchCons() {
