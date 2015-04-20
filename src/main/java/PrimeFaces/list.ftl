@@ -61,13 +61,13 @@
 
                                     <p:outputLabel value="${r"#{"}${bundle}.${entityName}Label_${entityDescriptor.id?replace(".","_")}${r"}"}" for="${entityDescriptor.id?replace(".","_")}" />
 <#if entityDescriptor.dateTimeFormat?? && entityDescriptor.dateTimeFormat != "">
-                                    <p:calendar id="${entityDescriptor.id?replace(".","_")}" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" showOn="button"/>
+                                    <p:calendar id="${entityDescriptor.id?replace(".","_")}" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  locale="zh_CN" showButtonPanel="true" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" showOn="both"/>
 <#elseif entityDescriptor.returnType?matches(".*[Bb]+oolean")>
                                     <p:selectBooleanCheckbox id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" converter="javax.faces.Boolean" />
 <#elseif entityDescriptor.blob>
                                      <p:inputTextarea rows="4" cols="30" id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" />
 <#elseif entityDescriptor.relationshipOne>
-                                     <p:selectOneMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" filter="true"  filterMatchMode="contains" <#if !(entityDescriptor.returnType?matches(".*[Ss]+tring"))> converter="javax.faces.${entityDescriptor.returnType?substring((entityDescriptor.returnType?last_index_of('.'))+1)}" </#if> >
+                                     <p:selectOneMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" filter="true"  filterMatchMode="contains" <#if !(entityDescriptor.returnType?matches(".*[Ss]+tring"))> <#if (entityDescriptor.returnType?matches("^java\.lang\..*"))> converter="javax.faces.${entityDescriptor.returnType?substring((entityDescriptor.returnType?last_index_of('.'))+1)}" <#else> converter="${entityDescriptor.returnType}" </#if> >
                                         <f:selectItem itemLabel="${r"#{"}bundle.SelectOneMessage${r"}"}" />
                                         <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
                                                  var="${entityDescriptor.id?replace(".","_")}Item"
@@ -80,14 +80,14 @@
                                             var="${entityDescriptor.id?replace(".","_")}Item"
                                             itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
 <#else>
-                                    <p:inputText id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if !(entityDescriptor.returnType?matches(".*[Ss]+tring"))> converter="javax.faces.${entityDescriptor.returnType?substring((entityDescriptor.returnType?last_index_of('.'))+1)}" </#if> />
+                                    <p:inputText id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if !(entityDescriptor.returnType?matches(".*[Ss]+tring"))> <#if (entityDescriptor.returnType?matches("^java\.lang\..*"))> converter="javax.faces.${entityDescriptor.returnType?substring((entityDescriptor.returnType?last_index_of('.'))+1)}" <#else> converter="${entityDescriptor.returnType}" </#if> />
 </#if>
 
 </#list>
                                 </p:panelGrid>
                                 <h:panelGroup> 
                                     <p:commandButton id="searchButton" icon="ui-icon-search"   value="${r"${"}${bundle}.Search${r"}"}" actionListener="${r"#{"}${managedBean}.searchItems${r"}"}" update=":growl,@form:@parent:${entityName}ListForm:datalist"/>
-                                    <br/>
+                                  
                                     <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${r"${"}${bundle}.GetAll${r"}"}" actionListener="${r"#{"}${managedBean}.allItems${r"}"}" update=":growl,@form:@parent:${entityName}ListForm:datalist"/>
                                 </h:panelGroup> 
                         </p:fieldset>
@@ -97,15 +97,18 @@
                         <p:dataTable id="datalist" value="${r"#{"}${managedBeanProperty}${r"}"}" var="${item}"
                             selection="${r"#{"}${managedBean}${r".selectedItems}"}"
                             rowKey="${r"#{"}${item}.${entityIdField}${r"}"}"
-                            rowsPerPageTemplate="10,20,30,40,50,100,200,500,1000"
-                             paginator="true" paginatorPosition="bottom"
+                            
                              rows="20" 
                              draggableColumns="true" resizableColumns="true" liveResize="true"
-                             scrollable="true"    liveScroll="false" 
-                             sortMode="multiple" sortBy="${r"#{"}${item}.${entityIdField}${r"}"}"
+                             scrollable="true"    liveScroll="false" scrollHeight="420"
+                             sortMode="multiple" 
                              editable="true" 
-                              filteredValue="${r"#{"}${managedBean}${r".filteredValue}"}"
+                             filteredValue="${r"#{"}${managedBean}${r".filteredValue}"}"
                              stickyHeader="false" 
+
+                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="10,20,30,40,50,100,200,500,1000"  paginator="true" paginatorPosition="bottom"                            
+                            currentPageReportTemplate="第{currentPage}页,共{totalPages}页；第{startRecord}条至第{endRecord}条,共{totalRecords}条记录"
                             >
 
                             <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
@@ -132,7 +135,7 @@
                                 </f:facet>
     <#if entityDescriptor.dateTimeFormat?? && entityDescriptor.dateTimeFormat != "">
                                 <h:outputText value="${r"#{"}${entityDescriptor.name}${r"}"}">
-                                    <f:convertDateTime pattern="${entityDescriptor.dateTimeFormat}" />
+                                    <f:convertDateTime pattern="yyyy-MM-dd  HH:mm:ss" />
                                 </h:outputText>
     <#elseif entityDescriptor.returnType?matches(".*[Bb]+oolean")>
                                 <p:selectBooleanCheckbox value="${r"#{"}${entityDescriptor.name}${r"}"}" disabled="true"/>

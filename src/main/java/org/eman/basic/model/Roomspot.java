@@ -107,24 +107,24 @@ public class Roomspot extends DatedEntity implements Serializable, Labeled {
     private Address address;
 
     @Temporal(TemporalType.DATE)
-    private Date productionStartTime;
+    private Date startProductionTime;
 
     /**
-     * Get the value of productionStartTime
+     * Get the value of startProductionTime
      *
-     * @return the value of productionStartTime
+     * @return the value of startProductionTime
      */
-    public Date getProductionStartTime() {
-        return productionStartTime;
+    public Date getStartProductionTime() {
+        return startProductionTime;
     }
 
     /**
-     * Set the value of productionStartTime
+     * Set the value of startProductionTime
      *
-     * @param productionStartTime new value of productionStartTime
+     * @param startProductionTime new value of startProductionTime
      */
-    public void setProductionStartTime(Date productionStartTime) {
-        this.productionStartTime = productionStartTime;
+    public void setStartProductionTime(Date startProductionTime) {
+        this.startProductionTime = startProductionTime;
     }
 
     /**

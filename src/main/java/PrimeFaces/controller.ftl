@@ -349,7 +349,7 @@ public  List<${entityClassName}> getFilteredValue() {
 </#if>
     }
 
-    @FacesConverter(forClass=${entityClassName}.class,value="${entityClassName}")
+    @FacesConverter(forClass=${entityClassName}.class,value="${entityFullClassName}")
     public static class ${entityClassName}FacesConverter implements Converter {
 <#if keyEmbedded>
 

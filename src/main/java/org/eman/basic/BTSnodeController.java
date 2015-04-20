@@ -215,7 +215,7 @@ public class BTSnodeController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = BTSnode.class, value = "BTSnode")
+    @FacesConverter(forClass = BTSnode.class, value = "org.eman.basic.model.BTSnode")
     public static class BTSnodeFacesConverter implements Converter {
 
         @Override

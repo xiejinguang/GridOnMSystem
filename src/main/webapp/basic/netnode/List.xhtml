@@ -25,26 +25,29 @@
                     <p:panelGrid id="searchConsGrid" columns="8">
 
 
-                        <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_grade}" for="grade" />
-                        <p:inputText id="grade" value="#{netnodeController.searchCons['grade']}" title="#{i18n_eman_basic.NetnodeTitle_grade}"  converter="javax.faces.Grade"  />
+                        <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{netnodeController.searchCons['id']}" title="#{i18n_eman_basic.NetnodeTitle_id}"  />
 
 
                         <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_ossCode}" for="ossCode" />
                         <p:inputText id="ossCode" value="#{netnodeController.searchCons['ossCode']}" title="#{i18n_eman_basic.NetnodeTitle_ossCode}"  />
+
+                        <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{netnodeController.searchCons['name']}" title="#{i18n_eman_basic.NetnodeTitle_name}"  />
+
 
 
                         <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_nodeNumber}" for="nodeNumber" />
                         <p:inputText id="nodeNumber" value="#{netnodeController.searchCons['nodeNumber']}" title="#{i18n_eman_basic.NetnodeTitle_nodeNumber}"  converter="javax.faces.Integer"  />
 
 
-                        <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_superior}" for="superior" />
-                        <p:selectOneMenu id="superior" value="#{netnodeController.searchCons['superior']}" filter="true"  filterMatchMode="contains"  converter="javax.faces.Netnode"  >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
-                            <f:selectItems value="#{netnodeController.itemsAvailableSelectOne}"
-                                           var="superiorItem"
-                                           itemValue="#{superiorItem}"/>
-                        </p:selectOneMenu>
 
+                        <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_grade}" for="grade" />
+
+                        <p:selectOneMenu id="grade" value="#{netnodeController.searchCons['grade']}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{globalEnumValuesAdapter.netnodeGrade}" />
+                        </p:selectOneMenu>
 
                         <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_network}" for="network" />
                         <p:inputText id="network" value="#{netnodeController.searchCons['network']}" title="#{i18n_eman_basic.NetnodeTitle_network}"  />
@@ -58,28 +61,26 @@
                         <p:inputText id="serviceType" value="#{netnodeController.searchCons['serviceType']}" title="#{i18n_eman_basic.NetnodeTitle_serviceType}"  />
 
 
-                        <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_startProductionTime}" for="startProductionTime" />
-                        <p:calendar id="startProductionTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{netnodeController.searchCons['startProductionTime']}" title="#{i18n_eman_basic.NetnodeTitle_startProductionTime}" showOn="button"/>
-
-
-                        <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{netnodeController.searchCons['name']}" title="#{i18n_eman_basic.NetnodeTitle_name}"  />
-
-
-                        <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_investTime}" for="investTime" />
-                        <p:calendar id="investTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{netnodeController.searchCons['investTime']}" title="#{i18n_eman_basic.NetnodeTitle_investTime}" showOn="button"/>
-
-
-                        <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_commont}" for="commont" />
-                        <p:inputTextarea rows="4" cols="30" id="commont" value="#{netnodeController.searchCons['commont']}" title="#{i18n_eman_basic.NetnodeTitle_commont}" />
-
 
                         <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_status}" for="status" />
-                        <p:inputText id="status" value="#{netnodeController.searchCons['status']}" title="#{i18n_eman_basic.NetnodeTitle_status}"  />
+
+                        <p:selectOneMenu id="status" value="#{netnodeController.searchCons['status']}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{globalEnumValuesAdapter.netnodeStatus}" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_superior}" for="superior" />
+                        <p:selectOneMenu id="superior" value="#{netnodeController.searchCons['superior']}" filter="true"  filterMatchMode="contains"  converter="org.eman.basic.model.Netnode"  >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
+                            <f:selectItems value="#{netnodeController.itemsAvailableSelectOne}"
+                                           var="superiorItem"
+                                           itemValue="#{superiorItem}"/>
+                        </p:selectOneMenu>
+
 
 
                         <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_equipModelId}" for="equipModelId" />
-                        <p:selectOneMenu id="equipModelId" value="#{netnodeController.searchCons['equipModelId']}" filter="true"  filterMatchMode="contains"  converter="javax.faces.NetworkNodeModel"  >
+                        <p:selectOneMenu id="equipModelId" value="#{netnodeController.searchCons['equipModelId']}" filter="true"  filterMatchMode="contains"  converter="org.eman.basic.model.NetworkNodeModel"  >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
                             <f:selectItems value="#{networkNodeModelController.itemsAvailableSelectOne}"
                                            var="equipModelIdItem"
@@ -88,41 +89,39 @@
 
 
                         <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_roomspot}" for="roomspot" />
-                        <p:selectOneMenu id="roomspot" value="#{netnodeController.searchCons['roomspot']}" filter="true"  filterMatchMode="contains"  converter="javax.faces.Roomspot"  >
+                        <p:selectOneMenu id="roomspot" value="#{netnodeController.searchCons['roomspot']}" filter="true"  filterMatchMode="contains"  converter="org.eman.basic.model.Roomspot"  >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
                             <f:selectItems value="#{roomspotController.itemsAvailableSelectOne}"
                                            var="roomspotItem"
                                            itemValue="#{roomspotItem}"/>
                         </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_startProductionTime}" for="startProductionTime" />
+                        <p:calendar id="startProductionTime" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  navigator="true" showButtonPanel="true" locale="zh_CN" value="#{netnodeController.searchCons['startProductionTime']}" title="#{i18n_eman_basic.NetnodeTitle_startProductionTime}" showOn="button"/>
 
 
-                        <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_label}" for="label" />
-                        <p:inputText id="label" value="#{netnodeController.searchCons['label']}" title="#{i18n_eman_basic.NetnodeTitle_label}"  />
+
+
+                        <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_investTime}" for="investTime" />
+                        <p:calendar id="investTime" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  navigator="true" showButtonPanel="true" locale="zh_CN" value="#{netnodeController.searchCons['investTime']}" title="#{i18n_eman_basic.NetnodeTitle_investTime}"  showOn="both"/>
 
 
                         <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_createTime}" for="createTime" />
-                        <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{netnodeController.searchCons['createTime']}" title="#{i18n_eman_basic.NetnodeTitle_createTime}" showOn="button"/>
+                        <p:calendar id="createTime" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  navigator="true" showButtonPanel="true" locale="zh_CN" value="#{netnodeController.searchCons['createTime']}" title="#{i18n_eman_basic.NetnodeTitle_createTime}" showOn="button"/>
 
 
                         <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_lastUpdate}" for="lastUpdate" />
-                        <p:calendar id="lastUpdate" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{netnodeController.searchCons['lastUpdate']}" title="#{i18n_eman_basic.NetnodeTitle_lastUpdate}" showOn="button"/>
+                        <p:calendar id="lastUpdate" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  navigator="true" showButtonPanel="true" locale="zh_CN" value="#{netnodeController.searchCons['lastUpdate']}" title="#{i18n_eman_basic.NetnodeTitle_lastUpdate}" showOn="button"/>
 
 
-                        <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_createTimeDone}" for="createTimeDone" />
-                        <p:inputText id="createTimeDone" value="#{netnodeController.searchCons['createTimeDone']}" title="#{i18n_eman_basic.NetnodeTitle_createTimeDone}"  converter="javax.faces.void"  />
 
 
-                        <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_lastUpdateTimeUpdate}" for="lastUpdateTimeUpdate" />
-                        <p:inputText id="lastUpdateTimeUpdate" value="#{netnodeController.searchCons['lastUpdateTimeUpdate']}" title="#{i18n_eman_basic.NetnodeTitle_lastUpdateTimeUpdate}"  converter="javax.faces.void"  />
 
-
-                        <p:outputLabel value="#{i18n_eman_basic.NetnodeLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{netnodeController.searchCons['id']}" title="#{i18n_eman_basic.NetnodeTitle_id}"  />
 
                     </p:panelGrid>
                     <h:panelGroup> 
                         <p:commandButton id="searchButton" icon="ui-icon-search"   value="${i18n_eman_basic.Search}" actionListener="#{netnodeController.searchItems}" update=":growl,@form:@parent:NetnodeListForm:datalist"/>
-                        <br/>
+
                         <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${i18n_eman_basic.GetAll}" actionListener="#{netnodeController.allItems}" update=":growl,@form:@parent:NetnodeListForm:datalist"/>
                     </h:panelGroup> 
                 </p:fieldset>
@@ -132,15 +131,18 @@
                 <p:dataTable id="datalist" value="#{netnodeController.items}" var="item"
                              selection="#{netnodeController.selectedItems}"
                              rowKey="#{item.id}"
-                             rowsPerPageTemplate="10,20,30,40,50,100,200,500,1000"
-                             paginator="true" paginatorPosition="bottom"
-                             rows="20" 
+
+                             rows="20"  
                              draggableColumns="true" resizableColumns="true" liveResize="true"
-                             scrollable="true"    liveScroll="false" 
-                             sortMode="multiple" sortBy="#{item.id}"
+                             scrollable="true"    liveScroll="false" scrollHeight="420"
+                             sortMode="multiple" 
                              editable="true" 
                              filteredValue="#{netnodeController.filteredValue}"
                              stickyHeader="false" 
+
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10,20,30,40,50,100,200,500,1000"  paginator="true" paginatorPosition="bottom"                            
+                             currentPageReportTemplate="第{currentPage}页,共{totalPages}页；第{startRecord}条至第{endRecord}条,共{totalRecords}条记录"
                              >
 
                     <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
@@ -287,19 +289,6 @@
                         </h:outputText>
                     </p:column>
 
-                    <p:column sortBy="#{item.createTimeDone}" filterBy="#{item.createTimeDone}" filterMatchMode="contains">
-                        <f:facet name="header">
-                            <h:outputText value="#{i18n_eman_basic.NetnodeTitle_createTimeDone}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.createTimeDone}"/>
-                    </p:column>
-
-                    <p:column sortBy="#{item.lastUpdateTimeUpdate}" filterBy="#{item.lastUpdateTimeUpdate}" filterMatchMode="contains">
-                        <f:facet name="header">
-                            <h:outputText value="#{i18n_eman_basic.NetnodeTitle_lastUpdateTimeUpdate}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.lastUpdateTimeUpdate}"/>
-                    </p:column>
 
                     <p:column sortBy="#{item.id}" filterBy="#{item.id}" filterMatchMode="contains">
                         <f:facet name="header">

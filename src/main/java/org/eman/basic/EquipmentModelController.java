@@ -215,7 +215,7 @@ public class EquipmentModelController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = EquipmentModel.class, value = "EquipmentModel")
+    @FacesConverter(forClass = EquipmentModel.class, value = "org.eman.basic.model.EquipmentModel")
     public static class EquipmentModelFacesConverter implements Converter {
 
         @Override

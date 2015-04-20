@@ -215,7 +215,7 @@ public class NetnodeController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Netnode.class, value = "Netnode")
+    @FacesConverter(forClass = Netnode.class, value = "org.eman.basic.model.Netnode")
     public static class NetnodeFacesConverter implements Converter {
 
         @Override

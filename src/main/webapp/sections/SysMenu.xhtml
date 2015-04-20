@@ -13,8 +13,11 @@
                 <p:submenu  label="基础信息系统">
 
                     <p:menuitem target="_blank"  outcome="/basic/roomspot/index.xhtml" icon="menuitem_icon roomspot_icon"  value="机房安装点信息" />
+                    <p:menuitem value="#{i18n_eman_basic.NetnodeMenuLabel}" outcome="/basic/netnode/List.xhtml" />
+                    <p:menuitem value="#{i18n_eman_basic.BTSnodeMenuLabel}" outcome="/basic/bTSnode/List.xhtml" />
 
-                    <p:menuitem target="_blank"  outcome="/basic/equipmentModel/index.xhtml"  value="设备模型信息" />
+                    <p:menuitem value="#{i18n_eman_basic.EquipmentModelMenuLabel}" outcome="/basic/equipmentModel/List.xhtml" />
+                    <p:menuitem value="#{i18n_eman_basic.NetworkNodeModelMenuLabel}" outcome="/basic/networkNodeModel/List.xhtml" />
 
                 </p:submenu>
                 <p:submenu label="网格管家">
@@ -24,7 +27,7 @@
                 </p:submenu>
 
                 <p:submenu label="资讯管理">
-                    
+
                     <p:menuitem target="_blank" outcome="/peasant/basic/article/index.xhtml" value="资讯管理" />
                     <p:menuitem target="_blank" outcome="/peasant/basic/articleCategory/index.xhtml" value="资讯类别管理"/>
 

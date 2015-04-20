@@ -64,13 +64,13 @@ public abstract class DatedEntity extends UUIDEntity implements Serializable {
     
 
     @PrePersist
-    public void getCreateTimeDone() {
+    public void fixCreateTime() {
         this.createTime = Calendar.getInstance().getTime();
         this.lastUpdate = Calendar.getInstance().getTime();
     }
 
     @PreUpdate
-    public void getLastUpdateTimeUpdate() {
+    public void fixLastUpdateTime() {
         this.lastUpdate = Calendar.getInstance().getTime();
 
     }

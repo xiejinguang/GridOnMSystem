@@ -169,18 +169,18 @@
                         </h:outputText>
                     </p:column>
 
-                    <p:column sortBy="#{item.createTimeDone}" filterBy="#{item.createTimeDone}" filterMatchMode="contains">
+                    <p:column sortBy="#{item.fixCreateTime}" filterBy="#{item.fixCreateTime}" filterMatchMode="contains">
                         <f:facet name="header">
                             <h:outputText value="#{i18n_eman_basic.EquipmentModelTitle_createTimeDone}"/>
                         </f:facet>
-                        <h:outputText value="#{item.createTimeDone}"/>
+                        <h:outputText value="#{item.fixCreateTime}"/>
                     </p:column>
 
-                    <p:column sortBy="#{item.lastUpdateTimeUpdate}" filterBy="#{item.lastUpdateTimeUpdate}" filterMatchMode="contains">
+                    <p:column sortBy="#{item.fixLastUpdateTime}" filterBy="#{item.fixLastUpdateTime}" filterMatchMode="contains">
                         <f:facet name="header">
                             <h:outputText value="#{i18n_eman_basic.EquipmentModelTitle_lastUpdateTimeUpdate}"/>
                         </f:facet>
-                        <h:outputText value="#{item.lastUpdateTimeUpdate}"/>
+                        <h:outputText value="#{item.fixLastUpdateTime}"/>
                     </p:column>
 
                     <p:column sortBy="#{item.id}" filterBy="#{item.id}" filterMatchMode="contains">
