@@ -12,8 +12,8 @@
                 <p:fieldset id="searchField" legend="${i18n_basic.SearchConsTitle}" toggleable="true" toggleSpeed="500" >
                     <p:panelGrid  columns="6" layout="tabular">                   
 
-                        <p:outputLabel value="#{i18n_basic.ArticleLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{articleController.searchCons['id']}" title="#{i18n_basic.ArticleTitle_id}"/>
+                        <p:outputLabel value="#{i18n_basic.ArticleLabel_id}" for="uuid" />
+                        <p:inputText id="uuid" value="#{articleController.searchCons['uuid']}" title="#{i18n_basic.ArticleTitle_id}"/>
 
 
                         <p:outputLabel value="#{i18n_basic.ArticleLabel_title}" for="title" />
@@ -70,7 +70,7 @@
             <h:form id="ArticleListForm">
                 <p:dataTable id="datalist" value="#{articleController.items}" var="item"
                              selection="#{articleController.selectedItems}"
-                             rowKey="#{item.id}"
+                             rowKey="#{item.uuid}"
                              rowsPerPageTemplate="10,20,30,40,50"
                              paginator="true" paginatorPosition="bottom"
                              rows="10" 
@@ -95,11 +95,11 @@
 
                     <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
 
-                    <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <p:column sortBy="#{item.uuid}" filterBy="#{item.uuid}">
                         <f:facet name="header">
                             <h:outputText value="#{i18n_basic.ArticleTitle_id}"/>
                         </f:facet>
-                        <h:outputText value="#{item.id}"/>
+                        <h:outputText value="#{item.uuid}"/>
                     </p:column>
                     <p:column sortBy="#{item.title}" filterBy="#{item.title}">
                         <f:facet name="header">
@@ -158,7 +158,7 @@
                         <f:facet name="header">
                             <h:outputText value="#{i18n_basic.ArticleTitle_category}"/>
                         </f:facet>
-                        <h:outputText value="#{item.category}"/>
+                        <h:outputText value="#{item.category.name}"/>
                     </p:column>
                     <f:facet name="footer">
                         <div  class="my-datatable-footer">

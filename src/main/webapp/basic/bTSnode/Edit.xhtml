@@ -20,7 +20,7 @@
                         <p:panel toggleable="true" >
                             <f:facet name="header">
                                 <h:outputText value="#{i18n_eman_basic.BTSnodeEntityLabel}"/>
-                                <h:outputText value="#{item.id}" title="#{i18n_eman_basic.BTSnodeEntityTitle}"/>
+                                <h:outputText value="#{item.uuid}" title="#{i18n_eman_basic.BTSnodeEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="6" >
 
@@ -38,8 +38,8 @@
                                 <p:inputText id="ossCode" value="#{item.ossCode}" title="#{i18n_eman_basic.EditBTSnodeTitle_ossCode}" disabled="false"   required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_ossCode}"/>
 
 
-                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_nodeNumber}" for="nodeNumber" />
-                                <p:inputText id="nodeNumber" value="#{item.nodeNumber}" title="#{i18n_eman_basic.EditBTSnodeTitle_nodeNumber}" disabled="false"   required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_nodeNumber}"/>
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_nodeId}" for="nodeId" />
+                                <p:inputText id="nodeId" value="#{item.nodeId}" title="#{i18n_eman_basic.EditBTSnodeTitle_nodeId}" disabled="false"   required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_nodeId}"/>
 
 
                                 <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_superior}" for="superior" />
@@ -64,7 +64,7 @@
 
 
                                 <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_startProductionTime}" for="startProductionTime" />
-                                <p:calendar id="startProductionTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{item.startProductionTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_startProductionTime}"  showOn="button"/>
+                                <p:calendar id="startProductionTime" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  locale="zh_CN" showButtonPanel="true" value="#{item.startProductionTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_startProductionTime}"  showOn="both"/>
 
 
                                 <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_name}" for="name" />
@@ -72,7 +72,7 @@
 
 
                                 <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_investTime}" for="investTime" />
-                                <p:calendar id="investTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{item.investTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_investTime}"  showOn="button"/>
+                                <p:calendar id="investTime" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  locale="zh_CN" showButtonPanel="true" value="#{item.investTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_investTime}"  showOn="both"/>
 
 
                                 <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_commont}" for="commont" />
@@ -106,23 +106,15 @@
 
 
                                 <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_createTime}" for="createTime" />
-                                <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{item.createTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_createTime}" required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_createTime}" showOn="button"/>
+                                <p:calendar id="createTime" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  locale="zh_CN" showButtonPanel="true" value="#{item.createTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_createTime}" required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_createTime}" showOn="both"/>
 
 
                                 <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_lastUpdate}" for="lastUpdate" />
-                                <p:calendar id="lastUpdate" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{item.lastUpdate}" title="#{i18n_eman_basic.EditBTSnodeTitle_lastUpdate}" required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_lastUpdate}" showOn="button"/>
+                                <p:calendar id="lastUpdate" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  locale="zh_CN" showButtonPanel="true" value="#{item.lastUpdate}" title="#{i18n_eman_basic.EditBTSnodeTitle_lastUpdate}" required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_lastUpdate}" showOn="both"/>
 
 
-                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_createTimeDone}" for="createTimeDone" />
-                                <p:inputText id="createTimeDone" value="#{item.fixCreateTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_createTimeDone}" disabled="false"   />
-
-
-                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_lastUpdateTimeUpdate}" for="lastUpdateTimeUpdate" />
-                                <p:inputText id="lastUpdateTimeUpdate" value="#{item.fixLastUpdateTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_lastUpdateTimeUpdate}" disabled="false"   />
-
-
-                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_id}" for="id" />
-                                <p:inputText id="id" value="#{item.id}" title="#{i18n_eman_basic.EditBTSnodeTitle_id}" disabled="true"   required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_id}"/>
+                                <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_uuid}" for="uuid" />
+                                <p:inputText id="uuid" value="#{item.uuid}" title="#{i18n_eman_basic.EditBTSnodeTitle_uuid}" disabled="true"   required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_uuid}"/>
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>

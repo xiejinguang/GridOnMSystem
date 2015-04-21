@@ -18,11 +18,11 @@
                         <p:panel toggleable="true" >
                             <f:facet name="header">
                                 <h:outputText value="#{basic_i18n.RoomspotEntityLabel}"/>
-                                <h:outputText value="#{item.id}" title="#{basic_i18n.RoomspotEntityTitle}"/>
+                                <h:outputText value="#{item.uuid}" title="#{basic_i18n.RoomspotEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="4" >
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_id}" for="id" />
-                                <p:inputText id="id" value="#{item.id}" title="#{basic_i18n.EditRoomspotTitle_id}" disabled="true"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_id}"/>
+                                <p:inputText id="id" value="#{item.uuid}" title="#{basic_i18n.EditRoomspotTitle_id}" disabled="true"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_id}"/>
 
                                 <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_roomCode}" for="roomCode" />
                                 <p:inputText id="roomCode" value="#{item.roomCode}" title="#{basic_i18n.EditRoomspotTitle_roomCode}" disabled="false"   required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_roomCode}"/>

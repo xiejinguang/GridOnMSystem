@@ -44,23 +44,15 @@
 
 
                         <p:outputLabel value="#{i18n_eman_basic.EditEquipmentModelLabel_createTime}" for="createTime" />
-                        <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{equipmentModelController.created.createTime}" title="#{i18n_eman_basic.EditEquipmentModelTitle_createTime}" required="true" requiredMessage="#{i18n_eman_basic.EditEquipmentModelRequiredMessage_createTime}" showOn="button"/>
+                        <p:calendar id="createTime" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  locale="zh_CN" showButtonPanel="true" value="#{equipmentModelController.created.createTime}" title="#{i18n_eman_basic.EditEquipmentModelTitle_createTime}" required="true" requiredMessage="#{i18n_eman_basic.EditEquipmentModelRequiredMessage_createTime}" showOn="both"/>
 
 
                         <p:outputLabel value="#{i18n_eman_basic.EditEquipmentModelLabel_lastUpdate}" for="lastUpdate" />
-                        <p:calendar id="lastUpdate" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{equipmentModelController.created.lastUpdate}" title="#{i18n_eman_basic.EditEquipmentModelTitle_lastUpdate}" required="true" requiredMessage="#{i18n_eman_basic.EditEquipmentModelRequiredMessage_lastUpdate}" showOn="button"/>
+                        <p:calendar id="lastUpdate" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  locale="zh_CN" showButtonPanel="true" value="#{equipmentModelController.created.lastUpdate}" title="#{i18n_eman_basic.EditEquipmentModelTitle_lastUpdate}" required="true" requiredMessage="#{i18n_eman_basic.EditEquipmentModelRequiredMessage_lastUpdate}" showOn="both"/>
 
 
-                        <p:outputLabel value="#{i18n_eman_basic.EditEquipmentModelLabel_createTimeDone}" for="createTimeDone" />
-                        <p:inputText id="createTimeDone" value="#{equipmentModelController.created.fixCreateTime}" title="#{i18n_eman_basic.EditEquipmentModelTitle_createTimeDone}"  disabled="false"       />
-
-
-                        <p:outputLabel value="#{i18n_eman_basic.EditEquipmentModelLabel_lastUpdateTimeUpdate}" for="lastUpdateTimeUpdate" />
-                        <p:inputText id="lastUpdateTimeUpdate" value="#{equipmentModelController.created.fixLastUpdateTime}" title="#{i18n_eman_basic.EditEquipmentModelTitle_lastUpdateTimeUpdate}"  disabled="false"       />
-
-
-                        <p:outputLabel value="#{i18n_eman_basic.EditEquipmentModelLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{equipmentModelController.created.id}" title="#{i18n_eman_basic.EditEquipmentModelTitle_id}"  disabled="true"       required="true" requiredMessage="#{i18n_eman_basic.EditEquipmentModelRequiredMessage_id}"/>
+                        <p:outputLabel value="#{i18n_eman_basic.EditEquipmentModelLabel_uuid}" for="uuid" />
+                        <p:inputText id="uuid" value="#{equipmentModelController.created.uuid}" title="#{i18n_eman_basic.EditEquipmentModelTitle_uuid}"  disabled="true"       required="true" requiredMessage="#{i18n_eman_basic.EditEquipmentModelRequiredMessage_uuid}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{equipmentModelController.create}" value="#{i18n_eman_basic.Save}" update="display,@form:@parent:EquipmentModelListForm:datalist,:growl" oncomplete="handleSubmit(args,'EquipmentModelCreateDialog');"/>
                     <p:commandButton type="button" value="#{i18n_eman_basic.Cancel}" onclick="PF('EquipmentModelCreateDialog').hide()"/>

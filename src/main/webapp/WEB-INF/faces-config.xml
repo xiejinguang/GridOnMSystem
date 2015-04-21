@@ -32,18 +32,18 @@
         </resource-bundle>
 
         <resource-bundle>
-            <base-name>/org/eman/asist_i18n</base-name>
+            <base-name>/asist_i18n</base-name>
             <var>asist_i18n</var>
         </resource-bundle>
         
         <resource-bundle>
-            <base-name>/org/eman/basic_i18n</base-name>
+            <base-name>/basic_i18n</base-name>
             <var>basic_i18n</var>
         </resource-bundle>
 
 
         <resource-bundle>
-            <base-name>/org/eman/gmsys_i18n</base-name>
+            <base-name>/gmsys_i18n</base-name>
             <var>gmsys_i18n</var>
         </resource-bundle>
         <resource-bundle>
@@ -51,13 +51,10 @@
             <var>security_i18n</var>
         </resource-bundle>
         <resource-bundle>
-            <base-name>/org/eman/asist_i18n</base-name>
+            <base-name>/asist_i18n</base-name>
             <var>asist_i18n</var>
         </resource-bundle>
-        <resource-bundle>
-            <base-name>/peasant/i18n</base-name>
-            <var>i18n</var>
-        </resource-bundle>
+>
         <resource-bundle>
             <base-name>/org/peasant/ORGStructure_i18n</base-name>
             <var>oRGStructure_i18n</var>
@@ -70,8 +67,9 @@
             <base-name>/peasant/i18n_structure</base-name>
             <var>i18n_structure</var>
         </resource-bundle>
+
         <resource-bundle>
-            <base-name>/org/eman/i18n_eman_basic</base-name>
+            <base-name>/i18n_eman_basic</base-name>
             <var>i18n_eman_basic</var>
         </resource-bundle>
     </application>

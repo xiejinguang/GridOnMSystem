@@ -3,21 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package org.eman.basic.ejb;
+package org.eman.basic.facade;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.peasant.util.GenericAbstractFacade;
-import org.peasant.util.repositoryimpl.DBAttachment;
+import org.eman.basic.model.EquipmentModel;
 
 /**
  *
  * @author 谢金光
  */
 @Stateless
-public class DBAttachmentFacade extends GenericAbstractFacade<DBAttachment> {
+public class EquipmentModelFacade extends AbstractFacade<EquipmentModel> {
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
 
@@ -26,8 +24,8 @@ public class DBAttachmentFacade extends GenericAbstractFacade<DBAttachment> {
         return em;
     }
 
-    public DBAttachmentFacade() {
-        super(DBAttachment.class);
+    public EquipmentModelFacade() {
+        super(EquipmentModel.class);
     }
     
 }

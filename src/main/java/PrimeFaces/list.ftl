@@ -67,7 +67,7 @@
 <#elseif entityDescriptor.blob>
                                      <p:inputTextarea rows="4" cols="30" id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" />
 <#elseif entityDescriptor.relationshipOne>
-                                     <p:selectOneMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" filter="true"  filterMatchMode="contains" <#if !(entityDescriptor.returnType?matches(".*[Ss]+tring"))> <#if (entityDescriptor.returnType?matches("^java\.lang\..*"))> converter="javax.faces.${entityDescriptor.returnType?substring((entityDescriptor.returnType?last_index_of('.'))+1)}" <#else> converter="${entityDescriptor.returnType}" </#if> >
+                                     <p:selectOneMenu id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" filter="true"  filterMatchMode="contains" <#if !(entityDescriptor.returnType?matches(".*[Ss]+tring"))> <#if (entityDescriptor.returnType?matches("java\\.lang\\..*"))> converter="javax.faces.${entityDescriptor.returnType?substring((entityDescriptor.returnType?last_index_of('.'))+1)}" <#else> converter="${entityDescriptor.returnType}"</#if> </#if> >
                                         <f:selectItem itemLabel="${r"#{"}bundle.SelectOneMessage${r"}"}" />
                                         <f:selectItems value="${r"#{"}${entityDescriptor.valuesGetter}${r"}"}"
                                                  var="${entityDescriptor.id?replace(".","_")}Item"
@@ -80,7 +80,7 @@
                                             var="${entityDescriptor.id?replace(".","_")}Item"
                                             itemValue="${r"#{"}${entityDescriptor.id?replace(".","_")}Item${r"}"}"/>
 <#else>
-                                    <p:inputText id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if !(entityDescriptor.returnType?matches(".*[Ss]+tring"))> <#if (entityDescriptor.returnType?matches("^java\.lang\..*"))> converter="javax.faces.${entityDescriptor.returnType?substring((entityDescriptor.returnType?last_index_of('.'))+1)}" <#else> converter="${entityDescriptor.returnType}" </#if> />
+                                    <p:inputText id="${entityDescriptor.id?replace(".","_")}" value="${r"#{"}${managedBean}.searchCons['${entityDescriptor.id}']${r"}"}" title="${r"#{"}${bundle}.${entityName}Title_${entityDescriptor.id?replace(".","_")}${r"}"}" <#if !(entityDescriptor.returnType?matches(".*[Ss]+tring"))> <#if (entityDescriptor.returnType?matches("java\\.lang\\..*"))> converter="javax.faces.${entityDescriptor.returnType?substring((entityDescriptor.returnType?last_index_of('.'))+1)}" <#else> converter="${entityDescriptor.returnType}"</#if> </#if> />
 </#if>
 
 </#list>
@@ -96,9 +96,9 @@
    <h:form id="${entityName}ListForm">
                         <p:dataTable id="datalist" value="${r"#{"}${managedBeanProperty}${r"}"}" var="${item}"
                             selection="${r"#{"}${managedBean}${r".selectedItems}"}"
-                            rowKey="${r"#{"}${item}.${entityIdField}${r"}"}"
+                            rowKey="${r"#{"}${item}.${entityIdField}${r"}"}" rowIndexVar="index"
                             
-                             rows="20" 
+                             
                              draggableColumns="true" resizableColumns="true" liveResize="true"
                              scrollable="true"    liveScroll="false" scrollHeight="420"
                              sortMode="multiple" 
@@ -106,6 +106,8 @@
                              filteredValue="${r"#{"}${managedBean}${r".filteredValue}"}"
                              stickyHeader="false" 
 
+
+                             rows="20"    
                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                             rowsPerPageTemplate="10,20,30,40,50,100,200,500,1000"  paginator="true" paginatorPosition="bottom"                            
                             currentPageReportTemplate="第{currentPage}页,共{totalPages}页；第{startRecord}条至第{endRecord}条,共{totalRecords}条记录"
@@ -123,7 +125,7 @@
 
                             <f:facet name="header"><p:outputLabel value="${r"#{"}${bundle}.List${entityName}Title${r"}"}" /></f:facet>
 
-                            <p:column exportable="false" style="width:13px;text-align:center" disabledSelection="true" toggleable="false" resizable="false"  > <h:outputText value="${index+1}"/></p:column>
+                            <p:column exportable="false" style="width:25px;text-align:center" disabledSelection="true" toggleable="false" resizable="false"  ><h:outputText value="${index+1}"/></p:column>
 
                             <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false" exportable="false"/>  
 

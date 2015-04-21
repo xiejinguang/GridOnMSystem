@@ -42,7 +42,7 @@ import org.peasant.jpa.DatedEntity;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
-    @NamedQuery(name = "Employee.findById", query = "SELECT e FROM Employee e WHERE e.id = :id"),
+    @NamedQuery(name = "Employee.findById", query = "SELECT e FROM Employee e WHERE e.uuid = :uuid"),
     @NamedQuery(name = "Employee.findByCode", query = "SELECT e FROM Employee e WHERE e.code = :code"),
     @NamedQuery(name = "Employee.findByName", query = "SELECT e FROM Employee e WHERE e.name = :name"),
     @NamedQuery(name = "Employee.findBySex", query = "SELECT e FROM Employee e WHERE e.sex = :sex"),
@@ -81,11 +81,12 @@ public class Employee extends DatedEntity implements Serializable {
 
     @Embedded
     @ElementCollection
-    private Map<String, Address> addressses;
+    @CollectionTable(name = "addresses")
+    private Map<String, Address> addresses;
 
     @Embedded
     @ElementCollection
-    @CollectionTable(name = "addressHistory11", catalog = "jobpromotion")
+    @CollectionTable(name = "addressHistory")
     private Collection<Address> addressHistory;
     @Embedded
     private Address majorAddress;
@@ -130,21 +131,21 @@ public class Employee extends DatedEntity implements Serializable {
     }
 
     /**
-     * Get the value of addressses
+     * Get the value of addresses
      *
-     * @return the value of addressses
+     * @return the value of addresses
      */
-    public Map<String, Address> getAddressses() {
-        return addressses;
+    public Map<String, Address> getAddresses() {
+        return addresses;
     }
 
     /**
-     * Set the value of addressses
+     * Set the value of addresses
      *
-     * @param addressses new value of addressses
+     * @param addresses new value of addresses
      */
-    public void setAddressses(Map<String, Address> addressses) {
-        this.addressses = addressses;
+    public void setAddresses(Map<String, Address> addresses) {
+        this.addresses = addresses;
     }
 
     public Employee() {

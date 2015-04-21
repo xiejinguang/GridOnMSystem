@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.peasant.util.web;
 
+import javax.ejb.EJB;
 import org.peasant.web.fileupdownload.Constants;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
-import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.servlet.ServletContext;
 import org.peasant.util.Repository;
 import org.peasant.util.repositoryimpl.DiskNDatabaseRepository;
 
@@ -22,13 +23,6 @@ import org.peasant.util.repositoryimpl.DiskNDatabaseRepository;
 @Singleton
 public class DefaultProducer {
 
-    @Produces    
-    @Default
-    @ApplicationScoped
-    public Repository getDefaultRepository() {
-        String homePath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter(Constants.REPOSITORY_HOME_PARAM);
-        if(homePath ==null || homePath.trim().isEmpty())
-            return new DiskNDatabaseRepository();
-        return new DiskNDatabaseRepository(homePath);
-    }
+    @Inject
+    ServletContext ctx;
 }

@@ -24,6 +24,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.eman.basic.model.Station;
+import org.peasant.jpa.DatedEntity;
 import org.peasant.jpa.Labeled;
 
 /**
@@ -36,7 +37,7 @@ import org.peasant.jpa.Labeled;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "FixDemand.findAll", query = "SELECT f FROM FixDemand f"),
-    @NamedQuery(name = "FixDemand.findById", query = "SELECT f FROM FixDemand f WHERE f.id = :id"),
+    @NamedQuery(name = "FixDemand.findById", query = "SELECT f FROM FixDemand f WHERE f.uuid = :uuid"),
     @NamedQuery(name = "FixDemand.findByDemandCode", query = "SELECT f FROM FixDemand f WHERE f.demandCode = :demandCode"),
     @NamedQuery(name = "FixDemand.findByProblemKind", query = "SELECT f FROM FixDemand f WHERE f.problemKind = :problemKind"),
     @NamedQuery(name = "FixDemand.findByProblemSubKind", query = "SELECT f FROM FixDemand f WHERE f.problemSubKind = :problemSubKind"),
@@ -48,15 +49,10 @@ import org.peasant.jpa.Labeled;
     @NamedQuery(name = "FixDemand.findByDiscoverDate", query = "SELECT f FROM FixDemand f WHERE f.discoverDate = :discoverDate"),
     @NamedQuery(name = "FixDemand.findBySource", query = "SELECT f FROM FixDemand f WHERE f.source = :source"),
     @NamedQuery(name = "FixDemand.findByStatus", query = "SELECT f FROM FixDemand f WHERE f.status = :status")})
-public class FixDemand implements Serializable, Labeled {
+public class FixDemand extends DatedEntity implements Serializable, Labeled {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(nullable = false, length = 36)
-    private String id;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -113,32 +109,24 @@ public class FixDemand implements Serializable, Labeled {
     @Column(length = 45)
     private String status;
     @JoinColumn(name = "stationId", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false,cascade = {CascadeType.MERGE})
+    @ManyToOne(optional = false, cascade = {CascadeType.MERGE})
     private Station stationId;
 
     public FixDemand() {
     }
 
-    public FixDemand(String id) {
-        this.id = id;
+    public FixDemand(String uuid) {
+        super(uuid);
     }
 
-    public FixDemand(String id, String demandCode, String problemKind, String problemSubKind, String problemDetails, String solution, Date discoverDate) {
-        this.id = id;
+    public FixDemand(String uuid, String demandCode, String problemKind, String problemSubKind, String problemDetails, String solution, Date discoverDate) {
+        super(uuid);
         this.demandCode = demandCode;
         this.problemKind = problemKind;
         this.problemSubKind = problemSubKind;
         this.problemDetails = problemDetails;
         this.solution = solution;
         this.discoverDate = discoverDate;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getDemandCode() {
@@ -235,31 +223,6 @@ public class FixDemand implements Serializable, Labeled {
 
     public void setStationId(Station stationId) {
         this.stationId = stationId;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof FixDemand)) {
-            return false;
-        }
-        FixDemand other = (FixDemand) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "org.eman.basic.model.FixDemand[ id=" + id + " ]";
     }
 
     @Override

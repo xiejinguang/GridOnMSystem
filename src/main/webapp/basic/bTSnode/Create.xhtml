@@ -31,8 +31,8 @@
                         <p:inputText id="ossCode" value="#{bTSnodeController.created.ossCode}" title="#{i18n_eman_basic.EditBTSnodeTitle_ossCode}"  disabled="false"       required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_ossCode}"/>
 
 
-                        <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_nodeNumber}" for="nodeNumber" />
-                        <p:inputText id="nodeNumber" value="#{bTSnodeController.created.nodeNumber}" title="#{i18n_eman_basic.EditBTSnodeTitle_nodeNumber}"  disabled="false"       required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_nodeNumber}"/>
+                        <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_nodeId}" for="nodeId" />
+                        <p:inputText id="nodeId" value="#{bTSnodeController.created.nodeId}" title="#{i18n_eman_basic.EditBTSnodeTitle_nodeId}"  disabled="false"       required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_nodeId}"/>
 
 
                         <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_superior}" for="superior" />
@@ -57,7 +57,7 @@
 
 
                         <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_startProductionTime}" for="startProductionTime" />
-                        <p:calendar id="startProductionTime" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{bTSnodeController.created.startProductionTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_startProductionTime}"  showOn="button"/>
+                        <p:calendar id="startProductionTime" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  locale="zh_CN" showButtonPanel="true" value="#{bTSnodeController.created.startProductionTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_startProductionTime}"  showOn="both"/>
 
 
                         <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_name}" for="name" />
@@ -65,7 +65,7 @@
 
 
                         <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_investTime}" for="investTime" />
-                        <p:calendar id="investTime" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{bTSnodeController.created.investTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_investTime}"  showOn="button"/>
+                        <p:calendar id="investTime" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  locale="zh_CN" showButtonPanel="true" value="#{bTSnodeController.created.investTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_investTime}"  showOn="both"/>
 
 
                         <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_commont}" for="commont" />
@@ -99,23 +99,15 @@
 
 
                         <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_createTime}" for="createTime" />
-                        <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{bTSnodeController.created.createTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_createTime}" required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_createTime}" showOn="button"/>
+                        <p:calendar id="createTime" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  locale="zh_CN" showButtonPanel="true" value="#{bTSnodeController.created.createTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_createTime}" required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_createTime}" showOn="both"/>
 
 
                         <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_lastUpdate}" for="lastUpdate" />
-                        <p:calendar id="lastUpdate" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{bTSnodeController.created.lastUpdate}" title="#{i18n_eman_basic.EditBTSnodeTitle_lastUpdate}" required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_lastUpdate}" showOn="button"/>
+                        <p:calendar id="lastUpdate" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  locale="zh_CN" showButtonPanel="true" value="#{bTSnodeController.created.lastUpdate}" title="#{i18n_eman_basic.EditBTSnodeTitle_lastUpdate}" required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_lastUpdate}" showOn="both"/>
 
 
-                        <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_createTimeDone}" for="createTimeDone" />
-                        <p:inputText id="createTimeDone" value="#{bTSnodeController.created.fixCreateTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_createTimeDone}"  disabled="false"       />
-
-
-                        <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_lastUpdateTimeUpdate}" for="lastUpdateTimeUpdate" />
-                        <p:inputText id="lastUpdateTimeUpdate" value="#{bTSnodeController.created.fixLastUpdateTime}" title="#{i18n_eman_basic.EditBTSnodeTitle_lastUpdateTimeUpdate}"  disabled="false"       />
-
-
-                        <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{bTSnodeController.created.id}" title="#{i18n_eman_basic.EditBTSnodeTitle_id}"  disabled="true"       required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_id}"/>
+                        <p:outputLabel value="#{i18n_eman_basic.EditBTSnodeLabel_uuid}" for="uuid" />
+                        <p:inputText id="uuid" value="#{bTSnodeController.created.uuid}" title="#{i18n_eman_basic.EditBTSnodeTitle_uuid}"  disabled="true"       required="true" requiredMessage="#{i18n_eman_basic.EditBTSnodeRequiredMessage_uuid}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{bTSnodeController.create}" value="#{i18n_eman_basic.Save}" update="display,@form:@parent:BTSnodeListForm:datalist,:growl" oncomplete="handleSubmit(args,'BTSnodeCreateDialog');"/>
                     <p:commandButton type="button" value="#{i18n_eman_basic.Cancel}" onclick="PF('BTSnodeCreateDialog').hide()"/>

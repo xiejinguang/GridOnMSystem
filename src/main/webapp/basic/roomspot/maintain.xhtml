@@ -16,7 +16,7 @@
 
 
                     <p:outputLabel value="#{basic_i18n.RoomspotLabel_id}" for="id" />
-                    <p:inputText id="id" value="#{roomspotController.searchCons['id']}" title="#{basic_i18n.RoomspotTitle_id}"  />
+                    <p:inputText id="id" value="#{roomspotController.searchCons['uuid']}" title="#{basic_i18n.RoomspotTitle_id}"  />
 
 
                     <p:outputLabel value="#{basic_i18n.RoomspotLabel_roomCode}" for="roomCode" />
@@ -105,14 +105,14 @@
                          selection="#{roomspotController.selectedItems}"
                          rowKey="#{item.uuid}"
 
-                         rows="20" 
-                         
+                         rows="20"  rowIndexVar="index"
+
                          draggableColumns="true" resizableColumns="true"  liveResize="true"
                          scrollable="true"    liveScroll="false" scrollHeight="420"
                          sortMode="multiple"                           
                          filteredValue="#{roomspotController.filteredValue}" 
                          editable="true"  
-                         stickyHeader="false"  
+                         stickyHeader="false"   
 
 
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -131,14 +131,14 @@
                 <p:ajax event="rowSelectRadio" update="createButton,viewButton editButton,deleteButton"/>
 
                 <f:facet name="header"><p:outputLabel value="${basic_i18n.ListRoomspotTitle}" /></f:facet>
+                <p:column exportable="false" style="width:25px;text-align:center" disabledSelection="true" toggleable="false" resizable="true"  ><h:outputText value="${index+1}"/></p:column>
+                <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false" />  
 
-                <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false"/>  
-
-                <p:column sortBy="#{iteuuidid}" filterBy="#{iuuidm.id}">
+                <p:column sortBy="#{item.uuid}" filterBy="#{item.uuid}">
                     <f:facet name="header">
                         <h:outputText value="#{basic_i18n.RoomspotTitle_id}"/>
                     </f:facet>
-                    <h:outputText value="#uuidtem.id}"/>
+                    <h:outputText value="#{item.uuid}"/>
                 </p:column>
                 <p:column sortBy="#{item.roomCode}" filterBy="#{item.roomCode}" filterMatchMode="contains" >
                     <f:facet name="header">

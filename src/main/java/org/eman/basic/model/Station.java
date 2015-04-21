@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.eman.basic.model;
 
 import org.eman.gmsys.model.FixDemand;
@@ -26,6 +25,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.peasant.jpa.DatedEntity;
 import org.peasant.jpa.Labeled;
 
 /**
@@ -34,12 +34,12 @@ import org.peasant.jpa.Labeled;
  */
 @Entity
 @Table(name = "basic_station", uniqueConstraints = {
-    @UniqueConstraint(name="UNQ_basic_station_0",columnNames = {"name"}),
-    @UniqueConstraint(name="UNQ_basic_station_1",columnNames = {"statCode"})})
+    @UniqueConstraint(name = "UNQ_basic_station_0", columnNames = {"name"}),
+    @UniqueConstraint(name = "UNQ_basic_station_1", columnNames = {"statCode"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Station.findAll", query = "SELECT s FROM Station s"),
-    @NamedQuery(name = "Station.findById", query = "SELECT s FROM Station s WHERE s.id = :id"),
+    @NamedQuery(name = "Station.findById", query = "SELECT s FROM Station s WHERE s.uuid = :uuid"),
     @NamedQuery(name = "Station.findByStatCode", query = "SELECT s FROM Station s WHERE s.statCode = :statCode"),
     @NamedQuery(name = "Station.findByName", query = "SELECT s FROM Station s WHERE s.name = :name"),
     @NamedQuery(name = "Station.findByAddress", query = "SELECT s FROM Station s WHERE s.address = :address"),
@@ -47,14 +47,10 @@ import org.peasant.jpa.Labeled;
     @NamedQuery(name = "Station.findByType", query = "SELECT s FROM Station s WHERE s.type = :type"),
     @NamedQuery(name = "Station.findByAccomMaintainer", query = "SELECT s FROM Station s WHERE s.accomMaintainer = :accomMaintainer"),
     @NamedQuery(name = "Station.findByStatus", query = "SELECT s FROM Station s WHERE s.status = :status")})
-public class Station implements Serializable,Labeled {
+public class Station extends DatedEntity implements Serializable, Labeled {
+
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(nullable = false, length = 36)
-    private String id;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -90,29 +86,21 @@ public class Station implements Serializable,Labeled {
     private Collection<FixDemand> fixDemandCollection;
 
     @JoinColumn(name = "roomspotId", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false,cascade = {CascadeType.MERGE})
+    @ManyToOne(optional = false, cascade = {CascadeType.MERGE})
     private Roomspot roomspot;
 
     public Station() {
     }
 
-    public Station(String id) {
-        this.id = id;
+    public Station(String uuid) {
+        super(uuid);
     }
 
-    public Station(String id, String statCode, String name, String owner) {
-        this.id = id;
+    public Station(String uuid, String statCode, String name, String owner) {
+        super(uuid);
         this.statCode = statCode;
         this.name = name;
         this.owner = owner;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getStatCode() {
@@ -188,8 +176,6 @@ public class Station implements Serializable,Labeled {
         this.fixDemandCollection = fixDemandCollection;
     }
 
-
-
     public Roomspot getRoomspot() {
         return roomspot;
     }
@@ -199,33 +185,8 @@ public class Station implements Serializable,Labeled {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Station)) {
-            return false;
-        }
-        Station other = (Station) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "org.eman.basic.model.Station[ id=" + id + " ]";
-    }
-
-    @Override
     public String getLabel() {
-        return statCode+"|"+name;
+        return statCode + "|" + name;
     }
-    
+
 }

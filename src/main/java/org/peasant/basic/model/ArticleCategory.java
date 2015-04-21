@@ -37,7 +37,7 @@ import org.peasant.jpa.UUIDEntity;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ArticleCategory.findAll", query = "SELECT a FROM ArticleCategory a"),
-    @NamedQuery(name = "ArticleCategory.findById", query = "SELECT a FROM ArticleCategory a WHERE a.id = :id"),
+    @NamedQuery(name = "ArticleCategory.findById", query = "SELECT a FROM ArticleCategory a WHERE a.uuid = :uuid"),
     @NamedQuery(name = "ArticleCategory.findByName", query = "SELECT a FROM ArticleCategory a WHERE a.name = :name")})
 public class ArticleCategory extends UUIDEntity implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -55,7 +55,7 @@ public class ArticleCategory extends UUIDEntity implements Serializable {
     private Collection<Article> articleCollection;
     @OneToMany(mappedBy = "superior",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     private Collection<ArticleCategory> articleCategoryCollection;
-    @JoinColumn(name = "superior", referencedColumnName = "id")
+    @JoinColumn(name = "superior", referencedColumnName = "uuid")
     @ManyToOne
     private ArticleCategory superior;
 

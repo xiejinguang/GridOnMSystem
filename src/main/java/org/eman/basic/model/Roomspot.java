@@ -42,7 +42,7 @@ import org.peasant.jpa.UUIDEntity;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Roomspot.findAll", query = "SELECT r FROM Roomspot r"),
-    @NamedQuery(name = "Roomspot.findById", query = "SELECT r FROM Roomspot r WHERE r.id = :id"),
+    @NamedQuery(name = "Roomspot.findById", query = "SELECT r FROM Roomspot r WHERE r.uuid = :uuid"),
     @NamedQuery(name = "Roomspot.findByRoomCode", query = "SELECT r FROM Roomspot r WHERE r.roomCode = :roomCode"),
     @NamedQuery(name = "Roomspot.findByRoomName", query = "SELECT r FROM Roomspot r WHERE r.roomName = :roomName"),
     @NamedQuery(name = "Roomspot.findBySecondName", query = "SELECT r FROM Roomspot r WHERE r.secondName = :secondName"),

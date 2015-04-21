@@ -16,14 +16,14 @@
     <!-- IMPLEMENTATION -->
     <cc:implementation>
 
-            <c:if test="#{not empty cc.attrs.articleId}">
-                <c:if test ="#{not empty articleController.getArticle(cc.attrs.articleId)}">
-                    <c:set target="#{cc.attrs}" property="article" value="#{articleController.getArticle(cc.attrs.articleId)}"/>
-                </c:if>
+        <c:if test="#{not empty cc.attrs.articleId}">
+            <c:if test ="#{not empty articleController.getArticle(cc.attrs.articleId)}">
+                <c:set target="#{cc.attrs}" property="article" value="#{articleController.getArticle(cc.attrs.articleId)}"/>
             </c:if>
-              
-                <h:outputText escape="false" value="${cc.attrs.article.content}"/>         
-          
+        </c:if>
+
+        <h:outputText escape="false" value="${cc.attrs.article.content}"/>         
+
 
     </cc:implementation>
 </html>

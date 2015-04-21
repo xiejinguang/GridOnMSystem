@@ -16,7 +16,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{not empty roomspotController.created}">
                         <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_id}" for="id"  />
-                        <p:inputText id="id" value="#{roomspotController.created.id}" title="#{basic_i18n.EditRoomspotTitle_id}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_id}"/>
+                        <p:inputText id="id" value="#{roomspotController.created.uuid}" title="#{basic_i18n.EditRoomspotTitle_id}"  disabled="true"       required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_id}"/>
 
                         <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_roomCode}" for="roomCode" />
                         <p:inputText id="roomCode" value="#{roomspotController.created.roomCode}" title="#{basic_i18n.EditRoomspotTitle_roomCode}"  disabled="false"       required="true" requiredMessage="#{basic_i18n.EditRoomspotRequiredMessage_roomCode}"/>
@@ -37,7 +37,7 @@
                                 </f:selectItems>
                                 <p:ajax update="city"  />
                             </p:selectOneMenu>
-                            <ps:candidateValue rootId="${roomspotController.areaCVs.id}" update="province" />
+                            <ps:candidateValue rootId="${roomspotController.areaCVs.uuid}" update="province" />
                         </h:panelGroup>
 
 
@@ -70,7 +70,7 @@
                                                 itemValue="#{child.value}" itemLabel="#{child.value}" >
                                 </f:selectItems>
                             </p:selectOneMenu>  
-                            <ps:candidateValue rootId="${roomspotController.gridCVs.id}" update="grid"  />
+                            <ps:candidateValue rootId="${roomspotController.gridCVs.uuid}" update="grid"  />
                         </h:panelGroup>
 
                         <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_propertyOwner}" for="propertyOwner" />
@@ -82,7 +82,7 @@
                                                 itemValue="#{child.value}" itemLabel="#{child.value}" >
                                 </f:selectItems>
                             </p:selectOneMenu>
-                            <ps:candidateValue rootId="${roomspotController.companyCVs.id}" update="propertyOwner" />
+                            <ps:candidateValue rootId="${roomspotController.companyCVs.uuid}" update="propertyOwner" />
                         </h:panelGroup>
 
                         <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_status}" for="status" />
@@ -95,7 +95,7 @@
 
                                 </f:selectItems>
                             </p:selectOneMenu>
-                            <ps:candidateValue rootId="${roomspotController.statusCVs.id}" update="status" />
+                            <ps:candidateValue rootId="${roomspotController.statusCVs.uuid}" update="status" />
                         </h:panelGroup>
 
                         <p:outputLabel value="#{basic_i18n.EditRoomspotLabel_address}" for="address" />

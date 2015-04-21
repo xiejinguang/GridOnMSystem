@@ -50,28 +50,20 @@
 
 
                         <p:outputLabel value="#{i18n_eman_basic.EquipmentModelLabel_createTime}" for="createTime" />
-                        <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{equipmentModelController.searchCons['createTime']}" title="#{i18n_eman_basic.EquipmentModelTitle_createTime}" showOn="button"/>
+                        <p:calendar id="createTime" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  locale="zh_CN" showButtonPanel="true" value="#{equipmentModelController.searchCons['createTime']}" title="#{i18n_eman_basic.EquipmentModelTitle_createTime}" showOn="both"/>
 
 
                         <p:outputLabel value="#{i18n_eman_basic.EquipmentModelLabel_lastUpdate}" for="lastUpdate" />
-                        <p:calendar id="lastUpdate" pattern="yyyy-MM-dd HH:mm:ss" navigator="true" showButtonPanel="true" value="#{equipmentModelController.searchCons['lastUpdate']}" title="#{i18n_eman_basic.EquipmentModelTitle_lastUpdate}" showOn="button"/>
+                        <p:calendar id="lastUpdate" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  locale="zh_CN" showButtonPanel="true" value="#{equipmentModelController.searchCons['lastUpdate']}" title="#{i18n_eman_basic.EquipmentModelTitle_lastUpdate}" showOn="both"/>
 
 
-                        <p:outputLabel value="#{i18n_eman_basic.EquipmentModelLabel_createTimeDone}" for="createTimeDone" />
-                        <p:inputText id="createTimeDone" value="#{equipmentModelController.searchCons['createTimeDone']}" title="#{i18n_eman_basic.EquipmentModelTitle_createTimeDone}"  converter="javax.faces.void"  />
-
-
-                        <p:outputLabel value="#{i18n_eman_basic.EquipmentModelLabel_lastUpdateTimeUpdate}" for="lastUpdateTimeUpdate" />
-                        <p:inputText id="lastUpdateTimeUpdate" value="#{equipmentModelController.searchCons['lastUpdateTimeUpdate']}" title="#{i18n_eman_basic.EquipmentModelTitle_lastUpdateTimeUpdate}"  converter="javax.faces.void"  />
-
-
-                        <p:outputLabel value="#{i18n_eman_basic.EquipmentModelLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{equipmentModelController.searchCons['id']}" title="#{i18n_eman_basic.EquipmentModelTitle_id}"  />
+                        <p:outputLabel value="#{i18n_eman_basic.EquipmentModelLabel_uuid}" for="uuid" />
+                        <p:inputText id="uuid" value="#{equipmentModelController.searchCons['uuid']}" title="#{i18n_eman_basic.EquipmentModelTitle_uuid}"  />
 
                     </p:panelGrid>
                     <h:panelGroup> 
                         <p:commandButton id="searchButton" icon="ui-icon-search"   value="${i18n_eman_basic.Search}" actionListener="#{equipmentModelController.searchItems}" update=":growl,@form:@parent:EquipmentModelListForm:datalist"/>
-                        <br/>
+
                         <p:commandButton id="searchAllButton" icon="ui-icon-search"   value="${i18n_eman_basic.GetAll}" actionListener="#{equipmentModelController.allItems}" update=":growl,@form:@parent:EquipmentModelListForm:datalist"/>
                     </h:panelGroup> 
                 </p:fieldset>
@@ -80,16 +72,21 @@
             <h:form id="EquipmentModelListForm">
                 <p:dataTable id="datalist" value="#{equipmentModelController.items}" var="item"
                              selection="#{equipmentModelController.selectedItems}"
-                             rowKey="#{item.id}"
-                             rowsPerPageTemplate="10,20,30,40,50,100,200,500,1000"
-                             paginator="true" paginatorPosition="bottom"
-                             rows="20" 
+                             rowKey="#{item.uuid}" rowIndexVar="index"
+
+
                              draggableColumns="true" resizableColumns="true" liveResize="true"
-                             scrollable="true"    liveScroll="false" 
-                             sortMode="multiple" sortBy="#{item.id}"
+                             scrollable="true"    liveScroll="false" scrollHeight="420"
+                             sortMode="multiple" 
                              editable="true" 
                              filteredValue="#{equipmentModelController.filteredValue}"
                              stickyHeader="false" 
+
+
+                             rows="20"    
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10,20,30,40,50,100,200,500,1000"  paginator="true" paginatorPosition="bottom"                            
+                             currentPageReportTemplate="第{currentPage}页,共{totalPages}页；第{startRecord}条至第{endRecord}条,共{totalRecords}条记录"
                              >
 
                     <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
@@ -104,7 +101,7 @@
 
                     <f:facet name="header"><p:outputLabel value="#{i18n_eman_basic.ListEquipmentModelTitle}" /></f:facet>
 
-                    <p:column exportable="false" style="width:13px;text-align:center" disabledSelection="true" toggleable="false" resizable="false"  > <h:outputText value="Expression index is undefined on line 123, column 183 in unknown."/></p:column>
+                    <p:column exportable="false" style="width:25px;text-align:center" disabledSelection="true" toggleable="false" resizable="false"  ><h:outputText value="Expression index is undefined on line 128, column 182 in unknown."/></p:column>
 
                     <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false" exportable="false"/>  
 
@@ -156,7 +153,7 @@
                             <h:outputText value="#{i18n_eman_basic.EquipmentModelTitle_createTime}"/>
                         </f:facet>
                         <h:outputText value="#{item.createTime}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="yyyy-MM-dd  HH:mm:ss" />
                         </h:outputText>
                     </p:column>
 
@@ -165,29 +162,15 @@
                             <h:outputText value="#{i18n_eman_basic.EquipmentModelTitle_lastUpdate}"/>
                         </f:facet>
                         <h:outputText value="#{item.lastUpdate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="yyyy-MM-dd  HH:mm:ss" />
                         </h:outputText>
                     </p:column>
 
-                    <p:column sortBy="#{item.fixCreateTime}" filterBy="#{item.fixCreateTime}" filterMatchMode="contains">
+                    <p:column sortBy="#{item.uuid}" filterBy="#{item.uuid}" filterMatchMode="contains">
                         <f:facet name="header">
-                            <h:outputText value="#{i18n_eman_basic.EquipmentModelTitle_createTimeDone}"/>
+                            <h:outputText value="#{i18n_eman_basic.EquipmentModelTitle_uuid}"/>
                         </f:facet>
-                        <h:outputText value="#{item.fixCreateTime}"/>
-                    </p:column>
-
-                    <p:column sortBy="#{item.fixLastUpdateTime}" filterBy="#{item.fixLastUpdateTime}" filterMatchMode="contains">
-                        <f:facet name="header">
-                            <h:outputText value="#{i18n_eman_basic.EquipmentModelTitle_lastUpdateTimeUpdate}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.fixLastUpdateTime}"/>
-                    </p:column>
-
-                    <p:column sortBy="#{item.id}" filterBy="#{item.id}" filterMatchMode="contains">
-                        <f:facet name="header">
-                            <h:outputText value="#{i18n_eman_basic.EquipmentModelTitle_id}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.id}"/>
+                        <h:outputText value="#{item.uuid}"/>
                     </p:column>
                     <f:facet name="footer">
 

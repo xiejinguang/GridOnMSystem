@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 
 import javax.inject.Inject;
@@ -33,6 +34,10 @@ import static org.peasant.web.fileupdownload.Constants.MOETHOD_INLINE;
 import static org.peasant.web.fileupdownload.Constants.MOETHOD_RESOURCE;
 
 /**
+ * 使用{@link Constants}.ATTACHMENT_DOWN_URL_PATTERN_PARAM为KEY的ServletContext的初始化参数作为Attachment的URL前缀。
+ * URL构成：指定的URL_PATTERN+?aid=${attachemnt的ID}&method=[inline,attachment,resource],
+ * 其中会将URL_PATTERN中出现的符号‘*’替换为attachment的名称。
+ * 请参见Servlet的URL-Pattern的格式,若URL-Pattern中出现符号‘*’则替换为attachment的名称。
  *
  * @author 谢金光
  * @version 1.1
@@ -44,7 +49,7 @@ public class AttachmentService implements Serializable {
     public AttachmentService() {
     }
 
-    @Inject
+    @EJB
     Repository attachRepo;
 
     @Inject
@@ -58,24 +63,29 @@ public class AttachmentService implements Serializable {
     @PostConstruct
     public void init() {
         if (svc != null) {
-            String path = svc.getInitParameter(Constants.ATTACHMENT_DOWN_SERVLET_PATH_PARAM);
+            String path = svc.getInitParameter(Constants.ATTACHMENT_DOWN_URL_PATTERN_PARAM);
             if (path == null || path.trim().isEmpty()) {
-                path = Constants.DEFAULT_ATTACHMENT_DOWN_SERVLET_PATH;
+                path = Constants.DEFAULT_ATTACHMENT_DOWN_URL_PATTERN_PARAM;
             }
             this.downServPath = path;
         }
     }
 
-    public String getResourcePath(String servletPath, Attachment a) {
-        return getAttachmentURLPath(servletPath, a, Constants.MOETHOD_RESOURCE);
+    public String getResourcePath(String urlPattern, Attachment a) {
+        return getAttachmentURLPath(urlPattern, a, Constants.MOETHOD_RESOURCE);
     }
 
-    public String getDownloadPath(String servletPath, Attachment a) {
-        return getAttachmentURLPath(servletPath, a, Constants.MOETHOD_ATTACHMENT);
+    /**
+     *
+     * @param urlPattern the value of urlPattern
+     * @param a the value of a
+     */
+    public String getDownloadPath(String urlPattern, Attachment a) {
+        return getAttachmentURLPath(urlPattern, a, Constants.MOETHOD_ATTACHMENT);
     }
 
-    public String getInlinePath(String servletPath, Attachment a) {
-        return getAttachmentURLPath(servletPath, a, Constants.MOETHOD_INLINE);
+    public String getInlinePath(String urlPattern, Attachment a) {
+        return getAttachmentURLPath(urlPattern, a, Constants.MOETHOD_INLINE);
     }
 
     public String getResourcePath(Attachment a) {
@@ -207,22 +217,21 @@ public class AttachmentService implements Serializable {
      * 获取附件的URL路径，该路径为以servletPath开头的相对WEB应用根的相对路径，同时应设置一个用于处理@param servletPath
      * 请求的 {@link HttpServlet }以确保浏览器能够正确请问附件资源。
      *
-     * @param servletPath 以"/"开始的servletPath，请参见ServletContext中关于ServletPath的定义
+     * @param urlPattern 以"/"开始的servletPath，请参见ServletContext中关于ServletPath的定义
      * @param attachment
      * @param method
-     * @return the java.lang.String a URL absolute path that represents the
-     * <i>attachment</i>
+     * @return the java.lang.String
      */
-    public String getAttachmentURLPath(String servletPath, Attachment attachment, String method) {
-        if (servletPath == null || servletPath.trim().isEmpty()) {
-            servletPath = Constants.DEFAULT_ATTACHMENT_DOWN_SERVLET_PATH;
+    public String getAttachmentURLPath(String urlPattern, Attachment attachment, String method) {
+        if (urlPattern == null || urlPattern.trim().isEmpty()) {
+            urlPattern = Constants.DEFAULT_ATTACHMENT_DOWN_URL_PATTERN_PARAM;
         }
-        if (servletPath.endsWith("/")) {
-            servletPath = servletPath.substring(0, servletPath.length() - 1);
+        if (urlPattern.endsWith("/")) {
+            urlPattern = urlPattern.substring(0, urlPattern.length() - 1);
         }
 
         StringBuilder url = new StringBuilder();
-        url.append(servletPath);
+        url.append(urlPattern.replaceAll("\\*", attachment.getName()));
         url.append('?');
         url.append("aid=").append(attachment.getID());
         url.append("&method=").append(method);

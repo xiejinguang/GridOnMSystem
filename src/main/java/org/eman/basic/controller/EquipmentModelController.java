@@ -1,7 +1,11 @@
-package org.eman.basic;
+package org.eman.basic.controller;
+
+import org.eman.basic.model.EquipmentModel;
+import org.eman.basic.controller.util.JsfUtil;
+import org.eman.basic.controller.util.JsfUtil.PersistAction;
+import org.eman.basic.facade.EquipmentModelFacade;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,81 +15,58 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import org.eman.SpecialCodeGenerator;
-import org.eman.asist.CandidateValueConstants;
-import org.eman.asist.Values;
-import org.eman.asist.facade.AsistCandidateValueFacade;
-import org.eman.asist.model.CandidateValue;
-import org.eman.basic.model.Roomspot;
-import org.eman.basic.model.Station;
-import org.eman.basic.util.JsfUtil;
-import org.eman.basic.util.JsfUtil.PersistAction;
 
-@Named("stationController")
+@Named("equipmentModelController")
 @ViewScoped
-public class StationController implements Serializable {
+public class EquipmentModelController implements Serializable {
 
-    @Inject
-    protected org.eman.basic.StationFacade ejbFacade;
-    
-    @Inject
-    SpecialCodeGenerator scg;
-    
-    private List<Station> items = null;
-    private Station created;
-    private List<Station> selectedItems;
+    @EJB
+    protected org.eman.basic.facade.EquipmentModelFacade ejbFacade;
+    private List<EquipmentModel> items = null;
+    private EquipmentModel created;
+    private List<EquipmentModel> selectedItems;
+    private List<EquipmentModel> filteredValue;
     private Map<String, Object> searchCons;
     protected ResourceBundle bundle;
 
-    @Inject
-    @Values(key = CandidateValueConstants.StationStatusKey)
-    private CandidateValue stationStatus;
-    @Inject
-    @Values(key = CandidateValueConstants.CompanyKey)
-    private CandidateValue companys;
-    @Inject
-    @Values(key = CandidateValueConstants.StationTypekey)
-    private CandidateValue types;
-
-    public StationController() {
+    public EquipmentModelController() {
     }
 
     @PostConstruct
     public void init() {
         this.searchCons = new HashMap();
-        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "basic_i18n");
+        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "i18n_eman_basic");
 
     }
-    
-    public void setStationCodeFor(Station st){
-       st.setStatCode(genNextStationCode(st.getRoomspot()));                
-    }
-    
-    public String genNextStationCode(Roomspot r ){
-        return scg.genNextStationCode(r.getAddress().getProvince(), r.getAddress().getCity(), r.getAddress().getCounty());
-    }
 
-    public Station getCreated() {
+    public EquipmentModel getCreated() {
         return created;
     }
 
-    public void setCreated(Station created) {
+    public void setCreated(EquipmentModel created) {
         this.created = created;
     }
 
-    public List<Station> getSelectedItems() {
+    public List<EquipmentModel> getSelectedItems() {
         return selectedItems;
     }
 
-    public void setSelectedItems(List<Station> selectedItems) {
+    public void setSelectedItems(List<EquipmentModel> selectedItems) {
         this.selectedItems = selectedItems;
+    }
+
+    public List<EquipmentModel> getFilteredValue() {
+        return filteredValue;
+    }
+
+    public void setFilteredValue(List<EquipmentModel> filteredValue) {
+        this.filteredValue = filteredValue;
     }
 
     public Map<String, Object> getSearchCons() {
@@ -103,43 +84,43 @@ public class StationController implements Serializable {
         created.setUuid(org.peasant.util.Utils.generateUniqueKey());
     }
 
-    private StationFacade getFacade() {
+    private EquipmentModelFacade getFacade() {
         return ejbFacade;
     }
 
-    public Station prepareCreate() {
+    public EquipmentModel prepareCreate() {
 
-        created = new Station();
+        created = new EquipmentModel();
         initializeKey();
         return created;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, bundle.getString("StationCreated"));
+        persist(PersistAction.CREATE, bundle.getString("EquipmentModelCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, bundle.getString("StationUpdated"));
+        persist(PersistAction.UPDATE, bundle.getString("EquipmentModelUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, bundle.getString("StationDeleted"));
+        persist(PersistAction.DELETE, bundle.getString("EquipmentModelDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selectedItems = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Station> searchItems() {
+    public List<EquipmentModel> searchItems() {
 
         items = findItemsByConditions(construtSearchParams(this.searchCons));
         return items;
     }
 
-    protected List<Station> findItemsByConditions(Map<String, Object> params) {
+    protected List<EquipmentModel> findItemsByConditions(Map<String, Object> params) {
         return getFacade().findByConditions(params);
     }
 
@@ -163,13 +144,13 @@ public class StationController implements Serializable {
         return newparams;
     }
 
-    public List<Station> allItems() {
+    public List<EquipmentModel> allItems() {
         items = getFacade().findAll();
 
         return items;
     }
 
-    public List<Station> getItems() {
+    public List<EquipmentModel> getItems() {
         if (null == items) {
             //TODO,根据上次查询条件记录获取记录
         }
@@ -186,7 +167,7 @@ public class StationController implements Serializable {
                     break;
 
                 default: {
-                    for (Station selected : selectedItems) {
+                    for (EquipmentModel selected : selectedItems) {
                         if (selected != null) {
                             setEmbeddableKeys();
                             switch (persistAction) {
@@ -222,41 +203,29 @@ public class StationController implements Serializable {
 
     }
 
-    public Station getStation(java.lang.String id) {
+    public EquipmentModel getEquipmentModel(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<Station> getItemsAvailableSelectMany() {
+    public List<EquipmentModel> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Station> getItemsAvailableSelectOne() {
+    public List<EquipmentModel> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    public CandidateValue getStationStatus() {
-        return stationStatus;
-    }
-
-    public CandidateValue getCompanys() {
-        return companys;
-    }
-
-    public CandidateValue getTypes() {
-        return types;
-    }
-
-    @FacesConverter(forClass = Station.class, value = "org.eman.Station")
-    public static class StationControllerConverter implements Converter {
+    @FacesConverter(forClass = EquipmentModel.class, value = "org.eman.basic.model.EquipmentModel")
+    public static class EquipmentModelFacesConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            StationController controller = (StationController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "stationController");
-            return controller.getStation(getKey(value));
+            EquipmentModelController controller = (EquipmentModelController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "equipmentModelController");
+            return controller.getEquipmentModel(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -276,11 +245,11 @@ public class StationController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Station) {
-                Station o = (Station) object;
+            if (object instanceof EquipmentModel) {
+                EquipmentModel o = (EquipmentModel) object;
                 return getStringKey(o.getUuid());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Station.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), EquipmentModel.class.getName()});
                 return null;
             }
         }

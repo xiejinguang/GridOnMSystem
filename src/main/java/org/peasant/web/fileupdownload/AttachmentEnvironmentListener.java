@@ -26,9 +26,9 @@ public class AttachmentEnvironmentListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        String path = sce.getServletContext().getInitParameter(Constants.ATTACHMENT_DOWN_SERVLET_PATH_PARAM);
+        String path = sce.getServletContext().getInitParameter(Constants.ATTACHMENT_DOWN_URL_PATTERN_PARAM);
         if (path == null || path.trim().isEmpty()) {
-            path = Constants.DEFAULT_ATTACHMENT_DOWN_SERVLET_PATH;
+            path = Constants.DEFAULT_ATTACHMENT_DOWN_URL_PATTERN_PARAM;
         }
         attachServ.downServPath = path;
     }

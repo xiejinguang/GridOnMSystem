@@ -20,7 +20,7 @@
                         <p:panel toggleable="true" >
                             <f:facet name="header">
                                 <h:outputText value="#{i18n_basic.ArticleEntityLabel}"/>
-                                <h:outputText value="#{item.id}" title="#{i18n_basic.ArticleEntityTitle}"/>
+                                <h:outputText value="#{item.uuid}" title="#{i18n_basic.ArticleEntityTitle}"/>
                             </f:facet>
 
                             <p:panelGrid  >
@@ -37,7 +37,7 @@
                                             <p:outputLabel value="#{i18n_basic.EditArticleLabel_category}" for="category" />
                                             <p:selectOneMenu id="category" value="#{item.category}" filter="true"  filterMatchMode="contains" style="vertical-align: middle"  converter="ArticleCategory">
                                                 <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
-                                                <f:selectItems value="#{articleCategoryController.hierarchicalCategories}"
+                                                <f:selectItems value="#{articleCategoryController.itemsAvailableSelectOne}"
                                                                var="categoryItem"
                                                                itemValue="#{categoryItem}" itemLabel="#{categoryItem.name}"/>
                                             </p:selectOneMenu>
@@ -84,7 +84,7 @@
                                 <p:row>
                                     <p:column colspan="4">
                                         <p:outputLabel value="#{i18n_basic.EditArticleLabel_content}" for="content" />
-                                        <ps:editor id="content" value="#{item.content}" contentId="#{item.id}"  urlBase="#{request.contextPath}/"/>
+                                        <ps:editor id="content" value="#{item.content}" contentId="#{item.uuid}"  urlBase="#{request.contextPath}/"/>
                                     </p:column>
                                 </p:row>
 

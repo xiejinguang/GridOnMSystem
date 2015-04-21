@@ -115,9 +115,7 @@
 
 
         <p:inputTextarea   id="editor"   value="#{cc.attrs.value}" placeholder="请输入内容"    rows="${cc.attrs.rows}" cols="${cc.attrs.cols}"  styleClass="#{cc.attrs.contentId}  htmleditor 
-                           { 
-                           urlBase:'#{cc.attrs.urlBase}', 
-
+                           {                           
                            upLinkUrl: '#{request.contextPath}/upload_xheditor?belonger=#{cc.attrs.contentId}',                        
                            upImgUrl: '#{request.contextPath}/upload_xheditor?belonger=#{cc.attrs.contentId}', 
                            upFlashUrl:'#{request.contextPath}/upload_xheditor?belonger=#{cc.attrs.contentId}' , 

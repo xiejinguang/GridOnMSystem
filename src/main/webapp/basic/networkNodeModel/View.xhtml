@@ -17,9 +17,9 @@
                         <p:panel toggleable="true" >
                             <f:facet name="header">
                                 <h:outputText value="#{i18n_eman_basic.NetworkNodeModelEntityLabel}"/>
-                                <h:outputText value="#{item.id}" title="#{i18n_eman_basic.NetworkNodeModelEntityTitle}"/>
+                                <h:outputText value="#{item.uuid}" title="#{i18n_eman_basic.NetworkNodeModelEntityTitle}"/>
                             </f:facet>
-                            <p:panelGrid columns="6" >
+                            <p:panelGrid columns="4" >
 
 
                                 <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_supportedStandards}"/>
@@ -70,16 +70,8 @@
                                 </h:outputText>
 
 
-                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_createTimeDone}"/>
-                                <h:outputText value="#{item.fixCreateTime}" title="#{i18n_eman_basic.NetworkNodeModelTitle_createTimeDone}"/>
-
-
-                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_lastUpdateTimeUpdate}"/>
-                                <h:outputText value="#{item.fixLastUpdateTime}" title="#{i18n_eman_basic.NetworkNodeModelTitle_lastUpdateTimeUpdate}"/>
-
-
-                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_id}"/>
-                                <h:outputText value="#{item.id}" title="#{i18n_eman_basic.NetworkNodeModelTitle_id}"/>
+                                <h:outputText value="#{i18n_eman_basic.NetworkNodeModelLabel_uuid}"/>
+                                <h:outputText value="#{item.uuid}" title="#{i18n_eman_basic.NetworkNodeModelTitle_uuid}"/>
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>

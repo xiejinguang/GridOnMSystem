@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "NetworkNodeModel.findAll", query = "SELECT e FROM NetworkNodeModel e"),
-    @NamedQuery(name = "NetworkNodeModel.findById", query = "SELECT e FROM NetworkNodeModel e WHERE e.id = :id"),
+    @NamedQuery(name = "NetworkNodeModel.findById", query = "SELECT e FROM NetworkNodeModel e WHERE e.uuid = :uuid"),
     @NamedQuery(name = "NetworkNodeModel.findByType", query = "SELECT e FROM NetworkNodeModel e WHERE e.type = :type"),
     @NamedQuery(name = "NetworkNodeModel.findByClass1", query = "SELECT e FROM NetworkNodeModel e WHERE e.category = :category"),
     @NamedQuery(name = "NetworkNodeModel.findByModel", query = "SELECT e FROM NetworkNodeModel e WHERE e.model = :model"),

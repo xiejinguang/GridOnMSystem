@@ -3,7 +3,7 @@ package org.eman.basic;
 import org.peasant.util.repositoryimpl.DBAttachment;
 import org.eman.basic.util.JsfUtil;
 import org.eman.basic.util.JsfUtil.PersistAction;
-import org.eman.basic.ejb.DBAttachmentFacade;
+import org.eman.basic.facade.DBAttachmentFacade;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -27,7 +27,7 @@ import javax.faces.convert.FacesConverter;
 public class DBAttachmentController implements Serializable {
 
     @EJB
-    private org.eman.basic.ejb.DBAttachmentFacade ejbFacade;
+    private org.eman.basic.facade.DBAttachmentFacade ejbFacade;
     private List<DBAttachment> items = null;
     private DBAttachment created;
     private List<DBAttachment> selectedItems;

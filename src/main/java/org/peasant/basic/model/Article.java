@@ -31,7 +31,7 @@ import org.peasant.jpa.DatedEntity;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Article.findAll", query = "SELECT a FROM Article a"),
-    @NamedQuery(name = "Article.findById", query = "SELECT a FROM Article a WHERE a.id = :id"),
+    @NamedQuery(name = "Article.findById", query = "SELECT a FROM Article a WHERE a.uuid = :uuid"),
     @NamedQuery(name = "Article.findByTitle", query = "SELECT a FROM Article a WHERE a.title = :title"),
     @NamedQuery(name = "Article.findByKeywords", query = "SELECT a FROM Article a WHERE a.keywords = :keywords"),
     @NamedQuery(name = "Article.findByCreator", query = "SELECT a FROM Article a WHERE a.creator = :creator"),
@@ -71,7 +71,7 @@ public class Article extends DatedEntity implements Serializable {
     @Column(length = 36)
     private String creator;
 
-    @JoinColumn(name = "category", referencedColumnName = "id")
+    @JoinColumn(name = "category", referencedColumnName = "uuid")
     @ManyToOne
     private ArticleCategory category;
 

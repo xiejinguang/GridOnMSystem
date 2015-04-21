@@ -19,7 +19,7 @@
             <h:form id="ArticleCreateForm">
                 <h:panelGroup id="display">
                     <p:outputLabel value="#{i18n_basic.EditArticleLabel_id}" for="id" />                    
-                    <p:inputText id="id" value="#{articleController.created.id}" title="#{i18n_basic.EditArticleTitle_id}"  disabled="true"       required="true" requiredMessage="#{i18n_basic.EditArticleRequiredMessage_id}"/>
+                    <p:inputText id="id" value="#{articleController.created.uuid}" title="#{i18n_basic.EditArticleTitle_id}"  disabled="true"       required="true" requiredMessage="#{i18n_basic.EditArticleRequiredMessage_id}"/>
 
                     <div style="float:right">
                         <p:outputLabel value="#{i18n_basic.EditArticleLabel_creator}" for="creator" />
@@ -39,9 +39,9 @@
                                     <p:outputLabel value="#{i18n_basic.EditArticleLabel_category}" for="category" />
                                     <p:selectOneMenu id="category" value="#{articleController.created.category}" filter="true"  filterMatchMode="contains" style="vertical-align: middle" converter="ArticleCategory" >
                                         <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
-                                        <f:selectItems value="#{articleCategoryController.hierarchicalCategories}"
+                                        <f:selectItems value="#{articleCategoryController.itemsAvailableSelectOne}"
                                                        var="categoryItem"
-                                                      />
+                                                       itemValue="#{categoryItem}" itemLabel="#{categoryItem.name}"/>
                                     </p:selectOneMenu>
                                 </div>
                             </p:column>
@@ -84,7 +84,7 @@
                         <p:row>
                             <p:column colspan="4">
                                 <p:outputLabel value="#{i18n_basic.EditArticleLabel_content}" for="content" />                      
-                                <ps:editor  id="content" value="#{articleController.created.content}" contentId="#{articleController.created.id}" />
+                                <ps:editor  id="content" value="#{articleController.created.content}" contentId="#{articleController.created.uuid}" />
                             </p:column>
                         </p:row>
 
@@ -92,9 +92,9 @@
                     <p:commandButton actionListener="#{articleController.create}" value="#{i18n_basic.Save}" update="display,@form:@parent:ArticleListForm:datalist,:growl"  oncomplete="handleSubmit(args,'ArticleCreateDialog');"/>
                     <p:commandButton type="button" value="#{i18n_basic.Cancel}" onclick="PF('ArticleCreateDialog').hide()"/>
                 </h:panelGroup>
-               
+
             </h:form>
-            
+
         </p:dialog>
 
 

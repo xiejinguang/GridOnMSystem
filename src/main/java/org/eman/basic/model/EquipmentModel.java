@@ -33,7 +33,7 @@ import org.peasant.jpa.UUIDEntity;
 @DiscriminatorColumn(name = "TYPE", discriminatorType = DiscriminatorType.STRING, length = 25)
 @NamedQueries({
     @NamedQuery(name = "EquipmentModel.findAll", query = "SELECT e FROM EquipmentModel e"),
-    @NamedQuery(name = "EquipmentModel.findById", query = "SELECT e FROM EquipmentModel e WHERE e.id = :id"),
+    @NamedQuery(name = "EquipmentModel.findById", query = "SELECT e FROM EquipmentModel e WHERE e.uuid = :uuid"),
     @NamedQuery(name = "EquipmentModel.findByType", query = "SELECT e FROM EquipmentModel e WHERE e.type = :type"),
     @NamedQuery(name = "EquipmentModel.findByClass1", query = "SELECT e FROM EquipmentModel e WHERE e.category = :category"),
     @NamedQuery(name = "EquipmentModel.findByModel", query = "SELECT e FROM EquipmentModel e WHERE e.model = :model"),

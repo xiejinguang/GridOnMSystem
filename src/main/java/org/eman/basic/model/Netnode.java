@@ -47,7 +47,7 @@ import org.peasant.jpa.Labeled;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Netnode.findAll", query = "SELECT n FROM Netnode n"),
-    @NamedQuery(name = "Netnode.findById", query = "SELECT n FROM Netnode n WHERE n.id = :id"),
+    @NamedQuery(name = "Netnode.findById", query = "SELECT n FROM Netnode n WHERE n.uuid = :uuid"),
     @NamedQuery(name = "Netnode.findByOssCode", query = "SELECT n FROM Netnode n WHERE n.ossCode = :ossCode"),
     @NamedQuery(name = "Netnode.findByName", query = "SELECT n FROM Netnode n WHERE n.name = :name"),
     @NamedQuery(name = "Netnode.findByInvestTime", query = "SELECT n FROM Netnode n WHERE n.investTime = :investTime"),

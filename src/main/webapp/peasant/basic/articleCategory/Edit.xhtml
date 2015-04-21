@@ -20,14 +20,14 @@
                         <p:panel toggleable="true" >
                             <f:facet name="header">
                                 <h:outputText value="#{i18n_basic.ArticleCategoryEntityLabel}"/>
-                                <h:outputText value="#{item.id}" title="#{i18n_basic.ArticleCategoryEntityTitle}"/>
+                                <h:outputText value="#{item.uuid}" title="#{i18n_basic.ArticleCategoryEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="2" >
 
 
 
                                 <p:outputLabel value="#{i18n_basic.EditArticleCategoryLabel_id}" for="id" />
-                                <p:inputText id="id" value="#{item.id}" title="#{i18n_basic.EditArticleCategoryTitle_id}" disabled="true"   required="true" requiredMessage="#{i18n_basic.EditArticleCategoryRequiredMessage_id}"/>
+                                <p:inputText id="id" value="#{item.uuid}" title="#{i18n_basic.EditArticleCategoryTitle_id}" disabled="true"   required="true" requiredMessage="#{i18n_basic.EditArticleCategoryRequiredMessage_id}"/>
 
 
                                 <p:outputLabel value="#{i18n_basic.EditArticleCategoryLabel_name}" for="name" />
@@ -41,9 +41,9 @@
                                 <p:outputLabel value="#{i18n_basic.EditArticleCategoryLabel_superior}" for="superior" />
                                 <p:selectOneMenu id="superior" value="#{item.superior}" filter="true"  filterMatchMode="contains" >
                                     <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
-                                    <f:selectItems value="#{articleCategoryController.hierarchicalCategories}"
-                                                   var="superiorItem"
-                                                />
+                                    <f:selectItems value="#{articleCategoryController.itemsAvailableSelectOne}"
+                                                   var="superiorItem" itemLabel="#{superiorItem.name}"
+                                                   />
                                 </p:selectOneMenu>
                             </p:panelGrid>
                         </p:panel>

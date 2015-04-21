@@ -37,13 +37,14 @@
                   header="导入">
 
             <h:form id="ExcelImportForm">
-                
+
 
                 <p:fileUpload allowTypes="/(\.|\/)(xls)$/" uploadLabel="导入" cancelLabel="取消" fileUploadListener="#{excelImporter.handleExcelImport}"  mode="advanced"   invalidFileMessage="" multiple="false" label="浏览" process="@this" update="result"/>
+
+                注：若需要更新一条已存在的数据，则必须在ID列填上对应的ID。
                 <p:commandButton value="下载模板" ajax="false"  icon="ui-icon-arrowthick-1-s" rendered="#{not empty cc.attrs.templatePath }">
                     <p:fileDownload value="#{convenientFactory.getResourceAs(cc.attrs.templatePath)}" />
                 </p:commandButton>
-                注：想需要更新一条已存在的数据，则必须在ID列填上对应的ID。<br/>
                 <p:messages  id="result" for="importResult" autoUpdate="true"   showDetail="true"  closable="true" />
 
             </h:form>

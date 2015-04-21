@@ -16,7 +16,7 @@
                   header="#{i18n_eman_basic.CreateNetworkNodeModelTitle}">
             <h:form id="NetworkNodeModelCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="6" rendered="#{not empty networkNodeModelController.created}">
+                    <p:panelGrid columns="4" rendered="#{not empty networkNodeModelController.created}">
 
 
                         <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_supportedStandards}" for="supportedStandards" />
@@ -56,23 +56,15 @@
 
 
                         <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_createTime}" for="createTime" />
-                        <p:calendar id="createTime" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{networkNodeModelController.created.createTime}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_createTime}" required="true" requiredMessage="#{i18n_eman_basic.EditNetworkNodeModelRequiredMessage_createTime}" showOn="button"/>
+                        <p:calendar id="createTime" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  locale="zh_CN" showButtonPanel="true" value="#{networkNodeModelController.created.createTime}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_createTime}" required="true" requiredMessage="#{i18n_eman_basic.EditNetworkNodeModelRequiredMessage_createTime}" showOn="both"/>
 
 
                         <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_lastUpdate}" for="lastUpdate" />
-                        <p:calendar id="lastUpdate" pattern="yyyy-MM-dd HH:mm:ss"  navigator="true" showButtonPanel="true" value="#{networkNodeModelController.created.lastUpdate}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_lastUpdate}" required="true" requiredMessage="#{i18n_eman_basic.EditNetworkNodeModelRequiredMessage_lastUpdate}" showOn="button"/>
+                        <p:calendar id="lastUpdate" pattern="yyyy-MM-dd  HH:mm:ss" mask="true"  locale="zh_CN" showButtonPanel="true" value="#{networkNodeModelController.created.lastUpdate}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_lastUpdate}" required="true" requiredMessage="#{i18n_eman_basic.EditNetworkNodeModelRequiredMessage_lastUpdate}" showOn="both"/>
 
 
-                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_createTimeDone}" for="createTimeDone" />
-                        <p:inputText id="createTimeDone" value="#{networkNodeModelController.created.fixCreateTime}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_createTimeDone}"  disabled="false"       />
-
-
-                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_lastUpdateTimeUpdate}" for="lastUpdateTimeUpdate" />
-                        <p:inputText id="lastUpdateTimeUpdate" value="#{networkNodeModelController.created.fixLastUpdateTime}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_lastUpdateTimeUpdate}"  disabled="false"       />
-
-
-                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{networkNodeModelController.created.uuid}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_id}"  disabled="true"       required="true" requiredMessage="#{i18n_eman_basic.EditNetworkNodeModelRequiredMessage_id}"/>
+                        <p:outputLabel value="#{i18n_eman_basic.EditNetworkNodeModelLabel_uuid}" for="uuid" />
+                        <p:inputText id="uuid" value="#{networkNodeModelController.created.uuid}" title="#{i18n_eman_basic.EditNetworkNodeModelTitle_uuid}"  disabled="true"       required="true" requiredMessage="#{i18n_eman_basic.EditNetworkNodeModelRequiredMessage_uuid}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{networkNodeModelController.create}" value="#{i18n_eman_basic.Save}" update="display,@form:@parent:NetworkNodeModelListForm:datalist,:growl" oncomplete="handleSubmit(args,'NetworkNodeModelCreateDialog');"/>
                     <p:commandButton type="button" value="#{i18n_eman_basic.Cancel}" onclick="PF('NetworkNodeModelCreateDialog').hide()"/>

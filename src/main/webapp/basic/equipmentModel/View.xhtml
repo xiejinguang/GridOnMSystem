@@ -17,7 +17,7 @@
                         <p:panel toggleable="true" >
                             <f:facet name="header">
                                 <h:outputText value="#{i18n_eman_basic.EquipmentModelEntityLabel}"/>
-                                <h:outputText value="#{item.id}" title="#{i18n_eman_basic.EquipmentModelEntityTitle}"/>
+                                <h:outputText value="#{item.uuid}" title="#{i18n_eman_basic.EquipmentModelEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="4" >
 
@@ -58,16 +58,8 @@
                                 </h:outputText>
 
 
-                                <h:outputText value="#{i18n_eman_basic.EquipmentModelLabel_createTimeDone}"/>
-                                <h:outputText value="#{item.fixCreateTime}" title="#{i18n_eman_basic.EquipmentModelTitle_createTimeDone}"/>
-
-
-                                <h:outputText value="#{i18n_eman_basic.EquipmentModelLabel_lastUpdateTimeUpdate}"/>
-                                <h:outputText value="#{item.fixLastUpdateTime}" title="#{i18n_eman_basic.EquipmentModelTitle_lastUpdateTimeUpdate}"/>
-
-
-                                <h:outputText value="#{i18n_eman_basic.EquipmentModelLabel_id}"/>
-                                <h:outputText value="#{item.id}" title="#{i18n_eman_basic.EquipmentModelTitle_id}"/>
+                                <h:outputText value="#{i18n_eman_basic.EquipmentModelLabel_uuid}"/>
+                                <h:outputText value="#{item.uuid}" title="#{i18n_eman_basic.EquipmentModelTitle_uuid}"/>
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>

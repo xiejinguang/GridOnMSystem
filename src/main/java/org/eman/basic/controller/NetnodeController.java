@@ -1,7 +1,11 @@
-package org.eman.basic;
+package org.eman.basic.controller;
+
+import org.eman.basic.model.Netnode;
+import org.eman.basic.controller.util.JsfUtil;
+import org.eman.basic.controller.util.JsfUtil.PersistAction;
+import org.eman.basic.facade.NetnodeFacade;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,81 +15,58 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import org.eman.SpecialCodeGenerator;
-import org.eman.asist.CandidateValueConstants;
-import org.eman.asist.Values;
-import org.eman.asist.facade.AsistCandidateValueFacade;
-import org.eman.asist.model.CandidateValue;
-import org.eman.basic.model.Roomspot;
-import org.eman.basic.model.Station;
-import org.eman.basic.util.JsfUtil;
-import org.eman.basic.util.JsfUtil.PersistAction;
 
-@Named("stationController")
+@Named("netnodeController")
 @ViewScoped
-public class StationController implements Serializable {
+public class NetnodeController implements Serializable {
 
-    @Inject
-    protected org.eman.basic.StationFacade ejbFacade;
-    
-    @Inject
-    SpecialCodeGenerator scg;
-    
-    private List<Station> items = null;
-    private Station created;
-    private List<Station> selectedItems;
+    @EJB
+    protected org.eman.basic.facade.NetnodeFacade ejbFacade;
+    private List<Netnode> items = null;
+    private Netnode created;
+    private List<Netnode> selectedItems;
+    private List<Netnode> filteredValue;
     private Map<String, Object> searchCons;
     protected ResourceBundle bundle;
 
-    @Inject
-    @Values(key = CandidateValueConstants.StationStatusKey)
-    private CandidateValue stationStatus;
-    @Inject
-    @Values(key = CandidateValueConstants.CompanyKey)
-    private CandidateValue companys;
-    @Inject
-    @Values(key = CandidateValueConstants.StationTypekey)
-    private CandidateValue types;
-
-    public StationController() {
+    public NetnodeController() {
     }
 
     @PostConstruct
     public void init() {
         this.searchCons = new HashMap();
-        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "basic_i18n");
+        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "i18n_eman_basic");
 
     }
-    
-    public void setStationCodeFor(Station st){
-       st.setStatCode(genNextStationCode(st.getRoomspot()));                
-    }
-    
-    public String genNextStationCode(Roomspot r ){
-        return scg.genNextStationCode(r.getAddress().getProvince(), r.getAddress().getCity(), r.getAddress().getCounty());
-    }
 
-    public Station getCreated() {
+    public Netnode getCreated() {
         return created;
     }
 
-    public void setCreated(Station created) {
+    public void setCreated(Netnode created) {
         this.created = created;
     }
 
-    public List<Station> getSelectedItems() {
+    public List<Netnode> getSelectedItems() {
         return selectedItems;
     }
 
-    public void setSelectedItems(List<Station> selectedItems) {
+    public void setSelectedItems(List<Netnode> selectedItems) {
         this.selectedItems = selectedItems;
+    }
+
+    public List<Netnode> getFilteredValue() {
+        return filteredValue;
+    }
+
+    public void setFilteredValue(List<Netnode> filteredValue) {
+        this.filteredValue = filteredValue;
     }
 
     public Map<String, Object> getSearchCons() {
@@ -103,43 +84,43 @@ public class StationController implements Serializable {
         created.setUuid(org.peasant.util.Utils.generateUniqueKey());
     }
 
-    private StationFacade getFacade() {
+    private NetnodeFacade getFacade() {
         return ejbFacade;
     }
 
-    public Station prepareCreate() {
+    public Netnode prepareCreate() {
 
-        created = new Station();
+        created = new Netnode();
         initializeKey();
         return created;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, bundle.getString("StationCreated"));
+        persist(PersistAction.CREATE, bundle.getString("NetnodeCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, bundle.getString("StationUpdated"));
+        persist(PersistAction.UPDATE, bundle.getString("NetnodeUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, bundle.getString("StationDeleted"));
+        persist(PersistAction.DELETE, bundle.getString("NetnodeDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selectedItems = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Station> searchItems() {
+    public List<Netnode> searchItems() {
 
         items = findItemsByConditions(construtSearchParams(this.searchCons));
         return items;
     }
 
-    protected List<Station> findItemsByConditions(Map<String, Object> params) {
+    protected List<Netnode> findItemsByConditions(Map<String, Object> params) {
         return getFacade().findByConditions(params);
     }
 
@@ -163,13 +144,13 @@ public class StationController implements Serializable {
         return newparams;
     }
 
-    public List<Station> allItems() {
+    public List<Netnode> allItems() {
         items = getFacade().findAll();
 
         return items;
     }
 
-    public List<Station> getItems() {
+    public List<Netnode> getItems() {
         if (null == items) {
             //TODO,根据上次查询条件记录获取记录
         }
@@ -186,7 +167,7 @@ public class StationController implements Serializable {
                     break;
 
                 default: {
-                    for (Station selected : selectedItems) {
+                    for (Netnode selected : selectedItems) {
                         if (selected != null) {
                             setEmbeddableKeys();
                             switch (persistAction) {
@@ -222,41 +203,29 @@ public class StationController implements Serializable {
 
     }
 
-    public Station getStation(java.lang.String id) {
+    public Netnode getNetnode(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<Station> getItemsAvailableSelectMany() {
+    public List<Netnode> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Station> getItemsAvailableSelectOne() {
+    public List<Netnode> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    public CandidateValue getStationStatus() {
-        return stationStatus;
-    }
-
-    public CandidateValue getCompanys() {
-        return companys;
-    }
-
-    public CandidateValue getTypes() {
-        return types;
-    }
-
-    @FacesConverter(forClass = Station.class, value = "org.eman.Station")
-    public static class StationControllerConverter implements Converter {
+    @FacesConverter(forClass = Netnode.class, value = "org.eman.basic.model.Netnode")
+    public static class NetnodeFacesConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            StationController controller = (StationController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "stationController");
-            return controller.getStation(getKey(value));
+            NetnodeController controller = (NetnodeController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "netnodeController");
+            return controller.getNetnode(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -276,11 +245,11 @@ public class StationController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Station) {
-                Station o = (Station) object;
+            if (object instanceof Netnode) {
+                Netnode o = (Netnode) object;
                 return getStringKey(o.getUuid());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Station.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Netnode.class.getName()});
                 return null;
             }
         }

@@ -22,7 +22,7 @@
 
 
                                 <p:outputLabel value="#{i18n_basic.ArticleCategoryLabel_id}" for="id" />
-                                <p:inputText id="id" value="#{articleCategoryController.searchCons['id']}" title="#{i18n_basic.ArticleCategoryTitle_id}"  />
+                                <p:inputText id="id" value="#{articleCategoryController.searchCons['uuid']}" title="#{i18n_basic.ArticleCategoryTitle_id}"  />
 
 
                                 <p:outputLabel value="#{i18n_basic.ArticleCategoryLabel_name}" for="name" />
@@ -36,8 +36,8 @@
                                 <p:outputLabel value="#{i18n_basic.ArticleCategoryLabel_superior}" for="superior" />
                                 <p:selectOneMenu id="superior" value="#{articleCategoryController.searchCons['superior']}" filter="true"  filterMatchMode="contains"  converter="ArticleCategory"  >
                                     <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
-                                    <f:selectItems value="#{articleCategoryController.hierarchicalCategories}"
-                                                   var="superiorItem"
+                                    <f:selectItems value="#{articleCategoryController.itemsAvailableSelectOne}"
+                                                   var="superiorItem" itemLabel="#{superiorItem.name}"
                                                    />
                                 </p:selectOneMenu>
 
@@ -56,7 +56,7 @@
         <h:form id="ArticleCategoryListForm">
             <p:dataTable id="datalist" value="#{articleCategoryController.items}" var="item"
                          selection="#{articleCategoryController.selectedItems}"
-                         rowKey="#{item.id}"
+                         rowKey="#{item.uuid}" rowIndexVar="index"
                          rowsPerPageTemplate="10,20,30,40,50"
                          paginator="true" paginatorPosition="bottom"
                          rows="10"  
@@ -64,7 +64,7 @@
                          scrollable="true"   liveResize="true" liveScroll="true"
                          sortMode="multiple"
                          editable="true" 
-                         stickyHeader="false"  rowIndexVar="index"
+                         stickyHeader="false"  
                          >
 
                 <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
@@ -82,11 +82,11 @@
 
                 <p:column selectionMode="multiple" style="width:15px;text-align:center" toggleable="false" exportable="false"/>  
 
-                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                <p:column sortBy="#{item.uuid}" filterBy="#{item.uuid}">
                     <f:facet name="header">
                         <h:outputText value="#{i18n_basic.ArticleCategoryTitle_id}"/>
                     </f:facet>
-                    <h:outputText value="#{item.id}"/>
+                    <h:outputText value="#{item.uuid}"/>
                 </p:column>
                 <p:column sortBy="#{item.name}" filterBy="#{item.name}">
                     <f:facet name="header">
@@ -104,7 +104,7 @@
                     <f:facet name="header">
                         <h:outputText value="#{i18n_basic.ArticleCategoryTitle_superior}"/>
                     </f:facet>
-                    <h:outputText value="#{item.superior}"/>
+                    <h:outputText value="#{item.superior.name}"/>
                 </p:column>
                 <f:facet name="footer">
                     <div  class="my-datatable-footer">

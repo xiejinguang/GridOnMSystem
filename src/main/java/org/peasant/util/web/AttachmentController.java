@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -38,7 +39,7 @@ public class AttachmentController implements Serializable {
     @Inject
     AttachmentService attachServ;
     
-    @Inject
+    @EJB
     Repository attachRepo;
 
     String owner;
@@ -81,7 +82,7 @@ public class AttachmentController implements Serializable {
 
     public String getResourcePath(Attachment a) {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        return attachServ.getAttachmentURLPath(ec.getInitParameter(Constants.ATTACHMENT_DOWN_SERVLET_PATH_PARAM), a, Constants.MOETHOD_RESOURCE);
+        return attachServ.getAttachmentURLPath(ec.getInitParameter(Constants.ATTACHMENT_DOWN_URL_PATTERN_PARAM), a, Constants.MOETHOD_RESOURCE);
     }
 
     public void handleFileUpload(FileUploadEvent fue) {

@@ -17,7 +17,7 @@
                         <p:panel toggleable="true" >
                             <f:facet name="header">
                                 <h:outputText value="#{i18n_eman_basic.NetnodeEntityLabel}"/>
-                                <h:outputText value="#{item.id}" title="#{i18n_eman_basic.NetnodeEntityTitle}"/>
+                                <h:outputText value="#{item.uuid}" title="#{i18n_eman_basic.NetnodeEntityTitle}"/>
                             </f:facet>
                             <p:panelGrid columns="6" >
 
@@ -30,8 +30,8 @@
                                 <h:outputText value="#{item.ossCode}" title="#{i18n_eman_basic.NetnodeTitle_ossCode}"/>
 
 
-                                <h:outputText value="#{i18n_eman_basic.NetnodeLabel_nodeNumber}"/>
-                                <h:outputText value="#{item.nodeNumber}" title="#{i18n_eman_basic.NetnodeTitle_nodeNumber}"/>
+                                <h:outputText value="#{i18n_eman_basic.NetnodeLabel_nodeId}"/>
+                                <h:outputText value="#{item.nodeId}" title="#{i18n_eman_basic.NetnodeTitle_nodeId}"/>
 
 
                                 <h:outputText value="#{i18n_eman_basic.NetnodeLabel_superior}"/>
@@ -98,16 +98,8 @@
                                 </h:outputText>
 
 
-                                <h:outputText value="#{i18n_eman_basic.NetnodeLabel_createTimeDone}"/>
-                                <h:outputText value="#{item.fixCreateTime}" title="#{i18n_eman_basic.NetnodeTitle_createTimeDone}"/>
-
-
-                                <h:outputText value="#{i18n_eman_basic.NetnodeLabel_lastUpdateTimeUpdate}"/>
-                                <h:outputText value="#{item.fixLastUpdateTime}" title="#{i18n_eman_basic.NetnodeTitle_lastUpdateTimeUpdate}"/>
-
-
-                                <h:outputText value="#{i18n_eman_basic.NetnodeLabel_id}"/>
-                                <h:outputText value="#{item.id}" title="#{i18n_eman_basic.NetnodeTitle_id}"/>
+                                <h:outputText value="#{i18n_eman_basic.NetnodeLabel_uuid}"/>
+                                <h:outputText value="#{item.uuid}" title="#{i18n_eman_basic.NetnodeTitle_uuid}"/>
                             </p:panelGrid>
                         </p:panel>
                     </ui:repeat>
