@@ -24,10 +24,7 @@ and open the template in the editor.
             <cascade-persist></cascade-persist>
             <entity-listeners>
                 <entity-listener class="org.peasant.jpa.PersistenceContextListener">
-                    <description>The default Entity Listener.用于记录PersistenceContext中的Entity操作事件。</description>    
-                    <post-persist method-name="postPersist"/>
-                    <post-remove method-name="postRemove"/>
-                    <post-update method-name="postUpdate"/>                                        
+                    <description>The default Entity Listener.用于记录PersistenceContext中的Entity操作事件。</description>                                                       
                 </entity-listener>
 <!--                <entity-listener class="org.peasant.jpa.SharedCacheEntityConsistencyKeeper"></entity-listener>-->
             </entity-listeners>

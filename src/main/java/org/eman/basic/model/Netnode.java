@@ -157,7 +157,7 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
     /**
      * 网元的安装机房、站点
      */
-    @JoinColumn(name = "roomspotId", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "roomspotId", referencedColumnName = "uuid", nullable = false)
     @ManyToOne(optional = false)
     private Roomspot roomspot;
 

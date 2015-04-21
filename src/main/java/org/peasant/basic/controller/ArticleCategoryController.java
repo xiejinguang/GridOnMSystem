@@ -240,7 +240,7 @@ public class ArticleCategoryController implements Serializable {
     }
     
     @FacesConverter(forClass = ArticleCategory.class, value = "ArticleCategory")
-    @org.peasant.jpa.EntityConverter(forClass = ArticleCategory.class, value = "org.peasant.basic.model.ArticleCategory")
+    @org.peasant.jpa.EntityConverter(forClass = ArticleCategory.class)
     @Singleton
     public static class ArticleCategoryFacesConverter implements Converter, org.peasant.util.Converter<ArticleCategory> {
         

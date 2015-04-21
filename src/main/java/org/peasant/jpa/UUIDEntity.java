@@ -55,15 +55,27 @@ public abstract class UUIDEntity implements Serializable {
         return hash;
     }
 
+    /**
+     * 由于java.lang.Object 中的equals方法的默认实现是，仅当比较的实例与此实例确确是
+     * 同一个实例时，才认为是相等的。但现实中的相等应该是内容相等，所以往往需要重写equals方法。
+     * 在JSF中，JPA实体中，同一个物体往往被创建多个实例，被转换，被比较，若不重写java.lang.Object中
+     * 的equals默认实现，将不能正常工作。
+    */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the uuid methods are not set
-        if (!super.equals(object)) {
+//       if (!super.equals(object)) {//此处错误的调用了java.lang.Object中的默认实现，使得程序行为不可预期
+//          return false;
+//        }
+
+        if (!(object instanceof UUIDEntity)) {
             return false;
         }
-        if (!(this.getClass().isInstance(object))) {
+        
+        if (!(this.getClass().isInstance(object))) {//@warn,此语块的行为正确性有待考量
             return false;
         }
+
         UUIDEntity other = (UUIDEntity) object;
         return !((this.uuid == null && other.uuid != null) || (this.uuid != null && !this.uuid.equals(other.uuid)));
     }

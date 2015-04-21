@@ -85,7 +85,7 @@ public class Station extends DatedEntity implements Serializable, Labeled {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "stationId")
     private Collection<FixDemand> fixDemandCollection;
 
-    @JoinColumn(name = "roomspotId", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "roomspotId", referencedColumnName = "uuid", nullable = false)
     @ManyToOne(optional = false, cascade = {CascadeType.MERGE})
     private Roomspot roomspot;
 

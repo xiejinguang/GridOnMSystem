@@ -42,7 +42,7 @@
                                 <p:selectOneMenu id="superior" value="#{item.superior}" filter="true"  filterMatchMode="contains" >
                                     <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
                                     <f:selectItems value="#{articleCategoryController.itemsAvailableSelectOne}"
-                                                   var="superiorItem" itemLabel="#{superiorItem.name}"
+                                                   var="superiorItem" itemLabel="#{superiorItem.name}" itemValue="#{superiorItem}"
                                                    />
                                 </p:selectOneMenu>
                             </p:panelGrid>

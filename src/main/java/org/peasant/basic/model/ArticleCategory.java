@@ -33,7 +33,7 @@ import org.peasant.jpa.UUIDEntity;
 @Entity
 //@Cacheable(false)
 @Table(catalog = "jobpromotion", schema = "",name = "article_category", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"name"})})
+    @UniqueConstraint(name = "UNQ_article_category_0",columnNames = {"name"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ArticleCategory.findAll", query = "SELECT a FROM ArticleCategory a"),
@@ -51,11 +51,11 @@ public class ArticleCategory extends UUIDEntity implements Serializable {
     @Size(max = 65535)
     @Column(length = 65535)
     private String description;
-    @OneToMany(mappedBy = "category",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @OneToMany(mappedBy = "category")
     private Collection<Article> articleCollection;
-    @OneToMany(mappedBy = "superior",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @OneToMany(mappedBy = "superior")
     private Collection<ArticleCategory> articleCategoryCollection;
-    @JoinColumn(name = "superior", referencedColumnName = "uuid")
+    @JoinColumn(name = "superior", referencedColumnName = "uuid",nullable = true,columnDefinition = "CHAR(36)")
     @ManyToOne
     private ArticleCategory superior;
 

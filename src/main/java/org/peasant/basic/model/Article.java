@@ -71,7 +71,7 @@ public class Article extends DatedEntity implements Serializable {
     @Column(length = 36)
     private String creator;
 
-    @JoinColumn(name = "category", referencedColumnName = "uuid")
+    @JoinColumn(name = "category", referencedColumnName = "uuid",nullable = true,columnDefinition = "CHAR(36)")
     @ManyToOne
     private ArticleCategory category;
 

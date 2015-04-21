@@ -64,7 +64,7 @@ public class StationProperty extends UUIDEntity implements Serializable {
     @Column(length = 65535)
     private String abnormity;
     
-    @JoinColumn(name = "roomspotId", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "roomspotId", referencedColumnName = "uuid", nullable = false)
     @ManyToOne(optional = false)
     private Roomspot roomspotId;
     

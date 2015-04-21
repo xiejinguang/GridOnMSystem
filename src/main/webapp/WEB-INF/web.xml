@@ -27,8 +27,8 @@
         <param-value>native</param-value>
     </context-param>
     <context-param>
-        <param-name>peasant.attachment.DOWNLOAD_SERVLET_PATH</param-name>
-        <param-value>/attachments</param-value>
+        <param-name>peasant.attachment.DOWNLOAD_URL_PATTERN</param-name>
+        <param-value>*.attachment</param-value>
     </context-param>
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
@@ -113,6 +113,7 @@
         <servlet-name>DownloadServlet</servlet-name>
         <url-pattern>/attachments</url-pattern>
         <url-pattern>*.attachment</url-pattern>
+        <url-pattern>*.attach</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
