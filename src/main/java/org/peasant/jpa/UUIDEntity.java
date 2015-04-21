@@ -84,7 +84,7 @@ public abstract class UUIDEntity implements Serializable {
 //        }
 //        sb.append(']');
 //        return sb.toString();
-        return this.getClass().getName() + "[ id=" + uuid + " ]";
+        return this.getClass().getName() + "[ uuid=" + uuid + " ]";
     }
 
 }

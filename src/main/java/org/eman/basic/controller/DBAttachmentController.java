@@ -1,8 +1,9 @@
-package org.eman.basic;
+package org.eman.basic.controller;
 
-import org.eman.basic.model.util.JsfUtil;
-import org.eman.basic.model.util.JsfUtil.PersistAction;
-import org.eman.basic.BTSnodeFacade;
+import org.peasant.util.repositoryimpl.DBAttachment;
+import org.eman.basic.util.JsfUtil;
+import org.eman.basic.util.JsfUtil.PersistAction;
+import org.eman.basic.facade.DBAttachmentFacade;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -20,52 +21,42 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import org.eman.basic.model.BTSnode;
 
-@Named("bTSnodeController")
+@Named("dBAttachmentController")
 @ViewScoped
-public class BTSnodeController implements Serializable {
+public class DBAttachmentController implements Serializable {
 
     @EJB
-    protected org.eman.basic.BTSnodeFacade ejbFacade;
-    private List<BTSnode> items = null;
-    private BTSnode created;
-    private List<BTSnode> selectedItems;
-    private List<BTSnode> filteredValue;
+    private org.eman.basic.facade.DBAttachmentFacade ejbFacade;
+    private List<DBAttachment> items = null;
+    private DBAttachment created;
+    private List<DBAttachment> selectedItems;
     private Map<String, Object> searchCons;
-    protected ResourceBundle bundle;
+    private ResourceBundle bundle;
 
-    public BTSnodeController() {
+    public DBAttachmentController() {
     }
 
     @PostConstruct
     public void init() {
         this.searchCons = new HashMap();
-        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "/org/eman/i18n_eman_basic");
+        this.bundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(FacesContext.getCurrentInstance(), "bundle");
 
     }
 
-    public BTSnode getCreated() {
+    public DBAttachment getCreated() {
         return created;
     }
 
-    public void setCreated(BTSnode created) {
+    public void setCreated(DBAttachment created) {
         this.created = created;
     }
 
-    public List<BTSnode> getSelectedItems() {
+    public List<DBAttachment> getSelectedItems() {
         return selectedItems;
     }
 
-    public void setSelectedItems(List<BTSnode> filteredValue) {
-        this.filteredValue = filteredValue;
-    }
-
-    public List<BTSnode> getFilteredValue() {
-        return filteredValue;
-    }
-
-    public void setFilteredValue(List<BTSnode> selectedItems) {
+    public void setSelectedItems(List<DBAttachment> selectedItems) {
         this.selectedItems = selectedItems;
     }
 
@@ -80,84 +71,60 @@ public class BTSnodeController implements Serializable {
     protected void setEmbeddableKeys() {
     }
 
-    protected void initializeKey() {
-        created.setUuid(org.peasant.util.Utils.generateUniqueKey());
+    protected void initializeEmbeddableKey() {
     }
 
-    private BTSnodeFacade getFacade() {
+    private DBAttachmentFacade getFacade() {
         return ejbFacade;
     }
 
-    public BTSnode prepareCreate() {
-
-        created = new BTSnode();
-        initializeKey();
+    public DBAttachment prepareCreate() {
+        created = new DBAttachment();
+        initializeEmbeddableKey();
         return created;
     }
 
+    public List<DBAttachment> prepareSearch() {
+        this.items = null;
+        return this.items;
+
+    }
+
     public void create() {
-        persist(PersistAction.CREATE, bundle.getString("BTSnodeCreated"));
+        persist(PersistAction.CREATE, bundle.getString("DBAttachmentCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, bundle.getString("BTSnodeUpdated"));
+        persist(PersistAction.UPDATE, bundle.getString("DBAttachmentUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, bundle.getString("BTSnodeDeleted"));
+        persist(PersistAction.DELETE, bundle.getString("DBAttachmentDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selectedItems = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<BTSnode> searchItems() {
-
-        items = findItemsByConditions(construtSearchParams(this.searchCons));
+    public List<DBAttachment> searchItems() {
+        items = getFacade().findByConditions(searchCons);
         return items;
     }
 
-    protected List<BTSnode> findItemsByConditions(Map<String, Object> params) {
-        return getFacade().findByConditions(params);
-    }
-
-    protected Map<String, Object> construtSearchParams(Map<String, Object> params) {
-        Map<String, Object> newparams = new HashMap<>();
-        for (String param : searchCons.keySet()) {
-            Object value = searchCons.get(param);
-            if (value != null) {
-                if (value instanceof String) {
-                    if (((String) value).isEmpty()) {
-                        continue;
-                    } else {
-                        newparams.put(param, '%' + ((String) value) + '%');
-                        continue;
-                    }
-                } else {
-                    newparams.put(param, value);
-                }
-            }
-        }
-        return newparams;
-    }
-
-    public List<BTSnode> allItems() {
+    public List<DBAttachment> allItems() {
         items = getFacade().findAll();
 
         return items;
     }
 
-    public List<BTSnode> getItems() {
-        if (null == items) {
-            //TODO,根据上次查询条件记录获取记录
-        }
+    public List<DBAttachment> getItems() {
         return items;
     }
 
-    protected void persist(PersistAction persistAction, String successMessage) {
+    private void persist(PersistAction persistAction, String successMessage) {
 
         try {
 
@@ -167,7 +134,7 @@ public class BTSnodeController implements Serializable {
                     break;
 
                 default: {
-                    for (BTSnode selected : selectedItems) {
+                    for (DBAttachment selected : selectedItems) {
                         if (selected != null) {
                             setEmbeddableKeys();
                             switch (persistAction) {
@@ -203,29 +170,29 @@ public class BTSnodeController implements Serializable {
 
     }
 
-    public BTSnode getBTSnode(java.lang.String id) {
+    public DBAttachment getDBAttachment(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<BTSnode> getItemsAvailableSelectMany() {
+    public List<DBAttachment> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<BTSnode> getItemsAvailableSelectOne() {
+    public List<DBAttachment> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = BTSnode.class, value = "org.eman.basic.model.BTSnode")
-    public static class BTSnodeFacesConverter implements Converter {
+    @FacesConverter(forClass = DBAttachment.class)
+    public static class DBAttachmentControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            BTSnodeController controller = (BTSnodeController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "bTSnodeController");
-            return controller.getBTSnode(getKey(value));
+            DBAttachmentController controller = (DBAttachmentController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "dBAttachmentController");
+            return controller.getDBAttachment(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -245,11 +212,11 @@ public class BTSnodeController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof BTSnode) {
-                BTSnode o = (BTSnode) object;
-                return getStringKey(o.getUuid());
+            if (object instanceof DBAttachment) {
+                DBAttachment o = (DBAttachment) object;
+                return getStringKey(o.getAttachmentId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), BTSnode.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), DBAttachment.class.getName()});
                 return null;
             }
         }

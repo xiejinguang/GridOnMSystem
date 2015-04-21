@@ -1,4 +1,4 @@
-package org.eman.basic;
+package org.eman.basic.controller;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -23,6 +23,7 @@ import org.eman.asist.AreaService;
 import org.eman.asist.CandidateValueConstants;
 import org.eman.asist.facade.AsistCandidateValueFacade;
 import org.eman.asist.model.CandidateValue;
+import org.eman.basic.facade.RoomspotFacade;
 import org.eman.basic.model.Roomspot;
 import org.eman.basic.util.JsfUtil;
 import org.eman.basic.util.JsfUtil.PersistAction;
@@ -33,7 +34,7 @@ import org.primefaces.event.SelectEvent;
 public class RoomspotController implements Serializable {
 
     @EJB
-    protected org.eman.basic.RoomspotFacade ejbFacade;
+    protected org.eman.basic.facade.RoomspotFacade ejbFacade;
     private List<Roomspot> items = null;
     private Roomspot created;
     private List<Roomspot> selectedItems;

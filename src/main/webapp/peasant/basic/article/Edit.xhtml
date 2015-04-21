@@ -35,7 +35,7 @@
                                         <p:inputText style="width:400px" id="title" value="#{item.title}" title="#{i18n_basic.EditArticleTitle_title}"  disabled="false"       required="true" requiredMessage="#{i18n_basic.EditArticleRequiredMessage_title}"/>
                                         <div style="float:right ">
                                             <p:outputLabel value="#{i18n_basic.EditArticleLabel_category}" for="category" />
-                                            <p:selectOneMenu id="category" value="#{item.category}" filter="true"  filterMatchMode="contains" style="vertical-align: middle"  converter="ArticleCategory">
+                                            <p:selectOneMenu id="category" value="#{item.category}" filter="true"  filterMatchMode="contains" style="vertical-align: middle" >
                                                 <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
                                                 <f:selectItems value="#{articleCategoryController.itemsAvailableSelectOne}"
                                                                var="categoryItem"

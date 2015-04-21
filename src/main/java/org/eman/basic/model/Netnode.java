@@ -150,7 +150,7 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
     /**
      * 网元的设备模型
      */
-    @JoinColumn(name = "equipModelId", referencedColumnName = "id", nullable = true)
+    @JoinColumn(name = "equipModelId", referencedColumnName = "uuid", nullable = true)
     @ManyToOne(optional = true)
     private NetworkNodeModel equipModelId;
 

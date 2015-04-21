@@ -3,19 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.eman.basic;
+
+package org.eman.basic.facade;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.eman.basic.model.EquipmentModel;
+import org.eman.basic.model.Roomspot;
 
 /**
  *
  * @author 谢金光
  */
 @Stateless
-public class EquipmentModelFacade extends AbstractFacade<EquipmentModel> {
+public class RoomspotFacade extends AbstractFacade<Roomspot> {
     @PersistenceContext(unitName = "GridOnMSystem_PU")
     private EntityManager em;
 
@@ -24,8 +25,8 @@ public class EquipmentModelFacade extends AbstractFacade<EquipmentModel> {
         return em;
     }
 
-    public EquipmentModelFacade() {
-        super(EquipmentModel.class);
+    public RoomspotFacade() {
+        super(Roomspot.class);
     }
     
 }

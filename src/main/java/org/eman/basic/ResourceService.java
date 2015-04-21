@@ -5,6 +5,7 @@
  */
 package org.eman.basic;
 
+import org.eman.basic.facade.RoomspotFacade;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

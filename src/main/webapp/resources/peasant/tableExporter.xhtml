@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="target" type="java.lang.String"/>
+        <cc:attribute name="fileName" type="java.lang.String"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:commandButton id="exportButton" value="导出" process="@this"  ></p:commandButton>
+        <p:overlayPanel for="exportButton" appendToBody="true" dismissable="true" >
+            <p:commandLink value="导出为Excel" ajax="false">
+                <p:dataExporter target="${cc.attrs.target}"  type="xls" encoding="UTF-8" fileName="${cc.attrs.fileName}" />
+            </p:commandLink>
+        </p:overlayPanel>
+    </cc:implementation>
+</html>
