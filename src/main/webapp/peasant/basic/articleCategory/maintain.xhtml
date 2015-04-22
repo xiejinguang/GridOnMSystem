@@ -34,7 +34,7 @@
 
 
                                 <p:outputLabel value="#{i18n_basic.ArticleCategoryLabel_superior}" for="superior" />
-                                <p:selectOneMenu id="superior" value="#{articleCategoryController.searchCons['superior']}" filter="true"  filterMatchMode="contains"  converter="ArticleCategory"  >
+                                <p:selectOneMenu id="superior" value="#{articleCategoryController.searchCons['superior']}" filter="true"  filterMatchMode="contains">
                                     <f:selectItem itemLabel="#{bundle.SelectOneMessage}" itemValue="#{null}" />
                                     <f:selectItems value="#{articleCategoryController.itemsAvailableSelectOne}"
                                                    var="superiorItem" itemLabel="#{superiorItem.name}" itemValue="#{superiorItem}"
