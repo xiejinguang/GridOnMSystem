@@ -37,7 +37,7 @@
 
                                 <div style="float:right ">
                                     <p:outputLabel value="#{i18n_basic.EditArticleLabel_category}" for="category" />
-                                    <p:selectOneMenu id="category" value="#{articleController.created.category}" filter="true"  filterMatchMode="contains" style="vertical-align: middle" converter="ArticleCategory" >
+                                    <p:selectOneMenu id="category" value="#{articleController.created.category}" filter="true"  filterMatchMode="contains" style="vertical-align: middle">
                                         <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
                                         <f:selectItems value="#{articleCategoryController.itemsAvailableSelectOne}"
                                                        var="categoryItem"
