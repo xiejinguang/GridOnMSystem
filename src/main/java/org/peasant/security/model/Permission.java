@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author 谢金光
  */
 @Entity
-@Table(catalog = "jobpromotion", schema = "",name = "sec_permission")
+@Table(name = "sec_permission")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Permission.findAll", query = "SELECT p FROM Permission p"),

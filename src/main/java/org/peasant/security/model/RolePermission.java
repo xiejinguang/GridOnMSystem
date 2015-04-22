@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author 谢金光
  */
 @Entity
-@Table(catalog = "jobpromotion", schema = "",name = "sec_role_permission")
+@Table(name = "sec_role_permission")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "RolePermission.findAll", query = "SELECT r FROM RolePermission r"),

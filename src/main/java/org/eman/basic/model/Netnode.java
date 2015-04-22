@@ -129,7 +129,7 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
     /**
      * 父网元
      */
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn(name = "superiorId")
     private Netnode superior;
 
@@ -150,8 +150,8 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
     /**
      * 网元的设备模型
      */
-    @JoinColumn(name = "equipModelId", referencedColumnName = "uuid", nullable = true)
-    @ManyToOne(optional = true)
+    @JoinColumn(name = "equipModelId", referencedColumnName = "uuid")
+    @ManyToOne
     private NetworkNodeModel equipModelId;
 
     /**

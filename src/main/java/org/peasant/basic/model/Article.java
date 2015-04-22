@@ -27,7 +27,7 @@ import org.peasant.jpa.DatedEntity;
  * @author 谢金光
  */
 @Entity
-@Table(catalog = "jobpromotion", schema = "",name = "article")
+@Table(name = "article")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Article.findAll", query = "SELECT a FROM Article a"),
@@ -71,7 +71,7 @@ public class Article extends DatedEntity implements Serializable {
     @Column(length = 36)
     private String creator;
 
-    @JoinColumn(name = "category", referencedColumnName = "uuid",nullable = true,columnDefinition = "CHAR(36)")
+    @JoinColumn(name = "category", referencedColumnName = "uuid",nullable = true)
     @ManyToOne
     private ArticleCategory category;
 

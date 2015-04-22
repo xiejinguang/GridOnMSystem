@@ -12,6 +12,9 @@ import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,11 +23,20 @@ import javax.validation.constraints.Size;
 public abstract class UUIDEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    /**
+     * 由于是使用UUID，为提升处理速度，,强制使用CHAR(36)类型，columnDefinition = "char(36)"，
+     * 但使用JPA自动生成表时，若有外键引用引uuid主键，且不允许外键列为null时，则必须在外键字段上
+     * 使用columnDefinition = "char(36) not null"指定，否则生成外键字段时默认使用引用的主键字段
+     * 中指定的使用columnDefinition定义外键字段。这是JPA实现的一个BUG（目前知道存在于Eclipselink)
+     * 当使用了columnDefinition描述主键时，所有引用该主键的字段，JPA的提供都会使用该columnDefinition
+     * 去定义外健列，这导致使用{@link JoinColumn}{@link ManyToOne}{@link ManyToMany}
+     * t等定义关系的其它发生描述都变得无用。所以在此还是考虑不使用columnDefinition = "char(36)"。
+     */
     @Id
     @Basic(optional = false)
     @Size(min = 36, max = 36)
     @NotNull
-    @Column(nullable = false, length = 36, name = "uuid", columnDefinition = "char(36) not null")
+    @Column(nullable = false, length = 36, name = "uuid")
     private String uuid;
 
     public UUIDEntity() {
