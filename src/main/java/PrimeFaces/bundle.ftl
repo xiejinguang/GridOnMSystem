@@ -9,7 +9,7 @@
     comment - always (Boolean; always FALSE)
     projectName - display name of the project (type: String)
     entities - list of beans with following properites:
-        entityClassName - controller class name (type: String)
+        entityClassName - entity class name (type: String)
         entityDescriptors - list of beans describing individual entities. Bean has following properties:
             label - part of bundle key name for label (type: String)
             title - part of bundle key name for title (type: String)
@@ -109,5 +109,9 @@ Edit${entity.entityClassName}Label_${entityDescriptor.id?replace(".","_")} = ${e
     </#list>
 #
 
-
+#
+#For Import ${entity.entityClassName}
+ <#list entity.entityDescriptors as entityDescriptor>
+${entityDescriptor.label} = ${entityDescriptor.id}<#if entityDescriptor.required>,required</#if>
+  </#list>
 </#list>
