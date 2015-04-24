@@ -6,16 +6,27 @@
       xmlns:peasant="http://xmlns.jcp.org/jsf/composite/peasant">
     <h:head>
         <title>网格展示</title>
+
+        <script src="${application.contextPath}/resources/ueditor/ueditor.parse.js"></script>
+        <script>
+            setTimeout(function () {
+                uParse('#gridshow', //可以使#ID .Class,解决使用UEditor制作的表格无边框、无颜色问题
+                        {
+                            'highlightJsUrl': '${application.contextPath}/resources/ueditor/third-party/SyntaxHighlighter/shCore.js',
+                            'highlightCssUrl': '${application.contextPath}/resources/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css'})
+            }, 200);
+        </script>
     </h:head>
     <h:body style="background-color: #92cad1">
-        <div align="center" >
-            <div style="width: 1100px;min-height:800px;text-align:left">
+        <div align="center">
+            <div style="width: 1100px;min-height:800px">
 
-                <p:tabView value="#{articleController.gridShows}" var="article" orientation="top" style="overflow-x: scroll "   >
-                    <p:tab title="${article.title}"   >
+                <p:tabView value="#{articleController.gridShows}" var="article" orientation="top" style="overflow-x: scroll " cache="false"   >
+                    <p:tab title="${article.title}"    >
+                        <div id="gridshow" align="left">
 
-                        <peasant:articleViewer article="${article}" />
-
+                            <peasant:articleViewer article="${article}" />
+                        </div>
                     </p:tab>
                 </p:tabView>
             </div>
