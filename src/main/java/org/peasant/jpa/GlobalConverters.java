@@ -12,6 +12,7 @@ import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import org.peasant.util.AbstractConverter;
 import org.peasant.util.Converter;
 import org.peasant.util.Converters;
 
@@ -30,12 +31,11 @@ public class GlobalConverters implements Converters,Serializable {
 
     @Inject
     @Any
-    private Instance<Converter<? extends Object>> anyconverter;
+    private Instance<AbstractConverter<? extends Object>> anyconverter;
 
     private static final Logger LOG = Logger.getLogger(GlobalConverters.class.getName());
 
-    @Override
-    public <T> Converter<T> getConverter(final Class<T> clazz) {
+    public Converter getConverter(final Class clazz) {
 
         return getConverter(clazz, null);
     }
@@ -55,7 +55,7 @@ public class GlobalConverters implements Converters,Serializable {
     protected Converter getConverter(Class clazz, String name) {
         if (anyconverter != null) {
 
-            for (Converter ctr : anyconverter) {
+            for (AbstractConverter ctr : anyconverter) {
                 EntityConverter ec = ctr.getClass().getAnnotation(EntityConverter.class);
                 if (ec != null) {
                     if (clazz != null && ec.forClass().equals(clazz)) {

@@ -7,16 +7,18 @@
     <h:head>
         <title>网格展示</title>
     </h:head>
-    <h:body style="text-align: center;background-color: #92cad1">
-        <div align="center">
+    <h:body style="background-color: #92cad1">
+        <div align="center" >
+            <div style="width: 1100px;min-height:800px;text-align:left">
 
-            <p:tabView value="#{articleController.gridShows}" var="article" orientation="top" style="width: 1200px;min-height:800px;overflow-x: scroll"   >
-                <p:tab title="${article.title}"   >
+                <p:tabView value="#{articleController.gridShows}" var="article" orientation="top" style="overflow-x: scroll "   >
+                    <p:tab title="${article.title}"   >
 
-                    <peasant:articleViewer article="${article}" />
+                        <peasant:articleViewer article="${article}" />
 
-                </p:tab>
-            </p:tabView>
+                    </p:tab>
+                </p:tabView>
+            </div>
         </div>
     </h:body>
 </html>

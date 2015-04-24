@@ -20,7 +20,12 @@ public interface Converter<T> {
      */
     public T getAsObject(String key);
 
-    public String getAsString(Object value);
+    /**
+     *
+     * @param value the value of value
+     * @return 
+     */
+    public String getAsString(T value);
 
     /**
      *

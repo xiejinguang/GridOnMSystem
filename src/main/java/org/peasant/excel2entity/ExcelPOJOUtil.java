@@ -26,6 +26,7 @@ import jxl.read.biff.BiffException;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
+import org.peasant.util.AbstractConverter;
 import org.peasant.util.ConvertUtil;
 import org.peasant.util.Converter;
 import org.peasant.util.Converters;

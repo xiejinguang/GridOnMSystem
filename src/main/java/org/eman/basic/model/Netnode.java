@@ -109,10 +109,9 @@ public class Netnode extends DatedEntity implements Serializable, Labeled {
     /**
      * 提供的服务类型
      */
-    @Basic(optional = false)
-    @Size(min = 1, max = 25)
-    @NotNull
-    @Column(nullable = false, length = 25)
+    @Basic(optional = true)
+    @Size(min = 1, max = 25)    
+    @Column(nullable = true, length = 25)
     private String serviceType;
     /**
      * OSS系统对的网元编码

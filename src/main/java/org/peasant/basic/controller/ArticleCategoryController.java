@@ -288,6 +288,7 @@ public class ArticleCategoryController implements Serializable {
          * @param key the value of key
          * @return the T
          */
+        @Override
         public ArticleCategory getAsObject(String key) {
             
             ArticleCategory result = articleCategoryFacade.find(key);
@@ -304,8 +305,12 @@ public class ArticleCategoryController implements Serializable {
             return result;
         }
         
+        /**
+         *
+         * @param value the vTf value
+         */
         @Override
-        public String getAsString(Object value) {
+        public String getAsString(ArticleCategory value) {
             if (value == null) {
                 return null;
             }

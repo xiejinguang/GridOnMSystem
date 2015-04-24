@@ -327,7 +327,7 @@ public class RoomspotController implements Serializable {
         this.filteredValue = filteredValue;
     }
 
-    @FacesConverter(forClass = Roomspot.class, value = "org.eman.basic.model.Roomspot")
+    @FacesConverter(forClass = Roomspot.class)
     public static class RoomspotControllerConverter implements Converter {
 
         @Override

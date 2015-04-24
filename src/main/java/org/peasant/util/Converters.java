@@ -19,7 +19,7 @@ public interface Converters extends Serializable{
      * @param clazz
      * @return {@link Converter}，或null当找不到特定的类型的Converter时或在查找时发生Exception
      */
-    public <T> Converter<T> getConverter(Class<T> clazz);
+    public Converter getConverter(Class clazz);
 
     /**
      *
