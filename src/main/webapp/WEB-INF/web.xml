@@ -95,7 +95,7 @@
     <servlet>
         <description>负责处理xheditor中图片、文件附件的上传，并返回json</description>
         <servlet-name>XheditorUploadServlet</servlet-name>
-        <servlet-class>org.peasant.util.web.XheditorUploadServlet</servlet-class>
+        <servlet-class>org.peasant.web.fileupdownload.XheditorUploadServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>

@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+    <cc:interface>
+        <cc:attribute name="value"/>
+        <cc:attribute name="contentId" type="java.lang.String" required="true"/>
+        <cc:attribute name="width" type="java.lang.Integer" default="1000"/>
+        <cc:attribute name="height" type="java.lang.Integer" default="500"/>
+        <cc:attribute name="urlBase" type="java.lang.String" default=""/>
+
+
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+        <style type="text/css" >
+            .import {
+                background-image:url("#{resource['design/import.png']}");
+
+                background-repeat: no-repeat;
+                background-size:cover ;                
+                background-position: 3px3px;
+            }
+        </style>
+
+        <script type="text/javascript"  >
+
+//             if (window.XHEDITOR === undefined) {
+//             var sc = document.createElement("script");
+//             sc.src = "#{request.contextPath}/resources/js/xheditor/xheditor-1.2.1.min.js";
+//             var sc1 = document.createElement("script");
+//             sc1.src = "#{request.contextPath}/resources/js/xheditor/xheditor_lang/zh-cn.js";
+//             var b = document.getElementsByTagName("body")[0];
+//             b.appendChild(sc);
+//             b.appendChild(sc1);
+//             }; 
+
+//            document.addEventListener("DOMNodeInserted", function (e) {
+//                console.log(e);
+//                console.log(e.target);
+//                console.log(e.currentTarget);
+//                $(e.target).children(".xheditor").load(function(){
+//                    $(this).xheditor();
+//                });
+//            });
+            var loadJS = function (url, callback, charset) {
+                var head = document.getElementsByTagName('head')[0];
+                var script = document.createElement('script');
+                if (charset) {
+                    script.charset = charset;
+                }
+                script.src = url;
+                if (!callback) {
+                    return;
+                }
+                script.onload = script.onreadystatechange = function () {
+                    if (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete') {
+                        callback();
+                    }
+                };
+                head.appendChild(script);
+            };
+
+
+            if (window.UE === undefined) {
+                var xj = "#{request.contextPath}/resources/ueditor/ueditor.config.js";
+                var xl = "#{request.contextPath}/resources/ueditor/ueditor.all.js";
+                loadJS(xj, function () {
+                    loadJS(xl, function () {
+                        UE.getEditor("${cc.attrs.contentId}_editor");                        
+                    });
+                });
+            } else {
+                UE.getEditor("${cc.attrs.contentId}_editor");  
+            }
+
+//导入HTML文件内容的插件,用于xheditor
+            var importFile = {
+                c: 'import', t: '导入网页内容', h: 1, e: function () {
+                    var _this = this;
+                    if (!(window.File || window.FileReader || window.FileList || window.Blob)) {
+                        alert('你妈喊你别用IE浏览器啦');
+                    }
+
+                    if (FileReader) {
+                        var htmlCode = '<div><input  type="file" title="选择文件" id="file" /><br/><label>请选择字符编码：</label><select id="charCode" ><option value="UTF-8" selected="true">UTF-8</option><option value="GB2312">GB2312</option><option value="GBK" >GBK</option></select><br/><input type="button" id="xheSave" value="确定" /></div>';
+                        var jCode = $(htmlCode), jFile = $('#file', jCode), jSave = $('#xheSave', jCode), jCharCode = $('#charCode', jCode);
+                        loadFile = function () {
+                            var file = jFile.prop('files')[0];
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                _this.setSource(e.target.result);
+                                _this.hidePanel();
+                            };
+                            reader.readAsText(file, jCharCode.val());
+                            //reader.readAsBinaryString(file);
+                            return false;
+                        };
+                        jSave.click(loadFile);
+                    }
+                    _this.saveBookmark();
+                    _this.showDialog(jCode);
+                }
+
+            };
+         
+
+        </script>
+
+
+        <p:inputTextarea id="${cc.attrs.contentId}_editor"   value="#{cc.attrs.value}" placeholder="请输入内容">              
+        </p:inputTextarea>
+
+</html>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.peasant.util.web;
+package org.peasant.web.fileupdownload;
 
 import org.peasant.web.fileupdownload.GenericAttachmentUploadServlet;
 import java.io.IOException;

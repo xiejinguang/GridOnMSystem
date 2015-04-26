@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>HTML Editor - What you see is what you get</title>
+    </head>
+
+    <body  >
+        <!-- 加载编辑器的容器 -->
+        <div style="text-align: center">
+            <div id='content' style="margin: 0 auto;text-align: left;width:1000px">
+
+                <script id="editor"  type="text/plain">
+                    这里写你的初始化内容
+                </script>
+
+                <textarea id='editor_textarea'>
+                    UEditor using "textarea"
+                </textarea>
+
+                <!-- 配置文件 -->
+                <script type="text/javascript" src="resources/ueditor/ueditor.config.js"></script>
+                <!-- 编辑器源码文件 -->
+                <script type="text/javascript" src="resources/ueditor/ueditor.all.js"></script>
+                <!-- 实例化编辑器 -->
+
+
+
+                <script type="text/javascript">
+                    var ue = UE.getEditor('editor', {initialFrameHeight: 600});
+                    var ue1 = UE.getEditor('editor_textarea', {initialFrameWidth: 1000, initialFrameHeight: 600});
+                </script>
+            </div>
+        </div>
+    </body>
+</html>
