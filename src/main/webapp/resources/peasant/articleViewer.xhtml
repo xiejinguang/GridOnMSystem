@@ -16,11 +16,19 @@
     <!-- IMPLEMENTATION -->
     <cc:implementation>
 
+
         <c:if test="#{not empty cc.attrs.articleId}">
             <c:if test ="#{not empty articleController.getArticle(cc.attrs.articleId)}">
                 <c:set target="#{cc.attrs}" property="article" value="#{articleController.getArticle(cc.attrs.articleId)}"/>
             </c:if>
         </c:if>
+        <script type="text/css" >
+            td{
+                border:1px solid;
+            }
+        </script>
+         
+    
 
         <h:outputText escape="false" value="${cc.attrs.article.content}"/>         
 

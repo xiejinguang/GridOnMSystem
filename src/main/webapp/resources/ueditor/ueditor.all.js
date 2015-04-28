@@ -17903,7 +17903,7 @@ UE.plugins['video'] = function (){
         return tdOrTable.ueTable;
     };
 
-    UETable.cloneCell = function(cell,ignoreMerge,keepPro){
+    UETable.cloneCell = function(cell,ignoreMerge,keepPro){//谢金光，TODO
         if (!cell || utils.isString(cell)) {
             return this.table.ownerDocument.createElement(cell || 'td');
         }
@@ -17917,12 +17917,13 @@ UE.plugins['video'] = function (){
         !keepPro && domUtils.removeAttributes(tmpCell,'width height');
         !keepPro && domUtils.removeAttributes(tmpCell,'style');
 
-        tmpCell.style.borderLeftStyle = "";
+        tmpCell.style.borderLeftStyle ="" ;
         tmpCell.style.borderTopStyle = "";
         tmpCell.style.borderLeftColor = cell.style.borderRightColor;
         tmpCell.style.borderLeftWidth = cell.style.borderRightWidth;
         tmpCell.style.borderTopColor = cell.style.borderBottomColor;
         tmpCell.style.borderTopWidth = cell.style.borderBottomWidth;
+//        tmpCell.style.borderStyle = cell.style.borderStyle;//add by 谢金光
         flag && domUtils.addClass(cell, "selectTdClass");
         return tmpCell;
     }
@@ -18667,6 +18668,7 @@ UE.plugins['video'] = function (){
 
                         cell = this.cloneCell(sourceCell, true);//tableRow.insertCell(cellInfo.cellIndex);
                         this.setCellContent(cell);
+                        
                         cell.setAttribute('vAlign', cell.getAttribute('vAlign'));
                         preCell && cell.setAttribute('width', preCell.getAttribute('width'));
                         //防止IE下报错
