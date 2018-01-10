@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.peasant.util.web.faces;
+package org.peasant.web.faces.util;
 
 import java.io.Serializable;
 import javax.faces.context.FacesContext;

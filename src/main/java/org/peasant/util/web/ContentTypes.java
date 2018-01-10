@@ -17,6 +17,13 @@ public class ContentTypes {
     public static final String OCTET_STREAM = "application/octet-stream";
     public static final String JSON = "application/json";
 
+    /**
+     * Loads filename map (a mimetable) from a data file. It will first try to
+     * load the user-specific table, defined by "content.types.user.table"
+     * property. If that fails, it tries to load the default built-in table.
+     *
+     * @return the FileNameMap
+     */
     public static FileNameMap getFileNameMap() {
         return java.net.URLConnection.getFileNameMap();
     }

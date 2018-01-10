@@ -1,4 +1,4 @@
-package org.peasant.util.web.faces;
+package org.peasant.web.faces.util;
 
 import java.util.List;
 import javax.faces.application.FacesMessage;
